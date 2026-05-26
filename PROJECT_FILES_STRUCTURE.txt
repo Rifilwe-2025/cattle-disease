@@ -1,0 +1,115 @@
+EARLY DISEASE PREDICTION FOR CATTLE/
+│
+├── .vscode/                          # VS Code settings
+│
+├── accounts/                         # Authentication app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py                      # Login & registration forms
+│   ├── models.py                     # Custom User model
+│   ├── urls.py
+│   └── views.py                      # Login, logout views
+│
+├── cases/                            # Disease cases app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py                     # Case model
+│   └── urls.py
+│
+├── cattle_disease_system/            # Main Django project
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py                   # Django settings
+│   ├── urls.py                       # Main URL config
+│   └── wsgi.py
+│
+├── farmers/                          # Farmers app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py                      # Farmer forms
+│   ├── models.py                     # Farmer model
+│   ├── urls.py
+│   └── views.py                      # Dashboard, case submission
+│
+├── landing/                          # Landing page app
+│   ├── __init__.py
+│   ├── apps.py
+│   ├── urls.py
+│   └── views.py                      # Home page
+│
+├── maps/                             # Maps & surveillance app
+│   ├── __init__.py
+│   ├── apps.py
+│   ├── urls.py
+│   └── views.py                      # Disease maps, heatmaps
+│
+├── ministry/                         # Ministry admin app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── urls.py
+│   └── views.py                      # Dashboard, vet approval, analytics
+│
+├── ml_engine/                        # ML prediction engine
+│   ├── __init__.py
+│   ├── apps.py
+│   └── services.py                   # ML prediction functions
+│
+├── static/                           # Static files
+│   ├── css/
+│   │   └── style.css                 # Custom styles
+│   ├── images/                       # Images folder
+│   └── js/
+│       └── main.js                   # Custom JavaScript
+│
+├── templates/                        # HTML templates
+│   ├── base.html                     # Base template
+│   ├── accounts/
+│   │   └── login.html
+│   ├── farmers/
+│   │   ├── case_history.html
+│   │   ├── case_result.html
+│   │   ├── dashboard.html
+│   │   ├── register.html
+│   │   └── submit_case.html
+│   ├── landing/
+│   │   └── home.html
+│   ├── maps/
+│   │   └── disease_map.html
+│   ├── ministry/
+│   │   ├── analytics.html
+│   │   ├── dashboard.html
+│   │   ├── reports.html
+│   │   ├── reject_vet.html
+│   │   └── vet_applications.html
+│   └── vets/
+│       ├── apply.html
+│       ├── case_detail.html
+│       ├── dashboard.html
+│       └── register.html
+│
+├── vets/                             # Veterinary doctors app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py                      # Vet application forms
+│   ├── models.py                     # VetApplication & Vet models
+│   ├── urls.py
+│   ├── utils.py                      # Haversine distance calculation
+│   └── views.py                      # Application, dashboard, cases
+│
+├── venv/                             # Virtual environment
+│
+├── .gitignore                        # Git ignore file
+├── manage.py                         # Django management script
+├── ml_model_training.ipynb           # ML training notebook
+├── PROJECT_STRUCTURE.md              # Structure documentation
+├── PROJECT_SUMMARY.md                # Project summary
+├── README.md                         # Main documentation
+├── requirements.txt                  # Python dependencies
+├── SETUP_GUIDE.md                    # Setup instructions
+├── Testing.csv                       # Test dataset
+└── Training.csv                      # Training dataset

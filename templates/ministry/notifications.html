@@ -1,0 +1,110 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load cattle_i18n %}
+{% load i18n %}
+
+{% block title %}{% trans "Notifications - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Notifications" %}{% endblock %}
+{% block page_title %}{% trans "Notifications Center" %}{% endblock %}
+{% block page_subtitle %}{% trans "Review vet applications, critical cases, and pending items" %}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-file-alt" style="margin-right:10px;color:#f59e0b;"></i>{% trans "Pending Vet Applications" %}</h5>
+    {% if pending_applications %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "License" %}</th>
+                <th>{% trans "Qualification" %}</th>
+                <th>{% trans "Applied" %}</th>
+                <th>{% trans "Action" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in pending_applications %}
+            <tr>
+                <td><strong>{{ app.full_name }}</strong><br><small style="color:#6c757d;">{{ app.email }}</small></td>
+                <td>{{ app.license_number }}</td>
+                <td>{{ app.qualification|truncatewords:5 }}</td>
+                <td>{{ app.created_at|date:"M d, Y" }}</td>
+                <td>
+                    <a href="{% url 'ministry:approve_vet' app.id %}" class="btn-glass btn-glass-primary" style="padding:6px 12px;font-size:12px;">{% trans "Approve" %}</a>
+                    <a href="{% url 'ministry:reject_vet' app.id %}" class="btn-glass btn-glass-outline" style="padding:6px 12px;font-size:12px;">{% trans "Reject" %}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top:16px;">
+        <a href="{% url 'ministry:vet_applications' %}" class="btn-glass btn-glass-primary">{% trans "View all applications" %}</a>
+    </div>
+    {% else %}
+    <p style="color:#28a745;padding:20px;"><i class="fas fa-check-circle"></i> {% trans "No pending vet applications." %}</p>
+    {% endif %}
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-exclamation-triangle" style="margin-right:10px;color:#dc3545;"></i>{% trans "Critical Cases" %}</h5>
+    {% if critical_cases %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "Case" %}</th>
+                <th>{% trans "Farmer" %}</th>
+                <th>{% trans "Disease" %}</th>
+                <th>{% trans "Province" %}</th>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Action" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in critical_cases %}
+            <tr>
+                <td><strong>{% trans "Case" %} #{{ case.id }}</strong></td>
+                <td>{{ case.farmer.full_name }}</td>
+                <td>{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                <td>{{ case.farmer.province }}</td>
+                <td>{{ case.created_at|date:"M d, Y" }}</td>
+                <td><a href="{% url 'ministry:reports' %}" class="btn-glass btn-glass-outline" style="padding:6px 12px;font-size:12px;">{% trans "View cases" %}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div style="margin-top:16px;">
+        <a href="{% url 'ministry:reports' %}" class="btn-glass btn-glass-primary">{% trans "View all cases" %}</a>
+    </div>
+    {% else %}
+    <p style="color:#28a745;padding:20px;"><i class="fas fa-check-circle"></i> {% trans "No critical cases requiring attention." %}</p>
+    {% endif %}
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-clock" style="margin-right:10px;color:#667eea;"></i>{% trans "Recent Pending Cases" %}</h5>
+    {% if recent_pending_cases %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "Case" %}</th>
+                <th>{% trans "Farmer" %}</th>
+                <th>{% trans "Disease" %}</th>
+                <th>{% trans "Date" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in recent_pending_cases %}
+            <tr>
+                <td>{% trans "Case" %} #{{ case.id }}</td>
+                <td>{{ case.farmer.full_name }}</td>
+                <td>{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                <td>{{ case.created_at|date:"M d, Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color:#6c757d;padding:20px;">{% trans "No pending cases." %}</p>
+    {% endif %}
+</div>
+{% endblock %}

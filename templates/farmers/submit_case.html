@@ -1,0 +1,312 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cattle_i18n %}
+
+{% block title %}{% trans "Submit Case" %} - CattleCare AI{% endblock %}
+
+{% block extra_css %}{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card-dark submit-hero">
+            <div class="card-title">
+                <span><i class="fas fa-file-medical"></i> Submit Disease Case</span>
+                <a href="{% url 'farmers:dashboard' %}" class="btn-secondary-light" style="text-decoration:none; font-size:13px;">{% trans "Back to dashboard" %}</a>
+            </div>
+            <h2>Fast, accurate help for your herd</h2>
+            <p>Choose symptoms and fill in basic cattle details. We’ll generate an AI prediction, then you can assign a vet in your region to review and recommend treatment.</p>
+            <div class="stepper">
+                <div class="step active"><span class="dot"></span> 1. Symptoms</div>
+                <div class="step"><span class="dot"></span> 2. Cattle info</div>
+                <div class="step"><span class="dot"></span> 3. Environment</div>
+                <div class="step"><span class="dot"></span> 4. Submit</div>
+            </div>
+        </div>
+
+        <form method="post" id="caseForm">
+            {% csrf_token %}
+
+            <!-- SECTION 1: SYMPTOMS -->
+            <div class="card-dark">
+                <div class="card-title">
+                    <span><i class="fas fa-stethoscope"></i> Clinical Symptoms</span>
+                    <span class="card-subtitle">{% trans "Select all symptoms you observed" %}</span>
+                </div>
+                <div class="row g-3">
+                    <div class="col-lg-9">
+                        <div class="search-box position-relative">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="symptomSearch" class="form-control" placeholder="Search symptoms (e.g., fever, cough)...">
+                        </div>
+                        <div class="symptom-grid" id="symptomGrid">
+                            {% for choice in form.symptoms.field.choices %}
+                            <div class="symptom-item" data-search="{{ choice.0|lower }} {{ choice.0|local_symptom|lower }}">
+                                <input class="symptom-checkbox" type="checkbox" name="symptoms" value="{{ choice.0 }}" id="symptom_{{ forloop.counter }}">
+                                <label for="symptom_{{ forloop.counter }}">{{ choice.0|local_symptom }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="symptom-counter">
+                            <div style="display:flex; justify-content:center; align-items:center; gap:10px;">
+                                <i class="fas fa-check-circle" style="color:#22c55e; font-size:18px;"></i>
+                                <div>Selected</div>
+                            </div>
+                            <span class="count" id="symptomCount">0</span>
+                            <div style="color:var(--fc-text-muted); font-size:12px; margin-top:4px;">{% trans "symptoms selected" %}</div>
+                        </div>
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            {% trans "Select symptoms to get AI-powered insights and faster vet recommendations." %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: CATTLE INFORMATION -->
+            <div class="card-dark">
+                <div class="card-title">
+                    <span><i class="fas fa-cow"></i> Cattle Information</span>
+                    <span class="card-subtitle">{% trans "Details about the affected cattle" %}</span>
+                </div>
+                <div class="contextual-grid">
+                            <!-- Age -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.age_years.id_for_label }}">
+                                    <i class="fas fa-calendar-alt"></i> Age (Years)
+                                </label>
+                                {{ form.age_years }}
+                                {% if form.age_years.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.age_years.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Sex -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.sex.id_for_label }}">
+                                    <i class="fas fa-venus-mars"></i> Sex
+                                </label>
+                                {{ form.sex }}
+                                {% if form.sex.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.sex.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Breed -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.breed.id_for_label }}">
+                                    <i class="fas fa-dna"></i> Breed
+                                </label>
+                                {{ form.breed }}
+                                {% if form.breed.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.breed.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Vaccination Status -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.vaccinated.id_for_label }}">
+                                    <i class="fas fa-syringe"></i> Vaccination Status
+                                </label>
+                                {{ form.vaccinated }}
+                                {% if form.vaccinated.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.vaccinated.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Herd Size -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.herd_size.id_for_label }}">
+                                    <i class="fas fa-users"></i> Herd Size
+                                </label>
+                                {{ form.herd_size }}
+                                {% if form.herd_size.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.herd_size.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Farming Type -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.farming_type.id_for_label }}">
+                                    <i class="fas fa-tractor"></i> Farming Type
+                                </label>
+                                {{ form.farming_type }}
+                                {% if form.farming_type.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.farming_type.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: ENVIRONMENTAL FACTORS -->
+            <div class="card-dark">
+                <div class="card-title">
+                    <span><i class="fas fa-globe-africa"></i> Environmental & Location</span>
+                    <span class="card-subtitle">{% trans "Context that may affect disease risk" %}</span>
+                </div>
+                <div class="contextual-grid">
+                            <!-- Recent Movement -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.recent_movement.id_for_label }}">
+                                    <i class="fas fa-truck"></i> Recent Movement (Last 30 Days)
+                                </label>
+                                {{ form.recent_movement }}
+                                {% if form.recent_movement.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.recent_movement.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Season -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.season.id_for_label }}">
+                                    <i class="fas fa-cloud-sun"></i> Current Season
+                                </label>
+                                {{ form.season }}
+                                {% if form.season.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.season.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Province -->
+                            <div class="form-group-modern">
+                                <label for="{{ form.province.id_for_label }}">
+                                    <i class="fas fa-map-marker-alt"></i> Province
+                                </label>
+                                {{ form.province }}
+                                {% if form.province.help_text %}
+                                <div class="help-text">
+                                    <i class="fas fa-info-circle"></i> {{ form.province.help_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: ADDITIONAL NOTES -->
+            <div class="card-dark">
+                <div class="card-title">
+                    <span><i class="fas fa-notes-medical"></i> Additional Notes (Optional)</span>
+                </div>
+                <div class="form-group-modern">
+                            <label for="{{ form.notes.id_for_label }}">
+                                <i class="fas fa-pen"></i> Notes
+                            </label>
+                            <textarea name="notes" id="{{ form.notes.id_for_label }}" class="form-control" rows="4" placeholder="Additional notes (optional)">{{ form.notes.value|default:'' }}</textarea>
+                            {% if form.notes.help_text %}
+                            <div class="help-text">
+                                <i class="fas fa-info-circle"></i> {{ form.notes.help_text }}
+                            </div>
+                            {% endif %}
+                </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; margin-top: 16px;">
+                <a href="{% url 'farmers:dashboard' %}" class="btn-secondary-light">{% trans "Cancel" %}</a>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane me-2"></i> Submit Case for Diagnosis
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card-dark sticky-summary">
+            <div class="card-title"><span><i class="fas fa-shield-alt"></i> Quick Summary</span></div>
+            <div class="summary-row"><span class="summary-k">Selected symptoms</span><span class="summary-v" id="symptomCountSide">0</span></div>
+            <div class="summary-row"><span class="summary-k">Next step</span><span class="summary-v">AI prediction</span></div>
+            <div class="summary-row"><span class="summary-k">After prediction</span><span class="summary-v">Select a vet</span></div>
+            <div class="tip-box">
+                <i class="fas fa-lightbulb"></i>
+                {% trans "Select all symptoms you observe. More complete info increases accuracy and helps your vet respond faster." %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Symptom counter and search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('.symptom-checkbox');
+        const countDisplay = document.getElementById('symptomCount');
+        const searchInput = document.getElementById('symptomSearch');
+        const symptomItems = document.querySelectorAll('.symptom-item');
+        
+        // Update counter
+        function updateCount() {
+            const checkedCount = document.querySelectorAll('.symptom-checkbox:checked').length;
+            countDisplay.textContent = checkedCount;
+            const side = document.getElementById('symptomCountSide');
+            if (side) side.textContent = checkedCount;
+            
+            // Change color based on count
+            if (checkedCount === 0) {
+                countDisplay.parentElement.style.background = 'linear-gradient(135deg, rgba(148,163,184,0.25) 0%, rgba(100,116,139,0.18) 100%)';
+            } else if (checkedCount < 5) {
+                countDisplay.parentElement.style.background = 'linear-gradient(135deg, rgba(34,197,94,0.22) 0%, rgba(22,163,74,0.14) 100%)';
+            } else {
+                countDisplay.parentElement.style.background = 'linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.18) 100%)';
+            }
+        }
+        
+        // Attach event listeners
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateCount);
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            symptomItems.forEach(item => {
+                const symptomText = (item.dataset.search || item.dataset.symptom || '');
+                if (symptomText.toLowerCase().includes(searchTerm)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Form validation
+        document.getElementById('caseForm').addEventListener('submit', function(e) {
+            const checkedCount = document.querySelectorAll('.symptom-checkbox:checked').length;
+            
+            if (checkedCount === 0) {
+                e.preventDefault();
+                alert('⚠️ Please select at least one symptom before submitting.');
+                document.getElementById('symptomGrid').scrollIntoView({ behavior: 'smooth' });
+                return false;
+            }
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Analyzing...';
+        });
+        
+        // Initialize count
+        updateCount();
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,428 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}How to Save Your Application ID{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        padding-top: 0 !important;
+    }
+
+    nav.navbar {
+        display: none;
+    }
+
+    /* Full-page background: same image as success page, clear and not blurry */
+    .guide-page-wrap {
+        min-height: 100vh;
+        background-color: #0f4c5c;
+        background-image: url('{% static "images/AdobeStock_570288267_Preview.jpeg" %}');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: 85%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        position: relative;
+    }
+
+    .guide-page-wrap::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(19, 132, 150, 0.22) 0%, rgba(23, 162, 184, 0.18) 50%, rgba(32, 201, 151, 0.15) 100%);
+        pointer-events: none;
+    }
+
+    .guide-container {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        max-width: 780px;
+    }
+
+    .guide-card {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6);
+        overflow: hidden;
+        animation: cardEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes cardEnter {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .guide-card-inner {
+        padding: 40px 36px 44px;
+    }
+
+    .guide-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .guide-header .icon-wrap {
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, #17a2b8, #20c997);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        box-shadow: 0 8px 24px rgba(23, 162, 184, 0.35);
+    }
+
+    .guide-header .icon-wrap i {
+        font-size: 2.2rem;
+        color: white;
+    }
+
+    .guide-header h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin: 0 0 8px;
+    }
+
+    .guide-header p {
+        font-size: 1rem;
+        color: #555;
+        margin: 0;
+    }
+
+    .guide-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #dee2e6, transparent);
+        margin: 28px 0;
+    }
+
+    .alert-guide {
+        border-radius: 14px;
+        padding: 18px 22px;
+        margin-bottom: 24px;
+        border: none;
+        font-size: 0.95rem;
+    }
+
+    .alert-warning.guide {
+        background: linear-gradient(135deg, #fff8e6 0%, #ffecb8 100%);
+        color: #856404;
+        border-left: 4px solid #ffc107;
+    }
+
+    .alert-info.guide {
+        background: linear-gradient(135deg, #e3f4f8 0%, #d1ecf1 100%);
+        color: #0c5460;
+        border-left: 4px solid #17a2b8;
+    }
+
+    .alert-danger.guide {
+        background: linear-gradient(135deg, #ffe5e5 0%, #ffd1d1 100%);
+        color: #842029;
+        border-left: 4px solid #dc3545;
+    }
+
+    .section-title {
+        font-family: 'Merriweather', serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-title i {
+        color: #17a2b8;
+    }
+
+    .step-box {
+        background: linear-gradient(135deg, #f8fcfb 0%, #f0f9f6 100%);
+        border-left: 4px solid #20c997;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .step-box h5 {
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 8px;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .step-box h5 .fa-camera { color: #0d6efd; }
+    .step-box h5 .fa-pencil-alt { color: #20c997; }
+    .step-box h5 .fa-copy { color: #17a2b8; }
+    .step-box h5 .fa-envelope { color: #fd7e14; }
+    .step-box h5 .fa-phone { color: #dc3545; }
+
+    .step-box p {
+        margin: 0;
+        color: #444;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .step-box kbd {
+        background: #1a1a1a;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-family: inherit;
+    }
+
+    .id-example {
+        background: linear-gradient(135deg, #f0f9f6 0%, #e8f8f5 100%);
+        border: 2px dashed #17a2b8;
+        border-radius: 14px;
+        padding: 24px 20px;
+        text-align: center;
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #17a2b8;
+        letter-spacing: 3px;
+        font-family: 'Courier New', 'Consolas', monospace;
+        margin: 16px 0 20px;
+    }
+
+    .guide-list {
+        padding-left: 22px;
+        margin: 0 0 20px;
+        color: #444;
+        font-size: 0.95rem;
+        line-height: 1.8;
+    }
+
+    .guide-list li {
+        margin-bottom: 8px;
+    }
+
+    .guide-list a {
+        color: #17a2b8;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .guide-list a:hover {
+        color: #138496;
+        text-decoration: underline;
+    }
+
+    .guide-actions {
+        text-align: center;
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #eee;
+    }
+
+    .guide-actions .btn {
+        border-radius: 12px;
+        font-weight: 600;
+        padding: 14px 28px;
+        margin: 6px 6px 6px 0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .guide-actions .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .guide-actions .btn-primary {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        border: none;
+        color: white;
+    }
+
+    .guide-actions .btn-success {
+        background: linear-gradient(135deg, #20c997, #17a2b8);
+        border: none;
+        color: white;
+    }
+
+    .guide-footer {
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+    }
+
+    .guide-footer small {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 576px) {
+        .guide-page-wrap {
+            padding: 24px 16px;
+        }
+
+        .guide-card-inner {
+            padding: 28px 20px 32px;
+        }
+
+        .guide-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .id-example {
+            font-size: 1.35rem;
+            letter-spacing: 2px;
+        }
+    }
+
+    @media print {
+        body, .guide-page-wrap {
+            background: #fff !important;
+            background-image: none !important;
+        }
+
+        .guide-page-wrap::before {
+            display: none;
+        }
+
+        .guide-card {
+            box-shadow: none;
+            border: 1px solid #dee2e6;
+        }
+
+        .no-print, .guide-actions {
+            display: none !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="guide-page-wrap">
+    <div class="guide-container">
+        <div class="guide-card">
+            <div class="guide-card-inner">
+                <div class="guide-header">
+                    <div class="icon-wrap">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h1>How to Save Your Application ID</h1>
+                    <p>Follow these simple steps to keep your Application ID safe</p>
+                </div>
+
+                <div class="guide-divider"></div>
+
+                <div class="alert alert-warning alert-guide guide">
+                    <strong><i class="fas fa-exclamation-triangle"></i> Why is this important?</strong><br>
+                    Your Application ID is the only way to track your application status and proceed to registration when approved. Without it, you'll need to contact the Ministry for assistance.
+                </div>
+
+                <h4 class="section-title"><i class="fas fa-list-ol"></i> 5 easy ways to save your Application ID</h4>
+
+                <div class="step-box">
+                    <h5><i class="fas fa-camera text-primary"></i> Method 1: Take a screenshot</h5>
+                    <p class="mb-0">
+                        <strong>On Windows:</strong> Press <kbd>Windows + Shift + S</kbd><br>
+                        <strong>On Mac:</strong> Press <kbd>Cmd + Shift + 4</kbd><br>
+                        <strong>On phone:</strong> Press Power + Volume Down together
+                    </p>
+                </div>
+
+                <div class="step-box">
+                    <h5><i class="fas fa-pencil-alt text-success"></i> Method 2: Write it down</h5>
+                    <p class="mb-0">
+                        Use pen and paper. Write your Application ID in your notebook or diary and keep it somewhere safe.
+                    </p>
+                </div>
+
+                <div class="step-box">
+                    <h5><i class="fas fa-copy text-info"></i> Method 3: Copy to your notes</h5>
+                    <p class="mb-0">
+                        Click “Copy ID” on the success page, then paste into Notepad, a Word document, the Notes app on your phone, or an email draft to yourself.
+                    </p>
+                </div>
+
+                <div class="step-box">
+                    <h5><i class="fas fa-envelope text-warning"></i> Method 4: Email yourself</h5>
+                    <p class="mb-0">
+                        Send yourself an email with subject e.g. <em>My Vet Application ID: VET-2026-XXXXXX</em>. You can search your email later to find it.
+                    </p>
+                </div>
+
+                <div class="step-box">
+                    <h5><i class="fas fa-phone text-danger"></i> Method 5: Save as a contact</h5>
+                    <p class="mb-0">
+                        Create a contact in your phone: <strong>Name:</strong> “My Vet Application”, <strong>Notes:</strong> your Application ID. You’ll always have it on your phone.
+                    </p>
+                </div>
+
+                <div class="guide-divider"></div>
+
+                <h4 class="section-title"><i class="fas fa-info-circle"></i> What your Application ID looks like</h4>
+
+                <div class="id-example">VET-2026-A1B2C3</div>
+
+                <div class="alert alert-info alert-guide guide">
+                    <strong>Format:</strong> VET-YEAR-6CHARACTERS<br>
+                    <strong>Example:</strong> VET-2026-A1B2C3<br>
+                    <strong>Note:</strong> Your ID is unique — no one else has the same ID.
+                </div>
+
+                <div class="guide-divider"></div>
+
+                <h4 class="section-title"><i class="fas fa-search"></i> How to use your Application ID</h4>
+
+                <ol class="guide-list">
+                    <li>Go to the <a href="{% url 'vets:track_application' %}">tracking page</a>.</li>
+                    <li>Enter your Application ID in the search box.</li>
+                    <li>Click “Track” to see your current status.</li>
+                    <li>If approved, click “Proceed to Registration”.</li>
+                    <li>Complete your registration and log in.</li>
+                </ol>
+
+                <div class="guide-divider"></div>
+
+                <div class="alert alert-danger alert-guide guide">
+                    <strong><i class="fas fa-times-circle"></i> What if I lose my Application ID?</strong><br>
+                    Contact the Ministry of Agriculture. They can look it up using your full name, email address, or license number.
+                </div>
+
+                <div class="guide-actions no-print">
+                    <button type="button" onclick="window.print()" class="btn btn-primary btn-lg">
+                        <i class="fas fa-print"></i> Print this guide
+                    </button>
+                    <a href="{% url 'vets:track_application' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-search"></i> Track application
+                    </a>
+                </div>
+
+                <div class="guide-footer">
+                    <small>
+                        Ministry of Agriculture, Zimbabwe<br>
+                        Cattle Disease Prediction System
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

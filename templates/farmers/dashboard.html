@@ -1,0 +1,604 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+{% load cattle_i18n %}
+{% load i18n %}
+
+{% block title %}{% trans "Farmer Dashboard - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<div class="row g-4" style="margin-bottom: 24px;">
+    <!-- Herd Summary Card (like Financial Summary) -->
+    <div class="col-lg-4">
+            <div class="card-dark" style="min-height: 280px;">
+            <div class="card-title">
+                <span>{% trans "Herd Summary" %}</span>
+                <button type="button" id="herdHelpBtn" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:0;">
+                    <i class="fas fa-question-circle" title="{% trans "Help" %}"></i>
+                </button>
+            </div>
+            <div class="stat-big">{{ farmer.number_of_cattle }}</div>
+            <div class="stat-label">{% trans "Total Cattle in Herd" %}</div>
+            <div class="stat-compare">{% trans "Compared to last month +0%" %}</div>
+            <div class="stat-label" style="margin-top: 16px;">{% trans "Total Cases:" %} {{ total_cases }}</div>
+            <div class="herd-ai-box">
+                <div class="label"><i class="fas fa-leaf" style="margin-right: 6px;"></i> {% trans "AI Assistant" %}</div>
+                <div class="text">{% trans "Monitoring your herd health..." %}</div>
+            </div>
+            <div id="herdHelpInfo" class="help-info-box">
+                <strong style="color:#22c55e;">{% trans "How to read this card" %}</strong><br>
+                {% trans "• Total cattle is your current herd size saved in your profile." %}<br>
+                {% trans "• Total cases counts every disease case you have submitted so far." %}<br>
+                {% trans "• Watch if cases keep rising compared to your herd size — that’s a signal to submit more details and contact your vet early." %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Herd Health Metrics Card -->
+    <div class="col-lg-4">
+        <div class="card-dark" style="min-height: 280px;">
+            <div class="card-title">
+                <span>{% trans "Herd Health Metrics" %}</span>
+                <div id="healthMenu" style="position:relative;">
+                    <button type="button" id="healthMenuBtn" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:0;">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div id="healthMenuList" class="dropdown-menu-light">
+                        <button type="button" data-action="view-active" style="width:100%;padding:8px 12px;background:none;border:none;color:#e5e7eb;font-size:13px;text-align:left;cursor:pointer;">
+                            <i class="fas fa-exclamation-triangle" style="color:#facc15;margin-right:6px;"></i> {% trans "View active cases" %}
+                        </button>
+                        <button type="button" data-action="view-history" style="width:100%;padding:8px 12px;background:none;border:none;color:#e5e7eb;font-size:13px;text-align:left;cursor:pointer;border-top:1px solid rgba(148,163,184,0.3);">
+                            <i class="fas fa-table" style="color:#93c5fd;margin-right:6px;"></i> {% trans "Open case history" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div style="display: grid; gap: 20px;">
+                <div>
+                    <div class="stat-label">{% trans "Active Cases" %}</div>
+                    <div class="health-stat-value">{{ active_cases }}</div>
+                </div>
+                <div>
+                    <div class="stat-label">{% trans "Resolved Cases" %}</div>
+                    <div class="health-stat-value success">{{ resolved_cases }}</div>
+                </div>
+                <div>
+                    <div class="stat-label">{% trans "Critical Alerts" %}</div>
+                    <div class="health-stat-value {% if critical_cases %}danger{% else %}success{% endif %}">{{ critical_cases }}</div>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 8px;">
+                <a href="{% url 'farmers:submit_case' %}" class="btn-upgrade" style="flex: 1; text-align: center; text-decoration: none; padding: 10px;">{% trans "Add New" %}</a>
+                <a href="{% url 'farmers:case_history' %}" class="btn-secondary-light" style="flex: 1;">{% trans "View Cases" %}</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smart Disease Tracking (Donut + Line) -->
+    <div class="col-lg-4">
+        <div class="card-dark" style="min-height: 280px;">
+            <div class="card-title">
+                <span>{% trans "Disease Tracking" %}</span>
+                <select id="diseaseRangeFilter" style="background: #fff; border: 1px solid var(--fc-border); color: var(--fc-text-muted); padding: 6px 12px; border-radius: 999px; font-size: 12px;">
+                    <option value="year" selected>{% trans "Full year" %}</option>
+                    <option value="6m">{% trans "Last 6 months" %}</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div style="width: 120px; height: 120px; flex-shrink: 0;">
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div style="flex: 1;">
+                    {% for item in disease_stats %}
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="font-size: 13px; color: var(--fc-text-muted);">{{ item.predicted_disease|local_disease|truncatewords:2 }}</span>
+                        <span style="font-size: 13px; font-weight: 600; color: var(--fc-text);">{{ item.count }}</span>
+                    </div>
+                    {% empty %}
+                    <div style="font-size: 13px; color: #6b7280;">{% trans "No cases yet" %}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:#9ca3af;">
+                <span>{% trans "Total cases this year:" %} <strong>{{ total_cases }}</strong></span>
+                <span>{% trans "Resolved:" %} <strong style="color:#22c55e;">{{ resolved_cases }}</strong></span>
+            </div>
+            <div class="chart-container" style="height: 80px; margin-top: 10px;">
+                <canvas id="miniLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4" style="margin-bottom: 24px;">
+    <!-- Healthcare/Expense Tracking - Severity Breakdown -->
+    <div class="col-lg-4">
+        <div class="card-dark">
+            <div class="card-title">
+                <span>{% trans "Case Severity Breakdown" %}</span>
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 13px; color: var(--fc-text-muted);">{% trans "Critical" %} ({{ critical_count }})</span>
+                    <span style="font-size: 12px; color: #6b7280;">{{ critical_pct }}%</span>
+                </div>
+                <div class="progress-bar-custom">
+                    <div class="progress-fill red" style="width: {{ critical_pct }}%;"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 13px; color: #9ca3af;">{% trans "Severe" %} ({{ severe_count }})</span>
+                    <span style="font-size: 12px; color: #6b7280;">{{ severe_pct }}%</span>
+                </div>
+                <div class="progress-bar-custom">
+                    <div class="progress-fill yellow" style="width: {{ severe_pct }}%;"></div>
+                </div>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 13px; color: #9ca3af;">{% trans "Non-Severe" %} ({{ non_severe_count }})</span>
+                    <span style="font-size: 12px; color: #6b7280;">{{ non_severe_pct }}%</span>
+                </div>
+                <div class="progress-bar-custom">
+                    <div class="progress-fill green" style="width: {{ non_severe_pct }}%;"></div>
+                </div>
+            </div>
+            <div class="tab-row" style="margin-top: 20px;">
+                <button class="tab-btn active" type="button" data-case-filter="all">{% trans "All Records" %}</button>
+                <button class="tab-btn" type="button" data-case-filter="pending">{% trans "Pending" %}</button>
+                <button class="tab-btn" type="button" data-case-filter="resolved">{% trans "Resolved" %}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Records Table -->
+    <div class="col-lg-5">
+        <div class="card-dark">
+            <div class="card-title">
+                <span>{% trans "Case Records" %}</span>
+            </div>
+            <div style="margin-bottom: 16px;">
+                <div class="topbar-search" style="max-width: 100%; margin: 0;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="{% trans "Search case records..." %}" id="caseSearch">
+                </div>
+            </div>
+            <div class="tab-row">
+                <button class="tab-btn active" type="button" data-case-filter="all">{% trans "All Records" %}</button>
+                <button class="tab-btn" type="button" data-case-filter="pending">{% trans "Pending" %}</button>
+                <button class="tab-btn" type="button" data-case-filter="resolved">{% trans "Resolved" %}</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="table-dark-custom" id="caseRecordsTable">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Disease" %}</th>
+                            <th>{% trans "Severity" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for case in cases %}
+                        <tr data-case-group="{% if case.status == 'RESOLVED' or case.status == 'CLOSED' %}resolved{% else %}pending{% endif %}">
+                            <td>{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                            <td>
+                                {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>
+                                {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>
+                                {% else %}<span class="pill-badge success">{{ case.severity|local_severity }}</span>{% endif %}
+                            </td>
+                            <td>
+                                {% if case.status == 'RESOLVED' or case.status == 'CLOSED' %}<span class="pill-badge success">{{ case.status|local_case_status }}</span>
+                                {% elif case.status == 'ASSIGNED' %}<span class="pill-badge info">{{ case.status|local_case_status }}</span>
+                                {% else %}<span class="pill-badge warning">{{ case.status|local_case_status }}</span>{% endif %}
+                            </td>
+                            <td>{{ case.created_at|date:"M d, Y" }}</td>
+                            <td><a href="{% url 'farmers:case_result' case.id %}" style="color: #22c55e; text-decoration: none; font-size: 13px;">{% trans "View" %}</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="5" style="text-align: center; padding: 40px; color: #6b7280;">{% trans "No cases submitted yet." %} <a href="{% url 'farmers:submit_case' %}" style="color: #22c55e;">{% trans "Submit your first case" %}</a></td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Card -->
+    <div class="col-lg-3">
+        <div class="card-dark" style="min-height: 450px; display: flex; flex-direction: column;">
+            <div class="card-title" id="ai-assistant">
+                <span>{% trans "AI Assistant" %}</span>
+                <div>
+                    <a href="{% url 'farmers:submit_case' %}" title="{% trans "Submit a case" %}" style="color: #9ca3af; margin-right: 8px;"><i class="fas fa-plus-circle"></i></a>
+                </div>
+            </div>
+            <div id="aiChatArea" style="flex: 1; overflow-y: auto; max-height: 280px; margin-bottom: 12px;">
+                <div class="ai-chat-bubble">
+                    <div class="ai-chat-question">{% trans "What should I do for early disease prevention?" %}</div>
+                    <div class="ai-chat-answer">{% trans "Monitor symptoms daily, keep vaccination records, and report any unusual behavior in cattle promptly. Use CattleCare AI to submit a case for instant predictions." %}</div>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                <button type="button" class="ai-topic-btn" data-topic="disease tips">{% trans "Disease Tips" %}</button>
+                <button type="button" class="ai-topic-btn" data-topic="herd health">{% trans "Herd Health" %}</button>
+                <button type="button" class="ai-topic-btn" data-topic="tip of the day">{% trans "Tip of the Day" %}</button>
+            </div>
+            <div style="display:none;">{% csrf_token %}</div>
+            <div class="ai-input-wrap">
+                <input type="text" class="ai-input" id="aiQuestionInput" placeholder="{% trans "Ask or Search..." %}" maxlength="500">
+                <button type="button" class="ai-send-btn" id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .ai-chat-user { text-align: right; margin-bottom: 12px; }
+    .ai-chat-user .ai-chat-question { color: var(--fc-green-dark); text-transform: capitalize; }
+    .ai-chat-ai .ai-chat-answer { white-space: pre-line; }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    window.FARMER_I18N = {
+        noCasesYet: "{% trans 'No cases yet' %}",
+        noCases: "{% trans 'No cases' %}",
+        resolved: "{% trans 'Resolved' %}",
+        critical: "{% trans 'Critical' %}",
+        thinking: "{% trans 'Thinking...' %}",
+        youAsked: "{% trans 'You asked' %}",
+        noCasesMatch: "{% trans 'No cases match this filter.' %}",
+        aiError: "{% trans 'Sorry, something went wrong. Please try again.' %}",
+        lang: "{{ LANGUAGE_CODE|default:'' }}",
+    };
+
+    // Donut Chart - Disease distribution
+    const donutCtx = document.getElementById('donutChart');
+    if (donutCtx) {
+        const labels = [{% for item in disease_stats %}'{{ item.predicted_disease|local_disease|truncatewords:2|escapejs }}'{% if not forloop.last %}, {% endif %}{% empty %}window.FARMER_I18N.noCasesYet{% endfor %}];
+        const data = [{% for item in disease_stats %}{{ item.count }}{% if not forloop.last %}, {% endif %}{% empty %}1{% endfor %}];
+        new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: labels.length ? labels : ['No cases'],
+                datasets: [{
+                    data: data.length ? data : [1],
+                    backgroundColor: ['#22c55e', '#eab308', '#3b82f6', '#f97316', '#a855f7'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                cutout: '65%',
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    // Mini Line Chart - Cases over time (Resolved vs Critical)
+    const lineCtx = document.getElementById('miniLineChart');
+    if (lineCtx) {
+        const allLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const criticalAll = [{% for v in chart_critical %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        const resolvedAll = [{% for v in chart_resolved %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        let miniLineChart;
+
+        function buildMiniChart(range) {
+            let labels = allLabels;
+            let crit = criticalAll;
+            let res = resolvedAll;
+
+            // Last 6 months view
+            if (range === '6m' && allLabels.length === 12) {
+                labels = allLabels.slice(6);
+                crit = criticalAll.slice(6);
+                res = resolvedAll.slice(6);
+            }
+
+            if (miniLineChart) {
+                miniLineChart.destroy();
+            }
+
+            miniLineChart = new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { label: window.FARMER_I18N.resolved, data: res, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.15)', tension: 0.4, fill: true },
+                        { label: window.FARMER_I18N.critical, data: crit, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.15)', tension: 0.4, fill: true }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: { color: '#9ca3af', font: { size: 10 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            display: true,
+                            beginAtZero: true,
+                            grid: { color: 'rgba(148,163,184,0.3)' },
+                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                        },
+                        x: {
+                            display: true,
+                            grid: { display: false },
+                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        const rangeSelect = document.getElementById('diseaseRangeFilter');
+        if (rangeSelect) {
+            buildMiniChart(rangeSelect.value || 'year');
+            rangeSelect.addEventListener('change', function() {
+                buildMiniChart(this.value || 'year');
+            });
+        } else {
+            buildMiniChart('year');
+        }
+    }
+
+    // Herd Summary help toggle
+    const herdHelpBtn = document.getElementById('herdHelpBtn');
+    if (herdHelpBtn) {
+        const helpBox = document.getElementById('herdHelpInfo');
+        herdHelpBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            if (helpBox.style.display === 'none' || !helpBox.style.display) {
+                helpBox.style.display = 'block';
+                herdHelpBtn.style.color = '#22c55e';
+            } else {
+                helpBox.style.display = 'none';
+                herdHelpBtn.style.color = '#6b7280';
+            }
+        });
+        document.addEventListener('click', function () {
+            if (helpBox.style.display === 'block') {
+                helpBox.style.display = 'none';
+                herdHelpBtn.style.color = '#6b7280';
+            }
+        });
+    }
+
+    // Herd Health metrics menu
+    (function() {
+        const menu = document.getElementById('healthMenu');
+        if (!menu) return;
+        const btn = document.getElementById('healthMenuBtn');
+        const list = document.getElementById('healthMenuList');
+
+        function closeMenu() {
+            if (list) list.classList.remove('show');
+        }
+
+        if (btn && list) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                list.classList.toggle('show');
+            });
+
+            list.addEventListener('click', function(e) {
+                const action = e.target.closest('button')?.dataset.action;
+                if (action === 'view-active') {
+                    window.location.href = "{% url 'farmers:case_history' %}?status=ACTIVE";
+                }
+                if (action === 'view-history') {
+                    window.location.href = "{% url 'farmers:case_history' %}";
+                }
+                closeMenu();
+            });
+
+            document.addEventListener('click', closeMenu);
+        }
+    })();
+
+    // Case Records filtering (tabs + search)
+    (function() {
+        const table = document.getElementById('caseRecordsTable');
+        if (!table) return;
+
+        const tbody = table.querySelector('tbody');
+        const allRows = Array.from(tbody.querySelectorAll('tr'));
+        const search = document.getElementById('caseSearch');
+        const filterBtns = Array.from(document.querySelectorAll('[data-case-filter]'));
+
+        function setActiveFilter(filter) {
+            filterBtns.forEach(btn => {
+                const isActive = btn.dataset.caseFilter === filter;
+                btn.classList.toggle('active', isActive);
+            });
+        }
+
+        function rowMatchesFilter(row, filter) {
+            if (filter === 'all') return true;
+            const group = row.getAttribute('data-case-group');
+            // rows without group (e.g., empty-state row) should only show on "all"
+            if (!group) return filter === 'all';
+            return group === filter;
+        }
+
+        function rowMatchesSearch(row, term) {
+            if (!term) return true;
+            return row.textContent.toLowerCase().includes(term);
+        }
+
+        function applyFilters(filter) {
+            const term = (search?.value || '').toLowerCase().trim();
+            let visibleCount = 0;
+
+            allRows.forEach(row => {
+                // keep the "no cases" empty row behavior
+                const isEmptyRow = row.querySelector('td[colspan]');
+                if (isEmptyRow) {
+                    row.style.display = filter === 'all' && !term ? '' : 'none';
+                    return;
+                }
+
+                const ok = rowMatchesFilter(row, filter) && rowMatchesSearch(row, term);
+                row.style.display = ok ? '' : 'none';
+                if (ok) visibleCount += 1;
+            });
+
+            // If there are cases but none match, show a lightweight message row
+            const existingMsg = tbody.querySelector('tr[data-filter-msg="1"]');
+            if (existingMsg) existingMsg.remove();
+
+            const hasRealCases = allRows.some(r => !r.querySelector('td[colspan]') && r.getAttribute('data-case-group'));
+            if (hasRealCases && visibleCount === 0) {
+                const tr = document.createElement('tr');
+                tr.setAttribute('data-filter-msg', '1');
+                tr.innerHTML = `<td colspan="5" style="text-align:center;padding:28px;color:#6b7280;">
+                    ${window.FARMER_I18N.noCasesMatch}
+                </td>`;
+                tbody.appendChild(tr);
+            }
+        }
+
+        // Default state
+        let currentFilter = 'all';
+        setActiveFilter(currentFilter);
+        applyFilters(currentFilter);
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                currentFilter = this.dataset.caseFilter || 'all';
+                setActiveFilter(currentFilter);
+                applyFilters(currentFilter);
+            });
+        });
+
+        if (search) {
+            search.addEventListener('input', function() {
+                applyFilters(currentFilter);
+            });
+        }
+
+        // Tie the global topbar search to the same filtering when on dashboard
+        const globalSearch = document.getElementById('globalSearch');
+        if (globalSearch) {
+            globalSearch.addEventListener('input', function() {
+                if (search) {
+                    search.value = this.value;
+                }
+                applyFilters(currentFilter);
+            });
+        }
+    })();
+
+    // AI Assistant
+    (function() {
+        const chatArea = document.getElementById('aiChatArea');
+        const input = document.getElementById('aiQuestionInput');
+        const sendBtn = document.getElementById('aiSendBtn');
+        const topicBtns = document.querySelectorAll('.ai-topic-btn');
+
+        function addMessage(question, answer, isUser) {
+            const div = document.createElement('div');
+            div.className = isUser ? 'ai-chat-bubble ai-chat-user' : 'ai-chat-bubble ai-chat-ai';
+            div.innerHTML = isUser
+                ? '<div class="ai-chat-question">' + escapeHtml(question) + '</div>'
+                : '<div class="ai-chat-question" style="color:#9ca3af;">' + window.FARMER_I18N.youAsked + '</div><div class="ai-chat-answer">' + formatAnswer(answer) + '</div>';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatAnswer(text) {
+            return escapeHtml(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        }
+
+        function showLoading() {
+            const div = document.createElement('div');
+            div.id = 'aiLoading';
+            div.className = 'ai-chat-bubble';
+            div.innerHTML = '<div class="ai-chat-answer"><i class="fas fa-spinner fa-spin"></i> ' + window.FARMER_I18N.thinking + '</div>';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function hideLoading() {
+            const el = document.getElementById('aiLoading');
+            if (el) el.remove();
+        }
+
+        function askAI(question, topic) {
+            const formData = new FormData();
+            if (question) formData.append('question', question);
+            if (topic) formData.append('topic', topic);
+            if (window.FARMER_I18N.lang) formData.append('lang', window.FARMER_I18N.lang);
+            const csrf = document.querySelector('[name=csrfmiddlewaretoken]');
+            if (csrf) formData.append('csrfmiddlewaretoken', csrf.value);
+
+            showLoading();
+            sendBtn.disabled = true;
+
+            fetch('{% url "farmers:ai_assistant" %}', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+            .then(r => r.json())
+            .then(data => {
+                hideLoading();
+                sendBtn.disabled = false;
+                if (data.success) {
+                    const bubble = document.createElement('div');
+                    bubble.className = 'ai-chat-bubble ai-chat-ai';
+                    bubble.innerHTML = '<div class="ai-chat-answer">' + formatAnswer(data.response) + '</div>';
+                    chatArea.appendChild(bubble);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                }
+            })
+            .catch(() => {
+                hideLoading();
+                sendBtn.disabled = false;
+                addMessage(question || topic, window.FARMER_I18N.aiError, true);
+                addMessage(null, window.FARMER_I18N.aiError, false);
+            });
+        }
+
+        sendBtn.addEventListener('click', function() {
+            const q = input.value.trim();
+            if (q) {
+                addMessage(q, '', true);
+                askAI(q, '');
+                input.value = '';
+            }
+        });
+
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+        topicBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const topic = this.dataset.topic;
+                addMessage(topic, '', true);
+                askAI('', topic);
+            });
+        });
+    })();
+</script>
+{% endblock %}

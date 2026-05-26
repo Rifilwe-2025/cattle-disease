@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Terms of Service - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@700;900&display=swap');
+    .page-hero {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.72) 0%, rgba(35, 25, 15, 0.78) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+        min-height: 45vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        padding: 120px 1rem 70px;
+        text-align: center;
+    }
+    .page-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .page-hero h1 { font-family: 'Merriweather', serif; font-size: 2.75rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 2px 2px 12px rgba(0,0,0,0.5); position: relative; }
+    .page-hero .lead { font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin: 0 auto; position: relative; }
+    @media (max-width: 768px) {
+        .page-hero { min-height: 38vh; padding: 100px 1rem 50px; background-attachment: scroll; }
+        .page-hero h1 { font-size: 1.75rem; }
+    }
+    .legal-section {
+        padding: 4rem 0;
+        background: linear-gradient(160deg, #fff9f2 0%, #fff5eb 40%, #fef9f3 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .legal-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.04;
+        pointer-events: none;
+    }
+    .legal-section .container { position: relative; z-index: 1; max-width: 800px; }
+    .legal-section h2 { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: 700; color: #2c1f18; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .legal-section h2:first-of-type { margin-top: 0; }
+    .legal-section h3 { font-size: 1.15rem; font-weight: 600; color: #3d3228; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .legal-section p, .legal-section ul { color: #4a4038; line-height: 1.75; margin-bottom: 1rem; font-size: 1rem; }
+    .legal-section ul { padding-left: 1.5rem; }
+    .legal-section li { margin-bottom: 0.35rem; }
+    .legal-section .updated { font-size: 0.9rem; color: #6b5d52; margin-bottom: 2rem; }
+    .legal-section a { color: #FF7828; font-weight: 500; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container position-relative">
+        <h1>{% trans "Terms of Service" %}</h1>
+        <p class="lead">{% trans "Terms and conditions for using CattleCare AI." %}</p>
+    </div>
+</section>
+
+<section class="legal-section">
+    <div class="container">
+        {% url 'landing:privacy_policy' as privacy_url %}
+        <p class="updated"><strong>{% trans "Last updated:" %}</strong> {% now "F j, Y" %}</p>
+
+        <h2>{% trans "1. Acceptance of Terms" %}</h2>
+        <p>{% blocktrans trimmed %}By accessing or using CattleCare AI (“the platform”, “we”, “our”), including the website and any related services for farmers, veterinarians, and the Ministry of Agriculture, you agree to be bound by these Terms of Service. If you do not agree, do not use the platform.{% endblocktrans %}</p>
+
+        <h2>{% trans "2. Description of Service" %}</h2>
+        <p>{% trans "CattleCare AI provides:" %}</p>
+        <ul>
+            <li>{% trans "AI-powered early disease prediction for cattle based on symptoms and contextual data" %}</li>
+            <li>{% trans "Treatment recommendations and preventive guidance" %}</li>
+            <li>{% trans "Connection between farmers and Ministry-approved veterinarians" %}</li>
+            <li>{% trans "Disease surveillance and analytics for the Ministry of Agriculture" %}</li>
+        </ul>
+        <p>{% blocktrans trimmed %}The platform is intended to support, not replace, professional veterinary care. Predictions and recommendations are for guidance only and do not constitute a formal diagnosis or treatment plan.{% endblocktrans %}</p>
+
+        <h2>{% trans "3. User Accounts and Eligibility" %}</h2>
+        <p>{% trans "To use certain features, you must register and maintain an account. You agree to:" %}</p>
+        <ul>
+            <li>{% trans "Provide accurate, current, and complete information during registration" %}</li>
+            <li>{% trans "Keep your password secure and notify us of any unauthorised use" %}</li>
+            <li>{% trans "Be at least 18 years of age or have parental or guardian consent where applicable" %}</li>
+        </ul>
+        <p>{% blocktrans trimmed %}Farmers register as themselves; veterinarians must apply and be approved by the platform/Ministry before gaining full access. We reserve the right to suspend or terminate accounts that violate these terms or that we reasonably believe pose a risk to the service or other users.{% endblocktrans %}</p>
+
+        <h2>{% trans "4. Acceptable Use" %}</h2>
+        <p>{% trans "You agree to use the platform only for lawful purposes and in a way that does not:" %}</p>
+        <ul>
+            <li>{% trans "Violate any applicable law or regulation" %}</li>
+            <li>{% trans "Infringe the rights of others or harm others" %}</li>
+            <li>{% trans "Introduce malware, spam, or attempt to gain unauthorised access to our systems or other users’ data" %}</li>
+            <li>{% trans "Submit false or misleading information for disease prediction or vet assignment" %}</li>
+            <li>{% trans "Use the service in a manner that could damage, disable, or overburden the platform" %}</li>
+        </ul>
+        <p>{% blocktrans trimmed %}We may remove content or suspend access where we reasonably believe there is a breach of these terms.{% endblocktrans %}</p>
+
+        <h2>{% trans "5. Disclaimers" %}</h2>
+        <p>{% blocktrans trimmed %}<strong>Medical / veterinary disclaimer:</strong> CattleCare AI is a decision-support tool. Disease predictions are based on algorithms and the information you provide; they are not a substitute for a qualified veterinarian’s examination and diagnosis. Always seek professional veterinary care for serious, persistent, or unclear conditions. We are not liable for any loss or harm resulting from reliance on predictions or recommendations without appropriate professional oversight.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}<strong>Service “as is”:</strong> The platform is provided “as is” and “as available”. We do not guarantee uninterrupted, error-free, or secure operation, though we strive to maintain high availability and security.{% endblocktrans %}</p>
+
+        <h2>{% trans "6. Limitation of Liability" %}</h2>
+        <p>{% blocktrans trimmed %}To the fullest extent permitted by law, CattleCare AI and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or for any loss of profits, data, or goodwill, arising from your use or inability to use the platform. Our total liability for any claims related to the service shall not exceed the amount (if any) you paid to use the service in the twelve (12) months preceding the claim, or such other limit as may be required by applicable law.{% endblocktrans %}</p>
+
+        <h2>{% trans "7. Intellectual Property" %}</h2>
+        <p>{% blocktrans trimmed %}The platform, including its design, text, graphics, logos, and software (excluding user-generated content), is owned by or licensed to CattleCare AI and is protected by intellectual property laws. You may not copy, modify, distribute, or create derivative works without our prior written permission, except for normal use of the service.{% endblocktrans %}</p>
+
+        <h2>{% trans "8. Privacy" %}</h2>
+        <p>{% blocktrans with url=privacy_url %}Your use of the platform is also governed by our <a href="{{ url }}">Privacy Policy</a>, which describes how we collect, use, and protect your information. By using the platform, you consent to those practices.{% endblocktrans %}</p>
+
+        <h2>{% trans "9. Changes to the Service and Terms" %}</h2>
+        <p>{% blocktrans trimmed %}We may change or discontinue features of the platform with reasonable notice where practicable. We may update these Terms of Service from time to time; the “Last updated” date will be revised accordingly. Continued use of the platform after changes constitutes acceptance of the new terms. If you do not agree, you must stop using the service.{% endblocktrans %}</p>
+
+        <h2>{% trans "10. Governing Law and Disputes" %}</h2>
+        <p>{% blocktrans trimmed %}These terms shall be governed by the laws of Zimbabwe. Any dispute arising in connection with these terms or the platform shall be subject to the exclusive jurisdiction of the courts of Zimbabwe, to the extent permitted by law.{% endblocktrans %}</p>
+
+        <h2>{% trans "11. Contact" %}</h2>
+        <p>{% trans "For questions about these Terms of Service, contact us at:" %}</p>
+        <p><strong>{% trans "Email:" %}</strong> <a href="mailto:riffymbengo@gmail.com">riffymbengo@gmail.com</a><br>
+        <strong>{% trans "Location:" %}</strong> {% trans "Harare, Zimbabwe" %}</p>
+    </div>
+</section>
+{% endblock %}

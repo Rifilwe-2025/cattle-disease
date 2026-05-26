@@ -1,0 +1,314 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "About Us - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
+    
+    .page-hero {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.72) 0%, rgba(35, 25, 15, 0.78) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+        min-height: 55vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        padding: 120px 1rem 80px;
+        text-align: center;
+    }
+    .page-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .page-hero h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 3.2rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 12px rgba(0,0,0,0.5);
+        position: relative;
+    }
+    .page-hero .lead {
+        font-size: 1.2rem;
+        opacity: 0.95;
+        max-width: 640px;
+        margin: 0 auto;
+        position: relative;
+    }
+    @media (max-width: 768px) {
+        .page-hero { min-height: 45vh; padding: 100px 1rem 60px; background-attachment: scroll; }
+        .page-hero h1 { font-size: 2rem; }
+    }
+
+    .about-section { padding: 4.5rem 0; position: relative; }
+    /* Mission & Vision: warm gradient + subtle pattern */
+    .about-section.mission-section {
+        background: linear-gradient(160deg, #fff9f2 0%, #fff5eb 30%, #fef3e8 60%, #fdeed9 100%);
+        overflow: hidden;
+    }
+    .about-section.mission-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.06;
+        pointer-events: none;
+    }
+    .about-section.mission-section .container { position: relative; z-index: 1; }
+    .about-section.mission-section .section-head { color: #2c1f18; }
+    .about-section.mission-section .section-sub { color: #5c4a3d; }
+    .about-section.mission-section .about-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 153, 51, 0.2);
+        box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08), 0 0 0 1px rgba(255,255,255,0.8);
+    }
+    .about-section.mission-section .about-card:hover {
+        border-color: rgba(255, 153, 51, 0.45);
+        box-shadow: 0 20px 50px rgba(44, 31, 24, 0.12), 0 0 0 1px rgba(255,255,255,0.9);
+    }
+    .about-section.mission-section .about-card .icon-wrap {
+        background: linear-gradient(135deg, #FF9933, #FF7828);
+        color: #fff;
+        box-shadow: 0 8px 24px rgba(255, 120, 40, 0.35);
+    }
+    .about-section.mission-section .about-card h5 { color: #2c1f18; }
+    .about-section.mission-section .about-card p { color: #4a4038; }
+
+    /* Why CattleCare: background image with overlay */
+    .about-section.alt {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.88) 0%, rgba(35, 25, 15, 0.92) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat;
+        color: #fff;
+    }
+    .about-section.alt .section-head { color: #fff; }
+    .about-section.alt .section-sub { color: rgba(255, 255, 255, 0.88); }
+    .about-section.alt .about-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+    }
+    .about-section.alt .about-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 204, 102, 0.4);
+        box-shadow: 0 20px 56px rgba(0, 0, 0, 0.25);
+    }
+    .about-section.alt .about-card .icon-wrap {
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        color: #5D3A1A;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .about-section.alt .about-card h5 { color: #fff; }
+    .about-section.alt .about-card p { color: rgba(255, 255, 255, 0.9); }
+
+    .about-section.dark {
+        background: linear-gradient(135deg, #2c1f18 0%, #1a120d 100%);
+        color: #fff;
+    }
+    .about-section.dark .text-muted { color: rgba(255,255,255,0.75) !important; }
+    .about-section.dark .card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+    .about-section.dark .card .text-muted { color: rgba(255,255,255,0.7) !important; }
+
+    .section-head {
+        font-family: 'Merriweather', serif;
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+    }
+    .about-section.dark .section-head { color: #fff; }
+    .section-sub { font-size: 1.1rem; color: #666; margin-bottom: 2.5rem; max-width: 680px; }
+    .about-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        padding: 2rem;
+        height: 100%;
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .about-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+    .about-card .icon-wrap {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #FFE8CC, #FFD9A6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        font-size: 1.75rem;
+        color: #FF7828;
+        transition: transform 0.3s;
+    }
+    .about-card:hover .icon-wrap { transform: scale(1.08); }
+    .about-card h5 { font-weight: 700; margin-bottom: 0.75rem; color: #1a1a1a; }
+    .about-card p { color: #555; line-height: 1.7; margin-bottom: 0; }
+    .stat-box {
+        text-align: center;
+        padding: 2rem 1rem;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.12);
+        transition: all 0.3s;
+    }
+    .stat-box:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+    .stat-box .num { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #FFD280, #FFB347); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-box .label { font-size: 0.95rem; opacity: 0.9; margin-top: 0.35rem; }
+    .cta-about {
+        padding: 4rem 0;
+        text-align: center;
+        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
+        color: #fff;
+    }
+    .cta-about h2 { font-family: 'Merriweather', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-about .btn { padding: 14px 32px; border-radius: 50px; font-weight: 600; }
+    /* Partnership: soft warm background */
+    .about-section.partnership-section {
+        background: linear-gradient(180deg, #faf6f2 0%, #f5efe8 50%, #fef9f3 100%);
+    }
+    .about-section.partnership-section .about-card {
+        background: #fff;
+        border: 1px solid rgba(255, 153, 51, 0.25);
+        box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08);
+    }
+    .about-section.partnership-section .about-card:hover { border-color: rgba(255, 153, 51, 0.5); }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container position-relative">
+        <h1>{% trans "About CattleCare AI" %}</h1>
+        <p class="lead">{% trans "We combine artificial intelligence and veterinary expertise to protect cattle and support Zimbabwean farmers." %}</p>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="about-section mission-section">
+    <div class="container">
+        <h2 class="section-head">{% trans "Our Mission & Vision" %}</h2>
+        <p class="section-sub">{% trans "CattleCare AI was built to reduce livestock losses and improve animal health through early disease detection and timely veterinary support." %}</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-bullseye"></i></div>
+                    <h5>{% trans "Mission" %}</h5>
+                    <p>{% trans "To empower every farmer in Zimbabwe with AI-powered early disease prediction and instant access to qualified veterinarians, so that cattle health is protected and livelihoods are secured." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-eye"></i></div>
+                    <h5>{% trans "Vision" %}</h5>
+                    <p>{% trans "A Zimbabwe where no farmer loses cattle to preventable diseases because of late detection or lack of veterinary care. We aim to be the national platform for livestock health intelligence." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-heart"></i></div>
+                    <h5>{% trans "Values" %}</h5>
+                    <p>{% trans "Accuracy, accessibility, and trust. We use robust machine learning models, keep the platform available 24/7, and work with Ministry-approved vets so farmers get reliable support." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why We Exist -->
+<section class="about-section alt">
+    <div class="container">
+        <h2 class="section-head">{% trans "Why CattleCare AI?" %}</h2>
+        <p class="section-sub">{% trans "Livestock is central to many Zimbabwean families. Disease outbreaks can wipe out herds and income. We built this system to change that." %}</p>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-chart-line"></i></div>
+                    <h5>{% trans "Early Detection Saves Herds" %}</h5>
+                    <p>{% trans "Many cattle diseases can be treated or contained if caught early. Our AI analyzes symptoms and predicts likely diseases so farmers can act quickly—often before a vet can physically visit." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-network-wired"></i></div>
+                    <h5>{% trans "Connecting Farmers and Vets" %}</h5>
+                    <p>{% trans "Rural farmers often lack easy access to veterinarians. CattleCare AI links farmers with Ministry-approved vets, supports remote consultation, and helps vets prioritize critical cases." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="about-section dark">
+    <div class="container">
+        <h2 class="section-head text-center">{% trans "Our Impact" %}</h2>
+        <p class="section-sub text-center mx-auto mb-5">{% trans "Numbers that show our commitment to livestock health." %}</p>
+        <div class="row g-4 justify-content-center">
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="num">95%</div>
+                    <div class="label">{% trans "Prediction Accuracy" %}</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="num">24/7</div>
+                    <div class="label">{% trans "Availability" %}</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="num">100+</div>
+                    <div class="label">{% trans "Verified Vets" %}</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box">
+                    <div class="num">10</div>
+                    <div class="label">{% trans "Provinces Covered" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Partnership -->
+<section class="about-section partnership-section">
+    <div class="container">
+        <h2 class="section-head">{% trans "Ministry of Agriculture Partnership" %}</h2>
+        <p class="section-sub">{% trans "CattleCare AI supports the Ministry of Agriculture with real-time disease surveillance and data to inform vaccination campaigns and livestock health policy across Zimbabwe." %}</p>
+        <div class="about-card card">
+            <div class="row align-items-center g-4">
+                <div class="col-md-4 text-center">
+                    <div class="icon-wrap mx-auto"><i class="fas fa-landmark"></i></div>
+                    <h5>{% trans "National Dashboard" %}</h5>
+                </div>
+                <div class="col-md-8">
+                    <p class="mb-0">{% trans "Ministry staff can monitor disease trends, outbreak hotspots, and vet coverage. This helps plan vaccinations, quarantine zones, and resource allocation so that livestock health is protected at scale." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-about">
+    <div class="container">
+        <h2>{% trans "Ready to protect your herd?" %}</h2>
+        <p class="mb-4">{% trans "Join farmers and vets already using CattleCare AI." %}</p>
+        <a href="{% url 'farmers:register' %}" class="btn btn-light"><i class="fas fa-user-plus me-2"></i>{% trans "Register as Farmer" %}</a>
+        <a href="{% url 'landing:services' %}" class="btn btn-outline-light ms-2"><i class="fas fa-th-large me-2"></i>{% trans "View Services" %}</a>
+    </div>
+</section>
+{% endblock %}

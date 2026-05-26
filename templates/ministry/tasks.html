@@ -1,0 +1,196 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load cattle_i18n %}
+{% load i18n %}
+
+{% block title %}{% trans "Tasks - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Tasks" %}{% endblock %}
+{% block page_title %}{% trans "Action centre" %}{% endblock %}
+{% block page_subtitle %}
+{% trans "See everything that needs the Ministry's attention right now – vet applications, critical cases, vaccine requests and unread vet reports." %}
+{% endblock %}
+
+{% block content %}
+<div class="stats-mini-grid">
+    <div class="stat-mini-card">
+        <div class="stat-mini-value">{{ pending_applications|length }}</div>
+        <div class="stat-mini-label">{% trans "Pending vet applications" %}</div>
+    </div>
+    <div class="stat-mini-card">
+        <div class="stat-mini-value">{{ critical_cases|length }}</div>
+        <div class="stat-mini-label">{% trans "Critical / high‑risk cases" %}</div>
+    </div>
+    <div class="stat-mini-card">
+        <div class="stat-mini-value">{{ open_vaccine_requests|length }}</div>
+        <div class="stat-mini-label">{% trans "Open vaccine requests" %}</div>
+    </div>
+    <div class="stat-mini-card">
+        <div class="stat-mini-value">{{ unread_area_reports|length }}</div>
+        <div class="stat-mini-label">{% trans "Unread vet area reports" %}</div>
+    </div>
+</div>
+
+<div class="content-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><i class="fas fa-file-alt me-2 text-warning"></i> {% trans "Vet applications awaiting decision" %}</h5>
+        <a href="{% url 'ministry:vet_applications' %}" class="btn-glass btn-glass-outline">
+            <i class="fas fa-arrow-right"></i> {% trans "Open full applications view" %}
+        </a>
+    </div>
+    {% if pending_applications %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Applicant" %}</th>
+                    <th>{% trans "License" %}</th>
+                    <th>{% trans "Province(s)" %}</th>
+                    <th>{% trans "Experience" %}</th>
+                    <th>{% trans "Submitted" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in pending_applications %}
+                <tr onclick="window.location.href='{% url 'ministry:vet_applications' %}'">
+                    <td>{{ app.full_name }}</td>
+                    <td>{{ app.license_number }}</td>
+                    <td>{{ app.provinces_served|join:', ' }}</td>
+                    <td>{% blocktrans with y=app.years_of_experience %}{{ y }} years{% endblocktrans %}</td>
+                    <td>{{ app.created_at|date:'M d, Y' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted mb-0">{% trans "No pending vet applications – you are up to date here." %}</p>
+    {% endif %}
+</div>
+
+<div class="content-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2 text-danger"></i> {% trans "Critical and high‑risk cases" %}</h5>
+        <a href="{% url 'ministry:cases_overview' %}?status=critical" class="btn-glass btn-glass-outline">
+            <i class="fas fa-eye"></i> {% trans "View all critical cases" %}
+        </a>
+    </div>
+    {% if critical_cases %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Case" %}</th>
+                    <th>{% trans "Farmer" %}</th>
+                    <th>{% trans "Disease" %}</th>
+                    <th>{% trans "Province" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Created" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in critical_cases %}
+                <tr onclick="window.location.href='{% url 'ministry:cases_overview' %}?status=critical'">
+                    <td>{% trans "Case" %} #{{ c.id }}</td>
+                    <td>{{ c.farmer.full_name }}</td>
+                    <td>{{ c.predicted_disease|local_disease|truncatewords:3 }}</td>
+                    <td>{{ c.farmer.province }}</td>
+                    <td><span class="table-badge danger">{{ c.status|local_case_status }}</span></td>
+                    <td>{{ c.created_at|date:'M d, Y' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted mb-0">{% trans "No outstanding critical cases right now." %}</p>
+    {% endif %}
+</div>
+
+<div class="content-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><i class="fas fa-syringe me-2 text-primary"></i> {% trans "Vaccine and stock requests" %}</h5>
+        <a href="{% url 'ministry:vaccine_requests' %}" class="btn-glass btn-glass-outline">
+            <i class="fas fa-arrow-right"></i> {% trans "Manage vaccine requests" %}
+        </a>
+    </div>
+    {% if open_vaccine_requests %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Vet" %}</th>
+                    <th>{% trans "Product" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Priority" %}</th>
+                    <th>{% trans "Status" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in open_vaccine_requests %}
+                <tr onclick="window.location.href='{% url 'ministry:vaccine_requests' %}'">
+                    <td>{{ r.title }}</td>
+                    <td>{% trans "Dr." %} {{ r.vet.full_name }}</td>
+                    <td>{{ r.vaccine_name }}</td>
+                    <td>{{ r.quantity }}</td>
+                    <td>
+                        {% if r.priority == 'URGENT' %}
+                            <span class="table-badge danger">{% trans "Urgent" %}</span>
+                        {% else %}
+                            <span class="table-badge warning">{% trans "Normal" %}</span>
+                        {% endif %}
+                    </td>
+                    <td><span class="table-badge info">{{ r.get_status_display }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted mb-0">{% trans "No open vaccine or stock requests at the moment." %}</p>
+    {% endif %}
+</div>
+
+<div class="content-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0"><i class="fas fa-file-medical-alt me-2 text-info"></i> {% trans "Unread vet area reports" %}</h5>
+        <a href="{% url 'ministry:vet_reports_admin' %}" class="btn-glass btn-glass-outline">
+            <i class="fas fa-arrow-right"></i> {% trans "View all vet reports" %}
+        </a>
+    </div>
+    {% if unread_area_reports %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Vet" %}</th>
+                    <th>{% trans "Province" %}</th>
+                    <th>{% trans "Period" %}</th>
+                    <th>{% trans "Submitted" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rep in unread_area_reports %}
+                <tr onclick="window.location.href='{% url 'ministry:vet_reports_admin' %}'">
+                    <td>{{ rep.title }}</td>
+                    <td>{% trans "Dr." %} {{ rep.vet.full_name }}</td>
+                    <td>{{ rep.province }}</td>
+                    <td>
+                        {% if rep.period_start and rep.period_end %}
+                            {{ rep.period_start|date:'M d' }} – {{ rep.period_end|date:'M d, Y' }}
+                        {% else %}
+                            <span class="text-muted">{% trans "Not specified" %}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ rep.created_at|date:'M d, Y' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted mb-0">{% trans "No unread vet area reports – all reports have been opened." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
+

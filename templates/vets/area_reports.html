@@ -1,0 +1,124 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Area Reports to Ministry - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;flex-wrap:wrap;">
+    <div>
+        <h1 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">{% trans "Reports to Ministry" %}</h1>
+        <p style="font-size:13px;color:#94a3b8;max-width:520px;">
+            {% blocktrans trimmed %}
+            Share situation reports about disease patterns, challenges, and general suggestions for your area.
+            {% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "New area / situation report" %}</span>
+            </div>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.summary.id_for_label }}">{{ form.summary.label }}</label>
+                    {{ form.summary }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.province.id_for_label }}">{{ form.province.label }}</label>
+                    {{ form.province }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.district.id_for_label }}">{{ form.district.label }}</label>
+                    {{ form.district }}
+                </div>
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="{{ form.period_start.id_for_label }}">{{ form.period_start.label }}</label>
+                        {{ form.period_start }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label class="form-label" for="{{ form.period_end.id_for_label }}">{{ form.period_end.label }}</label>
+                        {{ form.period_end }}
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
+                    {{ form.body }}
+                </div>
+                <button type="submit" class="btn-primary-vet">
+                    <i class="fas fa-paper-plane"></i> {% trans "Send report to Ministry" %}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Your submitted reports" %}</span>
+            </div>
+            {% if reports %}
+            <div class="table-responsive">
+                <table class="table table-borderless align-middle" style="color:#e5e7eb;font-size:13px;">
+                    <thead style="color:#9ca3af;">
+                        <tr>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Area" %}</th>
+                            <th>{% trans "Period" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Ministry response" %}</th>
+                            <th>{% trans "Submitted" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in reports %}
+                        <tr style="border-top:1px solid rgba(148,163,184,0.2);">
+                            <td style="font-weight:600;">{{ r.title }}</td>
+                            <td>
+                                {{ r.province }}{% if r.district %}, {{ r.district }}{% endif %}
+                            </td>
+                            <td>
+                                {% if r.period_start or r.period_end %}
+                                    {{ r.period_start|date:"d M Y" }} - {{ r.period_end|date:"d M Y" }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if r.status == 'SUBMITTED' %}
+                                    <span class="pill-badge warning">{{ r.get_status_display }}</span>
+                                {% elif r.status == 'READ' %}
+                                    <span class="pill-badge info">{{ r.get_status_display }}</span>
+                                {% else %}
+                                    <span class="pill-badge success">{{ r.get_status_display }}</span>
+                                {% endif %}
+                            </td>
+                            <td style="max-width:260px;">
+                                {% if r.ministry_response %}
+                                    <span style="font-size:12px;color:#cbd5f5;">{{ r.ministry_response|truncatewords:18 }}</span>
+                                {% else %}
+                                    <span style="font-size:12px;color:#6b7280;">{% trans "No response yet" %}</span>
+                                {% endif %}
+                            </td>
+                            <td style="white-space:nowrap;">{{ r.created_at|date:"d M Y" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p style="font-size:13px;color:#9ca3af;">{% trans "You have not submitted any reports yet." %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

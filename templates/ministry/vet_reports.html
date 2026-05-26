@@ -1,0 +1,88 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Vet Reports - CattleCare AI Admin" %}{% endblock %}
+{% block topbar_title %}{% trans "Vet Area Reports" %}{% endblock %}
+{% block page_title %}{% trans "Reports from field veterinarians" %}{% endblock %}
+{% block page_subtitle %}{% trans "Review narrative reports and respond with guidance or follow-up actions." %}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0" style="font-weight:700;">{% trans "Submitted reports" %}</h5>
+        <span style="font-size:12px;color:#6c757d;">
+            {% blocktrans count c=reports|length %}Total {{ c }} report{% plural %}Total {{ c }} reports{% endblocktrans %}
+        </span>
+    </div>
+    {% if reports %}
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Vet" %}</th>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Area" %}</th>
+                    <th>{% trans "Period" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Summary" %}</th>
+                    <th>{% trans "Response" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in reports %}
+                <tr>
+                    <td>
+                        {% trans "Dr." %} {{ r.vet.full_name }}<br>
+                        <span style="font-size:11px;color:#6c757d;">{{ r.vet.get_provinces_list|first }}</span>
+                    </td>
+                    <td>{{ r.title }}</td>
+                    <td>
+                        {{ r.province }}{% if r.district %}, {{ r.district }}{% endif %}
+                    </td>
+                    <td>
+                        {% if r.period_start or r.period_end %}
+                            {{ r.period_start|date:"d M Y" }} - {{ r.period_end|date:"d M Y" }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="table-badge {% if r.status == 'SUBMITTED' %}warning{% elif r.status == 'READ' %}info{% else %}success{% endif %}">{{ r.get_status_display }}</span>
+                    </td>
+                    <td style="max-width:260px;">
+                        <div style="font-size:12px;color:#495057;margin-bottom:4px;">
+                            <strong>{{ r.summary }}</strong>
+                        </div>
+                        <div style="font-size:12px;color:#6c757d;max-height:72px;overflow:hidden;">
+                            {{ r.body|truncatewords:30 }}
+                        </div>
+                    </td>
+                    <td style="min-width:240px;">
+                        <form method="post" class="d-flex flex-column gap-1">
+                            {% csrf_token %}
+                            <input type="hidden" name="report_id" value="{{ r.id }}">
+                            <select name="status" class="form-select form-select-sm">
+                                {% for key,label in r.STATUS_CHOICES %}
+                                    <option value="{{ key }}" {% if key == r.status %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                            <textarea name="ministry_response" rows="3" class="form-control form-control-sm" placeholder="{% trans 'Type/update your response or follow-up actions...' %}">{{ r.ministry_response }}</textarea>
+                            <button type="submit" class="btn-glass btn-glass-primary" style="font-size:12px;padding:6px 10px;justify-content:center;">
+                                <i class="fas fa-reply"></i> {% trans "Save Ministry response" %}
+                            </button>
+                            <small style="font-size:11px;color:#6c757d;">
+                                {% trans "Submitted" %} {{ r.created_at|date:"d M Y" }}{% if r.responded_at %}, {% trans "responded" %} {{ r.responded_at|date:"d M Y H:i" }}{% endif %}
+                            </small>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="mb-0" style="font-size:13px;color:#6c757d;">{% trans "No reports have been submitted yet." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
+

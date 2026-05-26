@@ -1,0 +1,56 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Settings - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Settings" %}{% endblock %}
+{% block page_title %}{% trans "Settings" %}{% endblock %}
+{% block page_subtitle %}{% trans "Manage your account and preferences" %}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-user-circle" style="margin-right:10px;color:#667eea;"></i>{% trans "Edit Profile" %}</h5>
+    <p style="color:#6c757d;margin-bottom:20px;">{% trans "Update your admin account information." %}</p>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display:grid;gap:16px;max-width:400px;">
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#6c757d;">{% trans "First Name" %}</label>
+                <input type="text" name="first_name" value="{{ request.user.first_name }}" class="form-control" style="padding:10px 14px;">
+            </div>
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#6c757d;">{% trans "Last Name" %}</label>
+                <input type="text" name="last_name" value="{{ request.user.last_name }}" class="form-control" style="padding:10px 14px;">
+            </div>
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#6c757d;">{% trans "Email (for password reset)" %}</label>
+                <input type="email" name="email" value="{{ request.user.email }}" class="form-control" style="padding:10px 14px;">
+            </div>
+            <div>
+                <label style="font-size:12px;font-weight:600;color:#6c757d;">{% trans "Phone Number" %}</label>
+                <input type="text" name="phone_number" value="{{ request.user.phone_number|default:'' }}" class="form-control" style="padding:10px 14px;" placeholder="{% trans '+263XXXXXXXXX' %}">
+            </div>
+        </div>
+        <div style="margin-top:20px;">
+            <button type="submit" class="btn-glass btn-glass-primary">{% trans "Save Profile" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-lock" style="margin-right:10px;color:#667eea;"></i>{% trans "Change Password" %}</h5>
+    <p style="color:#6c757d;margin-bottom:20px;">{% trans "Forgot your password? Use the reset link to receive instructions via email." %}</p>
+    <a href="{% url 'accounts:password_reset' %}" class="btn-glass btn-glass-outline">{% trans "Reset Password via Email" %}</a>
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-bell" style="margin-right:10px;color:#667eea;"></i>{% trans "Notification Preferences" %}</h5>
+    <p style="color:#6c757d;margin-bottom:20px;">{% trans "Manage how you receive alerts (coming soon)." %}</p>
+    <p style="color:#6c757d;font-size:14px;">{% trans "Email alerts for critical cases and new vet applications will be available in a future update." %}</p>
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom:20px;font-weight:700;color:#1a1a1a;"><i class="fas fa-palette" style="margin-right:10px;color:#667eea;"></i>{% trans "Appearance" %}</h5>
+    <p style="color:#6c757d;margin-bottom:20px;">{% trans "Theme preferences (coming soon)." %}</p>
+</div>
+{% endblock %}

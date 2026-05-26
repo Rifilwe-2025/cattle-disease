@@ -1,0 +1,101 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Disease Map - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Disease Map" %}{% endblock %}
+{% block page_title %}{% trans "Disease Surveillance Map" %}{% endblock %}
+{% block page_subtitle %}{% trans "View disease distribution across Zimbabwe provinces" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+#map { height: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.filter-panel { background: rgba(255,255,255,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.5); margin-bottom: 24px; }
+.filter-panel h5 { font-weight: 700; margin-bottom: 16px; color: #1a1a1a; }
+.filter-panel .form-label { font-weight: 600; color: #495057; }
+.filter-panel .form-select, .filter-panel .form-control { background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6); }
+.filter-panel .btn { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); border: none; padding: 10px 20px; font-weight: 600; }
+.leaflet-popup-content { font-family: 'Inter', sans-serif; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="filter-panel">
+            <h5><i class="fas fa-filter"></i> {% trans "Filters" %}</h5>
+            <form method="get">
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Disease" %}</label>
+                    <select name="disease" class="form-select form-control">
+                        <option value="">{% trans "All Diseases" %}</option>
+                        {% for disease in diseases %}
+                        <option value="{{ disease }}" {% if disease_filter == disease %}selected{% endif %}>{{ disease }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Province" %}</label>
+                    <select name="province" class="form-select form-control">
+                        <option value="">{% trans "All Provinces" %}</option>
+                        {% for stat in province_stats %}
+                        <option value="{{ stat.farmer__province }}" {% if province_filter == stat.farmer__province %}selected{% endif %}>{{ stat.farmer__province }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Date From" %}</label>
+                    <input type="date" name="date_from" class="form-control" value="{{ date_from }}">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">{% trans "Date To" %}</label>
+                    <input type="date" name="date_to" class="form-control" value="{{ date_to }}">
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-glass btn-glass-primary"><i class="fas fa-search"></i> {% trans "Apply Filters" %}</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="content-card" style="padding: 0; overflow: hidden;">
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% trans "Severity:" as map_severity %}
+{% trans "Province:" as map_province %}
+{% trans "Date:" as map_date %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([-19.0154, 29.1549], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+    var mapData = JSON.parse('{{ map_data|escapejs }}');
+    
+    mapData.forEach(function(caseData) {
+        var color = caseData.severity === 'CRITICAL' ? 'red' : 
+                   caseData.severity === 'SEVERE' ? 'orange' : 'green';
+        
+        var marker = L.marker([caseData.latitude, caseData.longitude])
+            .addTo(map)
+            .bindPopup(
+                '<b>' + caseData.disease + '</b>' +
+                '<br>{{ map_severity|escapejs }} ' + caseData.severity +
+                '<br>{{ map_province|escapejs }} ' + caseData.province +
+                '<br>{{ map_date|escapejs }} ' + caseData.date
+            );
+        
+        marker.setIcon(L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-' + color + '.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34]
+        }));
+    });
+</script>
+{% endblock %}

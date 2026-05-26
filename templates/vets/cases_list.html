@@ -1,0 +1,144 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+{% load cattle_i18n %}
+
+{% block title %}Cases - CattleCare AI{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <h1 style="font-size: 24px; font-weight: 700; color: #1f2937; margin-bottom: 4px;">All Cases</h1>
+    <p style="font-size: 14px; color: #6b7280;">Your cases grouped by status</p>
+</div>
+
+<div class="row g-4" style="margin-bottom: 24px;">
+    <div class="col-md-4">
+        <div class="card-light">
+            <div class="stat-label">Total Cases Assigned</div>
+            <div class="stat-big">{{ total_assigned }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-light">
+            <div class="stat-label">Cases Solved (Resolved)</div>
+            <div class="stat-big" style="color: #22c55e;">{{ total_resolved }}</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-light">
+            <div class="stat-label">Pending / In Progress</div>
+            <div class="stat-big">{{ assigned_cases.count|add:in_progress_cases.count }}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabs for grouped cases -->
+<ul class="nav nav-tabs mb-4" style="border: none; gap: 8px;">
+    <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#assigned" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #d97706;">Assigned ({{ assigned_cases.count }})</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#inprogress" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #2563eb;">In Progress ({{ in_progress_cases.count }})</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#resolved" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #16a34a;">Resolved ({{ resolved_cases.count }})</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="assigned">
+        <div class="card-light">
+            <div class="card-title"><span>Assigned Cases</span><span style="font-size: 13px; color: #6b7280;">Awaiting your action</span></div>
+            {% if assigned_cases %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e5e7eb;">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Severity</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for case in assigned_cases %}
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 14px 16px;">{{ case.created_at|date:"M d, Y" }}</td>
+                            <td style="padding: 14px 16px;">{{ case.farmer.full_name }}</td>
+                            <td style="padding: 14px 16px;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                            <td style="padding: 14px 16px;">{% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>{% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>{% else %}<span class="pill-badge success">{{ case.severity|local_severity }}</span>{% endif %}</td>
+                            <td style="padding: 14px 16px;"><a href="{% url 'vets:case_detail' case.id %}" class="btn-primary-vet" style="padding: 6px 14px; font-size: 12px;">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #9ca3af;">No assigned cases.</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="inprogress">
+        <div class="card-light">
+            <div class="card-title"><span>In Progress Cases</span></div>
+            {% if in_progress_cases %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e5e7eb;">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for case in in_progress_cases %}
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 14px 16px;">{{ case.created_at|date:"M d, Y" }}</td>
+                            <td style="padding: 14px 16px;">{{ case.farmer.full_name }}</td>
+                            <td style="padding: 14px 16px;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                            <td style="padding: 14px 16px;"><a href="{% url 'vets:case_detail' case.id %}" class="btn-primary-vet" style="padding: 6px 14px; font-size: 12px;">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #9ca3af;">No cases in progress.</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="resolved">
+        <div class="card-light">
+            <div class="card-title"><span>Resolved Cases</span><span style="font-size: 13px; color: #16a34a;">Successfully closed</span></div>
+            {% if resolved_cases %}
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e5e7eb;">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for case in resolved_cases %}
+                        <tr style="border-bottom: 1px solid #f3f4f6;">
+                            <td style="padding: 14px 16px;">{{ case.created_at|date:"M d, Y" }}</td>
+                            <td style="padding: 14px 16px;">{{ case.farmer.full_name }}</td>
+                            <td style="padding: 14px 16px;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                            <td style="padding: 14px 16px;"><a href="{% url 'vets:case_detail' case.id %}" class="btn-primary-vet" style="padding: 6px 14px; font-size: 12px;">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 40px; color: #9ca3af;">No resolved cases yet.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

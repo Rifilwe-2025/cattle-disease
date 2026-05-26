@@ -1,0 +1,739 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Farmer Registration - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Import fonts matching landing page */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f8f9fa;
+        padding-top: 0 !important;
+    }
+
+    /* Hide main navbar */
+    nav.navbar {
+        display: none;
+    }
+
+    /* Registration container */
+    .register-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: stretch;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Left side - Image */
+    .register-image-side {
+        flex: 0 0 40%;
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.70) 0%, rgba(35, 25, 15, 0.80) 100%),
+                    url('{% static "images/pexels-sippakorn-yamkasikorn-1745809-3421999 - Copy.jpg" %}') center/cover no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 40px;
+        color: white;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .register-image-side::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 40% 50%, rgba(255, 153, 51, 0.15) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .register-image-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 450px;
+    }
+
+    .register-logo {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 30px;
+        box-shadow: 0 10px 40px rgba(255, 153, 51, 0.4);
+    }
+
+    .register-logo i {
+        font-size: 2.5rem;
+        color: #5D3A1A;
+    }
+
+    .register-image-side h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 20px;
+        text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+        line-height: 1.2;
+    }
+
+    .register-image-side p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        line-height: 1.8;
+        text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+        margin-bottom: 30px;
+    }
+
+    .register-benefits {
+        text-align: left;
+        margin-top: 30px;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 18px;
+        font-size: 1rem;
+    }
+
+    .benefit-item i {
+        color: #FFD280;
+        margin-right: 12px;
+        font-size: 1.2rem;
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+
+    /* Right side - Form */
+    .register-form-side {
+        flex: 1;
+        background: white;
+        padding: 50px 60px;
+        overflow-y: auto;
+    }
+
+    .register-form-container {
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .register-header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .register-header h2 {
+        font-family: 'Merriweather', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+    }
+
+    .register-header p {
+        color: #666;
+        font-size: 1.05rem;
+    }
+
+    /* Progress indicator */
+    .progress-steps {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        position: relative;
+    }
+
+    .progress-steps::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #e0e0e0;
+        z-index: 0;
+    }
+
+    .progress-step {
+        text-align: center;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+    }
+
+    .progress-step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-weight: 700;
+        color: #999;
+        transition: all 0.3s ease;
+    }
+
+    .progress-step.active .progress-step-circle {
+        background: linear-gradient(135deg, #FF9933, #FF7828);
+        border-color: #FF9933;
+        color: white;
+    }
+
+    .progress-step-label {
+        font-size: 0.85rem;
+        color: #999;
+        font-weight: 500;
+    }
+
+    .progress-step.active .progress-step-label {
+        color: #FF7828;
+        font-weight: 600;
+    }
+
+    /* Section styling */
+    .form-section {
+        margin-bottom: 45px;
+        padding: 30px;
+        background: #f8f9fa;
+        border-radius: 15px;
+        border-left: 4px solid #FF9933;
+    }
+
+    .section-title {
+        font-family: 'Merriweather', serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+    }
+
+    .section-title i {
+        color: #FF7828;
+        margin-right: 12px;
+        font-size: 1.3rem;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+        display: block;
+    }
+
+    .form-label .required {
+        color: #FF7828;
+        margin-left: 4px;
+    }
+
+    .form-control, .form-select {
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #FF9933;
+        box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: #aaa;
+    }
+
+    .form-text {
+        font-size: 0.85rem;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .alert {
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 25px;
+        border: none;
+    }
+
+    .alert-danger {
+        background: #fee;
+        color: #c33;
+    }
+
+    /* GPS Button */
+    .btn-gps {
+        background: linear-gradient(135deg, #17a2b8, #138496);
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+    }
+
+    .btn-gps:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(23, 162, 184, 0.5);
+        color: white;
+    }
+
+    /* Submit button */
+    .btn-register {
+        background: linear-gradient(135deg, #FF9933, #FF7828);
+        border: none;
+        color: white;
+        padding: 16px 30px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 12px;
+        width: 100%;
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 25px rgba(255, 120, 40, 0.3);
+        margin-top: 20px;
+    }
+
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 35px rgba(255, 120, 40, 0.5);
+        background: linear-gradient(135deg, #FFB347, #FF9933);
+        color: white;
+    }
+
+    .btn-register:active {
+        transform: translateY(0);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .login-link a {
+        color: #FF7828;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .login-link a:hover {
+        color: #FF9933;
+        text-decoration: underline;
+    }
+
+    .back-home {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back-home a {
+        color: #999;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .back-home a:hover {
+        color: #FF7828;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .register-image-side {
+            flex: 0 0 35%;
+            padding: 40px 30px;
+        }
+
+        .register-image-side h1 {
+            font-size: 2rem;
+        }
+
+        .register-form-side {
+            padding: 40px 40px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .register-container {
+            flex-direction: column;
+        }
+
+        .register-image-side {
+            position: relative;
+            height: auto;
+            min-height: 50vh;
+            flex: none;
+            padding: 40px 30px;
+        }
+
+        .register-benefits {
+            display: none;
+        }
+
+        .register-form-side {
+            padding: 40px 30px;
+        }
+
+        .register-header h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .register-form-side {
+            padding: 30px 20px;
+        }
+
+        .register-image-side {
+            padding: 30px 20px;
+        }
+
+        .form-section {
+            padding: 20px;
+        }
+
+        .progress-steps {
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .progress-step {
+            flex: 0 0 calc(50% - 7.5px);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'partials/lang_switch_fixed.html' %}
+<div class="register-container">
+    <!-- Left Side - Image and Benefits -->
+    <div class="register-image-side">
+        <div class="register-image-content">
+            <div class="register-logo">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>{% trans "Join CattleCare AI" %}</h1>
+            <p>{% trans "Register now and protect your livestock with AI-powered disease prediction" %}</p>
+            
+            <div class="register-benefits">
+                <div class="benefit-item">
+                    <i class="fas fa-shield-check"></i>
+                    <span>{% trans "Predict diseases early with 95% accuracy" %}</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-pills"></i>
+                    <span>{% trans "Get instant treatment recommendations" %}</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-user-md"></i>
+                    <span>{% trans "Connect with qualified veterinarians" %}</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>{% trans "Track your cattle health history" %}</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-bell"></i>
+                    <span>{% trans "Receive disease outbreak alerts" %}</span>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>{% trans "24/7 access from anywhere" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side - Registration Form -->
+    <div class="register-form-side">
+        <div class="register-form-container">
+            <div class="register-header">
+                <h2>{% trans "Farmer Registration" %}</h2>
+                <p>{% trans "Fill in your details to create your account" %}</p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-step active">
+                    <div class="progress-step-circle">1</div>
+                    <div class="progress-step-label">{% trans "Account" %}</div>
+                </div>
+                <div class="progress-step active">
+                    <div class="progress-step-circle">2</div>
+                    <div class="progress-step-label">{% trans "Personal" %}</div>
+                </div>
+                <div class="progress-step active">
+                    <div class="progress-step-circle">3</div>
+                    <div class="progress-step-label">{% trans "Location" %}</div>
+                </div>
+                <div class="progress-step active">
+                    <div class="progress-step-circle">4</div>
+                    <div class="progress-step-label">{% trans "Farm" %}</div>
+                </div>
+            </div>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" id="farmerRegistrationForm" novalidate>
+                {% csrf_token %}
+                
+                <!-- Account Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-user-circle"></i> {% trans "Account Information" %}
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">
+                            {% trans "Username" %} <span class="required">*</span>
+                        </label>
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                            <span class="text-danger">{{ form.username.errors.0 }}</span>
+                        {% endif %}
+                        {% if form.username.help_text %}
+                            <small class="form-text">{{ form.username.help_text }}</small>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}" class="form-label">
+                                    {% trans "Password" %} <span class="required">*</span>
+                                </label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    <span class="text-danger">{{ form.password.errors.0 }}</span>
+                                {% endif %}
+                                {% if form.password.help_text %}
+                                    <small class="form-text">{{ form.password.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.password_confirm.id_for_label }}" class="form-label">
+                                    {% trans "Confirm Password" %} <span class="required">*</span>
+                                </label>
+                                {{ form.password_confirm }}
+                                {% if form.password_confirm.errors %}
+                                    <span class="text-danger">{{ form.password_confirm.errors.0 }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-id-card"></i> {% trans "Personal Information" %}
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.full_name.id_for_label }}" class="form-label">
+                            {% trans "Full Name" %} <span class="required">*</span>
+                        </label>
+                        {{ form.full_name }}
+                        {% if form.full_name.errors %}
+                            <span class="text-danger">{{ form.full_name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.phone_number.id_for_label }}" class="form-label">
+                            {% trans "Phone Number" %} <span class="required">*</span>
+                        </label>
+                        {{ form.phone_number }}
+                        {% if form.phone_number.errors %}
+                            <span class="text-danger">{{ form.phone_number.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                            {% trans "Email" %} <span class="required">*</span>
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <span class="text-danger">{{ form.email.errors.0 }}</span>
+                        {% endif %}
+                        {% if form.email.help_text %}
+                            <small class="form-text">{{ form.email.help_text }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Location Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i> {% trans "Location Information" %}
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.province.id_for_label }}" class="form-label">
+                                    {% trans "Province" %} <span class="required">*</span>
+                                </label>
+                                {{ form.province }}
+                                {% if form.province.errors %}
+                                    <span class="text-danger">{{ form.province.errors.0 }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.district.id_for_label }}" class="form-label">
+                                    {% trans "District" %} <span class="required">*</span>
+                                </label>
+                                {{ form.district }}
+                                {% if form.district.errors %}
+                                    <span class="text-danger">{{ form.district.errors.0 }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.latitude.id_for_label }}" class="form-label">
+                                    {% trans "Latitude (Optional)" %}
+                                </label>
+                                {{ form.latitude }}
+                                {% if form.latitude.errors %}
+                                    <span class="text-danger">{{ form.latitude.errors.0 }}</span>
+                                {% endif %}
+                                {% if form.latitude.help_text %}
+                                    <small class="form-text">{{ form.latitude.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.longitude.id_for_label }}" class="form-label">
+                                    Longitude (Optional)
+                                </label>
+                                {{ form.longitude }}
+                                {% if form.longitude.errors %}
+                                    <span class="text-danger">{{ form.longitude.errors.0 }}</span>
+                                {% endif %}
+                                {% if form.longitude.help_text %}
+                                    <small class="form-text">{{ form.longitude.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-gps get-location">
+                            <i class="fas fa-map-marker-alt"></i> {% trans "Get My GPS Location Automatically" %}
+                        </button>
+                        <small class="form-text d-block mt-2">{% trans "Click to automatically capture your GPS coordinates" %}</small>
+                    </div>
+                </div>
+                
+                <!-- Farm Information Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-cow"></i> {% trans "Farm Information" %}
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.cattle_breed.id_for_label }}" class="form-label">
+                                    {% trans "Cattle Breed" %} <span class="required">*</span>
+                                </label>
+                                {{ form.cattle_breed }}
+                                {% if form.cattle_breed.errors %}
+                                    <span class="text-danger">{{ form.cattle_breed.errors.0 }}</span>
+                                {% endif %}
+                                {% if form.cattle_breed.help_text %}
+                                    <small class="form-text">{{ form.cattle_breed.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.number_of_cattle.id_for_label }}" class="form-label">
+                                    {% trans "Number of Cattle" %} <span class="required">*</span>
+                                </label>
+                                {{ form.number_of_cattle }}
+                                {% if form.number_of_cattle.errors %}
+                                    <span class="text-danger">{{ form.number_of_cattle.errors.0 }}</span>
+                                {% endif %}
+                                {% if form.number_of_cattle.help_text %}
+                                    <small class="form-text">{{ form.number_of_cattle.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Display form-level errors -->
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-register">
+                    <i class="fas fa-user-check"></i> {% trans "Complete Registration" %}
+                </button>
+                
+                <div class="login-link">
+                    <p>{% trans "Already have an account?" %} <a href="{% url 'accounts:login' %}">{% trans "Sign in here" %}</a></p>
+                </div>
+
+                <div class="back-home">
+                    <a href="{% url 'landing:home' %}">
+                        <i class="fas fa-arrow-left"></i> {% trans "Back to Home" %}
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+# Rename this file to .env (or create a new file named .env) and fill in your real values.
+# Then restart the server. After that, Ree and all other users will receive password reset emails.
+
+EMAIL_HOST_USER=your_gmail@gmail.com
+EMAIL_HOST_PASSWORD=your_16_character_app_password

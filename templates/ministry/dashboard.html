@@ -1,0 +1,1833 @@
+{% load static %}
+{% load i18n %}
+{% load cattle_i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Ministry Dashboard - CattleCare AI" %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Full viewport background - no blur, brighter so image is clearer */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('{% static "images/ChatGPT Image Feb 10, 2026, 02_04_18 PM.png" %}') center center / cover no-repeat;
+            filter: brightness(1.25);
+            -webkit-filter: brightness(1.25);
+            z-index: -2;
+        }
+
+        /* Light overlay - does not hide the image */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(255, 252, 248, 0.2) 0%, 
+                rgba(255, 250, 245, 0.25) 50%,
+                rgba(254, 248, 242, 0.18) 100%);
+            z-index: -1;
+        }
+
+        /* Main dashboard wrapper - full viewport */
+        .dashboard-wrapper {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 0;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar - opaque so text is clear, no blur */
+        .sidebar {
+            width: 220px;
+            background: rgba(255, 255, 255, 0.92);
+            border-right: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.06);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar:hover {
+            background: rgba(255, 255, 255, 0.96);
+        }
+
+        .sidebar-brand {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .sidebar-brand-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .sidebar-search {
+            padding: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 8px 12px 8px 34px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .sidebar-search i {
+            position: absolute;
+            left: 26px;
+            top: 26px;
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .sidebar-menu {
+            padding: 12px 0;
+            flex: 1;
+        }
+
+        .menu-title {
+            padding: 8px 16px 6px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            color: #495057;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.25s ease;
+            margin: 2px 8px;
+            border-radius: 8px;
+        }
+
+        .menu-item:hover {
+            background: rgba(102, 126, 234, 0.12);
+            color: #667eea;
+            transform: translateX(4px);
+            padding-left: 20px;
+        }
+
+        .menu-item.active {
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.20) 0%, rgba(102, 126, 234, 0.10) 100%);
+            color: #667eea;
+            font-weight: 600;
+            border-left: 3px solid #667eea;
+            padding-left: 13px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+        }
+
+        .menu-item.active i {
+            color: #667eea;
+        }
+
+        .menu-item i {
+            width: 18px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .menu-badge {
+            margin-left: auto;
+            background: #667eea;
+            color: white;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: auto;
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar-user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sidebar-user-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sidebar-user-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .sidebar-user-email {
+            font-size: 10px;
+            color: #6c757d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Main content area - transparent so background image is clear */
+        .main-content {
+            flex: 1;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Bar - opaque so text is clear */
+        .topbar {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.88);
+        }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .topbar-btn:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .topbar-btn-badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #dc3545;
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .topbar-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .topbar-user {
+            position: relative;
+        }
+
+        .topbar-user:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .topbar-user-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .admin-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            min-width: 180px;
+            padding: 8px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .admin-dropdown.show {
+            display: block;
+        }
+
+        .admin-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: #495057;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .admin-dropdown-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        .admin-dropdown-item i {
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Area */
+        .main-area {
+            padding: 24px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .tab {
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6c757d;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.25s ease;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .tab.active {
+            color: #667eea;
+            font-weight: 700;
+            border-bottom-color: #667eea;
+            background: rgba(102, 126, 234, 0.08);
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.96);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stat-title {
+            font-size: 12px;
+            color: #495057;
+            font-weight: 600;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .stat-menu {
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .stat-trend.up {
+            color: #28a745;
+        }
+
+        .stat-trend.down {
+            color: #dc3545;
+        }
+
+        .stat-trend i {
+            font-size: 8px;
+        }
+
+        .stat-chart {
+            margin-top: 12px;
+            height: 50px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+        }
+
+        .stat-bar {
+            flex: 1;
+            background: rgba(102, 126, 234, 0.15);
+            border-radius: 3px 3px 0 0;
+            min-height: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-bar:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-bar.active {
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 -2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-bar.active:hover {
+            background: linear-gradient(180deg, #7c8ff0 0%, #8a5bb8 100%);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        /* Chart Card - opaque so text/charts are clear */
+        .chart-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .chart-card:hover {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .chart-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-dropdown {
+            padding: 6px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+        }
+
+        .chart-area {
+            height: 260px;
+            position: relative;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        /* Donut Card - opaque so text is clear */
+        .donut-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .donut-card:hover {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .donut-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .donut-chart {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 20px;
+        }
+
+        .donut-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .donut-legend-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .donut-legend-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #495057;
+        }
+
+        .donut-legend-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .donut-legend-percent {
+            font-size: 12px;
+            color: #6c757d;
+            margin-left: 4px;
+        }
+
+        .donut-view-details {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .donut-view-details a {
+            color: #667eea;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        /* Table Card - opaque so text is clear */
+        .table-card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .table-card:hover {
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Recent cases toolbar panel */
+        .cases-toolbar-panel {
+            display: none;
+            margin: 10px 0 4px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: rgba(248, 249, 250, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .cases-toolbar-panel.show {
+            display: block;
+        }
+
+        .cases-toolbar-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .cases-toolbar-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-right: 4px;
+        }
+
+        .cases-toolbar-panel input[type="text"],
+        .cases-toolbar-panel select {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            font-size: 12px;
+            background: white;
+        }
+
+        .cases-toolbar-actions {
+            margin-left: auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-mini {
+            padding: 7px 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-mini-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-mini-outline {
+            background: transparent;
+            color: #495057;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .btn-mini-outline:hover {
+            background: rgba(102, 126, 234, 0.06);
+            border-color: rgba(102, 126, 234, 0.4);
+        }
+
+        /* More menu for recent cases */
+        .cases-more-wrapper {
+            position: relative;
+        }
+
+        .cases-more-menu {
+            position: absolute;
+            top: 110%;
+            right: 0;
+            min-width: 190px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 6px 0;
+            z-index: 50;
+            display: none;
+        }
+
+        .cases-more-menu.show {
+            display: block;
+        }
+
+        .cases-more-item {
+            padding: 8px 14px;
+            font-size: 13px;
+            color: #495057;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .cases-more-item:hover {
+            background: rgba(102, 126, 234, 0.08);
+            color: #667eea;
+        }
+
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .table-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .table-action-btn {
+            padding: 6px 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .table-action-btn:hover {
+            background: rgba(102, 126, 234, 0.12);
+            border-color: rgba(102, 126, 234, 0.4);
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table thead th {
+            text-align: left;
+            padding: 10px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .data-table tbody td {
+            padding: 14px 12px;
+            font-size: 13px;
+            color: #333;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background: rgba(248, 249, 250, 0.3);
+        }
+
+        .data-table tbody tr {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.12);
+            transform: translateX(4px);
+            box-shadow: -3px 0 0 #667eea;
+        }
+
+        .table-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .table-badge.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+        }
+
+        .table-badge.warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: #f39c12;
+        }
+
+        .table-badge.info {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+        }
+
+        /* Loading skeleton */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        .skeleton {
+            animation: shimmer 2s infinite;
+            background: linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 100%);
+            background-size: 1000px 100%;
+        }
+
+        /* Export button style */
+        button.chart-dropdown {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            transition: all 0.25s ease;
+        }
+
+        button.chart-dropdown:hover {
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            transform: scale(1.1);
+        }
+
+        button.chart-dropdown i {
+            font-size: 13px;
+        }
+
+        /* Smooth scrollbar */
+        .main-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-area::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .main-area::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.3);
+            border-radius: 4px;
+        }
+
+        .main-area::-webkit-scrollbar-thumb:hover {
+            background: rgba(102, 126, 234, 0.5);
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-wrapper {
+                flex-direction: column;
+                width: 98%;
+                margin: 10px auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-radius: 16px 16px 0 0;
+                border-right: 1px solid rgba(255, 255, 255, 0.5);
+            }
+
+            .main-content {
+                border-radius: 0 0 16px 16px;
+                border-left: 1px solid rgba(255, 255, 255, 0.5);
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Wrapper - Centered Container -->
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="sidebar-brand-text">CattleCare AI</div>
+            </div>
+
+            <div class="sidebar-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="{% trans 'Search farmers, vets, cases...' %}" id="globalSearch">
+            </div>
+
+            <div class="sidebar-menu">
+                <div class="menu-title">{% trans "Main Menu" %}</div>
+                <a href="{% url 'ministry:dashboard' %}" class="menu-item active">
+                    <i class="fas fa-home"></i>
+                    <span>{% trans "Dashboard" %}</span>
+                </a>
+                <a href="{% url 'ministry:farmers_list' %}" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>{% trans "Farmers" %}</span>
+                    <span class="menu-badge">{{ total_farmers }}</span>
+                </a>
+                <a href="{% url 'ministry:vets_list' %}" class="menu-item">
+                    <i class="fas fa-user-md"></i>
+                    <span>{% trans "Veterinarians" %}</span>
+                </a>
+                <a href="{% url 'ministry:cases_overview' %}" class="menu-item">
+                    <i class="fas fa-folder"></i>
+                    <span>{% trans "Cases" %}</span>
+                </a>
+
+                <div class="menu-title">{% trans "Management" %}</div>
+                <a href="{% url 'ministry:vet_applications' %}" class="menu-item">
+                    <i class="fas fa-file-alt"></i>
+                    <span>{% trans "Applications" %}</span>
+                    {% if pending_applications > 0 %}
+                    <span class="menu-badge">{{ pending_applications }}</span>
+                    {% endif %}
+                </a>
+                <a href="{% url 'ministry:analytics' %}" class="menu-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>{% trans "Analytics" %}</span>
+                </a>
+                <a href="{% url 'ministry:reports' %}" class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>{% trans "Reports" %}</span>
+                </a>
+                <a href="{% url 'maps:disease_map' %}" class="menu-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>{% trans "Disease Map" %}</span>
+                </a>
+                <a href="{% url 'ministry:notifications' %}" class="menu-item">
+                    <i class="fas fa-bell"></i>
+                    <span>{% trans "Notifications" %}</span>
+                    {% if pending_applications or critical_cases %}
+                    <span class="menu-badge">{{ pending_applications|add:critical_cases }}</span>
+                    {% endif %}
+                </a>
+
+                <div class="menu-title">{% trans "Preferences" %}</div>
+                <a href="{% url 'ministry:settings' %}" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>{% trans "Settings" %}</span>
+                </a>
+                <a href="{% url 'accounts:logout' %}" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>{% trans "Logout" %}</span>
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar">
+                        {{ request.user.first_name.0|upper }}{{ request.user.last_name.0|upper }}
+                    </div>
+                    <div class="sidebar-user-info">
+                        <div class="sidebar-user-name">{{ request.user.get_full_name|truncatewords:2 }}</div>
+                        <div class="sidebar-user-email">{{ request.user.email|truncatewords:1 }}</div>
+                    </div>
+                    <i class="fas fa-ellipsis-v" style="color: #6c757d; cursor: pointer; font-size: 12px;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="topbar-title">{% trans "Dashboard" %}</div>
+                <div class="topbar-actions">
+                <button class="topbar-btn" onclick="refreshDashboard()" title="{% trans 'Refresh' %}">
+                    <i class="fas fa-sync-alt" id="refreshIcon"></i>
+                </button>
+                <a href="{% url 'ministry:settings' %}" class="topbar-btn" title="{% trans 'Settings' %}"><i class="fas fa-cog"></i></a>
+                <div class="topbar-btn" style="cursor:pointer;position:relative;" id="notificationDropdownTrigger" title="{% trans 'Notifications' %}">
+                    <i class="fas fa-bell"></i>
+                    {% if pending_applications or critical_cases %}
+                    <span class="topbar-btn-badge">{{ pending_applications|add:critical_cases }}</span>
+                    {% endif %}
+                    <div class="notification-dropdown" id="notificationDropdown" style="position:absolute;top:100%;right:0;margin-top:8px;background:rgba(255,255,255,0.98);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);border:1px solid rgba(0,0,0,0.06);min-width:260px;padding:8px;z-index:1000;display:none;">
+                        <div style="padding:8px 12px 12px;font-weight:600;font-size:12px;color:#6c757d;text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,0.06);">{% trans "Notifications" %}</div>
+                        {% if pending_applications > 0 %}
+                        <a href="{% url 'ministry:vet_applications' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:#495057;text-decoration:none;font-size:13px;border-radius:6px;">
+                            <i class="fas fa-file-alt" style="color:#f59e0b;"></i>
+                            <span>{% blocktrans count counter=pending_applications %}{{ counter }} new vet application{% plural %}{{ counter }} new vet applications{% endblocktrans %}</span>
+                        </a>
+                        {% endif %}
+                        {% if critical_cases > 0 %}
+                        <a href="{% url 'ministry:reports' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:#495057;text-decoration:none;font-size:13px;border-radius:6px;">
+                            <i class="fas fa-exclamation-triangle" style="color:#dc3545;"></i>
+                            <span>{% blocktrans count counter=critical_cases %}{{ counter }} critical case needs attention{% plural %}{{ counter }} critical cases need attention{% endblocktrans %}</span>
+                        </a>
+                        {% endif %}
+                        {% if not pending_applications and not critical_cases %}
+                        <div style="padding:10px 12px;color:#6c757d;font-size:13px;">
+                            <i class="fas fa-check-circle" style="color:#28a745;margin-right:8px;"></i>{% trans "No new notifications" %}
+                        </div>
+                        {% endif %}
+                        <div style="padding:8px 12px;border-top:1px solid rgba(0,0,0,0.06);">
+                            <a href="{% url 'ministry:notifications' %}" style="font-size:12px;font-weight:600;color:#667eea;text-decoration:none;">{% trans "View all notifications" %}</a>
+                        </div>
+                    </div>
+                </div>
+                    <div class="topbar-user" id="adminDropdownTrigger">
+                        <span class="topbar-user-text">{% trans "Admin" %}</span>
+                        <i class="fas fa-chevron-down" style="font-size: 10px; color: #6c757d;"></i>
+                        <div class="admin-dropdown" id="adminDropdown">
+                            <a href="{% url 'accounts:logout' %}" class="admin-dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i> {% trans "Logout" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Area -->
+            <div class="main-area">
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active">Overview</div>
+                    <div class="tab" onclick="window.location.href='{% url 'ministry:analytics' %}'">Analytics</div>
+                    <div class="tab" onclick="window.location.href='{% url 'ministry:reports' %}'">Reports</div>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">{% trans "Total Farmers" %}</div>
+                            <div class="stat-menu"><i class="fas fa-ellipsis-h"></i></div>
+                        </div>
+                        <div class="stat-value">{{ total_farmers|default:"0" }}</div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-users"></i>
+                            <span>{% trans "Registered farmers" %}</span>
+                        </div>
+                        <div class="stat-chart">
+                            <div class="stat-bar" style="height: 30%;"></div>
+                            <div class="stat-bar" style="height: 40%;"></div>
+                            <div class="stat-bar" style="height: 25%;"></div>
+                            <div class="stat-bar" style="height: 50%;"></div>
+                            <div class="stat-bar" style="height: 35%;"></div>
+                            <div class="stat-bar active" style="height: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">Approved Vets</div>
+                            <div class="stat-menu"><i class="fas fa-ellipsis-h"></i></div>
+                        </div>
+                        <div class="stat-value">{{ total_vets|default:"0" }}</div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-user-md"></i>
+                            <span>{% trans "Approved veterinarians" %}</span>
+                        </div>
+                        <div class="stat-chart">
+                            <div class="stat-bar" style="height: 30%;"></div>
+                            <div class="stat-bar" style="height: 40%;"></div>
+                            <div class="stat-bar" style="height: 25%;"></div>
+                            <div class="stat-bar" style="height: 50%;"></div>
+                            <div class="stat-bar" style="height: 35%;"></div>
+                            <div class="stat-bar active" style="height: 80%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-title">{% trans "Total Cases" %}</div>
+                            <div class="stat-menu"><i class="fas fa-ellipsis-h"></i></div>
+                        </div>
+                        <div class="stat-value">{{ total_cases|default:"0" }}</div>
+                        <div class="stat-trend up">
+                            <i class="fas fa-stethoscope"></i>
+                            <span>{{ pending_cases }} pending</span>
+                        </div>
+                        <div class="stat-chart">
+                            <div class="stat-bar" style="height: 30%;"></div>
+                            <div class="stat-bar" style="height: 40%;"></div>
+                            <div class="stat-bar" style="height: 25%;"></div>
+                            <div class="stat-bar" style="height: 50%;"></div>
+                            <div class="stat-bar" style="height: 35%;"></div>
+                            <div class="stat-bar active" style="height: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Chart Card -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <div class="chart-title">{% trans "Case Forecast" %}</div>
+                            <div class="chart-controls">
+                                <button class="chart-dropdown" onclick="exportChart()" title="{% trans 'Export chart' %}">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <select class="chart-dropdown">
+                                    <option>Monthly</option>
+                                    <option>Weekly</option>
+                                    <option>Yearly</option>
+                                </select>
+                                <div class="stat-menu" style="cursor: pointer;"><i class="fas fa-ellipsis-h"></i></div>
+                            </div>
+                        </div>
+                        <div class="chart-area">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #8b5cf6;"></div>
+                                <span>{% trans "Critical cases" %}</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #f59e0b;"></div>
+                                <span>{% trans "Pending cases" %}</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: #3b82f6;"></div>
+                                <span>{% trans "Resolved cases" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donut Card -->
+                    <div class="donut-card">
+                        <div class="donut-header">
+                            <div class="chart-title">Cases by Province</div>
+                            <button class="chart-dropdown" onclick="exportDonut()" title="{% trans 'Export chart' %}">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <div class="stat-menu" style="cursor: pointer;"><i class="fas fa-ellipsis-h"></i></div>
+                        </div>
+                        <div class="donut-chart">
+                            <canvas id="donutChart"></canvas>
+                        </div>
+                        <div class="donut-legend">
+                            {% for item in province_stats %}
+                            <div class="donut-legend-item">
+                                <div class="donut-legend-label">
+                                    <div class="legend-dot" style="background: {% if forloop.counter == 1 %}#f97316{% elif forloop.counter == 2 %}#a855f7{% elif forloop.counter == 3 %}#3b82f6{% else %}#10b981{% endif %}; width: 10px; height: 10px;"></div>
+                                    <span>{% if item.farmer__province %}{{ item.farmer__province }}{% else %}{% trans "Unknown" %}{% endif %}</span>
+                                </div>
+                                <div>
+                                    <span class="donut-legend-value">{{ item.count }}</span>
+                                    {% if total_cases > 0 %}<span class="donut-legend-percent">{% widthratio item.count total_cases 100 %}%</span>{% endif %}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="donut-legend-item">
+                                <span style="color: #6c757d;">{% trans "No case data by province yet." %}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="donut-view-details">
+                            <a href="{% url 'ministry:cases_overview' %}">{% trans "View all cases" %}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Card -->
+                <div class="table-card">
+                    <div class="table-header">
+                        <div class="table-title">{% trans "Recent Cases" %}</div>
+                        <div class="table-actions">
+                            <button class="table-action-btn" id="casesSearchBtn">
+                                <i class="fas fa-search"></i>
+                                <span>Search data</span>
+                            </button>
+                            <button class="table-action-btn" id="casesSortBtn">
+                                <i class="fas fa-sort"></i>
+                                <span>Sort by</span>
+                            </button>
+                            <button class="table-action-btn" id="casesFilterBtn">
+                                <i class="fas fa-filter"></i>
+                                <span>Filter</span>
+                            </button>
+                            <div class="cases-more-wrapper">
+                                <button class="table-action-btn" id="casesMoreBtn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <div class="cases-more-menu" id="casesMoreMenu">
+                                    <div class="cases-more-item" id="casesOpenFull">
+                                        <i class="fas fa-table"></i>
+                                        <span>{% trans "Open full cases page" %}</span>
+                                    </div>
+                                    <div class="cases-more-item" id="casesExportCsv">
+                                        <i class="fas fa-file-export"></i>
+                                        <span>{% trans "Export this table (CSV)" %}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inline toolbar panel for search / sort / filter -->
+                    <div class="cases-toolbar-panel" id="casesToolbarPanel">
+                        <form id="casesToolbarForm" onsubmit="return false;">
+                            <div class="cases-toolbar-row">
+                                <div>
+                                    <span class="cases-toolbar-label">Search</span>
+                                    <input type="text" id="casesSearchInput" placeholder="Farmer or disease">
+                                </div>
+                                <div>
+                                    <span class="cases-toolbar-label">Sort</span>
+                                    <select id="casesSortSelect">
+                                        <option value="date_desc">Date created (newest first)</option>
+                                        <option value="date_asc">Date created (oldest first)</option>
+                                        <option value="disease_az">Disease (A → Z)</option>
+                                        <option value="stage">Stage</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span class="cases-toolbar-label">Stage</span>
+                                    <select id="casesStageSelect">
+                                        <option value="">All</option>
+                                        <option value="new">{% trans "New" %}</option>
+                                        <option value="assigned">Assigned</option>
+                                        <option value="resolved">Resolved</option>
+                                    </select>
+                                </div>
+                                <div class="cases-toolbar-actions">
+                                    <button type="button" class="btn-mini btn-mini-primary" id="casesApplyBtn">
+                                        Apply
+                                    </button>
+                                    <button type="button" class="btn-mini btn-mini-outline" id="casesResetBtn">
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    {% if recent_cases %}
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Case name" %}</th>
+                                <th>{% trans "Farmer" %}</th>
+                                <th>{% trans "Disease" %}</th>
+                                <th>{% trans "Date created" %}</th>
+                                <th>{% trans "Province" %}</th>
+                                <th>{% trans "Stage" %}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for case in recent_cases %}
+                            <tr>
+                                <td style="font-weight: 600;">Case #{{ case.id }}</td>
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 600;">
+                                            {{ case.farmer.full_name.0|upper }}
+                                        </div>
+                                        <span>{{ case.farmer.full_name }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                                <td>{{ case.created_at|date:"M d, Y" }}</td>
+                                <td>{{ case.farmer.province }}</td>
+                                <td>
+                                    {% if case.status == 'RESOLVED' or case.status == 'CLOSED' %}
+                                    <span class="table-badge success">
+                                        <i class="fas fa-check"></i> {{ case.status|local_case_status }}
+                                    </span>
+                                    {% elif case.status == 'ASSIGNED' %}
+                                    <span class="table-badge info">
+                                        <i class="fas fa-clock"></i> {{ case.status|local_case_status }}
+                                    </span>
+                                    {% else %}
+                                    <span class="table-badge warning">
+                                        <i class="fas fa-circle"></i> {{ case.status|local_case_status }}
+                                    </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <i class="fas fa-ellipsis-h" style="color: #6c757d; cursor: pointer;"></i>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p style="text-align: center; padding: 40px; color: #6c757d;">{% trans "No cases reported yet." %}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% trans "Chart exported successfully!" as ministry_t_chart_ok %}
+    {% trans "Refreshing dashboard data..." as ministry_t_refreshing %}
+    {% trans "Dashboard refreshed successfully!" as ministry_t_refreshed %}
+    {% trans "Recent cases exported as CSV." as ministry_t_csv %}
+    {% trans "Value:" as ministry_t_value %}
+    {% trans "Case" as ministry_csv_case %}
+    {% trans "Farmer" as ministry_csv_farmer %}
+    {% trans "Disease" as ministry_csv_disease %}
+    {% trans "Date" as ministry_csv_date %}
+    {% trans "Province" as ministry_csv_province %}
+    {% trans "Stage" as ministry_csv_stage %}
+    <script>
+        window.MINISTRY_I18N = {
+            chartExported: "{{ ministry_t_chart_ok|escapejs }}",
+            refreshing: "{{ ministry_t_refreshing|escapejs }}",
+            refreshed: "{{ ministry_t_refreshed|escapejs }}",
+            csvExported: "{{ ministry_t_csv|escapejs }}",
+            valuePrefix: "{{ ministry_t_value|escapejs }}",
+            noData: "{{ ministry_no_data|escapejs }}",
+            chartCritical: "{% filter escapejs %}{% trans "Critical cases" %}{% endfilter %}",
+            chartPending: "{% filter escapejs %}{% trans "Pending cases" %}{% endfilter %}",
+            chartResolved: "{% filter escapejs %}{% trans "Resolved cases" %}{% endfilter %}",
+            monthJan: "{% filter escapejs %}{% trans "Jan" %}{% endfilter %}",
+            monthFeb: "{% filter escapejs %}{% trans "Feb" %}{% endfilter %}",
+            monthMar: "{% filter escapejs %}{% trans "Mar" %}{% endfilter %}",
+            monthApr: "{% filter escapejs %}{% trans "Apr" %}{% endfilter %}",
+            monthMay: "{% filter escapejs %}{% trans "May" %}{% endfilter %}",
+            monthJun: "{% filter escapejs %}{% trans "Jun" %}{% endfilter %}",
+            monthJul: "{% filter escapejs %}{% trans "Jul" %}{% endfilter %}",
+            monthAug: "{% filter escapejs %}{% trans "Aug" %}{% endfilter %}",
+            monthSep: "{% filter escapejs %}{% trans "Sep" %}{% endfilter %}",
+            monthOct: "{% filter escapejs %}{% trans "Oct" %}{% endfilter %}",
+            monthNov: "{% filter escapejs %}{% trans "Nov" %}{% endfilter %}",
+            monthDec: "{% filter escapejs %}{% trans "Dec" %}{% endfilter %}",
+            csvCase: "{{ ministry_csv_case|escapejs }}",
+            csvFarmer: "{{ ministry_csv_farmer|escapejs }}",
+            csvDisease: "{{ ministry_csv_disease|escapejs }}",
+            csvDate: "{{ ministry_csv_date|escapejs }}",
+            csvProvince: "{{ ministry_csv_province|escapejs }}",
+            csvStage: "{{ ministry_csv_stage|escapejs }}"
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Admin dropdown toggle
+        document.getElementById('adminDropdownTrigger').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('adminDropdown').classList.toggle('show');
+            var nd = document.getElementById('notificationDropdown');
+            if (nd) nd.style.display = 'none';
+        });
+        var notifEl = document.getElementById('notificationDropdownTrigger');
+        if (notifEl) {
+            notifEl.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var nd = document.getElementById('notificationDropdown');
+                if (nd) nd.style.display = nd.style.display === 'block' ? 'none' : 'block';
+                document.getElementById('adminDropdown').classList.remove('show');
+            });
+        }
+        document.addEventListener('click', function() {
+            document.getElementById('adminDropdown').classList.remove('show');
+            var nd = document.getElementById('notificationDropdown');
+            if (nd) nd.style.display = 'none';
+        });
+
+        // Add click handlers for stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const title = this.querySelector('.stat-title').textContent;
+                console.log('Clicked:', title);
+                // You can add navigation or filtering logic here
+            });
+        });
+
+        // Add tooltips to mini chart bars
+        document.querySelectorAll('.stat-bar').forEach((bar, index) => {
+            bar.title = (window.MINISTRY_I18N && window.MINISTRY_I18N.valuePrefix ? window.MINISTRY_I18N.valuePrefix + ' ' : 'Value: ') + (Math.floor(Math.random() * 100) + 1);
+        });
+
+        // Make table rows clickable (log only for now)
+        document.querySelectorAll('.data-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const caseId = this.querySelector('td').textContent;
+                console.log('Viewing case:', caseId);
+            });
+        });
+
+        // Export chart function
+        function exportChart() {
+            const canvas = document.getElementById('lineChart');
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'case-forecast.png';
+            link.href = url;
+            link.click();
+            
+            // Show success message
+            showToast(window.MINISTRY_I18N ? window.MINISTRY_I18N.chartExported : "{{ ministry_t_chart_ok|escapejs }}");
+        }
+
+        // Export donut chart function
+        function exportDonut() {
+            const canvas = document.getElementById('donutChart');
+            const url = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'province-distribution.png';
+            link.href = url;
+            link.click();
+            
+            showToast(window.MINISTRY_I18N ? window.MINISTRY_I18N.chartExported : "{{ ministry_t_chart_ok|escapejs }}");
+        }
+
+        // Simple toast notification
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 24px;
+                right: 24px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                font-weight: 600;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Global search functionality
+        document.getElementById('globalSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            console.log('Searching for:', searchTerm);
+            // Add your search logic here
+            // This could filter the table or redirect to a search results page
+        });
+
+        // Refresh dashboard function
+        function refreshDashboard() {
+            const icon = document.getElementById('refreshIcon');
+            icon.style.animation = 'spin 1s ease';
+            
+            showToast(window.MINISTRY_I18N ? window.MINISTRY_I18N.refreshing : "{{ ministry_t_refreshing|escapejs }}");
+            
+            // Simulate data refresh
+            setTimeout(() => {
+                icon.style.animation = '';
+                showToast(window.MINISTRY_I18N ? window.MINISTRY_I18N.refreshed : "{{ ministry_t_refreshed|escapejs }}");
+                // In real implementation, reload data from server
+                // location.reload(); // or use AJAX to fetch new data
+            }, 1500);
+        }
+
+        // Add keyboard shortcut for search (Ctrl/Cmd + K)
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('globalSearch').focus();
+            }
+        });
+    </script>
+    <script>
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart');
+        if (lineCtx) {
+            new Chart(lineCtx, {
+                type: 'line',
+                data: {
+                    labels: window.MINISTRY_I18N ? [
+                        window.MINISTRY_I18N.monthJan, window.MINISTRY_I18N.monthFeb, window.MINISTRY_I18N.monthMar,
+                        window.MINISTRY_I18N.monthApr, window.MINISTRY_I18N.monthMay, window.MINISTRY_I18N.monthJun,
+                        window.MINISTRY_I18N.monthJul, window.MINISTRY_I18N.monthAug, window.MINISTRY_I18N.monthSep,
+                        window.MINISTRY_I18N.monthOct, window.MINISTRY_I18N.monthNov, window.MINISTRY_I18N.monthDec
+                    ] : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartCritical : 'Critical cases',
+                        data: [{% for v in chart_critical %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartPending : 'Pending cases',
+                        data: [{% for v in chart_pending %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartResolved : 'Resolved cases',
+                        data: [{% for v in chart_resolved %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Donut Chart - Cases by Province
+        const donutCtx = document.getElementById('donutChart');
+        if (donutCtx) {
+            const provinceData = [
+                {% for item in province_stats %}
+                { label: '{% if item.farmer__province %}{{ item.farmer__province|escapejs }}{% else %}{% filter escapejs %}{% trans "Unknown" %}{% endfilter %}{% endif %}', count: {{ item.count }} }{% if not forloop.last %},{% endif %}
+                {% empty %}
+                { label: '{% filter escapejs %}{% trans "No data" %}{% endfilter %}', count: 1 }
+                {% endfor %}
+            ];
+            new Chart(donutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: provinceData.map(d => d.label),
+                    datasets: [{
+                        data: provinceData.map(d => d.count),
+                        backgroundColor: ['#f97316', '#a855f7', '#3b82f6', '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+    <script>
+        // Recent Cases toolbar functionality (search, sort, filter, more)
+        (function() {
+            const table = document.querySelector('.table-card .data-table tbody');
+            if (!table) return;
+
+            const rows = Array.from(table.rows);
+
+            function resetRows() {
+                rows.forEach(row => table.appendChild(row));
+                rows.forEach(row => row.style.display = '');
+            }
+
+            const toolbarPanel = document.getElementById('casesToolbarPanel');
+            const searchInput = document.getElementById('casesSearchInput');
+            const sortSelect = document.getElementById('casesSortSelect');
+            const stageSelect = document.getElementById('casesStageSelect');
+
+            function applyFilters() {
+                const term = (searchInput.value || '').toLowerCase();
+                const stage = (stageSelect.value || '').toLowerCase();
+                const sortMode = sortSelect.value || 'date_desc';
+
+                // Filter by search + stage
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    const stageText = row.cells[5].textContent.toLowerCase();
+                    let visible = true;
+
+                    if (term && !text.includes(term)) {
+                        visible = false;
+                    }
+                    if (visible && stage) {
+                        if (stage === 'new' && !stageText.includes('new')) visible = false;
+                        if (stage === 'assigned' && !stageText.includes('assigned')) visible = false;
+                        if (stage === 'resolved' && !stageText.includes('resolved')) visible = false;
+                    }
+                    row.style.display = visible ? '' : 'none';
+                });
+
+                // Sorting (only visible rows matter)
+                const visibleRows = rows.filter(r => r.style.display !== 'none');
+                const hiddenRows = rows.filter(r => r.style.display === 'none');
+
+                visibleRows.sort((a, b) => {
+                    const cellsA = a.cells;
+                    const cellsB = b.cells;
+
+                    if (sortMode === 'disease_az') {
+                        return cellsA[2].textContent.localeCompare(cellsB[2].textContent);
+                    }
+                    if (sortMode === 'stage') {
+                        return cellsA[5].textContent.localeCompare(cellsB[5].textContent);
+                    }
+                    // Date based
+                    const da = new Date(cellsA[3].textContent);
+                    const db = new Date(cellsB[3].textContent);
+                    if (sortMode === 'date_asc') {
+                        return da - db;
+                    }
+                    // default: newest first
+                    return db - da;
+                });
+
+                // Re-append in new order
+                [...visibleRows, ...hiddenRows].forEach(row => table.appendChild(row));
+            }
+
+            const searchBtn = document.getElementById('casesSearchBtn');
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    toolbarPanel.classList.toggle('show');
+                    if (toolbarPanel.classList.contains('show')) {
+                        searchInput.focus();
+                    }
+                });
+            }
+
+            const sortBtn = document.getElementById('casesSortBtn');
+            if (sortBtn) {
+                sortBtn.addEventListener('click', function() {
+                    toolbarPanel.classList.add('show');
+                    sortSelect.focus();
+                });
+            }
+
+            const filterBtn = document.getElementById('casesFilterBtn');
+            if (filterBtn) {
+                filterBtn.addEventListener('click', function() {
+                    toolbarPanel.classList.add('show');
+                    stageSelect.focus();
+                });
+            }
+
+            const applyBtn = document.getElementById('casesApplyBtn');
+            if (applyBtn) {
+                applyBtn.addEventListener('click', applyFilters);
+            }
+
+            const resetBtn = document.getElementById('casesResetBtn');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    sortSelect.value = 'date_desc';
+                    stageSelect.value = '';
+                    resetRows();
+                });
+            }
+
+            const moreBtn = document.getElementById('casesMoreBtn');
+            const moreMenu = document.getElementById('casesMoreMenu');
+            const openFull = document.getElementById('casesOpenFull');
+            const exportCsv = document.getElementById('casesExportCsv');
+
+            if (moreBtn && moreMenu) {
+                moreBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    moreMenu.classList.toggle('show');
+                });
+                document.addEventListener('click', function() {
+                    moreMenu.classList.remove('show');
+                });
+            }
+
+            if (openFull) {
+                openFull.addEventListener('click', function() {
+                    window.location.href = "{% url 'ministry:cases_overview' %}";
+                });
+            }
+
+            if (exportCsv) {
+                exportCsv.addEventListener('click', function() {
+                    const csvRows = [];
+                    const M = window.MINISTRY_I18N || {};
+                    const headers = [M.csvCase || 'Case', M.csvFarmer || 'Farmer', M.csvDisease || 'Disease', M.csvDate || 'Date', M.csvProvince || 'Province', M.csvStage || 'Stage'];
+                    csvRows.push(headers.join(','));
+
+                    rows.forEach(row => {
+                        const cells = row.cells;
+                        const values = [
+                            cells[0].textContent.trim(),
+                            cells[1].innerText.replace(/\s+/g, ' ').trim(),
+                            cells[2].textContent.trim(),
+                            cells[3].textContent.trim(),
+                            cells[4].textContent.trim(),
+                            cells[5].innerText.replace(/\s+/g, ' ').trim()
+                        ];
+                        csvRows.push(values.map(v => `"${v.replace(/"/g, '""')}"`).join(','));
+                    });
+
+                    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'recent_cases.csv';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    showToast(window.MINISTRY_I18N ? window.MINISTRY_I18N.csvExported : 'Recent cases exported as CSV.');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

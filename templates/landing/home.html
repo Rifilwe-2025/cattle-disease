@@ -1,0 +1,939 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "CattleCare AI - Early Disease Prediction" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Merriweather:wght@700;900&display=swap');
+    
+    body {
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.55) 0%, rgba(35, 25, 15, 0.65) 100%), 
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        color: white;
+        padding: 80px 0 60px;
+        background-position: center center;
+        background-size: cover;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at 30% 50%, rgba(255, 153, 51, 0.12) 0%, transparent 50%),
+                    radial-gradient(circle at 70% 60%, rgba(255, 204, 102, 0.08) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, rgba(255, 153, 51, 0.9), rgba(255, 120, 40, 0.9));
+        backdrop-filter: blur(10px);
+        padding: 12px 28px;
+        border-radius: 50px;
+        margin-bottom: 25px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        border: 2px solid rgba(255, 204, 102, 0.4);
+        box-shadow: 0 8px 25px rgba(255, 120, 40, 0.3);
+        text-transform: uppercase;
+    }
+
+    .hero-section h1 {
+        font-family: 'Merriweather', serif;
+        font-size: 4.8rem;
+        font-weight: 900;
+        line-height: 1.15;
+        margin-bottom: 30px;
+        text-shadow: 4px 4px 12px rgba(0,0,0,0.5), 2px 2px 6px rgba(0,0,0,0.3);
+        letter-spacing: -1px;
+    }
+
+    .hero-highlight {
+        color: #FFD280;
+        display: block;
+        font-size: 5rem;
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(2px 2px 8px rgba(255, 153, 51, 0.4));
+    }
+
+    .hero-section .lead {
+        font-size: 1.35rem;
+        font-weight: 400;
+        line-height: 1.9;
+        margin-bottom: 45px;
+        max-width: 750px;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        color: #f8f8f8;
+    }
+
+    .hero-buttons .btn {
+        padding: 18px 45px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 10px;
+        border-radius: 50px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-transform: none;
+        letter-spacing: 0.5px;
+        box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+    }
+
+    .btn-hero-primary {
+        background: linear-gradient(135deg, #FF9933, #FF7828);
+        border: none;
+        color: white;
+        box-shadow: 0 12px 35px rgba(255, 120, 40, 0.5);
+    }
+
+    .btn-hero-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 45px rgba(255, 120, 40, 0.7);
+        background: linear-gradient(135deg, #FFB347, #FF9933);
+    }
+
+    .btn-hero-outline {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        color: white;
+    }
+
+    .btn-hero-outline:hover {
+        background: rgba(255, 255, 255, 0.95);
+        color: #5D3A1A;
+        transform: translateY(-4px);
+        border-color: white;
+    }
+
+    .hero-stats {
+        margin-top: 70px;
+        display: flex;
+        gap: 60px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-stat-item {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 25px 35px;
+        border-radius: 20px;
+        border: 1px solid rgba(255, 204, 102, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .hero-stat-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(255, 153, 51, 0.3);
+    }
+
+    .hero-stat-number {
+        font-size: 3rem;
+        font-weight: 900;
+        display: block;
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(2px 2px 6px rgba(255, 153, 51, 0.3));
+    }
+
+    .hero-stat-label {
+        font-size: 1rem;
+        opacity: 0.95;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    /* Services Section */
+    .services-section {
+        padding: 100px 0;
+        background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    .section-title {
+        font-family: 'Merriweather', serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 60px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        height: 100%;
+        transition: all 0.4s ease;
+        border: none;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #FF9933, #FFB347);
+        transform: scaleX(0);
+        transition: transform 0.4s ease;
+    }
+
+    .service-card:hover::before {
+        transform: scaleX(1);
+    }
+
+    .service-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .service-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #FFE8CC, #FFD9A6);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+        transition: all 0.4s ease;
+    }
+
+    .service-card:hover .service-icon {
+        transform: scale(1.1) rotate(5deg);
+        background: linear-gradient(135deg, #FF9933, #FFB347);
+    }
+
+    .service-icon i {
+        font-size: 2.5rem;
+        color: #FF7828;
+        transition: all 0.4s ease;
+    }
+
+    .service-card:hover .service-icon i {
+        color: white;
+    }
+
+    .service-card h5 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 15px;
+    }
+
+    .service-card p {
+        color: #666;
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .how-it-works::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100"><path fill="%23ffffff" d="M0,50L60,45C120,40,240,30,360,35C480,40,600,60,720,65C840,70,960,60,1080,50C1200,40,1320,30,1380,25L1440,20L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path></svg>') no-repeat;
+        background-size: cover;
+    }
+
+    .step-card {
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+    }
+
+    .step-number {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #5D3A1A;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .step-card h5 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .step-card p {
+        font-size: 1.05rem;
+        opacity: 0.95;
+        line-height: 1.7;
+    }
+
+    /* For Farmers/Vets Section */
+    .target-audience {
+        padding: 100px 0;
+        background: #ffffff;
+    }
+
+    .audience-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 25px;
+        padding: 60px 40px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        border: 2px solid transparent;
+    }
+
+    .audience-card:hover {
+        border-color: #FF9933;
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .audience-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #FF9933, #FFB347);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .audience-card h3 {
+        font-family: 'Merriweather', serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+    }
+
+    .audience-card .lead {
+        font-size: 1.05rem;
+        color: #555;
+        margin-bottom: 30px;
+        line-height: 1.8;
+    }
+
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 40px;
+    }
+
+    .feature-list li {
+        padding: 12px 0;
+        font-size: 1.05rem;
+        color: #333;
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-list i {
+        color: #FF7828;
+        margin-right: 15px;
+        font-size: 1.2rem;
+    }
+
+    .audience-image {
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        width: 100%;
+        min-height: 500px;
+        max-height: 600px;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Ministry Section */
+    .ministry-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+        position: relative;
+    }
+
+    .ministry-content {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .ministry-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+    }
+
+    .ministry-section h2 {
+        font-family: 'Merriweather', serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+    }
+
+    .ministry-highlight {
+        color: #ff9800;
+    }
+
+    .ministry-section .lead {
+        font-size: 1.15rem;
+        color: #555;
+        margin-bottom: 40px;
+        line-height: 1.8;
+    }
+
+    .dashboard-preview {
+        border-radius: 20px;
+        box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+        width: 100%;
+        border: 8px solid #ffffff;
+    }
+
+    /* Accuracy Badge */
+    .accuracy-badge {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        padding: 25px 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        z-index: 10;
+    }
+
+    .accuracy-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #FFE8CC, #FFD9A6);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .accuracy-icon i {
+        font-size: 1.8rem;
+        color: #FF7828;
+    }
+
+    .accuracy-text h4 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #FF7828;
+        margin-bottom: 0;
+    }
+
+    .accuracy-text p {
+        margin: 0;
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        padding: 100px 0;
+        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section h2 {
+        font-family: 'Merriweather', serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+
+    .cta-section .lead {
+        font-size: 1.3rem;
+        margin-bottom: 50px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 60px;
+    }
+
+    .cta-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 40px 30px;
+        transition: all 0.4s ease;
+    }
+
+    .cta-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-10px);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cta-card h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .cta-card p {
+        margin-bottom: 25px;
+        opacity: 0.95;
+        line-height: 1.7;
+    }
+
+    .cta-card .btn {
+        width: 100%;
+        padding: 14px;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2.3rem;
+        }
+        
+        .ministry-content {
+            flex-direction: column;
+        }
+        
+        .accuracy-badge {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            transform: none;
+            margin-top: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 60px 0 40px;
+            min-height: 100vh;
+            background-attachment: scroll;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .hero-section h1 {
+            font-size: 2.2rem;
+        }
+
+        .hero-highlight {
+            font-size: 2.5rem;
+        }
+        
+        .hero-section .lead {
+            font-size: 1.1rem;
+        }
+        
+        .hero-stats {
+            gap: 30px;
+        }
+        
+        .hero-stat-number {
+            font-size: 2.2rem;
+        }
+
+        .hero-stat-item {
+            padding: 20px 25px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+        }
+        
+        .audience-card, .service-card {
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons .btn {
+            padding: 15px 35px;
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-center animate-fade-in">
+                <div class="hero-badge">
+                    <i class="fas fa-shield-alt"></i> {% trans "AI-Powered Disease Prediction" %}
+                </div>
+                <h1>
+                    {% trans "Protect Your Cattle with" %}
+                    <span class="hero-highlight">{% trans "Early Disease Detection" %}</span>
+                </h1>
+                <p class="lead">
+                    {% trans "Our machine learning system helps Zimbabwean farmers predict cattle diseases early, get treatment recommendations, and connect with qualified veterinarians instantly." %}
+                </p>
+                <div class="hero-buttons">
+                    <a href="{% url 'farmers:register' %}" class="btn btn-hero-primary">
+                        <i class="fas fa-user-plus"></i> {% trans "I'm a Farmer" %}
+                    </a>
+                    <a href="{% url 'vets:apply' %}" class="btn btn-hero-outline">
+                        <i class="fas fa-user-md"></i> {% trans "I'm a Veterinarian" %}
+                    </a>
+                </div>
+                <div class="hero-stats justify-content-center">
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">95%</span>
+                        <span class="hero-stat-label">{% trans "Accuracy Rate" %}</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">24/7</span>
+                        <span class="hero-stat-label">{% trans "Availability" %}</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number">100+</span>
+                        <span class="hero-stat-label">{% trans "Verified Vets" %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">{% trans "Our Services" %}</h2>
+            <p class="section-subtitle">
+                {% trans "Comprehensive AI-powered solutions to protect your livestock and improve farm productivity" %}
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h5>{% trans "AI Disease Prediction" %}</h5>
+                    <p>{% trans "Our machine learning models analyze symptoms to predict diseases with high accuracy using Naive Bayes, Random Forest, and more." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h5>{% trans "Treatment Recommendations" %}</h5>
+                    <p>{% trans "Receive instant treatment suggestions, quarantine steps, and preventive measures tailored to your cattle's condition." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h5>{% trans "Vet Connection" %}</h5>
+                    <p>{% trans "Automatically connect with qualified, Ministry-approved veterinary doctors for professional consultation when needed." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5>{% trans "Ministry Dashboard" %}</h5>
+                    <p>{% trans "Real-time disease outbreak monitoring and analytics for the Ministry of Agriculture to plan vaccinations and policies." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5>{% trans "Data Security" %}</h5>
+                    <p>{% trans "Your farm and cattle data is encrypted and stored securely, complying with Zimbabwe's data protection policies." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>{% trans "24/7 Availability" %}</h5>
+                    <p>{% trans "Access disease prediction and recommendations anytime, anywhere - no more waiting for office hours or traveling long distances." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title text-white">{% trans "How It Works" %}</h2>
+            <p class="section-subtitle text-white opacity-75">
+                {% trans "Our simple 4-step process helps you protect your cattle from diseases quickly and efficiently." %}
+            </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h5>{% trans "Report Symptoms" %}</h5>
+                    <p>{% trans "Register and input the symptoms you observe in your cattle through our simple form." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h5>{% trans "AI Analysis" %}</h5>
+                    <p>{% trans "Our ML models analyze the symptoms using multiple algorithms to predict the most likely disease." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h5>{% trans "Get Recommendations" %}</h5>
+                    <p>{% trans "Receive instant treatment suggestions, quarantine measures, and preventive care advice." %}</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <h5>{% trans "Connect with Vets" %}</h5>
+                    <p>{% trans "If needed, we automatically connect you with a qualified vet for professional assistance." %}</p>
+                </div>
+            </div>
+        </div>
+        <div class="position-relative" style="margin-top: 80px;">
+            <div class="accuracy-badge">
+                <div class="accuracy-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="accuracy-text">
+                    <h4>{% trans "95% Accuracy" %}</h4>
+                    <p>{% trans "Disease Prediction" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Farmers Section -->
+<section class="target-audience" id="for-farmers">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <img src="{% static 'images/RedBrahmanPic-scaled.jpg' %}" alt="{% trans 'Farmer with cattle' %}" class="audience-image">
+            </div>
+            <div class="col-lg-6">
+                <div class="audience-badge">{% trans "For Farmers" %}</div>
+                <h3>{% trans "Secure Your Livestock Investment" %}</h3>
+                <p class="lead">
+                    {% trans "Join thousands of farmers across Zimbabwe who trust CattleCare AI to protect their cattle and improve farm productivity." %}
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> {% trans "Quick disease prediction from symptoms" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Instant treatment recommendations" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Connect with nearby qualified vets" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Track cattle health history" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Early outbreak alerts in your area" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "24/7 access from anywhere" %}</li>
+                </ul>
+                <a href="{% url 'farmers:register' %}" class="btn btn-success btn-lg">
+                    <i class="fas fa-user-plus"></i> {% trans "Register as Farmer" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Veterinarians Section -->
+<section class="target-audience" style="background: #f8f9fa; padding: 100px 0;">
+    <div class="container">
+        <div class="row align-items-center g-5 flex-lg-row-reverse">
+            <div class="col-lg-6">
+                <img src="{% static 'images/AdobeStock_570288267_Preview.jpeg' %}" alt="{% trans 'Veterinarian' %}" class="audience-image">
+            </div>
+            <div class="col-lg-6">
+                <div class="audience-badge" style="background: linear-gradient(135deg, #17a2b8, #138496);">{% trans "For Veterinarians" %}</div>
+                <h3>{% trans "Join Our Veterinary Network" %}</h3>
+                <p class="lead">
+                    {% trans "Are you a qualified veterinarian? Join our platform to connect with farmers, provide remote consultations, and help improve livestock health across Zimbabwe." %}
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> {% trans "Apply to join our network of certified vets" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Receive consultation requests from farmers" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Get paid for your professional services" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Access disease outbreak data and trends" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Expand your practice to rural areas" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Ministry-approved and verified" %}</li>
+                </ul>
+                <div>
+                    <a href="{% url 'vets:apply' %}" class="btn btn-info btn-lg me-2 mb-2">
+                        <i class="fas fa-file-medical"></i> {% trans "Apply as Vet" %}
+                    </a>
+                    <a href="{% url 'vets:track_application' %}" class="btn btn-outline-info btn-lg mb-2">
+                        <i class="fas fa-search"></i> {% trans "Track Application" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ministry Dashboard Section -->
+<section class="ministry-section" id="about">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="ministry-badge">{% trans "For Ministry of Agriculture" %}</div>
+                <h2>
+                    {% trans "National Disease" %} <span class="ministry-highlight">{% trans "Surveillance Dashboard" %}</span>
+                </h2>
+                <p class="lead">
+                    {% trans "Monitor cattle disease outbreaks across Zimbabwe in real-time. Make data-driven decisions for vaccination campaigns, quarantine zones, and national livestock health policies." %}
+                </p>
+                <ul class="feature-list">
+                    <li><i class="fas fa-check-circle"></i> {% trans "Real-time disease outbreak maps across all provinces" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Trend analysis and predictive analytics" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Veterinarian network management and approvals" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Exportable reports for policy decisions" %}</li>
+                    <li><i class="fas fa-check-circle"></i> {% trans "Automated outbreak alerts when thresholds exceeded" %}</li>
+                </ul>
+                <a href="{% url 'accounts:login' %}" class="btn btn-warning btn-lg">
+                    <i class="fas fa-chart-bar"></i> {% trans "Request Demo" %}
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="{% trans 'Dashboard' %}" class="dashboard-preview">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>{% trans "Get Started Today" %}</h2>
+        <p class="lead">
+            {% trans "Join our platform and start protecting your cattle with AI-powered disease prediction" %}
+        </p>
+        <div class="cta-cards">
+            <div class="cta-card">
+                <h4><i class="fas fa-user"></i> {% trans "Farmer" %}</h4>
+                <p>{% trans "Register as a farmer to start reporting disease cases and get AI-powered predictions." %}</p>
+                <a href="{% url 'farmers:register' %}" class="btn btn-success btn-lg">{% trans "Register Now" %}</a>
+            </div>
+            <div class="cta-card">
+                <h4><i class="fas fa-user-md"></i> {% trans "Veterinarian" %}</h4>
+                <p>{% trans "Apply to become a registered veterinary doctor and help farmers in your area." %}</p>
+                <a href="{% url 'vets:apply' %}" class="btn btn-info btn-lg">{% trans "Apply Now" %}</a>
+            </div>
+            <div class="cta-card">
+                <h4><i class="fas fa-sign-in-alt"></i> {% trans "Already Registered?" %}</h4>
+                <p>{% trans "Login to access your dashboard and start using the system right away." %}</p>
+                <a href="{% url 'accounts:login' %}" class="btn btn-light btn-lg">{% trans "Login" %}</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

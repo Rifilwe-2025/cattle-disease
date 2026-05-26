@@ -1,0 +1,90 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Help Center - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card-dark">
+            <div class="card-title">
+                <span><i class="fas fa-question-circle"></i> {% trans "How to use CattleCare AI" %}</span>
+                <a href="{% url 'farmers:dashboard' %}" style="font-size:13px;color:#22c55e;text-decoration:none;font-weight:700;">{% trans "Back to dashboard" %}</a>
+            </div>
+            <p style="color:#9ca3af;font-size:14px;margin-bottom:18px;">
+                {% trans "This page explains the main parts of your farmer dashboard, how to submit a case, and what happens after you send it to a vet." %}
+            </p>
+
+            <div style="margin-bottom:18px;">
+                <h6 style="font-size:13px;font-weight:800;color:#e5e7eb;margin-bottom:6px;">{% trans "1. Reading your dashboard" %}</h6>
+                <ul style="color:#9ca3af;font-size:13px;line-height:1.7;padding-left:18px;">
+                    <li><strong style="color:#e5e7eb;">{% trans "Herd Summary" %}</strong> {% trans "shows your total cattle and how many disease cases you have ever submitted." %}</li>
+                    <li><strong style="color:#e5e7eb;">{% trans "Herd Health Metrics" %}</strong> {% trans "tells you how many cases are active, resolved, and how many are critical and need vet attention quickly." %}</li>
+                    <li><strong style="color:#e5e7eb;">{% trans "Disease Tracking" %}</strong> {% trans "shows which diseases are appearing most often and a graph of critical vs resolved cases over the months." %}</li>
+                    <li><strong style="color:#e5e7eb;">{% trans "Case Severity Breakdown" %}</strong> {% trans "gives a quick view of how many cases are Critical, Severe, or Non‑Severe." %}</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom:18px;">
+                <h6 style="font-size:13px;font-weight:800;color:#e5e7eb;margin-bottom:6px;">{% trans "2. Submitting a new case" %}</h6>
+                <ol style="color:#9ca3af;font-size:13px;line-height:1.7;padding-left:18px;">
+                    <li>{% trans "Click" %} <strong style="color:#e5e7eb;">{% trans "Submit Case" %}</strong> {% trans "in the left sidebar." %}</li>
+                    <li>{% trans "On the first step," %} <strong style="color:#e5e7eb;">{% trans "select all symptoms" %}</strong> {% trans "you see in your cattle. Use the search box to find symptoms faster." %}</li>
+                    <li>{% trans "Fill in" %} <strong style="color:#e5e7eb;">{% trans "cattle information" %}</strong> {% trans "(age, sex, breed, vaccination, herd size, farming type)." %}</li>
+                    <li>{% trans "Fill in" %} <strong style="color:#e5e7eb;">{% trans "environment" %}</strong> {% trans "(recent movement, season, province)." %}</li>
+                    <li>{% trans "Add extra" %} <strong style="color:#e5e7eb;">{% trans "notes" %}</strong> {% trans "if there is anything special you want the vet to know." %}</li>
+                    <li>{% trans "Click" %} <strong style="color:#e5e7eb;">{% trans "Submit Case for Diagnosis" %}</strong> {% trans "and wait while the AI analyzes your case." %}</li>
+                </ol>
+            </div>
+
+            <div style="margin-bottom:18px;">
+                <h6 style="font-size:13px;font-weight:800;color:#e5e7eb;margin-bottom:6px;">{% trans "3. After submitting – AI result & vet selection" %}</h6>
+                <ul style="color:#9ca3af;font-size:13px;line-height:1.7;padding-left:18px;">
+                    <li>{% trans "The" %} <strong style="color:#e5e7eb;">{% trans "Case Result" %}</strong> {% trans "page shows the AI predicted disease, confidence, and severity (Critical, Severe, Non‑Severe)." %}</li>
+                    <li>{% trans "If no vet is selected yet, you will see a" %} <strong style="color:#e5e7eb;">{% trans "Select vet" %}</strong> {% trans "button – click it to choose a vet from your province." %}</li>
+                    <li>{% trans "On the" %} <strong style="color:#e5e7eb;">{% trans "Select Vet" %}</strong> {% trans "page, pick the doctor you prefer (look at distance, experience and phone) and confirm." %}</li>
+                    <li>{% trans "Once a vet is assigned, they review your case and add their" %} <strong style="color:#e5e7eb;">{% trans "diagnosis and recommendation" %}</strong> {% trans "which appears at the top of the Case Result page." %}</li>
+                </ul>
+            </div>
+
+            <div>
+                <h6 style="font-size:13px;font-weight:800;color:#e5e7eb;margin-bottom:6px;">{% trans "4. Tips for best results" %}</h6>
+                <ul style="color:#9ca3af;font-size:13px;line-height:1.7;padding-left:18px;">
+                    <li>{% trans "Always submit a case as soon as you notice unusual behaviour, not when cattle are already very sick." %}</li>
+                    <li>{% trans "Select" %} <strong style="color:#e5e7eb;">{% trans "all symptoms" %}</strong>{% trans ", even if they seem small – this increases accuracy." %}</li>
+                    <li>{% trans "Keep your" %} <strong style="color:#e5e7eb;">{% trans "phone number and province" %}</strong> {% trans "updated in your profile so vets can contact you easily." %}</li>
+                    <li>{% trans "Use the" %} <strong style="color:#e5e7eb;">{% trans "Pending / Resolved" %}</strong> {% trans "filters on the dashboard to follow up on outstanding cases." %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card-dark">
+            <div class="card-title">
+                <span><i class="fas fa-lightbulb"></i> {% trans "Quick stats" %}</span>
+            </div>
+            <p style="font-size:13px;color:#9ca3af;margin-bottom:10px;">{% trans "These numbers are from your own account and match what you see on the dashboard." %}</p>
+            <div style="display:grid;gap:10px;">
+                <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:#9ca3af;">{% trans "Total cases submitted" %}</span>
+                    <span style="color:#e5e7eb;font-weight:800;">{{ total_cases }}</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:#9ca3af;">{% trans "Active (pending) cases" %}</span>
+                    <span style="color:#fbbf24;font-weight:800;">{{ active_cases }}</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:13px;">
+                    <span style="color:#9ca3af;">{% trans "Resolved / closed cases" %}</span>
+                    <span style="color:#22c55e;font-weight:800;">{{ resolved_cases }}</span>
+                </div>
+            </div>
+            <hr style="border-color:rgba(255,255,255,0.08);margin:18px 0 12px;">
+            <p style="font-size:12px;color:#6b7280;margin-bottom:0;">
+                {% trans "Need more help? Use the AI Assistant on the dashboard and ask for" %} <strong>{% trans "herd health tips" %}</strong> {% trans "or contact your assigned vet directly from your case result page." %}
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

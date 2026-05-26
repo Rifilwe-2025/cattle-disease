@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Logout - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .logout-container {
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* stretch behind navbar and footer, add internal top/bottom space instead of white strips */
+        margin: -20px -15px 0;
+        padding: 80px 20px 40px;
+        background:
+            linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(15,23,42,0.75) 55%, rgba(0,0,0,0.8) 100%),
+            url('{% static "images/ChatGPT Image Feb 10, 2026, 02_04_18 PM.png" %}') center center / cover no-repeat;
+        backdrop-filter: blur(2px);
+    }
+
+    .logout-card {
+        background: rgba(35,25,15,0.96);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        max-width: 500px;
+        width: 100%;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .logout-header {
+        background: transparent;
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+    }
+
+    .logout-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: rgba(255, 179, 71, 0.18);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .logout-icon i {
+        font-size: 40px;
+        color: #FFB347;
+    }
+
+    .logout-header h2 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .logout-body {
+        padding: 40px 30px;
+        text-align: center;
+    }
+
+    .user-info {
+        margin-bottom: 30px;
+    }
+
+    .user-avatar {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #FF9933 0%, #FF7828 100%);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .user-name {
+        font-size: 20px;
+        font-weight: 600;
+        color: #f9fafb;
+        margin-bottom: 5px;
+    }
+
+    .user-role {
+        font-size: 14px;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .logout-message {
+        color: #9ca3af;
+        margin-bottom: 30px;
+        line-height: 1.6;
+    }
+
+    .logout-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-logout {
+        background: linear-gradient(135deg, #FF9933 0%, #FF7828 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(255, 153, 51, 0.45);
+    }
+
+    .btn-logout:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 153, 51, 0.6);
+        color: white;
+    }
+
+    .btn-cancel {
+        background: transparent;
+        color: #f9fafb;
+        border: 2px solid rgba(255,255,255,0.55);
+        padding: 12px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s;
+    }
+
+    .btn-cancel:hover {
+        background: rgba(255,255,255,0.06);
+        color: #FFB347;
+        transform: translateY(-2px);
+    }
+
+    .logout-footer {
+        background: #f8f9fa;
+        padding: 20px;
+        text-align: center;
+        font-size: 13px;
+        color: #666;
+    }
+
+    .logout-footer i {
+        margin-right: 5px;
+    }
+
+    @media (max-width: 576px) {
+        .logout-card {
+            margin: 20px;
+        }
+
+        .logout-header {
+            padding: 30px 20px;
+        }
+
+        .logout-body {
+            padding: 30px 20px;
+        }
+
+        .logout-actions {
+            flex-direction: column;
+        }
+
+        .logout-actions .btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="logout-container">
+    <div class="logout-card">
+        <div class="logout-header">
+            <div class="logout-icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <h2>{% trans "Confirm Logout" %}</h2>
+        </div>
+
+        <div class="logout-body">
+            {% if user.is_authenticated %}
+            <div class="user-info">
+                <div class="user-avatar">
+                    {% if user.farmer_profile %}
+                        {{ user.farmer_profile.full_name|slice:":1"|upper }}
+                    {% elif user.vet_profile %}
+                        {{ user.vet_profile.full_name|slice:":1"|upper }}
+                    {% else %}
+                        {{ user.username|slice:":1"|upper }}
+                    {% endif %}
+                </div>
+                <div class="user-name">
+                    {% if user.farmer_profile %}
+                        {{ user.farmer_profile.full_name }}
+                    {% elif user.vet_profile %}
+                        {{ user.vet_profile.full_name }}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}
+                </div>
+                <div class="user-role">
+                    <i class="fas fa-user-circle"></i>
+                    {% trans "User" as default_user_label %}{{ user.get_role_display|default:default_user_label }}
+                </div>
+            </div>
+
+            <p class="logout-message">
+                <i class="fas fa-info-circle"></i>
+                {% trans "Are you sure you want to logout? You'll need to login again to access your dashboard and submit disease cases." %}
+            </p>
+
+            <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <div class="logout-actions">
+                    <button type="submit" class="btn btn-logout">
+                        <i class="fas fa-sign-out-alt"></i> {% trans "Yes, Logout" %}
+                    </button>
+                    <a href="{% if user.is_farmer %}{% url 'farmers:dashboard' %}{% elif user.is_vet %}{% url 'vets:dashboard' %}{% elif user.is_ministry %}{% url 'ministry:dashboard' %}{% else %}{% url 'landing:home' %}{% endif %}" class="btn btn-cancel">
+                        <i class="fas fa-arrow-left"></i> {% trans "Cancel" %}
+                    </a>
+                </div>
+            </form>
+            {% else %}
+            <p class="logout-message">
+                <i class="fas fa-check-circle text-success"></i>
+                {% trans "You are already logged out." %}
+            </p>
+            <div class="logout-actions">
+                <a href="{% url 'accounts:login' %}" class="btn btn-logout">
+                    <i class="fas fa-sign-in-alt"></i> {% trans "Login Again" %}
+                </a>
+                <a href="{% url 'landing:home' %}" class="btn btn-cancel">
+                    <i class="fas fa-home"></i> {% trans "Go Home" %}
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="logout-footer">
+            <i class="fas fa-shield-alt"></i>
+            {% trans "Your session will be securely terminated" %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-focus on logout button for keyboard accessibility
+    document.addEventListener('DOMContentLoaded', function() {
+        const logoutBtn = document.querySelector('.btn-logout');
+        if (logoutBtn) {
+            logoutBtn.focus();
+        }
+    });
+
+    // Add confirmation sound effect (optional)
+    document.querySelector('form')?.addEventListener('submit', function(e) {
+        // You can add a sound effect here if desired
+        console.log('Logging out...');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'vets/vet_base.html' %}
+{% load cattle_i18n %}
+
+{% block title %}Case Detail - CattleCare AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .case-header { padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
+    .case-title { font-size: 18px; font-weight: 800; color: #fff; margin: 0; }
+    .case-title i { color: #93c5fd; margin-right: 8px; }
+    .section-h { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .kv p { margin-bottom: 8px; color: #e2e8f0; }
+    .kv strong { color: #94a3b8; font-weight: 800; }
+    .soft-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; }
+    .soft-card ul { margin: 0; padding-left: 18px; color: #e2e8f0; }
+    .soft-muted { color: #94a3b8; font-size: 12px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card-light">
+    <div class="case-header">
+        <h4 class="case-title"><i class="fas fa-file-medical"></i> Case #{{ case.id }} — {{ case.predicted_disease|local_disease }}</h4>
+    </div>
+
+    <div class="row g-4 mb-3">
+        <div class="col-md-6 kv">
+            <div class="section-h">Farmer Information</div>
+            <p><strong>Name:</strong> {{ case.farmer.full_name }}</p>
+            <p><strong>Location:</strong> {{ case.farmer.province }}, {{ case.farmer.district }}</p>
+            <p><strong>Phone:</strong> <a href="tel:{{ case.farmer.user.phone_number }}" style="color:#93c5fd; text-decoration:none; font-weight:800;">{{ case.farmer.user.phone_number }}</a></p>
+        </div>
+        <div class="col-md-6 kv">
+            <div class="section-h">Case Details</div>
+            <p><strong>Disease:</strong> {{ case.predicted_disease|local_disease }}</p>
+            {% if case.top_diseases %}
+            <div class="soft-card" style="margin: 10px 0;">
+                <div class="soft-muted" style="margin-bottom: 6px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;">Low confidence — consider these</div>
+                <ul>
+                    {% for item in case.top_diseases %}
+                    <li>{{ item.disease|local_disease }} — {% widthratio item.probability 1 100 %}%</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <p><strong>Severity:</strong>
+                {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">Critical</span>
+                {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">Severe</span>
+                {% else %}<span class="pill-badge success">Non-Severe</span>{% endif %}
+            </p>
+            <p><strong>Confidence:</strong> {{ case.confidence_score|floatformat:2 }}%</p>
+            <p><strong>Status:</strong> {{ case.get_status_display }}</p>
+            <p><strong>Date:</strong> {{ case.created_at|date:"M d, Y H:i" }}</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-3">
+        <div class="col-lg-6">
+            <div class="section-h">Reported Symptoms</div>
+            <div class="soft-card">
+                <ul>
+                    {% for symptom in case.symptoms %}
+                    <li>{{ symptom|local_symptom }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            {% if case.notes %}
+            <div class="section-h">Farmer Notes</div>
+            <div class="soft-card" style="color:#e2e8f0; white-space: pre-wrap;">{{ case.notes }}</div>
+            {% else %}
+            <div class="section-h">Farmer Notes</div>
+            <div class="soft-card" style="color:#94a3b8;">No notes provided.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if case.status == 'ASSIGNED' or case.status == 'IN_PROGRESS' %}
+    <hr style="border-color: rgba(255,255,255,0.08);">
+    <div class="section-h">Submit Consultation</div>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div class="text-danger small">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="mt-3" style="display:flex; gap:10px; flex-wrap:wrap;">
+            {% if case.status == 'ASSIGNED' %}
+            <button type="submit" class="btn-primary-vet">Submit Consultation</button>
+            <a href="{% url 'vets:accept_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,#22c55e,#16a34a);">Accept Case</a>
+            {% else %}
+            <button type="submit" class="btn-primary-vet">Update Consultation</button>
+            <a href="{% url 'vets:resolve_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,#22c55e,#16a34a);">Mark as Resolved</a>
+            {% endif %}
+        </div>
+    </form>
+    {% endif %}
+
+    {% if case.vet_diagnosis %}
+    <hr style="border-color: rgba(255,255,255,0.08);">
+    <div class="section-h">Your Consultation</div>
+    <div class="soft-card">
+        <p style="margin-bottom: 6px;"><strong>Diagnosis:</strong></p>
+        <div style="color:#e2e8f0; white-space: pre-wrap;">{{ case.vet_diagnosis }}</div>
+        <p style="margin: 14px 0 6px 0;"><strong>Recommendations:</strong></p>
+        <div style="color:#e2e8f0; white-space: pre-wrap;">{{ case.vet_recommendations }}</div>
+        <div class="soft-muted" style="margin-top: 10px;">Consultation Date: {{ case.vet_consultation_date|date:"M d, Y H:i" }}</div>
+    </div>
+    {% endif %}
+
+    <hr style="border-color: rgba(255,255,255,0.08);">
+    <a href="{% url 'vets:dashboard' %}" class="btn-outline-vet"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+</div>
+{% endblock %}

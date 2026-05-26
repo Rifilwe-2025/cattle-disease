@@ -1,0 +1,167 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Select Vet" %} - {{ farmer.province }}{% endblock %}
+
+{% block content %}
+{% if case.severity == 'CRITICAL' %}
+<div class="alert-critical-vet">
+    <i class="fas fa-exclamation-triangle"></i>
+    {% blocktrans with province=farmer.province %}CRITICAL case detected! Please select a vet from your region ({{ province }}) URGENTLY for immediate consultation.{% endblocktrans %}
+</div>
+{% endif %}
+
+<div class="location-strip">
+    <div>
+        <div style="font-size: 15px; font-weight: 800; color: var(--fc-text); margin-bottom: 4px;">
+            <i class="fas fa-map-marker-alt" style="color: var(--fc-green);"></i> {% trans "Your Location" %}
+        </div>
+        <p>
+            <strong>{% trans "Province:" %}</strong> {{ farmer.province }}
+            &nbsp;|&nbsp;
+            <strong>{% trans "District:" %}</strong> {{ farmer.district }}
+        </p>
+    </div>
+    <a href="{% url 'farmers:case_result' case.id %}" class="btn-secondary-light">
+        <i class="fas fa-arrow-left"></i> {% trans "Back" %}
+    </a>
+</div>
+
+<div class="card-dark">
+    <div class="card-title">
+        <span><i class="fas fa-user-md"></i> {% trans "Select a Veterinary Doctor" %}</span>
+        <span class="pill-badge {% if case.severity == 'CRITICAL' %}danger{% elif case.severity == 'SEVERE' %}warning{% else %}success{% endif %}">
+            {% trans "Severity:" %} {{ case.get_severity_display }}
+        </span>
+    </div>
+
+    <p style="color: var(--fc-text-muted); margin-top: -8px; margin-bottom: 0; font-size: 14px;">
+        {% blocktrans with province=farmer.province %}Pick a vet in {{ province }}. Once you confirm, the vet is assigned and can start reviewing your case.{% endblocktrans %}
+    </p>
+
+    {% if vets_in_region %}
+        <div class="vet-found-banner">
+            <i class="fas fa-check-circle"></i>
+            {% blocktrans count counter=total_vets with province=farmer.province %}Found {{ counter }} qualified vet in {{ province }}.{% plural %}Found {{ counter }} qualified vets in {{ province }}.{% endblocktrans %}
+        </div>
+
+        <form method="post" id="vetSelectForm">
+            {% csrf_token %}
+            <div class="vet-grid">
+                {% for vet, distance in vets_in_region %}
+                <div class="vet-card" data-vet-card>
+                    <div class="vet-card-inner">
+                        <div class="vet-avatar">
+                            {% if vet.profile_photo %}
+                                <img src="{{ vet.profile_photo.url }}" alt="Dr. {{ vet.full_name }}">
+                            {% else %}
+                                {{ vet.full_name|slice:":1"|upper }}
+                            {% endif %}
+                        </div>
+                        <div class="vet-meta">
+                            <div class="vet-name">Dr. {{ vet.full_name }}</div>
+                            <p class="vet-sub">{{ vet.qualification }} · {{ vet.years_of_experience }} {% trans "years experience" %}</p>
+
+                            <div class="vet-badges">
+                                {% if distance %}
+                                    <span class="vet-badge good"><i class="fas fa-location-dot"></i> {{ distance|floatformat:1 }} km</span>
+                                {% else %}
+                                    <span class="vet-badge neutral"><i class="fas fa-location-dot"></i> {% trans "Distance N/A" %}</span>
+                                {% endif %}
+                                <span class="vet-badge"><i class="fas fa-id-card"></i> {{ vet.license_number }}</span>
+                            </div>
+
+                            <div class="vet-details">
+                                <div class="vet-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>{% trans "Phone:" %}</span>
+                                    <a href="tel:{{ vet.phone_number }}">{{ vet.phone_number }}</a>
+                                </div>
+                                <div class="vet-detail">
+                                    <i class="fas fa-map"></i>
+                                    <span>{% trans "Serves:" %}</span>
+                                    <span>
+                                        {% if vet.provinces_served %}
+                                            {% for province in vet.provinces_served %}
+                                                <span class="vet-province-tag">{{ province }}</span>
+                                            {% endfor %}
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vet-right">
+                            <input class="vet-radio" type="radio" name="vet_id" value="{{ vet.id }}" id="vet_{{ vet.id }}" required>
+                            <span class="vet-select-label">{% trans "Select" %}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="vet-actions-row">
+                <a href="{% url 'farmers:case_result' case.id %}" class="btn-secondary-light">{% trans "Back to result" %}</a>
+                <button type="submit" class="btn-upgrade">
+                    <i class="fas fa-check-circle"></i> {% trans "Confirm Selection" %}
+                </button>
+            </div>
+        </form>
+    {% else %}
+        <div class="alert-no-vets">
+            <div style="font-weight: 800; margin-bottom: 8px; color: #b91c1c;">
+                <i class="fas fa-exclamation-circle"></i> {% trans "No Vets Available in Your Region" %}
+            </div>
+            <p style="color: var(--fc-text-muted); margin-bottom: 10px;">
+                {% blocktrans with province=farmer.province %}There are no approved veterinary doctors currently available in {{ province }}.{% endblocktrans %}
+            </p>
+            <strong>{% trans "What to do:" %}</strong>
+            <ul>
+                <li>{% trans "Contact the Ministry of Agriculture for emergency assistance" %}</li>
+                <li>{% trans "Consider vets from neighboring provinces" %}</li>
+                <li>{% trans "Call emergency veterinary services" %}</li>
+            </ul>
+        </div>
+        <div class="vet-actions-row">
+            <a href="{% url 'farmers:case_result' case.id %}" class="btn-secondary-light">
+                <i class="fas fa-arrow-left"></i> {% trans "Back to Case Result" %}
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function refreshSelection() {
+        document.querySelectorAll('[data-vet-card]').forEach(function(card) {
+            card.classList.remove('selected');
+        });
+        const checked = document.querySelector('input[name="vet_id"]:checked');
+        if (checked) {
+            const card = checked.closest('[data-vet-card]');
+            if (card) card.classList.add('selected');
+        }
+    }
+
+    document.querySelectorAll('input[name="vet_id"]').forEach(function(radio) {
+        radio.addEventListener('change', refreshSelection);
+    });
+
+    document.querySelectorAll('[data-vet-card]').forEach(function(card) {
+        card.addEventListener('click', function(e) {
+            if (e.target.type === 'radio') return;
+            const radio = this.querySelector('input[type="radio"]');
+            if (radio) {
+                radio.checked = true;
+                radio.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+
+    refreshSelection();
+</script>
+{% endblock %}

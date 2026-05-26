@@ -1,0 +1,133 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Vet Help Center - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px;">
+    <div>
+        <h1 style="font-size:24px;font-weight:700;color:#fff;margin-bottom:4px;">{% trans "Vet Help Center" %}</h1>
+        <p style="font-size:13px;color:#94a3b8;max-width:520px;">
+            {% blocktrans trimmed %}
+            Short guide for vet doctors on how to use the CattleCare AI dashboard, manage cases, and communicate with the Ministry.
+            {% endblocktrans %}
+        </p>
+    </div>
+    <div class="card-light" style="padding:14px 18px;min-width:220px;max-width:260px;">
+        <div style="font-size:12px;color:#94a3b8;margin-bottom:4px;">{% trans "Your quick stats" %}</div>
+        <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
+            <div><span style="color:#9ca3af;">{% trans "Total cases:" %}</span> <strong>{{ total_cases }}</strong></div>
+            <div><span style="color:#9ca3af;">{% trans "Resolved / Closed:" %}</span> <strong style="color:#4ade80;">{{ resolved_cases }}</strong></div>
+            <div><span style="color:#9ca3af;">{% trans "Open (Assigned + In progress):" %}</span> <strong style="color:#fbbf24;">{{ pending_cases }}</strong></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "1. Understanding your vet dashboard" %}</span>
+            </div>
+            <div style="font-size:13px;color:#cbd5f5;line-height:1.7;">
+                <p><strong>{% trans "Header bar (top of the page)" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}<strong>Date range &amp; new cases graph</strong>: shows when new cases were received. Blue points = days with at least one new case.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}<strong>View all cases</strong>: opens the full list of cases assigned to you, grouped by status.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}<strong>Export</strong>: downloads all your cases as a CSV file that you can open in Excel.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "Key cards (top of dashboard)" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}<strong>Farmers Assigned</strong>: number of unique farmers you have served. Click “View farmers” to see recent farmers and their cases.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}<strong>Total Cases Solved</strong>: all cases you have resolved or closed.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}<strong>Total Cases Assigned</strong>: all cases that were ever assigned to you.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}<strong>Critical Cases</strong>: active cases with critical severity that need urgent attention.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "Case Statistics (big graph)" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}Shows <strong>new cases per day</strong> for the last 12 months.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Hover a point to see the <strong>exact date</strong> and the number of new cases you received that day.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "Resolution Rate card" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}<strong>Big %</strong> = overall resolution rate for all your cases.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Green text below shows <strong>how many cases you have resolved this month</strong>.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}The green mini-graph shows your <strong>monthly resolution rate over the last 12 months</strong>.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "Assigned cases table (bottom)" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:0;">
+                    <li>{% blocktrans trimmed %}Each row is a case with <strong>date, farmer name, predicted disease, severity and status</strong>.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Click <strong>“View”</strong> to open the case detail page, enter your diagnosis and recommendations, and then mark the case as resolved when appropriate.{% endblocktrans %}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "2. Working with cases step by step" %}</span>
+            </div>
+            <ol style="font-size:13px;color:#cbd5f5;line-height:1.7;padding-left:18px;margin-bottom:0;">
+                <li>{% blocktrans trimmed %}<strong>Open your case list</strong>:
+                    Use the sidebar <strong>“Cases”</strong> link to see all assigned, in‑progress, and resolved cases.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Review farmer information</strong>:
+                    From the dashboard or the <strong>“Farmers”</strong> menu, you can see which farmers are under your care and their recent cases.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Open a case detail</strong>:
+                    Click <strong>“View”</strong> on any case to see:
+                    symptoms, predicted disease, severity, farm location and farmer contact information.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Record your diagnosis and recommendations</strong>:
+                    Use the form on the case detail page to enter your professional diagnosis and clear treatment recommendations (dosage, quarantine, follow‑up, etc.).{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Update status</strong>:
+                    When you finish, mark the case as <strong>“Resolved”</strong> / <strong>“Closed”</strong> so that the farmer and Ministry can see that the case has been attended.{% endblocktrans %}</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "3. Communicating with Ministry" %}</span>
+            </div>
+            <div style="font-size:13px;color:#cbd5f5;line-height:1.7;">
+                <p><strong>{% trans "Requesting vaccines / medical stock" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}In the sidebar, click <strong>“Request vaccines”</strong>.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Fill in the <strong>title</strong>, product name, estimated quantity, <strong>priority</strong> (Normal or Urgent), and a clear justification (disease, area, herd size).{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}After you submit, you can see the <strong>status and Ministry response</strong> in the same page.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "Writing area reports" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:12px;">
+                    <li>{% blocktrans trimmed %}Use the <strong>“Area reports”</strong> link in the sidebar.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Send <strong>monthly or outbreak reports</strong> describing disease trends, challenges and your recommendations for the area.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Ministry can respond to these reports; you will see their feedback in the same list.{% endblocktrans %}</li>
+                </ul>
+
+                <p><strong>{% trans "What information is most helpful?" %}</strong></p>
+                <ul style="padding-left:18px;margin-bottom:0;">
+                    <li>{% blocktrans trimmed %}Clear description of <strong>clinical signs</strong> you are observing.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Approximate <strong>number of affected animals</strong> and herds.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Any <strong>suspected disease</strong> based on your experience.{% endblocktrans %}</li>
+                    <li>{% blocktrans trimmed %}Urgency: is this a <strong>local outbreak</strong> or a <strong>wider regional trend</strong>?{% endblocktrans %}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "4. Tips for using CattleCare AI effectively" %}</span>
+            </div>
+            <ul style="font-size:13px;color:#cbd5f5;line-height:1.7;padding-left:18px;margin-bottom:0;">
+                <li>{% blocktrans trimmed %}<strong>Confirm AI predictions</strong> with your clinical judgement – the system is a support tool, not a replacement for your expertise.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Keep statuses up to date</strong> (Assigned → In progress → Resolved) so that Ministry and farmers can see real‑time progress.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Use clear language</strong> in recommendations so farmers can follow treatment safely.{% endblocktrans %}</li>
+                <li>{% blocktrans trimmed %}<strong>Export your cases</strong> regularly if you need to keep personal records for audits, CPD or reporting.{% endblocktrans %}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,380 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cattle_i18n %}
+
+{% block title %}{% trans "Vet Dashboard - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+    <div>
+        <h1 style="font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 4px;">{% trans "Dashboard" %}</h1>
+        <p style="font-size: 14px; color: #94a3b8;">{% trans "Welcome back to CattleCare AI." %}</p>
+        <p style="font-size: 13px; color: #64748b; margin-top: 4px;" id="currentDate"></p>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="btn-outline-vet" id="dateRangeButton">
+            <i class="fas fa-calendar-alt"></i>
+            <span id="dateRange">
+                {% if chart_start %}
+                    {{ chart_start|date:"d M Y" }} - {{ chart_end|date:"d M Y" }}
+                {% else %}
+                    {% trans "No cases yet" %}
+                {% endif %}
+            </span>
+        </button>
+        <a href="{% url 'vets:export_cases_csv' %}" class="btn-outline-vet"><i class="fas fa-download"></i> {% trans "Export" %}</a>
+        <a href="{% url 'vets:cases_list' %}" class="btn-primary-vet"><i class="fas fa-calendar-check"></i> {% trans "View All Cases" %}</a>
+    </div>
+</div>
+
+<!-- KPI Cards Row -->
+<div class="row g-4" style="margin-bottom: 24px;">
+    <div class="col-md-3">
+        <div class="card-light">
+            <div class="stat-label">{% trans "Farmers Assigned" %}</div>
+            <div class="stat-big">{{ farmers_served }}</div>
+            <div class="stat-change up"><a href="{% url 'vets:farmers_list' %}" style="color: inherit; text-decoration: none;">{% trans "View farmers" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-light">
+            <div class="stat-label">{% trans "Total Cases Solved" %}</div>
+            <div class="stat-big" style="color: #22c55e;">{{ resolved_cases }}</div>
+            <div class="stat-change up"><a href="{% url 'vets:cases_list' %}" style="color: inherit; text-decoration: none;">{% trans "View cases" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-light">
+            <div class="stat-label">{% trans "Total Cases Assigned" %}</div>
+            <div class="stat-big">{{ total_cases }}</div>
+            <div class="stat-change up">{% trans "All time" %}</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card-light">
+            <div class="stat-label">{% trans "Critical Cases" %}</div>
+            <div class="stat-big">{{ critical_cases }}</div>
+            <div class="stat-change {% if critical_cases %}down{% else %}up{% endif %}">{% if critical_cases %}{% trans "Requires attention" %}{% else %}{% trans "None pending" %}{% endif %}</div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row g-4" style="margin-bottom: 24px;">
+    <div class="col-lg-8">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Case Statistics" %}</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;font-size:12px;color:#94a3b8;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:10px;height:10px;border-radius:999px;background:#fbbf24;display:inline-block;"></span>
+                    <span>{% trans "Assigned / Pending:" %} <strong style="color:#e5e7eb;">{{ pending_cases|add:in_progress_cases }}</strong></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:10px;height:10px;border-radius:999px;background:#3b82f6;display:inline-block;"></span>
+                    <span>{% trans "In progress:" %} <strong style="color:#e5e7eb;">{{ in_progress_cases }}</strong></span>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;">
+                    <span style="width:10px;height:10px;border-radius:999px;background:#22c55e;display:inline-block;"></span>
+                    <span>{% trans "Resolved / Closed:" %} <strong style="color:#e5e7eb;">{{ resolved_cases }}</strong></span>
+                </div>
+                <div style="margin-left:auto;">
+                    <span style="color:#64748b;">{% trans "Total cases:" %}</span>
+                    <strong style="color:#e5e7eb;">{{ total_cases }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Cases by Disease Type" %}</span>
+            </div>
+            <div style="display: flex; gap: 24px; align-items: center;">
+                <div style="width: 160px; height: 160px; flex-shrink: 0;">
+                    <canvas id="donutChart"></canvas>
+                </div>
+                <div style="flex: 1;">
+                    <div style="font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px;">{% blocktrans with t=total_cases %}Total {{ t }}{% endblocktrans %}</div>
+                    {% for item in disease_stats %}
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: {% cycle '#3b82f6' '#f59e0b' '#22c55e' '#ef4444' '#8b5cf6' %};"></span>
+                        <span style="font-size: 13px; color: #94a3b8;">{{ item.predicted_disease|local_disease|truncatewords:2 }}</span>
+                        <span style="font-size: 13px; font-weight: 600; color: #fff; margin-left: auto;">{{ item.count }}</span>
+                    </div>
+                    {% empty %}
+                    <div style="font-size: 13px; color: #64748b;">{% trans "No cases yet" %}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Row 3: Top Diagnosis, Farmers, Resolution Rate -->
+<div class="row g-4" style="margin-bottom: 24px;">
+    <div class="col-lg-4">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Top Diagnoses" %}</span>
+                <span style="font-size: 32px; font-weight: 800; color: #93c5fd;">{{ total_cases }}</span>
+            </div>
+            <div style="height: 80px; display: flex; align-items: flex-end; gap: 8px; margin-bottom: 20px;">
+                {% for item in top_diagnoses %}
+                <div style="flex: 1; background: linear-gradient(180deg, #3b82f6, #93c5fd); border-radius: 6px 6px 0 0; height: {% if total_cases %}{% widthratio item.count total_cases 70 %}%{% else %}20%{% endif %}; min-height: 8px;"></div>
+                {% empty %}
+                <div style="flex: 1; background: #e5e7eb; border-radius: 6px; height: 20px;"></div>
+                {% endfor %}
+            </div>
+            <div>
+                {% for item in top_diagnoses %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                    <span style="font-size: 13px; color: #e2e8f0;">{{ item.predicted_disease|local_disease|truncatewords:3 }}</span>
+                    <span style="font-size: 13px; font-weight: 600; color: #94a3b8;">{% blocktrans count c=item.count %}{{ c }} case{% plural %}{{ c }} cases{% endblocktrans %}{% if total_cases %} ({% widthratio item.count total_cases 100 %}%){% endif %}</span>
+                </div>
+                {% empty %}
+                <div style="font-size: 13px; color: #64748b; padding: 20px; text-align: center;">{% trans "No diagnoses yet" %}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4" id="farmers">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Farmers Under Care" %}</span>
+                <a href="{% url 'vets:dashboard' %}#cases" style="font-size: 12px; color: #93c5fd; text-decoration: none; font-weight: 500;">{% trans "View All" %}</a>
+            </div>
+            {% for item in farmers_with_cases %}
+            <div class="farmer-row">
+                <div class="farmer-avatar">{{ item.farmer.full_name|slice:":1"|upper }}</div>
+                <div class="farmer-info">
+                    <div class="farmer-name">{{ item.farmer.full_name }}</div>
+                    <div class="farmer-detail">{{ item.farmer.province }} · {{ item.case.predicted_disease|local_disease|truncatewords:2 }}</div>
+                </div>
+                <a href="{% url 'vets:case_detail' item.case.id %}" style="color: #93c5fd; text-decoration: none;"><i class="fas fa-chevron-right"></i></a>
+            </div>
+            {% empty %}
+            <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+                <i class="fas fa-users" style="font-size: 40px; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                <p>{% trans "No farmers assigned yet" %}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card-light">
+            <div class="card-title">
+                <span>{% trans "Resolution Rate" %}</span>
+                <span style="font-size: 32px; font-weight: 800; color: #4ade80;">{{ resolution_rate }}%</span>
+            </div>
+            <div class="stat-change up" style="margin-bottom: 16px;">
+                <i class="fas fa-smile" style="margin-right: 6px;"></i>
+                {% blocktrans with r=res_current_resolved p=res_current_rate count counter=res_current_total %}This month: <strong>{{ r }}</strong> of <strong>{{ counter }}</strong> case resolved ({{ p }}%).{% plural %}This month: <strong>{{ r }}</strong> of <strong>{{ counter }}</strong> cases resolved ({{ p }}%).{% endblocktrans %}
+            </div>
+            <div class="chart-container" style="height: 120px;">
+                <canvas id="resolutionChart"></canvas>
+            </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 16px; line-height: 1.5;">{% blocktrans trimmed %}Your resolution rate reflects the percentage of cases you have successfully diagnosed and closed. Keep up the great work!{% endblocktrans %}</p>
+        </div>
+    </div>
+</div>
+
+<!-- Case Records Table -->
+<div class="card-light" id="cases">
+    <div class="card-title">
+        <span>{% trans "Assigned Cases" %}</span>
+    </div>
+    {% if assigned_cases %}
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid rgba(255,255,255,0.1);">
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Date" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Farmer" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Disease" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Severity" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Status" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for case in assigned_cases %}
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
+                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.farmer.full_name }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                    <td style="padding: 14px 16px;">
+                        {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>
+                        {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>
+                        {% else %}<span class="pill-badge success">{{ case.severity|local_severity }}</span>{% endif %}
+                    </td>
+                    <td style="padding: 14px 16px;">
+                        {% if case.status == 'RESOLVED' or case.status == 'CLOSED' %}<span class="pill-badge success">{{ case.status|local_case_status }}</span>
+                        {% elif case.status == 'IN_PROGRESS' %}<span class="pill-badge info">{{ case.status|local_case_status }}</span>
+                        {% else %}<span class="pill-badge warning">{{ case.status|local_case_status }}</span>{% endif %}
+                    </td>
+                    <td style="padding: 14px 16px;">
+                        <a href="{% url 'vets:case_detail' case.id %}" class="btn-primary-vet" style="padding: 6px 14px; font-size: 13px;">{% trans "View" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 60px 20px; color: #64748b;">
+        <i class="fas fa-folder-open" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px; display: block;"></i>
+        <p>{% trans "No cases assigned yet." %}</p>
+        <p style="font-size: 13px; margin-top: 8px;">{% trans "Cases will appear here once farmers assign you from your region." %}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% trans "New cases per day" as vet_chart_new_cases %}
+{% trans "Date:" as vet_chart_date_prefix %}
+{% trans "No cases" as vet_no_cases %}
+{% trans "Resolution %" as vet_resolution_pct %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    const VET_DASH_LOCALE = "{{ LANGUAGE_CODE|escapejs }}";
+    const lcRaw = (VET_DASH_LOCALE || 'en').toLowerCase().replace('_', '-');
+    const VET_CHART_NEW_CASES = "{{ vet_chart_new_cases|escapejs }}";
+    const VET_CHART_DATE_PREFIX = "{{ vet_chart_date_prefix|escapejs }}";
+    const VET_NO_CASES = "{{ vet_no_cases|escapejs }}";
+    const VET_RESOLUTION_PCT = "{{ vet_resolution_pct|escapejs }}";
+
+    // Current date
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const localeTag = (lcRaw === 'sn-zw' || lcRaw === 'sn') ? 'sn-ZW'
+        : (lcRaw === 'nd-zw' || lcRaw === 'nd') ? 'nd-ZW'
+        : (VET_DASH_LOCALE || 'en').replace('_', '-');
+    document.getElementById('currentDate').textContent = now.toLocaleDateString(localeTag, options);
+
+    const dateRangeButton = document.getElementById('dateRangeButton');
+    if (dateRangeButton) {
+        dateRangeButton.addEventListener('click', () => {
+            const casesSection = document.getElementById('cases');
+            if (casesSection) {
+                casesSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // Simple chart data: total new cases per day (last 12 months)
+    const dailyLabels = [{% for lbl in chart_labels %}'{{ lbl }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const dailyCounts = [{% for v in chart_counts %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+
+    // Line Chart - Case statistics over time
+    const lineCtx = document.getElementById('lineChart');
+    let lineChart = null;
+    if (lineCtx) {
+        lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: dailyLabels,
+                datasets: [{
+                    label: VET_CHART_NEW_CASES,
+                    data: dailyCounts,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.18)',
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    pointHoverRadius: 5,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: { color: '#e5e7eb', boxWidth: 14, boxHeight: 2 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return VET_CHART_DATE_PREFIX + ' ' + context[0].label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    }
+
+    // No range switcher anymore – chart always shows last 30 days, matching the header range
+
+    // Donut Chart - Cases by disease type
+    const donutCtx = document.getElementById('donutChart');
+    if (donutCtx) {
+        let donutLabels = [{% for item in disease_stats %}'{{ item.predicted_disease|local_disease|truncatewords:2|escapejs }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+        let donutData = [{% for item in disease_stats %}{{ item.count }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        if (!donutLabels.length) {
+            donutLabels = [VET_NO_CASES];
+            donutData = [1];
+        }
+        new Chart(donutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: donutLabels,
+                datasets: [{
+                    data: donutData.length ? donutData : [1],
+                    backgroundColor: ['#3b82f6', '#f59e0b', '#22c55e', '#ef4444', '#8b5cf6'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                cutout: '65%',
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    // Resolution rate mini chart
+    const resCtx = document.getElementById('resolutionChart');
+    if (resCtx) {
+        const resLabels = [{% for lbl in res_month_labels %}'{{ lbl }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+        const resValues = [{% for v in res_month_values %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+        new Chart(resCtx, {
+            type: 'line',
+            data: {
+                labels: resLabels,
+                datasets: [{
+                    label: VET_RESOLUTION_PCT,
+                    data: resValues,
+                    borderColor: '#22c55e',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    }
+</script>
+{% endblock %}

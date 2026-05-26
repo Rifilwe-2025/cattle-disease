@@ -1,0 +1,146 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+{% load cattle_i18n %}
+
+{% block title %}Case Result - CattleCare AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .pulse-animation { animation: pulse 1.5s infinite; }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+        70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    .vet-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+    .vet-avatar-sm {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .vet-avatar-sm img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card-dark">
+    <div class="card-title">
+        <span><i class="fas fa-clipboard-check"></i> Case #{{ case.id }} — Result</span>
+        <a href="{% url 'farmers:case_history' %}" class="btn-upgrade" style="padding: 8px 16px; text-decoration: none;">All cases</a>
+    </div>
+
+    {% if case.vet_recommendations %}
+    <div class="card-dark mb-4" style="border: 1px solid rgba(34,197,94,0.3); padding: 20px;">
+        <div class="vet-header">
+            <div class="vet-avatar-sm">
+                {% if case.assigned_vet and case.assigned_vet.profile_photo %}
+                    <img src="{{ case.assigned_vet.profile_photo.url }}" alt="Dr. {{ case.assigned_vet.full_name }}">
+                {% else %}
+                    {% if case.assigned_vet %}{{ case.assigned_vet.full_name|slice:":1"|upper }}{% else %}V{% endif %}
+                {% endif %}
+            </div>
+            <div>
+                <h5 style="color: #22c55e; margin:0;"><i class="fas fa-user-md"></i> Vet’s recommendation (follow this)</h5>
+                {% if case.assigned_vet %}
+                <small style="color:#9ca3af;">Dr. {{ case.assigned_vet.full_name }}</small>
+                {% endif %}
+            </div>
+        </div>
+        {% if case.vet_diagnosis %}
+        <p class="mb-2 mt-2"><strong style="color: #9ca3af;">Diagnosis:</strong></p>
+        <p style="color: #e5e7eb; white-space: pre-wrap;">{{ case.vet_diagnosis }}</p>
+        {% endif %}
+        <p class="mb-2"><strong style="color: #22c55e;">Recommendation:</strong></p>
+        <p style="color: #fff; white-space: pre-wrap;">{{ case.vet_recommendations }}</p>
+        <small style="color: #6b7280;">{{ case.vet_consultation_date|date:"M d, Y H:i" }}</small>
+    </div>
+    {% endif %}
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            {% if case.is_low_confidence %}
+            <h5>Possible conditions (for vet to confirm)</h5>
+            <p class="mb-2" style="color: #9ca3af;">The system is not certain. Top 3 likely diseases for your vet to consider:</p>
+            <ul class="mb-0">
+                {% for item in case.top_diseases %}
+                <li><strong>{{ item.disease|local_disease }}</strong> — {% widthratio item.probability 1 100 %}%</li>
+                {% empty %}
+                <li>{{ case.predicted_disease|local_disease }} ({{ case.confidence_score|floatformat:2 }}%)</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <h5>Predicted disease</h5>
+            <p class="lead mb-0" style="color: #fff;">{{ case.predicted_disease|local_disease }}</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h5>Confidence</h5>
+            <div class="progress-bar-custom">
+                <div class="progress-fill {% if case.confidence_score >= 0.4 %}green{% elif case.confidence_score >= 0.22 %}yellow{% else %}red{% endif %}" style="width: {% widthratio case.confidence_score 1 100 %}%;"></div>
+            </div>
+            <span style="color: #9ca3af;">{% widthratio case.confidence_score 1 100 %}%</span>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <span class="pill-badge {% if case.severity == 'CRITICAL' %}danger{% elif case.severity == 'SEVERE' %}warning{% else %}success{% endif %}">Severity: {{ case.severity|local_severity }}</span>
+    </div>
+
+    {% if not case.assigned_vet %}
+    <div class="card-dark mb-4 {% if case.severity == 'CRITICAL' %}pulse-animation{% endif %}" style="padding: 20px; border: 1px solid {% if case.severity == 'CRITICAL' %}rgba(239,68,68,0.4){% else %}rgba(234,179,8,0.4){% endif %};">
+        <h5><i class="fas fa-user-md"></i> Select a vet</h5>
+        <p class="mb-3" style="color: #e5e7eb;">Every case is reviewed by a vet. Please select a vet from your region so they can provide their recommendation.</p>
+        <a href="{% url 'farmers:select_vet' case.id %}" class="btn-upgrade {% if case.severity == 'CRITICAL' %}pulse-animation{% endif %}" style="display: inline-block; padding: 12px 24px; text-decoration: none;">
+            <i class="fas fa-hand-pointer"></i> Select vet
+        </a>
+    </div>
+    {% elif not case.vet_recommendations %}
+    <div class="card-dark mb-4" style="padding: 16px; border: 1px solid rgba(255,255,255,0.1);">
+        <p class="mb-0" style="color: #9ca3af;"><i class="fas fa-info-circle"></i> Vet <strong>Dr. {{ case.assigned_vet.full_name }}</strong> has been assigned. They will review your case and add their recommendation here. Contact: <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: #22c55e;">{{ case.assigned_vet.phone_number }}</a></p>
+    </div>
+    {% endif %}
+
+    {% if case.assigned_vet and not case.vet_recommendations %}
+    <p class="mb-2" style="color: #6b7280; font-size: 13px;"><strong>Assigned vet:</strong> Dr. {{ case.assigned_vet.full_name }} — <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: #22c55e;">{{ case.assigned_vet.phone_number }}</a></p>
+    {% endif %}
+
+    {% if not case.is_low_confidence and not case.vet_recommendations %}
+    <div class="card-dark mt-3" style="padding: 16px;">
+        <h6 style="color: #9ca3af;">General guidance (your vet’s recommendation is the final advice)</h6>
+        <ul class="mb-0" style="color: #e5e7eb;">
+            <li>Isolate affected cattle from the herd</li>
+            <li>Monitor closely and follow your vet’s advice when they respond</li>
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if case.is_low_confidence and not case.vet_recommendations %}
+    <div class="card-dark mt-3" style="padding: 16px; border-left: 4px solid #eab308;">
+        <p class="mb-0" style="color: #eab308;"><i class="fas fa-exclamation-triangle"></i> No AI treatment advice is shown for this case because the model is uncertain. Please wait for your vet’s recommendation above.</p>
+    </div>
+    {% endif %}
+
+    <hr style="border-color: rgba(255,255,255,0.06);">
+    <a href="{% url 'farmers:vet_recommendations' %}" class="btn-upgrade" style="padding: 8px 16px; text-decoration: none; margin-right: 8px;">Vet recommendations</a>
+    <a href="{% url 'farmers:dashboard' %}" class="btn-upgrade" style="padding: 8px 16px; text-decoration: none; background: transparent; border: 1px solid rgba(255,255,255,0.2);">Dashboard</a>
+</div>
+{% endblock %}

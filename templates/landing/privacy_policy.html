@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Privacy Policy - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@700;900&display=swap');
+    .page-hero {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.72) 0%, rgba(35, 25, 15, 0.78) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+        min-height: 45vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        padding: 120px 1rem 70px;
+        text-align: center;
+    }
+    .page-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .page-hero h1 { font-family: 'Merriweather', serif; font-size: 2.75rem; font-weight: 900; margin-bottom: 0.5rem; text-shadow: 2px 2px 12px rgba(0,0,0,0.5); position: relative; }
+    .page-hero .lead { font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin: 0 auto; position: relative; }
+    @media (max-width: 768px) {
+        .page-hero { min-height: 38vh; padding: 100px 1rem 50px; background-attachment: scroll; }
+        .page-hero h1 { font-size: 1.75rem; }
+    }
+    .legal-section {
+        padding: 4rem 0;
+        background: linear-gradient(160deg, #fff9f2 0%, #fff5eb 40%, #fef9f3 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    .legal-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.04;
+        pointer-events: none;
+    }
+    .legal-section .container { position: relative; z-index: 1; max-width: 800px; }
+    .legal-section h2 { font-family: 'Merriweather', serif; font-size: 1.5rem; font-weight: 700; color: #2c1f18; margin-top: 2rem; margin-bottom: 0.75rem; }
+    .legal-section h2:first-of-type { margin-top: 0; }
+    .legal-section h3 { font-size: 1.15rem; font-weight: 600; color: #3d3228; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .legal-section p, .legal-section ul { color: #4a4038; line-height: 1.75; margin-bottom: 1rem; font-size: 1rem; }
+    .legal-section ul { padding-left: 1.5rem; }
+    .legal-section li { margin-bottom: 0.35rem; }
+    .legal-section .updated { font-size: 0.9rem; color: #6b5d52; margin-bottom: 2rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container position-relative">
+        <h1>{% trans "Privacy Policy" %}</h1>
+        <p class="lead">{% trans "How CattleCare AI collects, uses, and protects your information." %}</p>
+    </div>
+</section>
+
+<section class="legal-section">
+    <div class="container">
+        <p class="updated"><strong>{% trans "Last updated:" %}</strong> {% now "F j, Y" %}</p>
+
+        <h2>{% trans "1. Introduction" %}</h2>
+        <p>{% blocktrans trimmed %}CattleCare AI (“we”, “our”, or “the platform”) is an early disease prediction and veterinary support system for cattle, operated in support of the Ministry of Agriculture, Zimbabwe. This Privacy Policy explains how we collect, use, store, and protect your personal and farm-related information when you use our website and services.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}By registering as a farmer, applying as a veterinarian, or using the platform in any way, you agree to the practices described in this policy.{% endblocktrans %}</p>
+
+        <h2>{% trans "2. Information We Collect" %}</h2>
+        <h3>{% trans "Account and profile information" %}</h3>
+        <p>{% trans "When you register or use the platform, we may collect:" %}</p>
+        <ul>
+            <li>{% trans "Name, email address, phone number, and username" %}</li>
+            <li>{% trans "Province, district, and (where provided) location or GPS coordinates" %}</li>
+            <li>{% trans "For farmers: farm details such as cattle breed, herd size, and farming type" %}</li>
+            <li>{% trans "For veterinarians: professional details, qualifications, and provinces served" %}</li>
+        </ul>
+        <h3>{% trans "Case and usage information" %}</h3>
+        <p>{% trans "When you submit a disease case or use our features, we collect:" %}</p>
+        <ul>
+            <li>{% trans "Symptoms and other data you enter for disease prediction" %}</li>
+            <li>{% trans "Case history, recommendations, and vet assignment information" %}</li>
+            <li>{% trans "General usage data (e.g. pages visited, actions taken) to improve the service" %}</li>
+        </ul>
+
+        <h2>{% trans "3. How We Use Your Information" %}</h2>
+        <p>{% trans "We use the information we collect to:" %}</p>
+        <ul>
+            <li>{% trans "Provide disease prediction, treatment recommendations, and vet connection services" %}</li>
+            <li>{% trans "Manage your account and authenticate you when you log in" %}</li>
+            <li>{% trans "Send you important notices (e.g. password reset emails, service updates)" %}</li>
+            <li>{% trans "Support the Ministry of Agriculture with aggregated, anonymized disease surveillance and analytics" %}</li>
+            <li>{% trans "Improve our platform, algorithms, and user experience" %}</li>
+            <li>{% trans "Comply with applicable laws and protect the security of the platform" %}</li>
+        </ul>
+
+        <h2>{% trans "4. Data Sharing and Disclosure" %}</h2>
+        <p>{% trans "We do not sell your personal information. We may share data only in these circumstances:" %}</p>
+        <ul>
+            <li>{% blocktrans trimmed %}<strong>Ministry of Agriculture:</strong> Aggregated and anonymized disease and outbreak data for national surveillance, policy, and vaccination planning. Where relevant, Ministry staff with appropriate access may view regional or national dashboards.{% endblocktrans %}</li>
+            <li>{% blocktrans trimmed %}<strong>Veterinarians:</strong> When you request a vet consultation, relevant case and contact information may be shared with the selected veterinarian so they can assist you.{% endblocktrans %}</li>
+            <li>{% blocktrans trimmed %}<strong>Legal and safety:</strong> When required by law, or to protect the rights, safety, or security of users or the public.{% endblocktrans %}</li>
+        </ul>
+
+        <h2>{% trans "5. Data Security" %}</h2>
+        <p>{% blocktrans trimmed %}We use appropriate technical and organisational measures to protect your data against unauthorised access, loss, or misuse. This includes secure storage, access controls, and encryption where applicable. You are responsible for keeping your login credentials confidential.{% endblocktrans %}</p>
+
+        <h2>{% trans "6. Data Retention" %}</h2>
+        <p>We retain your account and case data for as long as your account is active and as needed to provide the service, comply with law, and support disease surveillance and research in the public interest. You may request deletion of your account or data subject to applicable law and our operational requirements.</p>
+
+        <h2>{% trans "7. Your Rights" %}</h2>
+        <p>{% blocktrans trimmed %}Depending on applicable law, you may have the right to access, correct, or delete your personal data, or to object to or restrict certain processing. To exercise these rights or ask questions about your data, contact us using the details below.{% endblocktrans %}</p>
+
+        <h2>{% trans "8. Cookies and Similar Technologies" %}</h2>
+        <p>We may use cookies and similar technologies to keep you logged in, remember your preferences, and understand how the platform is used. You can adjust your browser settings to limit or block cookies, though some features may not work fully without them.</p>
+
+        <h2>{% trans "9. Changes to This Policy" %}</h2>
+        <p>We may update this Privacy Policy from time to time. The “Last updated” date at the top will be revised when we do. We encourage you to review this page periodically. Continued use of the platform after changes constitutes acceptance of the updated policy.</p>
+
+        <h2>{% trans "10. Contact Us" %}</h2>
+        <p>{% trans "For privacy-related questions or requests, contact us at:" %}</p>
+        <p><strong>{% trans "Email:" %}</strong> <a href="mailto:riffymbengo@gmail.com">riffymbengo@gmail.com</a><br>
+        <strong>{% trans "Location:" %}</strong> {% trans "Harare, Zimbabwe" %}</p>
+    </div>
+</section>
+{% endblock %}

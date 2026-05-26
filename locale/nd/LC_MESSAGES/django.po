@@ -1,0 +1,4714 @@
+# Ndebele translations for CattleCare AI (project templates).
+# Copyright (C) CattleCare AI
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CattleCare AI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-08 18:26+0200\n"
+"PO-Revision-Date: 2026-04-03 20:00+0200\n"
+"Language: nd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\farmers\views.py:26 .\farmers\views.py:120 .\farmers\views.py:247
+msgid "Access denied. Farmers only."
+msgstr ""
+
+#: .\farmers\views.py:34
+msgid "Please complete your farmer profile."
+msgstr ""
+
+#: .\farmers\views.py:141
+msgid "Access denied."
+msgstr ""
+
+#: .\farmers\views.py:157
+#, fuzzy
+#| msgid "Chart exported successfully!"
+msgid "Profile updated successfully."
+msgstr "Ushathi ukhishwe ngempumelelo!"
+
+#: .\farmers\views.py:160
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\farmers\views.py:172
+msgid "Access denied"
+msgstr ""
+
+#: .\farmers\views.py:175
+msgid "Method not allowed"
+msgstr ""
+
+#: .\farmers\views.py:187
+msgid ""
+"Please enter a question or select a topic. I can help with disease tips, "
+"herd health, and cattle care guidance."
+msgstr ""
+
+#: .\farmers\views.py:221
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown disease"
+msgstr "Akwaziwa"
+
+#: .\farmers\views.py:225
+#, python-format
+msgid ""
+"\n"
+"\n"
+"In your own herd, the most recent recorded case is **%(disease)s** from "
+"%(date)s (severity: **%(severity)s**, status: **%(status)s**). Use this as a "
+"reference when monitoring similar symptoms."
+msgstr ""
+
+#: .\templates\accounts\login.html:5
+msgid "Log in - CattleCare AI"
+msgstr "Ngena - CattleCare AI"
+
+#: .\templates\accounts\login.html:384 .\templates\accounts\login.html:446
+#: .\templates\base.html:111
+msgid "Log in"
+msgstr "Ngena"
+
+#: .\templates\accounts\login.html:401 .\templates\farmers\register.html:527
+msgid "Username"
+msgstr "Igama lokusebenzisa"
+
+#: .\templates\accounts\login.html:409
+msgid "Enter your username"
+msgstr "Faka igama lakho lokusebenzisa"
+
+#: .\templates\accounts\login.html:435
+msgid "Forgot password?"
+msgstr "Ukhohlwe iphasiwedi?"
+
+#: .\templates\accounts\login.html:451
+msgid "New to CattleCare AI?"
+msgstr "Umusha ku CattleCare AI?"
+
+#: .\templates\accounts\login.html:455
+msgid "Don't have an account? Register now"
+msgstr "Awulakhonto? Bhalisa manje"
+
+#: .\templates\accounts\login.html:457 .\templates\landing\about.html:310
+#: .\templates\landing\home.html:842 .\templates\landing\how_it_works.html:312
+#: .\templates\landing\services.html:325
+msgid "Register as Farmer"
+msgstr "Bhalisa njengomulimi"
+
+#: .\templates\accounts\login.html:461 .\templates\landing\home.html:872
+#: .\templates\landing\services.html:326
+msgid "Apply as Vet"
+msgstr "Faka isicelo njengodokotela wezilwane"
+
+#: .\templates\accounts\login.html:467 .\templates\farmers\register.html:732
+#: .\templates\vets\apply.html:649 .\templates\vets\register.html:799
+#: .\templates\vets\track_application.html:769
+msgid "Back to Home"
+msgstr "Buyela ekhaya"
+
+#: .\templates\base.html:7
+msgid "Cattle Disease Prediction System"
+msgstr "Isistimu yokubona izifo zenkomo ngaphambi kwesikhathi"
+
+#: .\templates\base.html:39 .\templates\base.html:46 .\templates\base.html:50
+#: .\templates\landing\home.html:907
+#: .\templates\ministry\base_ministry.html:132
+#: .\templates\ministry\dashboard.html:993
+#: .\templates\ministry\dashboard.html:1066 .\templates\vets\vet_base.html:116
+msgid "Dashboard"
+msgstr "Ideshibhodi"
+
+#: .\templates\base.html:42 .\templates\farmers\farmer_base.html:189
+#: .\templates\farmers\farmer_base.html:215
+#: .\templates\farmers\help_center.html:31
+#: .\templates\farmers\submit_case.html:6
+msgid "Submit Case"
+msgstr "Thumela icansi"
+
+#: .\templates\base.html:53
+msgid "Maps"
+msgstr "Amaphu"
+
+#: .\templates\base.html:68 .\templates\base.html:105
+#: .\templates\farmers\farmer_base.html:244
+#: .\templates\ministry\base_ministry.html:200
+#: .\templates\partials\lang_switch_fixed.html:14
+#: .\templates\vets\vet_base.html:179
+#: .\venv\Lib\site-packages\django\forms\widgets.py:530
+msgid "Change"
+msgstr "Shintsha"
+
+#: .\templates\base.html:74 .\templates\farmers\farmer_base.html:207
+#: .\templates\ministry\base_ministry.html:173
+#: .\templates\ministry\base_ministry.html:241
+#: .\templates\ministry\dashboard.html:1044
+#: .\templates\ministry\dashboard.html:1106 .\templates\vets\vet_base.html:139
+#: .\templates\vets\vet_base.html:207
+msgid "Logout"
+msgstr "Phuma"
+
+#: .\templates\base.html:79
+msgid "Home"
+msgstr "Ekhaya"
+
+#: .\templates\base.html:82 .\templates\base.html:261
+msgid "Services"
+msgstr "Izinsiza"
+
+#: .\templates\base.html:85 .\templates\base.html:262
+#: .\templates\landing\home.html:771 .\templates\landing\how_it_works.html:171
+#: .\templates\landing\services.html:254
+msgid "How It Works"
+msgstr "Kusebenza kanjani"
+
+#: .\templates\base.html:88 .\templates\base.html:263
+#: .\templates\landing\home.html:828
+msgid "For Farmers"
+msgstr "Kubalimi"
+
+#: .\templates\base.html:91 .\templates\base.html:260
+msgid "About"
+msgstr "Mayelana"
+
+#: .\templates\base.html:116 .\templates\base.html:238
+msgid "Get Started"
+msgstr "Qala"
+
+#: .\templates\base.html:236 .\templates\landing\about.html:308
+msgid "Ready to protect your herd?"
+msgstr "Usulungele ukuvikela umhlambi wakho?"
+
+#: .\templates\base.html:237
+msgid "Join farmers using AI for early disease prediction."
+msgstr "Joyina abalimi abasebenzisa i-AI ukubona izifo ngaphambi kwesikhathi."
+
+#: .\templates\base.html:249
+msgid "Early disease prediction and veterinary support for Zimbabwean farmers."
+msgstr ""
+"Ukubona izifo ngaphambi kwesikhathi kanye nolekelelo lwedokotela wezilwane "
+"kubalimi baseZimbabwe."
+
+#: .\templates\base.html:250
+msgid "Connect with us"
+msgstr "Xhumana lathi"
+
+#: .\templates\base.html:258
+msgid "Company"
+msgstr "Inkampani"
+
+#: .\templates\base.html:267
+msgid "Platform"
+msgstr "Indawo"
+
+#: .\templates\base.html:269
+msgid "Register"
+msgstr "Bhalisa"
+
+#: .\templates\base.html:270 .\templates\landing\home.html:934
+msgid "Login"
+msgstr "Ngena"
+
+#: .\templates\base.html:271
+msgid "Vet Apply"
+msgstr "Dokotela Wezilwane Faka Isicelo"
+
+#: .\templates\base.html:272 .\templates\landing\home.html:875
+msgid "Track Application"
+msgstr "Landela Isicelo"
+
+#: .\templates\base.html:276 .\templates\vets\register.html:606
+msgid "Contact"
+msgstr "Xhumana"
+
+#: .\templates\base.html:296
+msgid "All rights reserved."
+msgstr "Amalungelo wonke agciniwe."
+
+#: .\templates\base.html:298 .\templates\landing\privacy_policy.html:65
+msgid "Privacy Policy"
+msgstr "Umthetho wokugcinwa kolwazi"
+
+#: .\templates\base.html:299 .\templates\landing\terms_of_service.html:66
+msgid "Terms of Service"
+msgstr "Imigomo yesevisi"
+
+#: .\templates\farmers\dashboard.html:6
+msgid "Farmer Dashboard - CattleCare AI"
+msgstr "Ideshibhodi yomlimi - CattleCare AI"
+
+#: .\templates\farmers\dashboard.html:14
+#: .\templates\farmers\help_center.html:21
+msgid "Herd Summary"
+msgstr "Isifinyezo Somhlambi"
+
+#: .\templates\farmers\dashboard.html:16
+msgid "Help"
+msgstr "Usizo"
+
+#: .\templates\farmers\dashboard.html:20
+msgid "Total Cattle in Herd"
+msgstr "Inani lezinkomo emhlambini"
+
+#: .\templates\farmers\dashboard.html:21
+#, python-format
+msgid "Compared to last month +0%%"
+msgstr "Kuqhathaniswa lenyanga edlule +0%%"
+
+#: .\templates\farmers\dashboard.html:22
+msgid "Total Cases:"
+msgstr "Wonke amacansi:"
+
+#: .\templates\farmers\dashboard.html:24 .\templates\farmers\dashboard.html:213
+msgid "AI Assistant"
+msgstr "Umsizi we-AI"
+
+#: .\templates\farmers\dashboard.html:25
+msgid "Monitoring your herd health..."
+msgstr "Ngilandelela impilo yomhlambi wakho..."
+
+#: .\templates\farmers\dashboard.html:28
+msgid "How to read this card"
+msgstr "Indlela yokufunda le khadi"
+
+#: .\templates\farmers\dashboard.html:29
+msgid "• Total cattle is your current herd size saved in your profile."
+msgstr ""
+"• Inani lezinkomo ngumlinganiso womhlambi wakho ogciniweyo kuphrofayili."
+
+#: .\templates\farmers\dashboard.html:30
+msgid "• Total cases counts every disease case you have submitted so far."
+msgstr ""
+"• Wonke amacansi abala zonke izigameko zezifo ozifakileyo kuze kube manje."
+
+#: .\templates\farmers\dashboard.html:31
+msgid ""
+"• Watch if cases keep rising compared to your herd size — that’s a signal to "
+"submit more details and contact your vet early."
+msgstr ""
+"• Qaphela uma amacansi eqhubeka enyuka uma kuqhathaniswa lomlinganiso "
+"womhlambi — lokhu kuyisibonakaliso sokufaka imininingwane eyengeziwe futhi "
+"uthinte inyanga masinyane."
+
+#: .\templates\farmers\dashboard.html:40
+#: .\templates\farmers\help_center.html:22
+msgid "Herd Health Metrics"
+msgstr "Izilinganiso Zempilo Yomhlambi"
+
+#: .\templates\farmers\dashboard.html:47
+msgid "View active cases"
+msgstr "Bona amacansi asebenzayo"
+
+#: .\templates\farmers\dashboard.html:50
+msgid "Open case history"
+msgstr "Vula umlando wamacansi"
+
+#: .\templates\farmers\dashboard.html:57
+msgid "Active Cases"
+msgstr "Amacansi asebenzayo"
+
+#: .\templates\farmers\dashboard.html:61
+#, fuzzy
+#| msgid "Resolved cases"
+msgid "Resolved Cases"
+msgstr "Amacansi axazululiweyo"
+
+#: .\templates\farmers\dashboard.html:65
+msgid "Critical Alerts"
+msgstr "Izexwayiso Ezibucayi"
+
+#: .\templates\farmers\dashboard.html:70
+msgid "Add New"
+msgstr "Engeza Okutsha"
+
+#: .\templates\farmers\dashboard.html:71
+#, fuzzy
+#| msgid "View cases"
+msgid "View Cases"
+msgstr "Bona amacansi"
+
+#: .\templates\farmers\dashboard.html:80
+#: .\templates\farmers\help_center.html:23
+#, fuzzy
+#| msgid "Disease Prediction"
+msgid "Disease Tracking"
+msgstr "Ukubiselezwa kwezifo"
+
+#: .\templates\farmers\dashboard.html:82
+msgid "Full year"
+msgstr "Umnyaka wonke"
+
+#: .\templates\farmers\dashboard.html:83
+msgid "Last 6 months"
+msgstr "Izinyanga eziyisi-6 ezedlule"
+
+#: .\templates\farmers\dashboard.html:97 .\templates\farmers\dashboard.html:253
+#: .\templates\vets\dashboard.html:23 .\templates\vets\dashboard.html:112
+msgid "No cases yet"
+msgstr "Akukho amacansi kuze kube manje"
+
+#: .\templates\farmers\dashboard.html:102
+#, fuzzy
+#| msgid "Total cases:"
+msgid "Total cases this year:"
+msgstr "Wonke amacansi kulo nyaka:"
+
+#: .\templates\farmers\dashboard.html:103
+#, fuzzy
+#| msgid "Resolved"
+msgid "Resolved:"
+msgstr "Kuxazululiwe:"
+
+#: .\templates\farmers\dashboard.html:117
+#: .\templates\farmers\help_center.html:24
+msgid "Case Severity Breakdown"
+msgstr "Ukuhlukaniswa Kobunzima Bamacansi"
+
+#: .\templates\farmers\dashboard.html:122
+#: .\templates\farmers\dashboard.html:256
+#, fuzzy
+#| msgid "Critical cases"
+msgid "Critical"
+msgstr "Okubucayi"
+
+#: .\templates\farmers\dashboard.html:131
+#, fuzzy
+#| msgid "Severity"
+msgid "Severe"
+msgstr "Okunzima"
+
+#: .\templates\farmers\dashboard.html:140
+msgid "Non-Severe"
+msgstr "Okungeyona Enzima"
+
+#: .\templates\farmers\dashboard.html:148
+#: .\templates\farmers\dashboard.html:168
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "All Records"
+msgstr "Amarekhodi enkomo"
+
+#: .\templates\farmers\dashboard.html:149
+#: .\templates\farmers\dashboard.html:169
+#, fuzzy
+#| msgid "Pending cases"
+msgid "Pending"
+msgstr "Amacansi alindayo"
+
+#: .\templates\farmers\dashboard.html:150
+#: .\templates\farmers\dashboard.html:170
+#: .\templates\farmers\dashboard.html:255
+msgid "Resolved"
+msgstr "Xazuliwe"
+
+#: .\templates\farmers\dashboard.html:159
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "Case Records"
+msgstr "Amarekhodi enkomo"
+
+#: .\templates\farmers\dashboard.html:164
+#, fuzzy
+#| msgid "Search farmers, vets, cases..."
+msgid "Search case records..."
+msgstr "Sesha abalimi, izingcweti, amacansi..."
+
+#: .\templates\farmers\dashboard.html:176
+#: .\templates\ministry\dashboard.html:1337
+#: .\templates\ministry\dashboard.html:1396 .\templates\vets\dashboard.html:200
+msgid "Disease"
+msgstr "Ifo"
+
+#: .\templates\farmers\dashboard.html:177 .\templates\vets\dashboard.html:201
+msgid "Severity"
+msgstr "Ubunzima"
+
+#: .\templates\farmers\dashboard.html:178 .\templates\vets\dashboard.html:202
+msgid "Status"
+msgstr "Isimo"
+
+#: .\templates\farmers\dashboard.html:179
+#: .\templates\ministry\dashboard.html:1397 .\templates\vets\dashboard.html:198
+msgid "Date"
+msgstr "Usuku"
+
+#: .\templates\farmers\dashboard.html:198
+msgid "View"
+msgstr "Bona"
+
+#: .\templates\farmers\dashboard.html:201
+#, fuzzy
+#| msgid "No cases assigned yet."
+msgid "No cases submitted yet."
+msgstr "Akukho amacansi emiselwe kuze kube manje."
+
+#: .\templates\farmers\dashboard.html:201
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit your first case"
+msgstr "Thumela icansi"
+
+#: .\templates\farmers\dashboard.html:215
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit a case"
+msgstr "Thumela icansi"
+
+#: .\templates\farmers\dashboard.html:220
+#, fuzzy
+#| msgid "Join farmers using AI for early disease prediction."
+msgid "What should I do for early disease prevention?"
+msgstr "Joyina abalimi abasebenzisa i-AI ukubona izifo ngaphambi kwesikhathi."
+
+#: .\templates\farmers\dashboard.html:221
+msgid ""
+"Monitor symptoms daily, keep vaccination records, and report any unusual "
+"behavior in cattle promptly. Use CattleCare AI to submit a case for instant "
+"predictions."
+msgstr ""
+
+#: .\templates\farmers\dashboard.html:225
+#, fuzzy
+#| msgid "Disease Map"
+msgid "Disease Tips"
+msgstr "Imipu yezifo"
+
+#: .\templates\farmers\dashboard.html:226
+msgid "Herd Health"
+msgstr "Impilo Yomhlambi"
+
+#: .\templates\farmers\dashboard.html:227
+msgid "Tip of the Day"
+msgstr "Icebo Losuku"
+
+#: .\templates\farmers\dashboard.html:231
+msgid "Ask or Search..."
+msgstr "Buza noma Sesha..."
+
+#: .\templates\farmers\dashboard.html:254 .\templates\vets\dashboard.html:243
+msgid "No cases"
+msgstr "Akukho amacansi"
+
+#: .\templates\farmers\dashboard.html:257
+msgid "Thinking..."
+msgstr "Ngiyacabanga..."
+
+#: .\templates\farmers\dashboard.html:258
+msgid "You asked"
+msgstr "Ubuzile"
+
+#: .\templates\farmers\dashboard.html:259
+msgid "No cases match this filter."
+msgstr "Akukho macansi ahambelana lalesi sihlungi."
+
+#: .\templates\farmers\dashboard.html:260
+msgid "Sorry, something went wrong. Please try again."
+msgstr "Uxolo, kukhona okonakeleyo. Ngicela uzame futhi."
+
+#: .\templates\farmers\farmer_base.html:8
+msgid "CattleCare AI - Farmer"
+msgstr "CattleCare AI - Umlimi"
+
+#: .\templates\farmers\farmer_base.html:175
+msgid "Main"
+msgstr "Okuyinhloko"
+
+#: .\templates\farmers\farmer_base.html:177
+msgid "Overview"
+msgstr "Isibuko esifushane"
+
+#: .\templates\farmers\farmer_base.html:180
+msgid "Cattle Records"
+msgstr "Amarekhodi enkomo"
+
+#: .\templates\farmers\farmer_base.html:183
+#: .\templates\ministry\base_ministry.html:143
+#: .\templates\ministry\dashboard.html:1006 .\templates\vets\vet_base.html:119
+msgid "Cases"
+msgstr "Amacansi"
+
+#: .\templates\farmers\farmer_base.html:186
+msgid "Vet recommendations"
+msgstr "Iziphakamiso zedokotela yezilwane"
+
+#: .\templates\farmers\farmer_base.html:193
+msgid "Features"
+msgstr "Izici"
+
+#: .\templates\farmers\farmer_base.html:195
+msgid "AI Insights"
+msgstr "Ukuqonda nge-AI"
+
+#: .\templates\farmers\farmer_base.html:199
+msgid "Tools"
+msgstr "Amathuluzi"
+
+#: .\templates\farmers\farmer_base.html:201
+#: .\templates\ministry\base_ministry.html:238
+#: .\templates\vets\vet_base.html:204
+msgid "Edit Profile"
+msgstr "Hlela iphrofayili"
+
+#: .\templates\farmers\farmer_base.html:204
+msgid "Help center"
+msgstr "Isikhungo sokusiza"
+
+#: .\templates\farmers\farmer_base.html:213
+msgid "Get Pro Insights"
+msgstr "Thola ulwazi olujulile"
+
+#: .\templates\farmers\farmer_base.html:214
+msgid "Unlock advanced disease predictions and herd analytics."
+msgstr "Vula ukubona izifo ezinzulu kanye nokuhlaziya umhlambi."
+
+#: .\templates\farmers\farmer_base.html:230
+msgid "Search for cattle, cases, disease..."
+msgstr "Sesha izinkomo, amacansi, izifo..."
+
+#: .\templates\farmers\farmer_base.html:256
+#, python-format
+msgid "You have %(counter)s critical case. Please contact a vet urgently."
+msgid_plural ""
+"You have %(counter)s critical cases. Please contact a vet urgently."
+msgstr[0] ""
+"Unecansi elibalulekile elilodwa elingu-%(counter)s. Sicela uxhumane "
+"nedokotela ngokushesha."
+msgstr[1] ""
+"Unamacansi abalulekile angu-%(counter)s. Sicela uxhumane nedokotela "
+"ngokushesha."
+
+#: .\templates\farmers\farmer_base.html:262
+#, python-format
+msgid "%(counter)s active case waiting for vet recommendations."
+msgid_plural "%(counter)s active cases waiting for vet recommendations."
+msgstr[0] ""
+"Icansi elingu-%(counter)s elisebenzayo lilindele iziphakamiso zedokotela."
+msgstr[1] ""
+"Amacansi angu-%(counter)s asebenzayo alindele iziphakamiso zedokotela."
+
+#: .\templates\farmers\farmer_base.html:268
+msgid "No new case alerts. Your herd looks stable."
+msgstr "Azikho izexwayiso ezintsha. Umhlambi wakho ubukeka uqine."
+
+msgid "Help Center - CattleCare AI"
+msgstr "Isikhungo Sosizo - CattleCare AI"
+
+msgid "How to use CattleCare AI"
+msgstr "Indlela yokusebenzisa i-CattleCare AI"
+
+#: .\templates\farmers\help_center.html:12
+#, fuzzy
+#| msgid "Back to Dashboard"
+msgid "Back to dashboard"
+msgstr "Buyela ku-deshibhodi"
+
+#: .\templates\farmers\help_center.html:15
+msgid ""
+"This page explains the main parts of your farmer dashboard, how to submit a "
+"case, and what happens after you send it to a vet."
+msgstr ""
+"Leli khasi lichaza izingxenye ezinkulu zedeshibhodi yomlimi, indlela "
+"yokufaka icansi, kanye lokwenzakalayo ngemva kokulithumela kunyanga."
+
+#: .\templates\farmers\help_center.html:19
+msgid "1. Reading your dashboard"
+msgstr "1. Ukufunda ideshibhodi yakho"
+
+msgid ""
+"shows your total cattle and how many disease cases you have ever submitted."
+msgstr ""
+"kubonisa inani lezinkomo zakho kanye lokuthi usuke wafaka amacansi ezifo "
+"angaki."
+
+#: .\templates\farmers\help_center.html:22
+msgid ""
+"tells you how many cases are active, resolved, and how many are critical and "
+"need vet attention quickly."
+msgstr ""
+"kukutshela ukuthi mangaki amacansi asebenzayo, axazululiweyo, kanye lokuthi "
+"mangaki abucayi adinga ukunakwa yinyanga masinyane."
+
+#: .\templates\farmers\help_center.html:23
+msgid ""
+"shows which diseases are appearing most often and a graph of critical vs "
+"resolved cases over the months."
+msgstr ""
+"kubonisa ukuthi yiziphi izifo ezivela kakhulu kanye legrafu yokuthelekisa "
+"amacansi abucayi lamacansi axazululiweyo ngezinyanga."
+
+#: .\templates\farmers\help_center.html:24
+msgid ""
+"gives a quick view of how many cases are Critical, Severe, or Non‑Severe."
+msgstr ""
+"ikunika umbono osheshayo wokuthi mangaki amacansi angamaCritical, Severe, "
+"noma Non‑Severe."
+
+msgid "2. Submitting a new case"
+msgstr "2. Ukufaka icansi elitsha"
+
+#: .\templates\farmers\help_center.html:31
+#: .\templates\farmers\help_center.html:36
+msgid "Click"
+msgstr "Cofa"
+
+#: .\templates\farmers\help_center.html:31
+msgid "in the left sidebar."
+msgstr "kubha engakwesobunxele."
+
+#: .\templates\farmers\help_center.html:32
+msgid "On the first step,"
+msgstr "Esigabeni sokuqala,"
+
+#: .\templates\farmers\help_center.html:32
+msgid "select all symptoms"
+msgstr "khetha zonke izimpawu"
+
+#: .\templates\farmers\help_center.html:32
+msgid "you see in your cattle. Use the search box to find symptoms faster."
+msgstr "ozibonayo ezinkomeni zakho. Sebenzisa ibhokisi lokusesha ukuze uthole izimpawu masinyane."
+
+#: .\templates\farmers\help_center.html:33
+#: .\templates\farmers\help_center.html:34
+msgid "Fill in"
+msgstr "Gcwalisa"
+
+#: .\templates\farmers\help_center.html:33
+msgid "cattle information"
+msgstr "imininingwane yezinkomo"
+
+#: .\templates\farmers\help_center.html:33
+msgid "(age, sex, breed, vaccination, herd size, farming type)."
+msgstr "(ubudala, ubulili, uhlobo, ukugoma, ubukhulu bomhlambi, uhlobo lokufuya)."
+
+#: .\templates\farmers\help_center.html:34
+msgid "environment"
+msgstr "imvelo"
+
+#: .\templates\farmers\help_center.html:34
+msgid "(recent movement, season, province)."
+msgstr "(ukuhamba kwakamuva, isizini, isifundazwe)."
+
+#: .\templates\farmers\help_center.html:35
+msgid "Add extra"
+msgstr "Engeza okunye"
+
+#: .\templates\farmers\help_center.html:35
+msgid "notes"
+msgstr "amanothi"
+
+#: .\templates\farmers\help_center.html:35
+msgid "if there is anything special you want the vet to know."
+msgstr "uma kukhona okunye okukhethekile ofuna ukuthi inyanga ikwazi."
+
+#: .\templates\farmers\help_center.html:36
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit Case for Diagnosis"
+msgstr "Thumela icansi lokuxilongwa"
+
+#: .\templates\farmers\help_center.html:36
+msgid "and wait while the AI analyzes your case."
+msgstr "bese ulinda i-AI ihlaziya icansi lakho."
+
+#: .\templates\farmers\help_center.html:41
+msgid "3. After submitting – AI result & vet selection"
+msgstr "3. Ngemva kokufaka – umphumela we-AI & ukukhetha inyanga"
+
+#: .\templates\farmers\help_center.html:43
+msgid "The"
+msgstr "I"
+
+#: .\templates\farmers\help_center.html:43
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "Case Result"
+msgstr "Umphumela wecala"
+
+#: .\templates\farmers\help_center.html:43
+msgid ""
+"page shows the AI predicted disease, confidence, and severity (Critical, "
+"Severe, Non‑Severe)."
+msgstr ""
+"ikhasi libonisa isifo esibikezelwe yi-AI, izinga lokwethemba, nobunzima "
+"(Critical, Severe, Non‑Severe)."
+
+#: .\templates\farmers\help_center.html:44
+msgid "If no vet is selected yet, you will see a"
+msgstr "Uma ingekho inyanga ekhethiwe, uzabona"
+
+#: .\templates\farmers\help_center.html:44
+msgid "Select vet"
+msgstr "Khetha inyanga"
+
+#: .\templates\farmers\help_center.html:44
+msgid "button – click it to choose a vet from your province."
+msgstr "inkinobho – yicofe ukuze ukhethe inyanga esifundazweni sakho."
+
+#: .\templates\farmers\help_center.html:45
+msgid "On the"
+msgstr "Ku"
+
+#: .\templates\farmers\help_center.html:45
+msgid "Select Vet"
+msgstr "Khetha Inyanga"
+
+#: .\templates\farmers\help_center.html:45
+msgid ""
+"page, pick the doctor you prefer (look at distance, experience and phone) "
+"and confirm."
+msgstr ""
+"khasi, khetha udokotela omfunayo (bheka ibanga, isipiliyoni lenombolo) "
+"bese uqinisekisa."
+
+#: .\templates\farmers\help_center.html:46
+msgid "Once a vet is assigned, they review your case and add their"
+msgstr "Uma inyanga isabelwe, iyabuyekeza icansi lakho bese ifaka"
+
+#: .\templates\farmers\help_center.html:46
+#, fuzzy
+#| msgid "Instant treatment recommendations"
+msgid "diagnosis and recommendation"
+msgstr "ukuxilongwa kanye lesincomo"
+
+#: .\templates\farmers\help_center.html:46
+msgid "which appears at the top of the Case Result page."
+msgstr "okubonakala phezulu kwekhasi loMphumela wecala."
+
+#: .\templates\farmers\help_center.html:51
+#, fuzzy
+#| msgid "Tips for Best Results"
+msgid "4. Tips for best results"
+msgstr "Amacebo emiphumela Emihle"
+
+#: .\templates\farmers\help_center.html:53
+msgid ""
+"Always submit a case as soon as you notice unusual behaviour, not when "
+"cattle are already very sick."
+msgstr ""
+"Hlala ufaka icansi masinyane uma uqaphela ukuziphatha okungajwayelekile, "
+"hhayi lapho izinkomo sezigula kakhulu."
+
+#: .\templates\farmers\help_center.html:54
+msgid "Select"
+msgstr "Khetha"
+
+#: .\templates\farmers\help_center.html:54
+msgid "all symptoms"
+msgstr "zonke izimpawu"
+
+#: .\templates\farmers\help_center.html:54
+msgid ", even if they seem small – this increases accuracy."
+msgstr ", lanxa zibonakala zincane – lokhu kwandisa ukunemba."
+
+#: .\templates\farmers\help_center.html:55
+msgid "Keep your"
+msgstr "Gcina"
+
+#: .\templates\farmers\help_center.html:55
+msgid "phone number and province"
+msgstr "inombolo yocingo lesifundazwe"
+
+#: .\templates\farmers\help_center.html:55
+msgid "updated in your profile so vets can contact you easily."
+msgstr "kusesikhathini kuphrofayili yakho ukuze izinyanga zikuthinte kalula."
+
+#: .\templates\farmers\help_center.html:56
+msgid "Use the"
+msgstr "Sebenzisa"
+
+#: .\templates\farmers\help_center.html:56
+#, fuzzy
+#| msgid "Pending cases"
+msgid "Pending / Resolved"
+msgstr "Kulindile / Kuxazululiwe"
+
+#: .\templates\farmers\help_center.html:56
+msgid "filters on the dashboard to follow up on outstanding cases."
+msgstr "izihlungi ku-deshibhodi ukulandelela amacansi angakapheli."
+
+#: .\templates\farmers\help_center.html:65
+#, fuzzy
+#| msgid "Quick vet shortcuts"
+msgid "Quick stats"
+msgstr "Izibalo ezisheshayo"
+
+#: .\templates\farmers\help_center.html:67
+msgid ""
+"These numbers are from your own account and match what you see on the "
+"dashboard."
+msgstr ""
+"Lezi zibalo zivela ku-akhawunti yakho futhi ziyahambelana lalokho okubonayo "
+"ku-deshibhodi."
+
+#: .\templates\farmers\help_center.html:70
+#, fuzzy
+#| msgid "No cases assigned yet."
+msgid "Total cases submitted"
+msgstr "Wonke amacansi afakiwe"
+
+#: .\templates\farmers\help_center.html:74
+#, fuzzy
+#| msgid "Pending cases"
+msgid "Active (pending) cases"
+msgstr "Amacansi asebenzayo (alindile)"
+
+#: .\templates\farmers\help_center.html:78
+#, fuzzy
+#| msgid "Resolved / Closed:"
+msgid "Resolved / closed cases"
+msgstr "Kuxazululiwe / Kuvaliwe amacansi"
+
+#: .\templates\farmers\help_center.html:84
+msgid "Need more help? Use the AI Assistant on the dashboard and ask for"
+msgstr "Udinga olunye usizo? Sebenzisa Umsizi we-AI ku-deshibhodi ucele"
+
+#: .\templates\farmers\help_center.html:84
+#, fuzzy
+#| msgid "Herd Health Metrics"
+msgid "herd health tips"
+msgstr "amacebo empilo yomhlambi"
+
+#: .\templates\farmers\help_center.html:84
+msgid "or contact your assigned vet directly from your case result page."
+msgstr "noma uthinte inyanga oyabelweyo ngokuqondile ekhasini lomphumela wecala lakho."
+
+#: .\templates\farmers\register.html:5
+msgid "Farmer Registration - CattleCare AI"
+msgstr "Ukubhaliswa kukabalimi - CattleCare AI"
+
+#: .\templates\farmers\register.html:448
+msgid "Join CattleCare AI"
+msgstr "Joyina CattleCare AI"
+
+#: .\templates\farmers\register.html:449
+msgid ""
+"Register now and protect your livestock with AI-powered disease prediction"
+msgstr "Bhalisa manje uvikele izilwane zakho ngokubona izifo kwe-AI"
+
+#: .\templates\farmers\register.html:454
+#, python-format
+msgid "Predict diseases early with 95%% accuracy"
+msgstr "Bona izifo ngaphambi kwesikhathi ngo-95%% ukulunga"
+
+#: .\templates\farmers\register.html:458
+msgid "Get instant treatment recommendations"
+msgstr "Thola iziphakamiso zokwelapha ngokushesha"
+
+#: .\templates\farmers\register.html:462
+msgid "Connect with qualified veterinarians"
+msgstr "Xhumana nodokotela wezilwane oqualified"
+
+#: .\templates\farmers\register.html:466
+msgid "Track your cattle health history"
+msgstr "Landela umlando wempilo yenkomo zakho"
+
+#: .\templates\farmers\register.html:470
+msgid "Receive disease outbreak alerts"
+msgstr "Amukela izexwayiso zokuphuma kwezifo"
+
+#: .\templates\farmers\register.html:474 .\templates\landing\home.html:839
+msgid "24/7 access from anywhere"
+msgstr "Ngena nganoma nini noma kuphi"
+
+#: .\templates\farmers\register.html:484
+msgid "Farmer Registration"
+msgstr "Ukubhaliswa kukaBalimi"
+
+#: .\templates\farmers\register.html:485
+msgid "Fill in your details to create your account"
+msgstr "Gcwalisa imininingwane yakho ukudala i-akhawunti yakho"
+
+#: .\templates\farmers\register.html:492 .\templates\vets\register.html:602
+msgid "Account"
+msgstr "I-Akhawunti"
+
+#: .\templates\farmers\register.html:496 .\templates\vets\apply.html:487
+msgid "Personal"
+msgstr "Ubuqobo"
+
+#: .\templates\farmers\register.html:500
+#: .\templates\landing\how_it_works.html:275 .\templates\vets\apply.html:495
+#: .\templates\vets\register.html:610
+msgid "Location"
+msgstr "Indawo"
+
+#: .\templates\farmers\register.html:504
+msgid "Farm"
+msgstr "Ipulazi"
+
+#: .\templates\farmers\register.html:522
+msgid "Account Information"
+msgstr "Imininingwane ye-Akhawunti"
+
+#: .\templates\farmers\register.html:542 .\templates\vets\register.html:650
+msgid "Password"
+msgstr "Iphasiwedi"
+
+#: .\templates\farmers\register.html:556 .\templates\vets\register.html:663
+msgid "Confirm Password"
+msgstr "Qinisekisa Iphasiwedi"
+
+#: .\templates\farmers\register.html:570 .\templates\vets\apply.html:513
+msgid "Personal Information"
+msgstr "Imininingwane yobuqobo"
+
+#: .\templates\farmers\register.html:575 .\templates\vets\apply.html:518
+#: .\templates\vets\track_application.html:643
+msgid "Full Name"
+msgstr "Igama Eligcwele"
+
+#: .\templates\farmers\register.html:585 .\templates\vets\apply.html:528
+#: .\templates\vets\register.html:696
+msgid "Phone Number"
+msgstr "Inombolo yocingo"
+
+#: .\templates\farmers\register.html:594
+msgid "Email"
+msgstr "I-imeyili"
+
+#: .\templates\farmers\register.html:609
+msgid "Location Information"
+msgstr "Imininingwane yendawo"
+
+#: .\templates\farmers\register.html:616
+#: .\templates\ministry\dashboard.html:1339
+#: .\templates\ministry\dashboard.html:1398 .\templates\vets\register.html:716
+msgid "Province"
+msgstr "Isifundazwe"
+
+#: .\templates\farmers\register.html:627 .\templates\vets\register.html:729
+msgid "District"
+msgstr "Isifunda"
+
+#: .\templates\farmers\register.html:641
+msgid "Latitude (Optional)"
+msgstr "Ububanzi (Akunyanzelekile)"
+
+#: .\templates\farmers\register.html:670 .\templates\vets\apply.html:631
+#: .\templates\vets\register.html:762
+msgid "Get My GPS Location Automatically"
+msgstr "Thola Indawo yami ye-GPS Ngokwenzekayo"
+
+#: .\templates\farmers\register.html:672 .\templates\vets\apply.html:633
+#: .\templates\vets\register.html:764
+msgid "Click to automatically capture your GPS coordinates"
+msgstr "Chofoza ukuthumba i-GPS yakho ngokwenzekayo"
+
+#: .\templates\farmers\register.html:679
+msgid "Farm Information"
+msgstr "Imininingwane yepulazi"
+
+#: .\templates\farmers\register.html:686
+msgid "Cattle Breed"
+msgstr "Uhlobo lwenkomo"
+
+#: .\templates\farmers\register.html:700
+msgid "Number of Cattle"
+msgstr "Inombolo yezinkomo"
+
+#: .\templates\farmers\register.html:723 .\templates\vets\register.html:790
+msgid "Complete Registration"
+msgstr "Qeda Ukubhalisa"
+
+#: .\templates\farmers\register.html:727
+msgid "Already have an account?"
+msgstr "Sewunayo i-akhawunti?"
+
+#: .\templates\farmers\register.html:727 .\templates\vets\apply.html:643
+msgid "Sign in here"
+msgstr "Ngena lapha"
+
+#: .\templates\landing\about.html:5
+msgid "About Us - CattleCare AI"
+msgstr "Mayelana lathi - CattleCare AI"
+
+#: .\templates\landing\about.html:192
+msgid "About CattleCare AI"
+msgstr "Mayelana ne-CattleCare AI"
+
+#: .\templates\landing\about.html:193
+msgid ""
+"We combine artificial intelligence and veterinary expertise to protect "
+"cattle and support Zimbabwean farmers."
+msgstr ""
+"Sihlangamisa ingqondo yomshini lobuchwepheshe bezinyanga zezilwane ukuze "
+"sivikelane izinkomo futhi sisekele abalimi baseZimbabwe."
+
+#: .\templates\landing\about.html:200
+msgid "Our Mission & Vision"
+msgstr "Umsebenzi wethu & Umbono wethu"
+
+#: .\templates\landing\about.html:201
+msgid ""
+"CattleCare AI was built to reduce livestock losses and improve animal health "
+"through early disease detection and timely veterinary support."
+msgstr ""
+"I-CattleCare AI yakhiwa ukunciphisa ukulahleka kwezilwane nokuthuthukisa "
+"impilo yezilwane ngokubona izifo ngaphambi kwesikhathi kanye nolekelelo "
+"lwedokotela wezilwane ngesikhathi."
+
+#: .\templates\landing\about.html:206
+msgid "Mission"
+msgstr "Inhloso"
+
+#: .\templates\landing\about.html:207
+msgid ""
+"To empower every farmer in Zimbabwe with AI-powered early disease prediction "
+"and instant access to qualified veterinarians, so that cattle health is "
+"protected and livelihoods are secured."
+msgstr ""
+"Ukunika amandla umlimi ngamunye eZimbabwe ngokubikezela izifo nge-AI kanye "
+"nokufinyelela ngokushesha ezinyangeni zezilwane eziqualified, ukuze impilo "
+"yezinkomo ivikelwe futhi imiphilo igcinwe."
+
+#: .\templates\landing\about.html:213
+msgid "Vision"
+msgstr "Umbono"
+
+#: .\templates\landing\about.html:214
+msgid ""
+"A Zimbabwe where no farmer loses cattle to preventable diseases because of "
+"late detection or lack of veterinary care. We aim to be the national "
+"platform for livestock health intelligence."
+msgstr ""
+"IZimbabwe lapho kungekho mlimi owelahlekelwa yinkomo ngezifo ezingavinjelwa "
+"ngenxa yokubonwa kwemuva noma ukunganakekelwa yidokotela wezilwane. Sihlosa "
+"ukuba yindawo yesizwe yokulazi kwempilo yezilwane."
+
+#: .\templates\landing\about.html:220
+msgid "Values"
+msgstr "Amagugu"
+
+#: .\templates\landing\about.html:221
+msgid ""
+"Accuracy, accessibility, and trust. We use robust machine learning models, "
+"keep the platform available 24/7, and work with Ministry-approved vets so "
+"farmers get reliable support."
+msgstr ""
+"Ubuqiniso, ukufinyelela, nokwethembeka. Sisebenzisa amamodeli anamandla "
+"okufunda kwemishini, sigcina inkundla itholakala 24/7, futhi sisebenza "
+"nezinyanga zezilwane eziamukiwe uMnyango ukuze abalimi bathole usizo "
+"olwethembakele."
+
+#: .\templates\landing\about.html:231
+msgid "Why CattleCare AI?"
+msgstr "Kungani i-CattleCare AI?"
+
+#: .\templates\landing\about.html:232
+msgid ""
+"Livestock is central to many Zimbabwean families. Disease outbreaks can wipe "
+"out herds and income. We built this system to change that."
+msgstr ""
+"Izilwane zibaluleke kakhulu emindenini eminingi yaseZimbabwe. Izifo eziphuma "
+"zinengi zingabhubhisa amahlambi kanye nemali. Sakha lo mhlelo ukushintsha "
+"lokho."
+
+#: .\templates\landing\about.html:237
+msgid "Early Detection Saves Herds"
+msgstr "Ukubonwa Okusebenzayo Kusindisa Imihlambi"
+
+#: .\templates\landing\about.html:238
+msgid ""
+"Many cattle diseases can be treated or contained if caught early. Our AI "
+"analyzes symptoms and predicts likely diseases so farmers can act quickly—"
+"often before a vet can physically visit."
+msgstr ""
+"Izifo eziningi zezinkomo zingaphulukiswa noma zivinjelwe uma zibanjiwa "
+"ekuqaleni. I-AI yethu ihlaziya izimpawu ibese ibikezela izifo ezingenzeka "
+"ukuze abalimi benze ngokushesha—kuvame ngaphambi kwenyanga yezilwane ukuze "
+"ihambe."
+
+#: .\templates\landing\about.html:244
+msgid "Connecting Farmers and Vets"
+msgstr "Ukuxhumanisa Abalimi Nezingcweti"
+
+#: .\templates\landing\about.html:245
+msgid ""
+"Rural farmers often lack easy access to veterinarians. CattleCare AI links "
+"farmers with Ministry-approved vets, supports remote consultation, and helps "
+"vets prioritize critical cases."
+msgstr ""
+"Abalimi basezindaweni zasemakhaya kaningi baswele ukufinyelela okulula koza "
+"bedokotela wezilwane. I-CattleCare AI ixhumanisa abalimi nezingcweti "
+"ezivunyelwe yi-Ministry, isekela ukubonisana kude, futhi isiza izingcweti "
+"ukuphatha amacansi abalulekile."
+
+#: .\templates\landing\about.html:255
+msgid "Our Impact"
+msgstr "Umthelela wethu"
+
+#: .\templates\landing\about.html:256
+msgid "Numbers that show our commitment to livestock health."
+msgstr "Amanombolo abonisa ukuzinikela kwethu empilweni yezilwane."
+
+#: .\templates\landing\about.html:261
+msgid "Prediction Accuracy"
+msgstr "Ukulunga kokulinga"
+
+#: .\templates\landing\about.html:267 .\templates\landing\home.html:687
+#: .\templates\vets\register.html:614
+msgid "Availability"
+msgstr "Ukutholakala"
+
+#: .\templates\landing\about.html:273 .\templates\landing\home.html:691
+msgid "Verified Vets"
+msgstr "Izingcweti eziqinisekisiwe"
+
+#: .\templates\landing\about.html:279
+msgid "Provinces Covered"
+msgstr "Izifundazwe ezikhethiwe"
+
+#: .\templates\landing\about.html:289
+msgid "Ministry of Agriculture Partnership"
+msgstr "Ubambiswano loMnyango wezolimo"
+
+#: .\templates\landing\about.html:290
+msgid ""
+"CattleCare AI supports the Ministry of Agriculture with real-time disease "
+"surveillance and data to inform vaccination campaigns and livestock health "
+"policy across Zimbabwe."
+msgstr ""
+"I-CattleCare AI isekela uMnyango wezolimo ngokuqapha izifo ngesikhathi "
+"sangempela kanye nedatha yokuazisa imizamo yokugoma kanye nenqubomgomo "
+"yezempilo yezilwane eZimbabwe yonke."
+
+#: .\templates\landing\about.html:295
+msgid "National Dashboard"
+msgstr "Ideshibhodi yesizwe"
+
+#: .\templates\landing\about.html:298
+msgid ""
+"Ministry staff can monitor disease trends, outbreak hotspots, and vet "
+"coverage. This helps plan vaccinations, quarantine zones, and resource "
+"allocation so that livestock health is protected at scale."
+msgstr ""
+"Izisebenzi ze-Ministry zingaqapha izifo ezizikhona, izindawo ezibalulekile "
+"zokuphuma kwezifo, kanye nokubhekwa kwezingcweti. Lokhu kusiza ukuhlelwa "
+"kwemithinjwa, izindawo zokuqhamuka, kanye nokuhlela izinsiza ukuze impilo "
+"yezilwane ivikelwe ngescale esikhulu."
+
+#: .\templates\landing\about.html:309
+msgid "Join farmers and vets already using CattleCare AI."
+msgstr "Joyina abalimi nezingcweti abasebenzisa i-CattleCare AI."
+
+#: .\templates\landing\about.html:311 .\templates\landing\how_it_works.html:313
+msgid "View Services"
+msgstr "Bona Izinsiza"
+
+#: .\templates\landing\home.html:5
+msgid "CattleCare AI - Early Disease Prediction"
+msgstr "CattleCare AI - Ukubona izifo ngaphambi kwesikhathi"
+
+#: .\templates\landing\home.html:663
+msgid "AI-Powered Disease Prediction"
+msgstr "Ukubona izifo kwe-AI"
+
+#: .\templates\landing\home.html:666
+msgid "Protect Your Cattle with"
+msgstr "Vikela Inkomo yakho nge"
+
+#: .\templates\landing\home.html:667
+msgid "Early Disease Detection"
+msgstr "Ukutholwa kwezifo ngaphambi kwesikhathi"
+
+#: .\templates\landing\home.html:670
+msgid ""
+"Our machine learning system helps Zimbabwean farmers predict cattle diseases "
+"early, get treatment recommendations, and connect with qualified "
+"veterinarians instantly."
+msgstr ""
+"Uhlelo lwethu lokufunda kwemishini lusiza abalimi baseZimbabwe ukubona izifo "
+"zenkomo ngaphambi kwesikhathi, thola iziphakamiso zokwelapha, futhi uxhumane "
+"nezingcweti eziqeqeshiwe ngokushesha."
+
+#: .\templates\landing\home.html:674
+msgid "I'm a Farmer"
+msgstr "Ngiyimlimi"
+
+#: .\templates\landing\home.html:677
+msgid "I'm a Veterinarian"
+msgstr "Ngidokotela wezilwane"
+
+#: .\templates\landing\home.html:683
+msgid "Accuracy Rate"
+msgstr "Izinga lokulungeka"
+
+#: .\templates\landing\home.html:703 .\templates\landing\services.html:188
+msgid "Our Services"
+msgstr "Izinsiza zethu"
+
+#: .\templates\landing\home.html:705
+msgid ""
+"Comprehensive AI-powered solutions to protect your livestock and improve "
+"farm productivity"
+msgstr ""
+"Izisombululo eziphelele ze-AI ukuvikela izilwane zakho nokuthuthukisa "
+"imveliso yepulazi"
+
+#: .\templates\landing\home.html:714 .\templates\landing\services.html:202
+msgid "AI Disease Prediction"
+msgstr "Ukubona izifo nge-AI"
+
+#: .\templates\landing\home.html:715
+msgid ""
+"Our machine learning models analyze symptoms to predict diseases with high "
+"accuracy using Naive Bayes, Random Forest, and more."
+msgstr ""
+"Amamodeli ethu okufunda kwemishini ahlaluza izimpawu ukubona izifo "
+"ngokulungeka okuphezulu usebenzisa Naive Bayes, Random Forest, kanye nokunye."
+
+#: .\templates\landing\home.html:723 .\templates\landing\services.html:210
+msgid "Treatment Recommendations"
+msgstr "Iziphakamiso zokwelapha"
+
+#: .\templates\landing\home.html:724
+msgid ""
+"Receive instant treatment suggestions, quarantine steps, and preventive "
+"measures tailored to your cattle's condition."
+msgstr ""
+"Amukela izincomo zokwelapha ngokushesha, izinyathelo zokuhlaliswa ndawonye, "
+"kanye nezindlela zokuvikela ezilungiselelwe isimo senkomo yakho."
+
+#: .\templates\landing\home.html:732 .\templates\landing\services.html:218
+msgid "Vet Connection"
+msgstr "Ukuxhumana nezingcweti"
+
+#: .\templates\landing\home.html:733
+msgid ""
+"Automatically connect with qualified, Ministry-approved veterinary doctors "
+"for professional consultation when needed."
+msgstr ""
+"Xhumana ngokwenzekayo nezinyanga zezilwane eziqualified, ezivunyelwe yi-"
+"Ministry ukubonisana ngobuchwepheshe uma kudingeka."
+
+#: .\templates\landing\home.html:741 .\templates\landing\services.html:226
+msgid "Ministry Dashboard"
+msgstr "Ideshibhodi ye-Ministry"
+
+#: .\templates\landing\home.html:742
+msgid ""
+"Real-time disease outbreak monitoring and analytics for the Ministry of "
+"Agriculture to plan vaccinations and policies."
+msgstr ""
+"Ukuqapha ukuphuma kwezifo ngesikhathi sangempela kanye nokuhlaziya kwe-"
+"Ministry yezolimo ukuhlelwa kwemithinjwa kanye nezinqubomgomo."
+
+#: .\templates\landing\home.html:750 .\templates\landing\services.html:234
+msgid "Data Security"
+msgstr "Ukuphepha kolwazi"
+
+#: .\templates\landing\home.html:751
+msgid ""
+"Your farm and cattle data is encrypted and stored securely, complying with "
+"Zimbabwe's data protection policies."
+msgstr ""
+"Idatha yepulazi futhi neyenkomo yakho ikhripta yabeka ngokulondolozwa, "
+"ilandela izinqubomgomo zokuvikela idatha yaseZimbabwe."
+
+#: .\templates\landing\home.html:759 .\templates\landing\services.html:242
+msgid "24/7 Availability"
+msgstr "Ukutholakala nganoma nini"
+
+#: .\templates\landing\home.html:760
+msgid ""
+"Access disease prediction and recommendations anytime, anywhere - no more "
+"waiting for office hours or traveling long distances."
+msgstr ""
+"Finyelela ekubisweni kwezifo nezincomo nganoma nini, noma kuphi - "
+"akusalidingi ukulinda amahora ehhovisi noma ukuhamba ibanga elide."
+
+#: .\templates\landing\home.html:773
+msgid ""
+"Our simple 4-step process helps you protect your cattle from diseases "
+"quickly and efficiently."
+msgstr ""
+"Inqubo yethu elula yamanyathelo amane ikusiza ukuvikela inkomo yakho "
+"ezifweni ngokushesha nokusebenza kahle."
+
+#: .\templates\landing\home.html:780 .\templates\landing\how_it_works.html:223
+msgid "Report Symptoms"
+msgstr "Bika Izimpawu"
+
+#: .\templates\landing\home.html:781
+msgid ""
+"Register and input the symptoms you observe in your cattle through our "
+"simple form."
+msgstr ""
+"Bhalisa bese ufaka izimpawu ozibona enkomo yakho ngefomu lethu elilula."
+
+#: .\templates\landing\home.html:787 .\templates\landing\how_it_works.html:230
+msgid "AI Analysis"
+msgstr "Ukuhlaziywa kwe-AI"
+
+#: .\templates\landing\home.html:788
+msgid ""
+"Our ML models analyze the symptoms using multiple algorithms to predict the "
+"most likely disease."
+msgstr ""
+"Amamodeli ethu e-ML ahlaluza izimpawu usebenzisa ama-algorithms amaningi "
+"ukubiseleza ifo elilinganiselwa ukuba khona."
+
+#: .\templates\landing\home.html:794 .\templates\landing\how_it_works.html:237
+msgid "Get Recommendations"
+msgstr "Thola Izincomo"
+
+#: .\templates\landing\home.html:795
+msgid ""
+"Receive instant treatment suggestions, quarantine measures, and preventive "
+"care advice."
+msgstr ""
+"Amukela iziphakamiso zokwelapha ngokushesha, izinyathelo zokuqhamuka, kanye "
+"nezeluleko zokunakekelwa ngokuvikela."
+
+#: .\templates\landing\home.html:801 .\templates\landing\how_it_works.html:244
+msgid "Connect with Vets"
+msgstr "Xhumana nezingcweti"
+
+#: .\templates\landing\home.html:802
+msgid ""
+"If needed, we automatically connect you with a qualified vet for "
+"professional assistance."
+msgstr ""
+"Uma kudingeka, siyakuxhumanisa ngokwenzekayo nengcweti eqeqeshiwe ukusizana "
+"ngobuchwepheshe."
+
+#: .\templates\landing\home.html:812
+#, python-format
+msgid "95%% Accuracy"
+msgstr "Ukulungeka kwe 95%%"
+
+#: .\templates\landing\home.html:813
+msgid "Disease Prediction"
+msgstr "Ukubiselezwa kwezifo"
+
+#: .\templates\landing\home.html:825
+msgid "Farmer with cattle"
+msgstr "Umlimi lenkomo"
+
+#: .\templates\landing\home.html:829
+msgid "Secure Your Livestock Investment"
+msgstr "Vikelela Imali yakho yezilwane"
+
+#: .\templates\landing\home.html:831
+msgid ""
+"Join thousands of farmers across Zimbabwe who trust CattleCare AI to protect "
+"their cattle and improve farm productivity."
+msgstr ""
+"Joyina amakhulu ezinkulungwane zabalimi eZimbabwe abethemba i-CattleCare AI "
+"ukuvikela inkomo yabo nokuthuthukisa imveliso yepulazi."
+
+#: .\templates\landing\home.html:834
+msgid "Quick disease prediction from symptoms"
+msgstr "Ukubiselezwa kwezifo ngokushesha kusuka ezimpawini"
+
+#: .\templates\landing\home.html:835
+msgid "Instant treatment recommendations"
+msgstr "Iziphakamiso zokwelapha ngokushesha"
+
+#: .\templates\landing\home.html:836
+msgid "Connect with nearby qualified vets"
+msgstr "Xhumana nezingcweti eziqualified eziseduze"
+
+#: .\templates\landing\home.html:837
+msgid "Track cattle health history"
+msgstr "Landela umlando wempilo yenkomo"
+
+#: .\templates\landing\home.html:838
+msgid "Early outbreak alerts in your area"
+msgstr "Izexwayiso zokuphuma kwezifo kwindawo yakho"
+
+#: .\templates\landing\home.html:854 .\templates\landing\home.html:927
+#: .\templates\vets\vet_base.html:199
+msgid "Veterinarian"
+msgstr "Udokotela wezilwane"
+
+#: .\templates\landing\home.html:857
+msgid "For Veterinarians"
+msgstr "Kwabadokotela bezilwane"
+
+#: .\templates\landing\home.html:858 .\templates\vets\apply.html:443
+msgid "Join Our Veterinary Network"
+msgstr "Joyina Inethiwekhi yethu yedokotela wezilwane"
+
+#: .\templates\landing\home.html:860
+msgid ""
+"Are you a qualified veterinarian? Join our platform to connect with farmers, "
+"provide remote consultations, and help improve livestock health across "
+"Zimbabwe."
+msgstr ""
+"Ungudokotela wezilwane oqeqeshiwe? Joyina indawo yethu ukuxhumana nabalimi, "
+"nika ukubonisana okukude, futhi usizele ukuthuthukisa impilo yezilwane "
+"eZimbabwe yonke."
+
+#: .\templates\landing\home.html:863
+msgid "Apply to join our network of certified vets"
+msgstr "Faka isicelo ukujoyina inethiwekhi yethu yezingcweti eziqinisekisiwe"
+
+#: .\templates\landing\home.html:864
+msgid "Receive consultation requests from farmers"
+msgstr "Amukela izicelo zokubonisana evela kubalimi"
+
+#: .\templates\landing\home.html:865
+msgid "Get paid for your professional services"
+msgstr "Khokhelwa izinsiza zakho zobuchwepheshe"
+
+#: .\templates\landing\home.html:866 .\templates\vets\apply.html:461
+msgid "Access disease outbreak data and trends"
+msgstr "Finyelela idatha yokuphunyukwa kwezifo kanye nezimo"
+
+#: .\templates\landing\home.html:867
+msgid "Expand your practice to rural areas"
+msgstr "Nweba isimo sakho sase emazweni"
+
+#: .\templates\landing\home.html:868 .\templates\vets\apply.html:465
+msgid "Ministry-approved and verified"
+msgstr "Ivunywe futhi iqinisekiswe yi-Ministry"
+
+#: .\templates\landing\home.html:888
+msgid "For Ministry of Agriculture"
+msgstr "Kwe-Ministry yezolimo"
+
+#: .\templates\landing\home.html:890
+msgid "National Disease"
+msgstr "Ifo lesizwe"
+
+#: .\templates\landing\home.html:890
+msgid "Surveillance Dashboard"
+msgstr "Ideshibhodi yokuqapha"
+
+#: .\templates\landing\home.html:893
+msgid ""
+"Monitor cattle disease outbreaks across Zimbabwe in real-time. Make data-"
+"driven decisions for vaccination campaigns, quarantine zones, and national "
+"livestock health policies."
+msgstr ""
+"Qaphela ukuphunyukwa kwezifo zenkomo eZimbabwe yonke ngesikhathi sangempela. "
+"Thatha izinqumo ezisuselwa kwi-data emkhankasong wemithinjwa, izindawo "
+"zokuqhamuka, kanye nezinqubomgomo zempilo yezilwane yesizwe."
+
+#: .\templates\landing\home.html:896
+msgid "Real-time disease outbreak maps across all provinces"
+msgstr ""
+"Amaphu okuphunyukwa kwezifo ngesikhathi sangempela kuzo zonke izifundazwe"
+
+#: .\templates\landing\home.html:897
+msgid "Trend analysis and predictive analytics"
+msgstr "Ukuhlaziywa kwezimo kanye nokuhlaziya okubiselezayo"
+
+#: .\templates\landing\home.html:898
+msgid "Veterinarian network management and approvals"
+msgstr "Ukuphathwa kwenethiwekhi yodokotela wezilwane kanye nezimvume"
+
+#: .\templates\landing\home.html:899
+msgid "Exportable reports for policy decisions"
+msgstr "Imibiko engakhishwa yezinqumo zenqubomgomo"
+
+#: .\templates\landing\home.html:900
+msgid "Automated outbreak alerts when thresholds exceeded"
+msgstr "Izexwayiso zokuphunyuka kwezifo ezenzekayo uma imingcele idlulwa"
+
+#: .\templates\landing\home.html:903
+msgid "Request Demo"
+msgstr "Cela iDemo"
+
+#: .\templates\landing\home.html:916 .\templates\landing\services.html:323
+msgid "Get Started Today"
+msgstr "Qala Namhlanje"
+
+#: .\templates\landing\home.html:918
+msgid ""
+"Join our platform and start protecting your cattle with AI-powered disease "
+"prediction"
+msgstr ""
+"Joyina indawo yethu bese uqala ukuvikela inkomo yakho ngokubiselezwa kwezifo "
+"kwe-AI"
+
+#: .\templates\landing\home.html:922 .\templates\ministry\dashboard.html:1336
+#: .\templates\ministry\dashboard.html:1395 .\templates\vets\dashboard.html:199
+msgid "Farmer"
+msgstr "Umlimi"
+
+#: .\templates\landing\home.html:923
+msgid ""
+"Register as a farmer to start reporting disease cases and get AI-powered "
+"predictions."
+msgstr ""
+"Bhalisa njengomulimi ukuqala ukubika amacansi ezifo futhi uthole izinhloso "
+"ze-AI."
+
+#: .\templates\landing\home.html:924
+msgid "Register Now"
+msgstr "Bhalisa Manje"
+
+#: .\templates\landing\home.html:928
+msgid ""
+"Apply to become a registered veterinary doctor and help farmers in your area."
+msgstr ""
+"Faka isicelo ukuba ngudokotela wezilwane obhaliswe usizo abalimi kwindawo "
+"yakho."
+
+#: .\templates\landing\home.html:929
+#: .\templates\vets\track_application.html:753
+msgid "Apply Now"
+msgstr "Faka Isicelo Manje"
+
+#: .\templates\landing\home.html:932
+msgid "Already Registered?"
+msgstr "Usubhalisile?"
+
+#: .\templates\landing\home.html:933
+msgid "Login to access your dashboard and start using the system right away."
+msgstr "Ngena ufike ku-deshibhodi yakho ubese uqala ukusebenzisa uhlelo manje."
+
+#: .\templates\landing\how_it_works.html:5
+msgid "How It Works - CattleCare AI"
+msgstr "Kusebenza kanjani - CattleCare AI"
+
+#: .\templates\landing\how_it_works.html:172
+msgid ""
+"From spotting symptoms to getting recommendations and connecting with vets—"
+"here's your step-by-step guide to CattleCare AI."
+msgstr ""
+"Kusukela ekuboneni izimpawu kuze kuthola izincomo nokuxhumana nezingcweti—"
+"nansi izikhombisi zakho zenyathelo nenyathelo ku-CattleCare AI."
+
+#: .\templates\landing\how_it_works.html:179
+msgid "Simple, Clear Process"
+msgstr "Indlela Elula, Ecacileyo"
+
+#: .\templates\landing\how_it_works.html:180
+msgid ""
+"You don't need technical skills. Register once, then submit cases whenever "
+"you notice something wrong with your cattle. Our AI and vet network do the "
+"rest."
+msgstr ""
+"Awudingi ikhono lobuchwepheshe. Bhalisa kanye, bese ulandelisa izigameko "
+"noma nini lapho ubona into engalungile izinkomo zakho. I-AI yethu kanye "
+"nohlelo lwezinyanga zezilwane bazokwenza okunye."
+
+#: .\templates\landing\how_it_works.html:185
+msgid "Register once"
+msgstr "Bhalisa kanye"
+
+#: .\templates\landing\how_it_works.html:186
+msgid ""
+"Create your farmer account with your contact details and location. It's free "
+"and only takes a few minutes."
+msgstr ""
+"Dala i-akhawunti yakho yomlimi nemininingwane yokuxhumana kanye nendawo. "
+"Mahhala futhi kuthatha iminitsi embalwa nje."
+
+#: .\templates\landing\how_it_works.html:192
+msgid "Submit when needed"
+msgstr "Thumela uma kudingeka"
+
+#: .\templates\landing\how_it_works.html:193
+msgid ""
+"Whenever you see symptoms, log in and fill in our guided form. No need to "
+"wait for office hours."
+msgstr ""
+"Nganoma nini ubona izimpawu, ngena ugcwalise ifomu lethu elikhomba indlela. "
+"Akudingeki ukulinda amahora ehhovisi."
+
+#: .\templates\landing\how_it_works.html:199
+msgid "AI + vets"
+msgstr "AI + izingcweti"
+
+#: .\templates\landing\how_it_works.html:200
+msgid ""
+"Get an instant prediction and recommendations. For serious cases, choose a "
+"vet from your region."
+msgstr ""
+"Thola ukubiselezwa nezincomo ngokushesha. Kwamacansi abalulekile, khetha "
+"ingcweti evela kwindawo yakho."
+
+#: .\templates\landing\how_it_works.html:206
+msgid "Track history"
+msgstr "Landela umlando"
+
+#: .\templates\landing\how_it_works.html:207
+msgid ""
+"All your cases are saved. Review past predictions and treatments anytime "
+"from your dashboard."
+msgstr ""
+"Wonke amacansi akho alondolozwe. Bhuqa izinhloso zowedlule nezindlela "
+"zokwelapha nganoma nini ku-deshibhodi yakho."
+
+#: .\templates\landing\how_it_works.html:217
+msgid "The Four Steps in Detail"
+msgstr "Izigaba Ezine Ngokuningiliziwe"
+
+#: .\templates\landing\how_it_works.html:218
+msgid "What happens after you submit a case."
+msgstr "Okwenzakalayo ngemva kokufaka isigameko."
+
+#: .\templates\landing\how_it_works.html:224
+msgid ""
+"Describe what you see: behaviour changes, appetite, skin, eyes, breathing, "
+"etc. You can add age, breed, and herd size. The more accurate the "
+"information, the better the prediction."
+msgstr ""
+"Chaza lokho okubonayo: izinguquko zokuziphatha, izifiso zokudla, isikhumba, "
+"amehlo, ukuphefumula, njll. Ungengeza iminyaka, uhlobo, kanye nobukhulu "
+"bomhlambi. Imininingwane eyiqiniso inezinhloso ezinhle."
+
+#: .\templates\landing\how_it_works.html:231
+msgid ""
+"Our machine learning models (trained on cattle disease data) analyze the "
+"symptoms and return the most likely disease with a confidence score. This "
+"usually takes only a few seconds."
+msgstr ""
+"Imodeli zethu zokufunda kwemishini (eqeqeshwe ngedatha yezigulo zezinkomo) "
+"zihlaziya izimpawu bese zibuya nefo elingenzeka kakhulu ngesikali "
+"sokwethemba. Lokhu kuvame ukuthatha amasekhondi ambalwa kuphela."
+
+#: .\templates\landing\how_it_works.html:238
+msgid ""
+"You receive treatment suggestions, quarantine steps, and preventive measures "
+"tailored to the predicted condition. Follow them while considering your "
+"vet's advice for serious cases."
+msgstr ""
+"Amukela izincomo zokwelapha, izinyathelo zokuqhamuka, kanye nezindlela "
+"zokuvikela ezilungiselelwe isimo esibiselezwayo. Zilandele ukhumbula "
+"iseluleko sendokotela yakho kwamacansi abalulekile."
+
+#: .\templates\landing\how_it_works.html:245
+msgid ""
+"For severe or critical cases, the platform lets you choose a Ministry-"
+"approved vet in your province. You can request a consultation so the vet can "
+"advise or visit when needed."
+msgstr ""
+"Kwamacansi abalulekile noma abaluleke kakhulu, indawo ikuvumela ukukhetha "
+"ingcweti evunyelwe yi-Ministry esifundazweni sakho. Ungacela ukubonisana "
+"ukuze ingcweti ikunike iseluleko noma ihamele uma kudingeka."
+
+#: .\templates\landing\how_it_works.html:255
+msgid "What You Need to Get Started"
+msgstr "Lokho Okudingekayo Ukuqala"
+
+#: .\templates\landing\how_it_works.html:256
+msgid "A few things that help you get the most out of CattleCare AI."
+msgstr "Izinto ezimbalwa ezikusiza ukuthola okuningi ku-CattleCare AI."
+
+#: .\templates\landing\how_it_works.html:261
+msgid "Device and internet"
+msgstr "Idivayisi kanye ne-inthanethi"
+
+#: .\templates\landing\how_it_works.html:262
+msgid ""
+"Use a smartphone, tablet, or computer with internet access. The platform "
+"works in the browser—no app install required."
+msgstr ""
+"Sebenzisa ucingo oluhlakaniphile, ithebhulethi, noma ikhompyutha "
+"enofinyelelo ku-inthanethi. Inkundla isebenza kubhrawuza—akukho uhlelo "
+"lokusebenza oludingekayo ukufakwa."
+
+#: .\templates\landing\how_it_works.html:268
+msgid "Observation"
+msgstr "Ukubheka"
+
+#: .\templates\landing\how_it_works.html:269
+msgid ""
+"Note what you see in your cattle: symptoms, duration, and how many animals "
+"are affected. Clear descriptions improve prediction accuracy."
+msgstr ""
+"Bhala lokho okubona enkomo yakho: izimpawu, isikhathi, kanye nezilwane "
+"ezingaki ezichatshaziwe. Izincazelo ezicacile zithuthukisa ukulungeka "
+"kokulinga."
+
+#: .\templates\landing\how_it_works.html:276
+msgid ""
+"Your province and district help us match you with nearby vets and contribute "
+"to national disease surveillance."
+msgstr ""
+"Isifundazwe sakho nesigodi kusisiza ukukufanisa nezinyanga zezilwane "
+"eziseduze futhi kufaka isandla ekuqapheleni izifo emazweni."
+
+#: .\templates\landing\how_it_works.html:286
+msgid "Tips for Best Results"
+msgstr "Amacebo emiphumela Emihle"
+
+#: .\templates\landing\how_it_works.html:287
+msgid ""
+"Follow these practices to get the most accurate predictions and useful "
+"advice."
+msgstr ""
+"Landela lezi zindlela ukuthola izinhloso ezilungekile kakhulu nezeluleko "
+"ezisizayo."
+
+#: .\templates\landing\how_it_works.html:292
+msgid "Be as specific as you can"
+msgstr "Yiba nokuqondile ngangokunokwenzeka"
+
+#: .\templates\landing\how_it_works.html:293
+#, fuzzy
+#| msgid ""
+#| "Mention all relevant symptoms (e.g. fever, cough, lameness, loss of "
+#| "appetite). Include how long they've been present and whether multiple "
+#| "animals are affected. This helps the AI narrow down the likely disease."
+msgid ""
+"Mention all relevant symptoms (e.g. fever, cough, lameness, loss of "
+"appetite). Include how long they’ve been present and whether multiple "
+"animals are affected. This helps the AI narrow down the likely disease."
+msgstr ""
+"Shono zonke izimpawu ezibalulekile (isb. umkhuhlane, ukukhwehlela, ukulamba, "
+"ukungafuni ukudla). Faka isikhathi ezikhona ngaso nokuthi izilwane eziningi "
+"zikhona. Lokhu kusiza i-AI ukunciphisa ifo elingelokwenzeka."
+
+#: .\templates\landing\how_it_works.html:299
+msgid "When to involve a vet"
+msgstr "Nini ukukhomba ingcweti"
+
+#: .\templates\landing\how_it_works.html:300
+msgid ""
+"For critical or severe cases, or when the recommendation suggests "
+"professional care, use the vet connection feature. Don't rely on prediction "
+"alone for life-threatening or unclear situations."
+msgstr ""
+"Kwamacansi abalulekile noma abaluleke kakhulu, noma lapho incomo ikhomba "
+"ukunakekelwa ngobuchwepheshe, sebenzisa isici sokuxhumana nezingcweti. "
+"Ungathembeli kuphela ekulingeni kwazo zonke izimo ezisingcongo noma "
+"eziconfused."
+
+#: .\templates\landing\how_it_works.html:310
+msgid "Ready to start?"
+msgstr "Ulungele ukuqala?"
+
+#: .\templates\landing\how_it_works.html:311
+msgid "Register as a farmer and submit your first case in minutes."
+msgstr "Bhalisa njengomulimi bese uthumela icansi lakho lokuqala ngemaminitsi."
+
+#: .\templates\landing\privacy_policy.html:5
+msgid "Privacy Policy - CattleCare AI"
+msgstr "Umthetho wokugcinwa kolwazi - CattleCare AI"
+
+#: .\templates\landing\privacy_policy.html:66
+msgid "How CattleCare AI collects, uses, and protects your information."
+msgstr ""
+"Indlela i-CattleCare AI ebutha, isebenzisa, futhi ivikela ngayo ulwazi "
+"lwakho."
+
+#: .\templates\landing\privacy_policy.html:78
+msgid "2. Information We Collect"
+msgstr "2. Ulwazi Esilubuthayo"
+
+#: .\templates\landing\privacy_policy.html:79
+msgid "Account and profile information"
+msgstr "Ulwazi we-akhawunti nephrofayili"
+
+#: .\templates\landing\privacy_policy.html:87
+msgid "Case and usage information"
+msgstr "Ulwazi lwecansi nokusetshenziswa"
+
+#: .\templates\landing\privacy_policy.html:95
+msgid "3. How We Use Your Information"
+msgstr "3. Indlela Esisebenzisa Ngayo Ulwazi Lwakho"
+
+#: .\templates\landing\privacy_policy.html:106
+msgid "4. Data Sharing and Disclosure"
+msgstr "4. Ukwabelana nokudalula Idatha"
+
+#: .\templates\landing\privacy_policy.html:117
+msgid "6. Data Retention"
+msgstr "6. Ukugcinwa Koidatha"
+
+#: .\templates\landing\privacy_policy.html:123
+msgid "8. Cookies and Similar Technologies"
+msgstr "8. Ama-Cookie Nobuchwepheshe Obufanayo"
+
+#: .\templates\landing\privacy_policy.html:126
+msgid "9. Changes to This Policy"
+msgstr "9. Izinguquko kule Nqubomgomo"
+
+#: .\templates\landing\privacy_policy.html:129
+msgid "10. Contact Us"
+msgstr "10. Xhumana lathi"
+
+#: .\templates\landing\privacy_policy.html:130
+msgid "For privacy-related questions or requests, contact us at:"
+msgstr ""
+"Izimbuzo noma izicelo eziphathelene nokugcina imfihlelo, xhumana lathi ku:"
+
+#: .\templates\landing\privacy_policy.html:131
+#: .\templates\landing\terms_of_service.html:130
+#: .\templates\vets\application_success.html:522
+msgid "Email:"
+msgstr "I-imeyili:"
+
+#: .\templates\landing\privacy_policy.html:132
+#: .\templates\landing\terms_of_service.html:131
+msgid "Location:"
+msgstr "Indawo:"
+
+#: .\templates\landing\privacy_policy.html:132
+#: .\templates\landing\terms_of_service.html:131
+msgid "Harare, Zimbabwe"
+msgstr "Harare, Zimbabwe"
+
+#: .\templates\landing\services.html:5
+msgid "Our Services - CattleCare AI"
+msgstr "Izinsiza zethu - CattleCare AI"
+
+#: .\templates\landing\services.html:189
+msgid ""
+"AI-powered disease prediction, treatment guidance, and veterinary connection—"
+"all in one platform for Zimbabwean farmers."
+msgstr ""
+"Ukubiselezwa kwezifo kwe-AI, inkomba zokwelapha, kanye nokuxhumana "
+"nezingcweti—konke endaweni eyodwa kubalimi baseZimbabwe."
+
+#: .\templates\landing\services.html:196
+msgid "What We Offer"
+msgstr "Lokho Esikuphayo"
+
+#: .\templates\landing\services.html:197
+msgid ""
+"From symptom-based prediction to vet assignment and ministry analytics, we "
+"cover the full spectrum of livestock health support."
+msgstr ""
+"Kusukela ekulingweni okususelwa ezimpawini kuze kufike ekubekweni "
+"kwezingcweti nokuhlaziywa kwe-Ministry, sikhumbula umkhakha owonke "
+"wolwelekelelo lwempilo yezilwane."
+
+#: .\templates\landing\services.html:203
+msgid ""
+"Enter the symptoms you see in your cattle. Our machine learning models "
+"(including Naive Bayes and Random Forest) analyze them and predict the most "
+"likely disease with high accuracy."
+msgstr ""
+"Faka izimpawu ozibona enkomo yakho. Amamodeli ethu okufunda kwemishini "
+"(afaka Naive Bayes kanye ne-Random Forest) ahlaluza futhi athole ifo "
+"elilinganiselwa ukuba yilo ngokulungeka okuphezulu."
+
+#: .\templates\landing\services.html:204
+msgid "Fast, free, and available 24/7 from any device."
+msgstr ""
+"Ngokushesha, mahhala, nokutholakala nganoma nini kusuka noma isiphi isikhali."
+
+#: .\templates\landing\services.html:211
+msgid ""
+"Get instant, tailored treatment suggestions, quarantine steps, and "
+"preventive measures. Recommendations are aligned with common cattle diseases "
+"and best practices."
+msgstr ""
+"Thola izincomo zokwelapha ezilungiselelwe, izinyathelo zokuqhamuka, kanye "
+"nezindlela zokuvikela ngokushesha. Izincomo zihambelana nezifo zenkomo "
+"ezivamile kanye nezindlela ezivelele."
+
+#: .\templates\landing\services.html:212
+msgid "Reduce guesswork and act with confidence."
+msgstr "Nciphisa ukuqagela futhi wenze ngokunethezeka."
+
+#: .\templates\landing\services.html:219
+msgid ""
+"For severe or critical cases, we connect you with Ministry-approved "
+"veterinarians. Choose from vets in your province, see distance, and request "
+"consultation."
+msgstr ""
+"Kwamacansi abalulekile, siyakuxhumanisa nezinyanga zezilwane ezivunyelwe yi-"
+"Ministry. Khetha kusuka ezingcwetini esifundazweni sakho, bona ibanga, ucele "
+"ukubonisana."
+
+#: .\templates\landing\services.html:220
+msgid "Verified vets, transparent assignment."
+msgstr "Izingcweti eziqinisekisiwe, ukubekwa okucacile."
+
+#: .\templates\landing\services.html:227
+msgid ""
+"Real-time disease outbreak monitoring and analytics for the Ministry of "
+"Agriculture. Track trends by province, plan vaccinations, and support "
+"national livestock policy."
+msgstr ""
+"Ukuqapha ukuphunyuka kwezifo ngesikhathi sangempela nokuhlaziywa kwe-"
+"Ministry yezolimo. Landela izimo ngezifundazwe, hlela imithinjwa, futhi "
+"sekela inqubomgomo yezilwane yesizwe."
+
+#: .\templates\landing\services.html:228
+msgid "Maps, reports, and exportable data."
+msgstr "Amaphu, imibiko, neidatha engakhishwa."
+
+#: .\templates\landing\services.html:235
+msgid ""
+"Your farm and case data are stored securely. We follow best practices for "
+"data protection and comply with local policies so you can use the platform "
+"with confidence."
+msgstr ""
+"Idatha yepulazi necansi lakho ilondolozwa ngokuphepha. Silandela izindlela "
+"ezinhle kakhulu zokuvikela idatha futhi silandele izinqubomgomo zasendaweni "
+"ukuze usebenzise indawo ngokunethezeka."
+
+#: .\templates\landing\services.html:236
+msgid "Encrypted and access-controlled."
+msgstr "Ikhriptwe futhi ilawulwa ngokungena."
+
+#: .\templates\landing\services.html:243
+msgid ""
+"Submit cases and get predictions anytime. No need to wait for office hours "
+"or travel long distances. Especially valuable in remote or rural areas."
+msgstr ""
+"Thumela amacansi futhi uthole izinhloso nganoma nini. Akudingeki ukulinda "
+"amahora ehhovisi noma uhambe ibanga elide. Kwakha kakhulu ezindaweni ezikude "
+"noma zasemakhaya."
+
+#: .\templates\landing\services.html:244
+msgid "Always on, from phone or computer."
+msgstr "Nganoma nini, kusuka ocingweni noma ekhompyutheni."
+
+#: .\templates\landing\services.html:255
+msgid "Four simple steps from symptom to solution."
+msgstr "Izinyathelo ezine ezilula kusuka ezimpawini kuya ekuxazululweni."
+
+#: .\templates\landing\services.html:255
+msgid "See full guide →"
+msgstr "Bona isikhombisi esigcwele →"
+
+#: .\templates\landing\services.html:260
+msgid "1. Report Symptoms"
+msgstr "1. Bika Izimpawu"
+
+#: .\templates\landing\services.html:261
+msgid ""
+"Register as a farmer, then describe the symptoms you see in your cattle "
+"through our guided form."
+msgstr ""
+"Bhalisa njengomulimi, bese uchaza izimpawu ozibona enkomo yakho ngefomu "
+"lethu elikhomba indlela."
+
+#: .\templates\landing\services.html:267
+msgid "2. AI Analysis"
+msgstr "2. Ukuhlaziywa kwe-AI"
+
+#: .\templates\landing\services.html:268
+msgid ""
+"Our models analyze the symptoms and return a disease prediction with a "
+"confidence score."
+msgstr ""
+"Amamodeli ethu ahlaluza izimpawu abheke ukubiselezwa kwefo ngesikeli "
+"sethemba."
+
+#: .\templates\landing\services.html:274
+msgid "3. Get Recommendations"
+msgstr "3. Thola Izincomo"
+
+#: .\templates\landing\services.html:275
+msgid ""
+"Receive treatment suggestions, quarantine steps, and preventive advice "
+"tailored to the result."
+msgstr ""
+"Amukela iziphakamiso zokwelapha, izinyathelo zokuqhamuka, kanye nezeluleko "
+"zokuvikela ezilungiselelwe umphumela."
+
+#: .\templates\landing\services.html:281
+msgid "4. Connect with Vets"
+msgstr "4. Xhumana nezingcweti"
+
+#: .\templates\landing\services.html:282
+msgid ""
+"For severe cases, select a vet from your region and request professional "
+"consultation."
+msgstr ""
+"Kwamacansi abalulekile, khetha ingcweti evela kwindawo yakho bese ucela "
+"ukubonisana ngobuchwepheshe."
+
+#: .\templates\landing\services.html:292
+msgid "Who We Serve"
+msgstr "Abantu esibasizayo"
+
+#: .\templates\landing\services.html:293
+msgid ""
+"Farmers, veterinarians, and the Ministry of Agriculture—all in one ecosystem."
+msgstr ""
+"Abalimi, abadokotela bezilwane, kanye ne-Ministry yezolimo—bonke ndawonye."
+
+#: .\templates\landing\services.html:298
+#: .\templates\ministry\base_ministry.html:135
+#: .\templates\ministry\dashboard.html:997 .\templates\vets\vet_base.html:125
+msgid "Farmers"
+msgstr "Abalimi"
+
+#: .\templates\landing\services.html:299
+msgid ""
+"Register for free, submit cases, get AI predictions and treatment advice, "
+"and connect with vets when you need expert help. Track your case history and "
+"protect your herd."
+msgstr ""
+"Bhalisa mahhala, thumela amacansi, thola izinhloso ze-AI nezeluleko "
+"zokwelapha, futhi uxhumane nezingcweti uma udinga usizo lwezingcweti. "
+"Landela umlando wamacansi akho uvikele umhlambi wakho."
+
+#: .\templates\landing\services.html:305
+#: .\templates\ministry\base_ministry.html:139
+#: .\templates\ministry\dashboard.html:1002
+msgid "Veterinarians"
+msgstr "Abadokotela bezilwane"
+
+#: .\templates\landing\services.html:306
+msgid ""
+"Apply to join our network. Get matched with farmers in your area, respond to "
+"consultation requests, and access disease trend data. Ministry-approved and "
+"verified."
+msgstr ""
+"Faka isicelo ukujoyina inethiwekhi yethu. Hlanganiswa nabalimi kwindawo "
+"yakho, phendula izicelo zokubonisana, futhi ufinyelele idatha yezimo zezifo. "
+"Ivunyelwe futhi iqinisekiswe yi-Ministry."
+
+#: .\templates\landing\services.html:312
+msgid "Ministry of Agriculture"
+msgstr "I-Ministry yezolimo"
+
+#: .\templates\landing\services.html:313
+msgid ""
+"Use the dashboard to monitor outbreaks, view maps and analytics, manage vet "
+"approvals, and export data for policy and vaccination planning."
+msgstr ""
+"Sebenzisa ideshibhodi ukuqaphela ukuphunyuka kwezifo, bona amaphu "
+"nokuhlaziya, phatha izimvume zezingcweti, futhi ukhiphe idatha "
+"yezinqubomgomo nohlelwe lwemithinjwa."
+
+#: .\templates\landing\services.html:324
+msgid "Register as a farmer or apply as a veterinarian."
+msgstr "Bhalisa njengomulimi noma faka isicelo njengodokotela wezilwane."
+
+#: .\templates\landing\terms_of_service.html:5
+msgid "Terms of Service - CattleCare AI"
+msgstr "Imigomo yesevisi - CattleCare AI"
+
+#: .\templates\landing\terms_of_service.html:67
+msgid "Terms and conditions for using CattleCare AI."
+msgstr "Imigomo nemibandela yokusebenzisa i-CattleCare AI."
+
+#: .\templates\landing\terms_of_service.html:74
+msgid "Last updated:"
+msgstr "Kubuyekeziwe kwakamuva:"
+
+#: .\templates\landing\terms_of_service.html:76
+msgid "1. Acceptance of Terms"
+msgstr "1. Ukwamukelwa kwemigomo"
+
+#: .\templates\landing\terms_of_service.html:79
+msgid "2. Description of Service"
+msgstr "2. Incazelo yesevisi"
+
+#: .\templates\landing\terms_of_service.html:89
+msgid "3. User Accounts and Eligibility"
+msgstr "3. Ama-Akhawunti Nabasebenzisi kanye Nokubaluleka"
+
+#: .\templates\landing\terms_of_service.html:98
+msgid "4. Acceptable Use"
+msgstr "4. Ukusetshenziswa okwamukelekayo"
+
+#: .\templates\landing\terms_of_service.html:113
+msgid "6. Limitation of Liability"
+msgstr "6. Ukuvinjelwa komthwalo"
+
+#: .\templates\landing\terms_of_service.html:116
+msgid "7. Intellectual Property"
+msgstr "7. Izimpahla zengqondo"
+
+#: .\templates\landing\terms_of_service.html:119
+msgid "8. Privacy"
+msgstr "8. Imfihlelo"
+
+#: .\templates\landing\terms_of_service.html:120
+#, python-format
+msgid ""
+"Your use of the platform is also governed by our <a href=\"%(url)s\">Privacy "
+"Policy</a>, which describes how we collect, use, and protect your "
+"information. By using the platform, you consent to those practices."
+msgstr ""
+"Ukusebenzisa kwakho indawo futhi kulawulwa yi<a href=\"%(url)s\">Umthetho "
+"wethu wokugcinwa kolwazi</a>, ochaza indlela esibitha, sisebenzisa, futhi "
+"sivikelele ngayo ulwazi lwakho. Ngokusebenzisa indawo, uvumelana "
+"nalezizindlela."
+
+#: .\templates\landing\terms_of_service.html:122
+msgid "9. Changes to the Service and Terms"
+msgstr "9. Izinguquko kwisevisi ngemigomo"
+
+#: .\templates\landing\terms_of_service.html:128
+msgid "11. Contact"
+msgstr "11. Xhumana"
+
+#: .\templates\landing\terms_of_service.html:129
+msgid "For questions about these Terms of Service, contact us at:"
+msgstr "Izimbuzo mayelana nalezimigomo yesevisi, xhumana lathi ku:"
+
+#: .\templates\ministry\base_ministry.html:127
+#: .\templates\ministry\dashboard.html:986
+msgid "Search farmers, vets, cases..."
+msgstr "Sesha abalimi, izingcweti, amacansi..."
+
+#: .\templates\ministry\base_ministry.html:130
+#: .\templates\ministry\dashboard.html:990
+msgid "Main Menu"
+msgstr "Imenyu Eyinhloko"
+
+#: .\templates\ministry\base_ministry.html:146
+msgid "Tasks"
+msgstr "Imisebenzi"
+
+#: .\templates\ministry\base_ministry.html:148
+msgid "Field Management"
+msgstr "Ukuphathwa kwensimu"
+
+#: .\templates\ministry\base_ministry.html:150
+msgid "Vaccine requests"
+msgstr "Izicelo zemithinjwa"
+
+#: .\templates\ministry\base_ministry.html:153
+msgid "Vet reports"
+msgstr "Imibiko yezingcweti"
+
+#: .\templates\ministry\base_ministry.html:155
+#: .\templates\ministry\dashboard.html:1009
+msgid "Management"
+msgstr "Ukuphathwa"
+
+#: .\templates\ministry\base_ministry.html:157
+#: .\templates\ministry\dashboard.html:1012
+msgid "Applications"
+msgstr "Izicelo"
+
+#: .\templates\ministry\base_ministry.html:161
+#: .\templates\ministry\dashboard.html:1019
+msgid "Analytics"
+msgstr "Ukuhlaziywa"
+
+#: .\templates\ministry\base_ministry.html:163
+#: .\templates\ministry\dashboard.html:1023
+msgid "Reports"
+msgstr "Imibiko"
+
+#: .\templates\ministry\base_ministry.html:165
+#: .\templates\ministry\dashboard.html:1027
+msgid "Disease Map"
+msgstr "Imipu yezifo"
+
+#: .\templates\ministry\base_ministry.html:168
+#: .\templates\ministry\base_ministry.html:205
+#: .\templates\ministry\base_ministry.html:209
+#: .\templates\ministry\dashboard.html:1031
+#: .\templates\ministry\dashboard.html:1072
+#: .\templates\ministry\dashboard.html:1078
+msgid "Notifications"
+msgstr "Izaziso"
+
+#: .\templates\ministry\base_ministry.html:171
+#: .\templates\ministry\dashboard.html:1037
+msgid "Preferences"
+msgstr "Izifiso"
+
+#: .\templates\ministry\base_ministry.html:172
+#: .\templates\ministry\base_ministry.html:204
+#: .\templates\ministry\dashboard.html:1040
+#: .\templates\ministry\dashboard.html:1071
+msgid "Settings"
+msgstr "Izilungiselelo"
+
+#: .\templates\ministry\base_ministry.html:188
+#: .\templates\ministry\dashboard.html:1102
+msgid "Admin"
+msgstr "Umphathi"
+
+#: .\templates\ministry\base_ministry.html:200
+#: .\templates\vets\vet_base.html:179
+msgid "Change language"
+msgstr "Shintsha ulimi"
+
+#: .\templates\ministry\base_ministry.html:202
+msgid "Back to Dashboard"
+msgstr "Buyela ku-deshibhodi"
+
+#: .\templates\ministry\base_ministry.html:203
+msgid "Refresh"
+msgstr "Buyisela"
+
+#: .\templates\ministry\base_ministry.html:213
+#, python-format
+msgid "%(c)s new vet application"
+msgid_plural "%(c)s new vet applications"
+msgstr[0] "%(c)s isicelo esisha sengcweti"
+msgstr[1] "%(c)s izicelo ezintsha zezingcweti"
+
+#: .\templates\ministry\base_ministry.html:219
+#, python-format
+msgid "%(c)s critical case needs attention"
+msgid_plural "%(c)s critical cases need attention"
+msgstr[0] "%(c)s icansi elibalulekile lidinga ukunakekelwa"
+msgstr[1] "%(c)s amacansi abalulekile adinga ukunakekelwa"
+
+#: .\templates\ministry\base_ministry.html:225
+#: .\templates\ministry\dashboard.html:1093
+msgid "No new notifications"
+msgstr "Azikho izaziso ezintsha"
+
+#: .\templates\ministry\base_ministry.html:229
+#: .\templates\ministry\dashboard.html:1097
+msgid "View all notifications"
+msgstr "Bona zonke izaziso"
+
+#: .\templates\ministry\base_ministry.html:249
+msgid "Page Title"
+msgstr "Isihloko sekhasi"
+
+#: .\templates\ministry\dashboard.html:9
+msgid "Ministry Dashboard - CattleCare AI"
+msgstr "Ideshibhodi ye-Ministry - CattleCare AI"
+
+#: .\templates\ministry\dashboard.html:1082
+#, python-format
+msgid "%(counter)s new vet application"
+msgid_plural "%(counter)s new vet applications"
+msgstr[0] "%(counter)s isicelo esisha sengcweti"
+msgstr[1] "%(counter)s izicelo ezintsha zezingcweti"
+
+#: .\templates\ministry\dashboard.html:1088
+#, python-format
+msgid "%(counter)s critical case needs attention"
+msgid_plural "%(counter)s critical cases need attention"
+msgstr[0] "%(counter)s icansi elibalulekile lidinga ukunakekelwa"
+msgstr[1] "%(counter)s amacansi abalulekile adinga ukunakekelwa"
+
+#: .\templates\ministry\dashboard.html:1126
+msgid "Total Farmers"
+msgstr "Abalimi bonke"
+
+#: .\templates\ministry\dashboard.html:1132
+msgid "Registered farmers"
+msgstr "Abalimi ababhalisile"
+
+#: .\templates\ministry\dashboard.html:1152
+msgid "Approved veterinarians"
+msgstr "Abadokotela bezilwane abavunyelwe"
+
+#: .\templates\ministry\dashboard.html:1166
+msgid "Total Cases"
+msgstr "Wonke amacansi"
+
+#: .\templates\ministry\dashboard.html:1190
+msgid "Case Forecast"
+msgstr "Ukubiselezwa kwecansi"
+
+#: .\templates\ministry\dashboard.html:1192
+msgid "Export chart"
+msgstr "Khipha ushathi"
+
+#: .\templates\ministry\dashboard.html:1209
+#: .\templates\ministry\dashboard.html:1408
+msgid "Critical cases"
+msgstr "Amacansi abalulekile"
+
+#: .\templates\ministry\dashboard.html:1213
+#: .\templates\ministry\dashboard.html:1409
+msgid "Pending cases"
+msgstr "Amacansi alindayo"
+
+#: .\templates\ministry\dashboard.html:1217
+#: .\templates\ministry\dashboard.html:1410
+msgid "Resolved cases"
+msgstr "Amacansi axazuliwe"
+
+#: .\templates\ministry\dashboard.html:1239
+#: .\templates\ministry\dashboard.html:1640
+#: .\venv\Lib\site-packages\django\forms\widgets.py:869
+msgid "Unknown"
+msgstr "Akwaziwa"
+
+#: .\templates\ministry\dashboard.html:1248
+msgid "No case data by province yet."
+msgstr "Akukho idatha yamacansi ngezifundazwe kuze kube manje."
+
+#: .\templates\ministry\dashboard.html:1253 .\templates\vets\vet_base.html:146
+msgid "View all cases"
+msgstr "Bona wonke amacansi"
+
+#: .\templates\ministry\dashboard.html:1261
+msgid "Recent Cases"
+msgstr "Amacansi amanje"
+
+#: .\templates\ministry\dashboard.html:1282
+msgid "Open full cases page"
+msgstr "Vula ikhasi eligcwele lamacansi"
+
+#: .\templates\ministry\dashboard.html:1286
+msgid "Export this table (CSV)"
+msgstr "Khipha le tafula (CSV)"
+
+#: .\templates\ministry\dashboard.html:1335
+msgid "Case name"
+msgstr "Igama lecansi"
+
+#: .\templates\ministry\dashboard.html:1338
+msgid "Date created"
+msgstr "Usuku oludalwe"
+
+#: .\templates\ministry\dashboard.html:1340
+#: .\templates\ministry\dashboard.html:1399
+msgid "Stage"
+msgstr "Inyathelo"
+
+#: .\templates\ministry\dashboard.html:1382
+msgid "No cases reported yet."
+msgstr "Awukho amacansi abikiwe kuze kube manje."
+
+#: .\templates\ministry\dashboard.html:1389
+msgid "Chart exported successfully!"
+msgstr "Ushathi ukhishwe ngempumelelo!"
+
+#: .\templates\ministry\dashboard.html:1390
+msgid "Refreshing dashboard data..."
+msgstr "Buyisela idatha ye-deshibhodi..."
+
+#: .\templates\ministry\dashboard.html:1391
+msgid "Dashboard refreshed successfully!"
+msgstr "Ideshibhodi ibuyiselwe ngempumelelo!"
+
+#: .\templates\ministry\dashboard.html:1392
+msgid "Recent cases exported as CSV."
+msgstr "Amacansi amanje akhishwe njengeCSV."
+
+#: .\templates\ministry\dashboard.html:1393
+msgid "Value:"
+msgstr "Inani:"
+
+#: .\templates\ministry\dashboard.html:1394
+msgid "Case"
+msgstr "Icansi"
+
+#: .\templates\ministry\dashboard.html:1411
+msgid "Jan"
+msgstr "Januwari"
+
+#: .\templates\ministry\dashboard.html:1412
+msgid "Feb"
+msgstr "Februwari"
+
+#: .\templates\ministry\dashboard.html:1413
+msgid "Mar"
+msgstr "Mashi"
+
+#: .\templates\ministry\dashboard.html:1414
+msgid "Apr"
+msgstr "Ephreli"
+
+#: .\templates\ministry\dashboard.html:1415
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+#: .\venv\Lib\site-packages\tornado\locale.py:285
+msgid "May"
+msgstr "Meyi"
+
+#: .\templates\ministry\dashboard.html:1416
+msgid "Jun"
+msgstr "Juni"
+
+#: .\templates\ministry\dashboard.html:1417
+msgid "Jul"
+msgstr "Julayi"
+
+#: .\templates\ministry\dashboard.html:1418
+msgid "Aug"
+msgstr "Agasti"
+
+#: .\templates\ministry\dashboard.html:1419
+msgid "Sep"
+msgstr "Septhemba"
+
+#: .\templates\ministry\dashboard.html:1420
+msgid "Oct"
+msgstr "Okthoba"
+
+#: .\templates\ministry\dashboard.html:1421
+msgid "Nov"
+msgstr "Novemba"
+
+#: .\templates\ministry\dashboard.html:1422
+msgid "Dec"
+msgstr "Disemba"
+
+#: .\templates\ministry\dashboard.html:1642
+msgid "No data"
+msgstr "Akukho idatha"
+
+#: .\templates\partials\lang_switch_fixed.html:6
+msgid "Language"
+msgstr "Ulimi"
+
+#: .\templates\vets\application_success.html:5
+msgid "Application Submitted Successfully"
+msgstr "Isicelo sithunywe ngempumelelo"
+
+#: .\templates\vets\application_success.html:458
+msgid "Application Submitted Successfully!"
+msgstr "Isicelo sithunywe ngempumelelo!"
+
+#: .\templates\vets\application_success.html:459
+msgid "Your veterinary application is now under review"
+msgstr "Isicelo sakho sedokotela wezilwane manje sihlolwa"
+
+#: .\templates\vets\application_success.html:464
+#, python-format
+msgid "Thank you, Dr. %(n)s!"
+msgstr "Siyabonga, Dkt. %(n)s!"
+
+#: .\templates\vets\application_success.html:465
+msgid ""
+"Your application has been received and is being processed by the Ministry."
+msgstr "Isicelo sakho samukelwe futhi sicutshungulwa yi-Ministry."
+
+#: .\templates\vets\application_success.html:470
+msgid "IMPORTANT"
+msgstr "OKUBALULEKILE"
+
+#: .\templates\vets\application_success.html:471
+msgid ""
+"Save this Application ID now. You'll need it to track your status and "
+"register when approved."
+msgstr ""
+"Londoloza le Nombolo yesicelo manje. Uzidinga ukuze ulandele isimo sakho "
+"ubhalise lapho uvunyelwe."
+
+#: .\templates\vets\application_success.html:474
+msgid "Your Application ID"
+msgstr "Inombolo yakho yesicelo"
+
+#: .\templates\vets\application_success.html:475
+msgid "Click to select"
+msgstr "Chofoza ukukhetha"
+
+#: .\templates\vets\application_success.html:479
+msgid "Copy ID"
+msgstr "Kopisha inombolo"
+
+#: .\templates\vets\application_success.html:482
+msgid "Print Page"
+msgstr "Printa ikhasi"
+
+#: .\templates\vets\application_success.html:485
+msgid "Download"
+msgstr "Layisha"
+
+#: .\templates\vets\application_success.html:490
+msgid "Ways to save"
+msgstr "Izindlela zokukhumbula"
+
+#: .\templates\vets\application_success.html:491
+msgid ""
+"Screenshot this page · Write it down · Copy to notes · Email yourself · Save "
+"as contact"
+msgstr ""
+"Thatha isithombe sesikrini · Bhala phansi · Kopisha ukuya kumanothi · "
+"Zithumelele i-imeyili · Londoloza njengoxhumano"
+
+#: .\templates\vets\application_success.html:496
+msgid "Please save this information"
+msgstr "Sicela ulondoloze le mininingwane"
+
+#: .\templates\vets\application_success.html:498
+msgid "Application ID:"
+msgstr "Inombolo yesicelo:"
+
+#: .\templates\vets\application_success.html:499
+msgid "Use this ID to track your application status"
+msgstr "Sebenzisa le nombolo ukuze ulandele isimo sakho sesicelo"
+
+#: .\templates\vets\application_success.html:500
+msgid "Take a screenshot or write it down in a safe place"
+msgstr "Thatha isithombe sesikrini noma ubhale phansi endaweni ephephile"
+
+#: .\templates\vets\application_success.html:501
+msgid "Review typically takes 3–5 business days"
+msgstr "Ukuhlolwa ngokuvamile kuthatha izinsuku ze-bhizinisi eziyi-3–5"
+
+#: .\templates\vets\application_success.html:508
+msgid "What happens next?"
+msgstr "Kwenzekani okulandelayo?"
+
+#: .\templates\vets\application_success.html:510
+msgid "Review:"
+msgstr "Ukuhlola:"
+
+#: .\templates\vets\application_success.html:510
+msgid "The Ministry of Agriculture will review your application."
+msgstr "I-Ministry yezolimo izohlola isicelo sakho."
+
+#: .\templates\vets\application_success.html:511
+msgid "Track:"
+msgstr "Landela:"
+
+#: .\templates\vets\application_success.html:511
+msgid "Use your Application ID to check status anytime."
+msgstr "Sebenzisa inombolo yakho yesicelo ukuhlola isimo nganoma nini."
+
+#: .\templates\vets\application_success.html:512
+msgid "Approval:"
+msgstr "Imvume:"
+
+#: .\templates\vets\application_success.html:512
+msgid "If approved, you can complete registration."
+msgstr "Uma uvunyelwe, ungaqeda ukubhalisa."
+
+#: .\templates\vets\application_success.html:513
+msgid "Register:"
+msgstr "Bhalisa:"
+
+#: .\templates\vets\application_success.html:513
+msgid "Create your account and start helping farmers."
+msgstr "Dala i-akhawunti yakho bese uqala ukusiza abalimi."
+
+#: .\templates\vets\application_success.html:518
+msgid "Application details submitted"
+msgstr "Imininingwane yesicelo ithunywe"
+
+#: .\templates\vets\application_success.html:521
+#: .\templates\vets\register.html:581
+msgid "Name:"
+msgstr "Igama:"
+
+#: .\templates\vets\application_success.html:523
+msgid "Phone:"
+msgstr "Ucingo:"
+
+#: .\templates\vets\application_success.html:526
+#: .\templates\vets\register.html:585
+msgid "License:"
+msgstr "Ilayisense:"
+
+#: .\templates\vets\application_success.html:527
+#: .\templates\vets\register.html:593
+msgid "Experience:"
+msgstr "Ulwazi:"
+
+#: .\templates\vets\application_success.html:527
+#: .\templates\vets\register.html:593
+#, python-format
+msgid "%(y)s years"
+msgstr "%(y)s iminyaka"
+
+#: .\templates\vets\application_success.html:528
+msgid "Status:"
+msgstr "Isimo:"
+
+#: .\templates\vets\application_success.html:528
+msgid "PENDING"
+msgstr "ILINDILE"
+
+#: .\templates\vets\application_success.html:537
+msgid "Track my application"
+msgstr "Landela isicelo sami"
+
+#: .\templates\vets\application_success.html:541
+msgid "How to save my ID?"
+msgstr "Indlela yokulondoloza inombolo yami?"
+
+#: .\templates\vets\application_success.html:545
+msgid "Back to home"
+msgstr "Buyela ekhaya"
+
+#: .\templates\vets\apply.html:5
+msgid "Veterinarian Application - CattleCare AI"
+msgstr "Isicelo sokuba ngudokotela wezilwane - CattleCare AI"
+
+#: .\templates\vets\apply.html:444
+msgid ""
+"Register now and help farmers across Zimbabwe with professional veterinary "
+"services"
+msgstr ""
+"Bhalisa manje usizele abalimi eZimbabwe ngezinsiza zobuchwepheshe zedokotela "
+"wezilwane"
+
+#: .\templates\vets\apply.html:449
+msgid "Expand your practice to rural communities"
+msgstr "Nweba uhlelo lwakho kulezizindawo zasemakhaya"
+
+#: .\templates\vets\apply.html:453
+msgid "Get paid for professional consultations"
+msgstr "Khokhelwa ukubonisana ngobuchwepheshe"
+
+#: .\templates\vets\apply.html:457
+msgid "Provide remote veterinary services"
+msgstr "Nika izinsiza zedokotela wezilwane kude"
+
+#: .\templates\vets\apply.html:469
+msgid "Join Zimbabwe's leading livestock platform"
+msgstr "Joyina indawo enkulu yezilwane eZimbabwe"
+
+#: .\templates\vets\apply.html:479
+msgid "Veterinarian Application"
+msgstr "Isicelo sokuba ngudokotela wezilwane"
+
+#: .\templates\vets\apply.html:480
+msgid "Fill in your details to join our network"
+msgstr "Gcwalisa imininingwane yakho ukujoyina inethiwekhi yethu"
+
+#: .\templates\vets\apply.html:491
+msgid "Professional"
+msgstr "Obuchwepheshe"
+
+#: .\templates\vets\apply.html:538 .\templates\vets\register.html:683
+msgid "Email Address"
+msgstr "Ikheli le-imeyili"
+
+#: .\templates\vets\apply.html:550
+msgid "Professional Credentials"
+msgstr "Izimpawu zobuchwepheshe"
+
+#: .\templates\vets\apply.html:555 .\templates\vets\track_application.html:647
+msgid "License Number"
+msgstr "Inombolo yelayisense"
+
+#: .\templates\vets\apply.html:568
+msgid "Qualification"
+msgstr "Ukufaneleka"
+
+#: .\templates\vets\apply.html:581
+msgid "Years of Experience"
+msgstr "Iminyaka yolwazi"
+
+#: .\templates\vets\apply.html:591
+msgid "Province to Serve"
+msgstr "Isifundazwe esizosinakekelwa"
+
+#: .\templates\vets\apply.html:606
+msgid "GPS Coordinates (Optional)"
+msgstr "Ama-Coordinates e-GPS (Akunyanzelekile)"
+
+#: .\templates\vets\apply.html:611 .\templates\vets\register.html:746
+msgid "Latitude"
+msgstr "Ububanzi"
+
+#: .\templates\vets\apply.html:621 .\templates\vets\register.html:754
+msgid "Longitude"
+msgstr "Ubude"
+
+#: .\templates\vets\apply.html:639
+msgid "Submit Application"
+msgstr "Thumela Isicelo"
+
+#: .\templates\vets\apply.html:643
+msgid "Already registered?"
+msgstr "Usubhalisile?"
+
+#: .\templates\vets\apply.html:644
+msgid "Track existing application"
+msgstr "Landela isicelo esikhona"
+
+#: .\templates\vets\dashboard.html:6
+msgid "Vet Dashboard - CattleCare AI"
+msgstr "Ideshibhodi yengcweti - CattleCare AI"
+
+#: .\templates\vets\dashboard.html:27
+msgid "Export"
+msgstr "Khipha"
+
+#: .\templates\vets\dashboard.html:28
+msgid "View All Cases"
+msgstr "Bona wonke amacansi"
+
+#: .\templates\vets\dashboard.html:38
+msgid "View farmers"
+msgstr "Bona abalimi"
+
+#: .\templates\vets\dashboard.html:43
+msgid "Total Cases Solved"
+msgstr "Wonke amacansi axazuliwe"
+
+#: .\templates\vets\dashboard.html:50
+msgid "Total Cases Assigned"
+msgstr "Wonke amacansi emiselwe"
+
+#: .\templates\vets\dashboard.html:52
+msgid "All time"
+msgstr "Sikhathi sonke"
+
+#: .\templates\vets\dashboard.html:69
+msgid "Case Statistics"
+msgstr "Izibalo zamacansi"
+
+#: .\templates\vets\dashboard.html:97
+msgid "Cases by Disease Type"
+msgstr "Amacansi nohlobo lwezifo"
+
+#: .\templates\vets\dashboard.html:139
+#, python-format
+msgid "%(c)s case"
+msgid_plural "%(c)s cases"
+msgstr[0] "%(c)s icansi"
+msgstr[1] "%(c)s amacansi"
+
+#: .\templates\vets\dashboard.html:150
+msgid "Farmers Under Care"
+msgstr "Abalimi abanakekelwayo"
+
+#: .\templates\vets\dashboard.html:151
+msgid "View All"
+msgstr "Bona Konke"
+
+#: .\templates\vets\dashboard.html:173
+msgid "Resolution Rate"
+msgstr "Izinga lokulunga"
+
+#: .\templates\vets\dashboard.html:178
+#, python-format
+msgid ""
+"This month: <strong>%(r)s</strong> of <strong>%(counter)s</strong> case "
+"resolved (%(p)s%%)"
+msgid_plural ""
+"This month: <strong>%(r)s</strong> of <strong>%(counter)s</strong> cases "
+"resolved (%(p)s%%)"
+msgstr[0] ""
+"Lenyanga: <strong>%(r)s</strong> ku <strong>%(counter)s</strong> icansi "
+"lixazuliwe (%(p)s%%)"
+msgstr[1] ""
+"Lenyanga: <strong>%(r)s</strong> ku <strong>%(counter)s</strong> amacansi "
+"axazuliwe (%(p)s%%)"
+
+#: .\templates\vets\dashboard.html:191
+msgid "Assigned Cases"
+msgstr "Amacansi emiselwe"
+
+#: .\templates\vets\dashboard.html:203
+msgid "Actions"
+msgstr "Izenzo"
+
+#: .\templates\vets\dashboard.html:233
+msgid "No cases assigned yet."
+msgstr "Akukho amacansi emiselwe kuze kube manje."
+
+#: .\templates\vets\dashboard.html:234
+msgid "Cases will appear here once farmers assign you from your region."
+msgstr "Amacansi azovela lapha uma abalimi bekumisela evela kwindawo yakho."
+
+#: .\templates\vets\dashboard.html:241
+msgid "New cases per day"
+msgstr "Amacansi amasha ngosuku"
+
+#: .\templates\vets\dashboard.html:242
+msgid "Date:"
+msgstr "Usuku:"
+
+#: .\templates\vets\dashboard.html:244
+#, python-format
+msgid "Resolution %%"
+msgstr "Ixazululo %%"
+
+#: .\templates\vets\register.html:5
+msgid "Vet Registration - CattleCare AI"
+msgstr "Ukubhaliswa kwengcweti - CattleCare AI"
+
+#: .\templates\vets\register.html:539
+msgid "Almost There!"
+msgstr "Ususeduze!"
+
+#: .\templates\vets\register.html:540
+msgid ""
+"Your application has been approved. Complete your registration to start "
+"helping farmers"
+msgstr "Isicelo sakho sivunyelwe. Qeda ukubhalisa ukuqala ukusiza abalimi"
+
+#: .\templates\vets\register.html:545
+msgid "Your credentials have been verified"
+msgstr "Izimpawu zakho ziqinisekisiwe"
+
+#: .\templates\vets\register.html:549
+msgid "Ministry-approved veterinarian"
+msgstr "Udokotela wezilwane ovunyelwe yi-Ministry"
+
+#: .\templates\vets\register.html:553
+msgid "Ready to receive consultation requests"
+msgstr "Ulungele ukwamukela izicelo zokubonisana"
+
+#: .\templates\vets\register.html:557
+msgid "Access to disease outbreak data"
+msgstr "Ukufinyelela idatha yokuphunyuka kwezifo"
+
+#: .\templates\vets\register.html:561
+msgid "Start earning from consultations"
+msgstr "Qala ukumaketha ukusuka ekubonisaneni"
+
+#: .\templates\vets\register.html:571
+msgid "Complete Your Registration"
+msgstr "Qeda Ukubhalisa kwakho"
+
+#: .\templates\vets\register.html:572
+msgid "Create your account to access the veterinary dashboard"
+msgstr "Dala i-akhawunti yakho ukufinyelela ideshibhodi yengcweti"
+
+#: .\templates\vets\register.html:577
+msgid "Application Approved"
+msgstr "Isicelo Sivunyelwe"
+
+#: .\templates\vets\register.html:589
+msgid "Qualification:"
+msgstr "Ukufaneleka:"
+
+#: .\templates\vets\register.html:678
+msgid "Contact Information"
+msgstr "Imininingwane yokuxhumana"
+
+#: .\templates\vets\register.html:711
+msgid "Practice Location"
+msgstr "Indawo yokusebenza"
+
+#: .\templates\vets\register.html:742
+msgid "GPS Coordinates (Optional):"
+msgstr "Ama-Coordinates e-GPS (Akunyanzelekile):"
+
+#: .\templates\vets\register.html:742
+msgid "Adding your location helps farmers find you more easily"
+msgstr "Ukwengeza indawo yakho kusiza abalimi ukukuthola kalula"
+
+#: .\templates\vets\register.html:769
+msgid "Availability Status"
+msgstr "Isimo sokutholakala"
+
+#: .\templates\vets\register.html:794
+msgid ""
+"Your information is secure and will only be used to connect you with farmers "
+"in need"
+msgstr ""
+"Ulwazi lwakho luvikelekile futhi luzosetshenziswa kuphela ukukuxhumanisa "
+"nabalimi abadinga usizo"
+
+#: .\templates\vets\track_application.html:5
+msgid "Track Your Application - CattleCare AI"
+msgstr "Landela Isicelo sakho - CattleCare AI"
+
+#: .\templates\vets\track_application.html:555
+msgid "Track Your Application"
+msgstr "Landela Isicelo sakho"
+
+#: .\templates\vets\track_application.html:556
+msgid "Check the status of your veterinarian application anytime"
+msgstr "Hlola isimo sesicelo sakho sedokotela wezilwane nganoma nini"
+
+#: .\templates\vets\track_application.html:561
+msgid "Real-time application status updates"
+msgstr "Izibuyekezo zesimo sesicelo ngesikhathi sangempela"
+
+#: .\templates\vets\track_application.html:565
+msgid "Instant notification when approved"
+msgstr "Isaziso ngokushesha lapho uvunyelwe"
+
+#: .\templates\vets\track_application.html:569
+msgid "Direct access to registration"
+msgstr "Ukufinyelela okuqondile ekubhaliseni"
+
+#: .\templates\vets\track_application.html:573
+msgid "Track review progress"
+msgstr "Landela inqubekelaphambili yokuhlola"
+
+#: .\templates\vets\track_application.html:577
+msgid "Secure and confidential"
+msgstr "Vikilelwe futhi imfihlelo"
+
+#: .\templates\vets\track_application.html:587
+msgid "Track Application Status"
+msgstr "Landela Isimo sesicelo"
+
+#: .\templates\vets\track_application.html:588
+msgid "Enter your Application ID to check your status"
+msgstr "Faka inombolo yakho yesicelo ukuhlola isimo sakho"
+
+#: .\templates\vets\track_application.html:593
+msgid "Enter Application ID"
+msgstr "Faka inombolo yesicelo"
+
+#: .\templates\vets\track_application.html:598
+msgid "Application ID"
+msgstr "Inombolo yesicelo"
+
+#: .\templates\vets\track_application.html:623
+msgid "Not Found"
+msgstr "Ayitholakalanga"
+
+#: .\templates\vets\track_application.html:632
+msgid "Application Details"
+msgstr "Imininingwane yesicelo"
+
+#: .\templates\vets\track_application.html:651
+msgid "Submitted Date"
+msgstr "Usuku lokukhishwa"
+
+#: .\templates\vets\track_application.html:658
+msgid "Current Status"
+msgstr "Isimo esimanje"
+
+#: .\templates\vets\track_application.html:661
+msgid "PENDING REVIEW"
+msgstr "ILINDELE UKUHLOLWA"
+
+#: .\templates\vets\track_application.html:663
+msgid "APPROVED"
+msgstr "IVUNYELWE"
+
+#: .\templates\vets\track_application.html:665
+msgid "REJECTED"
+msgstr "IPHENYIWE"
+
+#: .\templates\vets\track_application.html:673
+msgid "Application Under Review"
+msgstr "Isicelo sihlolwa"
+
+#: .\templates\vets\track_application.html:675
+msgid ""
+"Your application is currently being reviewed by the Ministry of Agriculture. "
+"This process typically takes 3-5 business days. Please check back later for "
+"updates."
+msgstr ""
+"Isicelo sakho manje sihlolwa yi-Ministry yezolimo. Le nqubo ngokuvamile "
+"ithatha izinsuku ze-bhizinisi eziyi-3-5. Sicela ubuye emuva ukuthola "
+"izibuyekezo."
+
+#: .\templates\vets\track_application.html:684
+msgid "Application Submitted"
+msgstr "Isicelo sithunyiwe"
+
+#: .\templates\vets\track_application.html:691
+msgid "Under Review"
+msgstr "Sihlolwa"
+
+#: .\templates\vets\track_application.html:692
+msgid "Ministry is reviewing your application"
+msgstr "I-Ministry ihlola isicelo sakho"
+
+#: .\templates\vets\track_application.html:698
+msgid "Registration"
+msgstr "Ukubhaliswa"
+
+#: .\templates\vets\track_application.html:699
+msgid "Complete your registration after approval"
+msgstr "Qeda ukubhalisa kwakho ngemuva kwemvume"
+
+#: .\templates\vets\track_application.html:706
+msgid "Congratulations! Your Application is Approved!"
+msgstr "Halala! Isicelo sakho sivunyelwe!"
+
+#: .\templates\vets\track_application.html:708
+msgid ""
+"You can now proceed to complete your registration and create your account."
+msgstr ""
+"Manje ungaqhubeka ukuqeda ukubhalisa kwakho bese uyidala i-akhawunti yakho."
+
+#: .\templates\vets\track_application.html:713
+msgid "Proceed to Registration"
+msgstr "Qhubeka nokubhaliswa"
+
+#: .\templates\vets\track_application.html:717
+msgid "You have already registered. Please login to access your dashboard."
+msgstr "Usubhalisile. Sicela ungene ukufinyelela ideshibhodi yakho."
+
+#: .\templates\vets\track_application.html:720
+msgid "Login Now"
+msgstr "Ngena Manje"
+
+#: .\templates\vets\track_application.html:727
+msgid "Application Rejected"
+msgstr "Isicelo silahlwe"
+
+#: .\templates\vets\track_application.html:728
+msgid ""
+"We regret to inform you that your application has not been approved at this "
+"time."
+msgstr ""
+"Siyaxolisa ukukwazisa ukuthi isicelo sakho asivunyelwanga ngalesi sikhathi."
+
+#: .\templates\vets\track_application.html:731
+msgid "Reason:"
+msgstr "Isizathu:"
+
+#: .\templates\vets\track_application.html:737
+msgid ""
+"If you believe this is an error or would like to reapply, please contact the "
+"Ministry of Agriculture."
+msgstr ""
+"Uma ucabanga ukuthi leli iphutha noma ungathanda ukufaka isicelo futhi, "
+"sicela uxhumane ne-Ministry yezolimo."
+
+#: .\templates\vets\track_application.html:748
+msgid "Don't have an Application ID yet?"
+msgstr "Awunalo inombolo yesicelo kuze kube manje?"
+
+#: .\templates\vets\track_application.html:750
+msgid "If you haven't applied yet, you can submit your application now."
+msgstr "Uma ungakafaki isicelo, ungasithumela manje."
+
+#: .\templates\vets\track_application.html:761
+msgid "New Application"
+msgstr "Isicelo esisha"
+
+#: .\templates\vets\track_application.html:765
+msgid "Sign In"
+msgstr "Ngena"
+
+#: .\templates\vets\vet_base.html:114
+msgid "CLINIC"
+msgstr "IKLINIKI"
+
+#: .\templates\vets\vet_base.html:122
+msgid "Write recommendations"
+msgstr "Bhala izincomo"
+
+#: .\templates\vets\vet_base.html:127
+msgid "MINISTRY COMMUNICATION"
+msgstr "UKUXHUMANA KWE-MINISTRY"
+
+#: .\templates\vets\vet_base.html:129 .\templates\vets\vet_base.html:148
+msgid "Request vaccines"
+msgstr "Cela imithinjwa"
+
+#: .\templates\vets\vet_base.html:132
+msgid "Area reports"
+msgstr "Imibiko yendawo"
+
+#: .\templates\vets\vet_base.html:134
+msgid "OTHERS"
+msgstr "EZINYE"
+
+#: .\templates\vets\vet_base.html:136
+msgid "Customer Support & Help"
+msgstr "Usizo Lwamakhasimende"
+
+#: .\templates\vets\vet_base.html:144
+msgid "Quick vet shortcuts"
+msgstr "Izindlela ezifushane zengcweti"
+
+#: .\templates\vets\vet_base.html:145
+msgid "Jump directly to the most common tasks you do every day."
+msgstr "Mela ngqo emisebenzini evamile oyenza nsuku zonke."
+
+#: .\templates\vets\vet_base.html:151
+msgid "Open vet help center"
+msgstr "Vula isikhungo sosizo sengcweti"
+
+#: .\templates\vets\vet_base.html:166
+msgid "Search"
+msgstr "Sesha"
+
+#: .\templates\vets\vet_base.html:181
+msgid "Notifications (critical cases)"
+msgstr "Izaziso (amacansi abalulekile)"
+
+#: .\templates\vets\vet_base.html:184
+msgid "Settings & profile"
+msgstr "Izilungiselelo & iphrofayili"
+
+#: .\templates\vets\vet_base.html:198
+msgid "Vet"
+msgstr "Ingcweti"
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+#, fuzzy
+#| msgid "Maps"
+msgid "Site Maps"
+msgstr "Amaphu"
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+#, fuzzy
+#| msgid "Location"
+msgid "Syndication"
+msgstr "Indawo"
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:35
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:36
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:37
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:153
+#: .\venv\Lib\site-packages\django\forms\fields.py:774
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:211
+msgid "Enter a valid email address."
+msgstr ""
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:309
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:320
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:514
+#: .\venv\Lib\site-packages\django\forms\fields.py:365
+#: .\venv\Lib\site-packages\django\forms\fields.py:404
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:659
+msgid "Null characters are not allowed."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1631
+#: .\venv\Lib\site-packages\django\forms\models.py:932
+#, fuzzy
+#| msgid "Jan"
+msgid "and"
+msgstr "Januwari"
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1633
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:20
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1161
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1164
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1214
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1216
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1325
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1426
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1430
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1565
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1434
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1561
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1569
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1574
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1701
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1703
+msgid "Decimal number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+#, fuzzy
+#| msgid "Observation"
+msgid "Duration"
+msgstr "Ukubheka"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+#, fuzzy
+#| msgid "Email Address"
+msgid "Email address"
+msgstr "Ikheli le-imeyili"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
+msgid "IPv4 address"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
+#, fuzzy
+#| msgid "Email Address"
+msgid "IP address"
+msgstr "Ikheli le-imeyili"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:978
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:981
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1275
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1332
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1334
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1382
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to
+#. the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:188
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:92
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:314
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:485
+#: .\venv\Lib\site-packages\django\forms\fields.py:1251
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:508
+#: .\venv\Lib\site-packages\django\forms\fields.py:1252
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:535
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:569
+#, fuzzy
+#| msgid "Enter Application ID"
+msgid "Enter a valid duration."
+msgstr "Faka inombolo yesicelo"
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:639
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:643
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:648
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:716
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:872
+#: .\venv\Lib\site-packages\django\forms\fields.py:959
+#: .\venv\Lib\site-packages\django\forms\models.py:1621
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:961
+#: .\venv\Lib\site-packages\django\forms\fields.py:1080
+#: .\venv\Lib\site-packages\django\forms\models.py:1619
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1081
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1323
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1353
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:97
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:925
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:930
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:937
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:946
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1383
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1474
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1623
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:528
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:529
+#, fuzzy
+#| msgid "Current Status"
+msgid "Currently"
+msgstr "Isimo esimanje"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:870
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:871
+#, fuzzy
+#| msgid "Nov"
+msgid "No"
+msgstr "Novemba"
+
+#: .\venv\Lib\site-packages\django\tasks\base.py:34
+msgctxt "Task"
+msgid "Ready"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\tasks\base.py:36
+msgctxt "Task"
+msgid "Running"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\tasks\base.py:38
+msgctxt "Task"
+msgid "Failed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\tasks\base.py:40
+msgctxt "Task"
+msgid "Successful"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:878
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:908
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:925
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:927
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:929
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:931
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:933
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:935
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+#: .\venv\Lib\site-packages\tornado\locale.py:295
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+#: .\venv\Lib\site-packages\tornado\locale.py:296
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+#: .\venv\Lib\site-packages\tornado\locale.py:297
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+#: .\venv\Lib\site-packages\tornado\locale.py:298
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+#: .\venv\Lib\site-packages\tornado\locale.py:299
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+#: .\venv\Lib\site-packages\tornado\locale.py:300
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+#: .\venv\Lib\site-packages\tornado\locale.py:301
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+#, fuzzy
+#| msgid "Monthly"
+msgid "Mon"
+msgstr "Ngenyanga"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+#, fuzzy
+#| msgid "Status"
+msgid "Sat"
+msgstr "Isimo"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+#, fuzzy
+#| msgid "Jun"
+msgid "Sun"
+msgstr "Juni"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+#: .\venv\Lib\site-packages\tornado\locale.py:281
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+#: .\venv\Lib\site-packages\tornado\locale.py:282
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+#: .\venv\Lib\site-packages\tornado\locale.py:283
+#, fuzzy
+#| msgid "Search"
+msgid "March"
+msgstr "Sesha"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+#: .\venv\Lib\site-packages\tornado\locale.py:284
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+#: .\venv\Lib\site-packages\tornado\locale.py:286
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+#: .\venv\Lib\site-packages\tornado\locale.py:287
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+#: .\venv\Lib\site-packages\tornado\locale.py:288
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+#: .\venv\Lib\site-packages\tornado\locale.py:289
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+#: .\venv\Lib\site-packages\tornado\locale.py:290
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+#: .\venv\Lib\site-packages\tornado\locale.py:291
+#, fuzzy
+#| msgid "Phone Number"
+msgid "November"
+msgstr "Inombolo yocingo"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+#: .\venv\Lib\site-packages\tornado\locale.py:292
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+#, fuzzy
+#| msgid "Jan"
+msgid "jan"
+msgstr "Januwari"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+#, fuzzy
+#| msgid "Feb"
+msgid "feb"
+msgstr "Februwari"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+#, fuzzy
+#| msgid "Mar"
+msgid "mar"
+msgstr "Mashi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+#, fuzzy
+#| msgid "Mar"
+msgid "apr"
+msgstr "Mashi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+#, fuzzy
+#| msgid "May"
+msgid "may"
+msgstr "Meyi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+#, fuzzy
+#| msgid "Jun"
+msgid "jun"
+msgstr "Juni"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+#, fuzzy
+#| msgid "Jul"
+msgid "jul"
+msgstr "Julayi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+#, fuzzy
+#| msgid "Aug"
+msgid "aug"
+msgstr "Agasti"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+#, fuzzy
+#| msgid "Sep"
+msgid "sep"
+msgstr "Septhemba"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+#, fuzzy
+#| msgid "Oct"
+msgid "oct"
+msgstr "Okthoba"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+#, fuzzy
+#| msgid "Nov"
+msgid "nov"
+msgstr "Novemba"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+#, fuzzy
+#| msgid "Dec"
+msgid "dec"
+msgstr "Disemba"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+#, fuzzy
+#| msgid "Search"
+msgctxt "abbrev. month"
+msgid "March"
+msgstr "Sesha"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+#, fuzzy
+#| msgid "May"
+msgctxt "abbrev. month"
+msgid "May"
+msgstr "Meyi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+#, fuzzy
+#| msgid "Search"
+msgctxt "alt. month"
+msgid "March"
+msgstr "Sesha"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+#, fuzzy
+#| msgid "May"
+msgctxt "alt. month"
+msgid "May"
+msgstr "Meyi"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+#, fuzzy
+#| msgid "Phone Number"
+msgctxt "alt. month"
+msgid "November"
+msgstr "Inombolo yocingo"
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:287
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, fuzzy, python-format
+#| msgid "%(y)s years"
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] "%(y)s iminyaka"
+msgstr[1] "%(y)s iminyaka"
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+#, fuzzy
+#| msgid "Get Started Today"
+msgid "Get started with Django"
+msgstr "Qala Namhlanje"
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:55
+msgid "extra language server specs, keyed by implementation, from conf.d"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:60
+msgid "a dict of language server specs, keyed by implementation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:66
+msgid "try to find known language servers in sys.prefix (and elsewhere)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:266
+#, python-brace-format
+msgid ""
+"Failed to load language server spec finder `{}`: \n"
+"{}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:283
+#, python-brace-format
+msgid ""
+"Failed to fetch commands from language server spec finder `{}`:\n"
+"{}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:296
+#, python-brace-format
+msgid ""
+"Failed to validate commands from language server spec finder `{}`:\n"
+"{}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\manager.py:307
+#, python-brace-format
+msgid "Skipped non-installed server(s): {}"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\types.py:202
+msgid "path to nodejs executable"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\types.py:207
+msgid "absolute paths in which to seek node_modules"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_lsp\types.py:213
+msgid "additional absolute paths to seek node_modules first"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:1858
+#, python-format
+msgid "No such directory: '%r'"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:1870
+msgid ""
+"Preferred starting directory to use for notebooks and kernels. "
+"ServerApp.preferred_dir is deprecated in jupyter-server 2.0. Use "
+"FileContentsManager.preferred_dir instead"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:1882
+#, python-format
+msgid "No such preferred dir: '%r'"
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:2855
+#, python-format
+msgid "Shutting down %d kernel"
+msgid_plural "Shutting down %d kernels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:2866
+#, python-format
+msgid "Shutting down %d extension"
+msgid_plural "Shutting down %d extensions"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\jupyter_server\serverapp.py:2876
+#, python-format
+msgid "%d active kernel"
+msgid_plural "%d active kernels"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\jupyter_server_terminals\app.py:121
+#, python-format
+msgid "Shutting down %d terminal"
+msgid_plural "Shutting down %d terminals"
+msgstr[0] ""
+msgstr[1] ""
+
+#: .\venv\Lib\site-packages\jupyterlab\extensions\manager.py:262
+msgid "The following plugins cannot be disabled as they are locked: "
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyterlab\extensions\manager.py:288
+msgid "The following plugins cannot be enabled as they are locked: "
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyterlab\extensions\readonly.py:63
+msgid "Extension installation not supported."
+msgstr ""
+
+#: .\venv\Lib\site-packages\jupyterlab\extensions\readonly.py:81
+msgid "Extension removal not supported."
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:377
+msgid "1 second ago"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:383
+msgid "1 minute ago"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:388
+msgid "1 hour ago"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:391
+#, python-format
+msgid "%(time)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:393
+msgid "yesterday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:393
+#, python-format
+msgid "yesterday at %(time)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:395
+#, python-format
+msgid "%(weekday)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:395
+#, python-format
+msgid "%(weekday)s at %(time)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:398
+#: .\venv\Lib\site-packages\tornado\locale.py:451
+#, python-format
+msgid "%(month_name)s %(day)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:400
+#, python-format
+msgid "%(month_name)s %(day)s at %(time)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:405
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:407
+#, python-format
+msgid "%(month_name)s %(day)s, %(year)s at %(time)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:445
+#, python-format
+msgid "%(weekday)s, %(month_name)s %(day)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\locale.py:468
+#, python-format
+msgid "%(commas)s and %(last)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:68
+msgctxt "law"
+msgid "right"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:69
+msgctxt "good"
+msgid "right"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:70
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:72
+msgctxt "organization"
+msgid "club"
+msgstr ""
+
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:74
+#: .\venv\Lib\site-packages\tornado\test\locale_test.py:75
+msgctxt "stick"
+msgid "club"
+msgstr ""
+
+#~ msgid "5. Disclaimers"
+#~ msgstr "5. Ukuphika"
+
+#~ msgid "10. Governing Law and Disputes"
+#~ msgstr "10. Umthetho wolawulo nezimpikiswano"
+
+#~ msgid "Approved Vets"
+#~ msgstr "Izingcweti ezivunyelwe"
+
+#~ msgid "Search data"
+#~ msgstr "Sesha idatha"
+
+#~ msgid "Sort by"
+#~ msgstr "Hlukanisa nge"
+
+#~ msgid "Filter"
+#~ msgstr "Hlaza"
+
+#~ msgid "Welcome back to CattleCare AI."
+#~ msgstr "Wamukelekile futhi ku-CattleCare AI."
+
+#~ msgid "Farmers Assigned"
+#~ msgstr "Abalimi abamiswe"
+
+#~ msgid "Requires attention"
+#~ msgstr "Idinga ukunakekelwa"
+
+#~ msgid "None pending"
+#~ msgstr "Akukho alindayo"
+
+#~ msgid "Total %(n)s"
+#~ msgstr "Yonke %(n)s"
+
+#~ msgid "No diagnoses yet"
+#~ msgstr "Akukho ukuhlolwa kuze kube manje"
+
+#~ msgid "No farmers assigned yet"
+#~ msgstr "Akukho abalimi abamiswe kuze kube manje"
+
+#~ msgid ""
+#~ "Your resolution rate reflects the percentage of cases you have "
+#~ "successfully diagnosed and closed. Keep up the great work!"
+#~ msgstr ""
+#~ "Izinga lakho lokulunga likhombisa amaphesenti amacansi oye waxazulula "
+#~ "futhi wawavala ngempumelelo. Qhubeka nomsebenzi omuhle!"
+
+#~ msgid "Assigned / Pending:"
+#~ msgstr "Emiselwe / Elindayo:"
+
+#~ msgid "In progress:"
+#~ msgstr "Kuqhubeka:"
+
+#~ msgid "Refresh data"
+#~ msgstr "Buyisela idatha"
+
+#~ msgid "Weekly"
+#~ msgstr "Ngeviki"
+
+#~ msgid "Yearly"
+#~ msgstr "Ngonyaka"
+
+#~ msgid "Cases by Province"
+#~ msgstr "Amacansi ngesifundazwe"
+
+#~ msgid "Date created (newest first)"
+#~ msgstr "Usuku oludalwe (olusha kuqala)"
+
+#~ msgid "Date created (oldest first)"
+#~ msgstr "Usuku oludalwe (elidala kuqala)"
+
+#~ msgid "Disease (A → Z)"
+#~ msgstr "Ifo (A → Z)"
+
+#~ msgid "All"
+#~ msgstr "Konke"
+
+#~ msgid "New"
+#~ msgstr "Okusha"
+
+#~ msgid "Assigned"
+#~ msgstr "Emiselwe"
+
+#~ msgid "Apply"
+#~ msgstr "Faka"
+
+#~ msgid "Reset"
+#~ msgstr "Buyisela"
+
+#~ msgid "Farmer or disease"
+#~ msgstr "Umlimi noma ifo"
+
+#~ msgid "Case #%(num)s"
+#~ msgstr "Icansi #%(num)s"
+
+#~ msgid "Export data"
+#~ msgstr "Khipha idatha"

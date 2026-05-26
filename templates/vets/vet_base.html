@@ -1,0 +1,252 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CattleCare AI - Vet{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: #fff; min-height: 100vh; overflow-x: hidden; position: relative; background: #1f2937; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url('{% static "images/vet doc.png" %}') center center / cover no-repeat; filter: brightness(1.1); -webkit-filter: brightness(1.1); z-index: -2; }
+        body::after { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(15,23,42,0.2) 0%, rgba(30,41,59,0.25) 50%, rgba(15,23,42,0.18) 100%); z-index: -1; }
+        .dashboard-wrapper { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+        .sidebar { width: 260px; background: rgba(30,41,59,0.88); border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; flex-shrink: 0; box-shadow: 4px 0 24px rgba(0,0,0,0.2); }
+        .sidebar-brand { padding: 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .sidebar-brand-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; }
+        .sidebar-brand-text { font-size: 18px; font-weight: 700; color: #fff; }
+        .sidebar-menu { padding: 20px 12px; flex: 1; }
+        .menu-section-title { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px 8px; }
+        .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 10px; margin-bottom: 4px; transition: all 0.2s; border-left: 3px solid transparent; }
+        .menu-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+        .menu-item.active { background: rgba(59,130,246,0.25); color: #93c5fd; border-left-color: #3b82f6; }
+        .menu-item i { width: 20px; text-align: center; font-size: 16px; }
+        .sidebar-footer { padding: 20px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
+        .vet-upgrade-card { background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.2) 100%); border: 1px solid rgba(59,130,246,0.35); border-radius: 14px; padding: 18px; }
+        .vet-upgrade-card h6 { color: #93c5fd; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
+        .vet-upgrade-card p { color: rgba(255,255,255,0.9); font-size: 12px; margin-bottom: 14px; line-height: 1.5; }
+        .btn-vet-upgrade { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: block; width: 100%; text-align: center; transition: all 0.2s; text-decoration: none; }
+        .btn-vet-upgrade:hover { opacity: 0.95; transform: translateY(-2px); color: white; box-shadow: 0 4px 16px rgba(34,197,94,0.4); }
+        .main-content { flex: 1; background: transparent; display: flex; flex-direction: column; overflow: hidden; }
+        .topbar { padding: 16px 24px; background: rgba(30,41,59,0.82); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .topbar-left { display: flex; align-items: center; gap: 12px; }
+        .topbar-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+        .topbar-brand:hover { color: #fff; }
+        .topbar-brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+        .topbar-brand-text { font-size: 18px; font-weight: 700; }
+        .topbar-search { flex: 1; max-width: 400px; position: relative; margin: 0 24px; }
+        .topbar-search input { width: 100%; padding: 12px 20px 12px 44px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: #fff; font-size: 14px; }
+        .topbar-search input::placeholder { color: #94a3b8; }
+        .topbar-search input:focus { outline: none; border-color: rgba(59,130,246,0.5); background: rgba(255,255,255,0.08); }
+        .topbar-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .topbar-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #94a3b8; cursor: pointer; transition: all 0.2s; }
+        .topbar-icon:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
+        .topbar-user { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 10px; position: relative; }
+        .topbar-user:hover { background: rgba(255,255,255,0.05); }
+        .vet-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: rgba(30,41,59,0.98); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); min-width: 180px; padding: 8px; z-index: 1000; display: none; }
+        .vet-dropdown.show { display: block; }
+        .vet-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: #e2e8f0; text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 6px; transition: all 0.2s; }
+        .vet-dropdown-item:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
+        .vet-dropdown-item i { width: 18px; text-align: center; }
+        .topbar-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; flex-shrink: 0; }
+        .topbar-user-info { text-align: left; }
+        .topbar-user-name { font-size: 14px; font-weight: 600; color: #fff; }
+        .topbar-user-role { font-size: 12px; color: #94a3b8; }
+        .main-area { padding: 24px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
+        .card-light { background: rgba(30,41,59,0.82); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+        .card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .stat-big { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .stat-label { font-size: 13px; color: #94a3b8; }
+        .stat-change { font-size: 12px; margin-top: 8px; font-weight: 600; }
+        .stat-change.up { color: #22c55e; }
+        .stat-change.down { color: #f87171; }
+        .stat-change a { color: inherit; text-decoration: none; }
+        .pill-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .pill-badge.success { background: rgba(34,197,94,0.2); color: #4ade80; }
+        .pill-badge.warning { background: rgba(234,179,8,0.2); color: #facc15; }
+        .pill-badge.danger { background: rgba(239,68,68,0.2); color: #f87171; }
+        .pill-badge.info { background: rgba(59,130,246,0.2); color: #93c5fd; }
+        .btn-primary-vet { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; transition: all 0.2s; }
+        .btn-primary-vet:hover { opacity: 0.9; transform: translateY(-1px); color: white; }
+        .btn-outline-vet { background: rgba(255,255,255,0.08); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+        .btn-outline-vet:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
+        .farmer-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .farmer-row:last-child { border-bottom: none; }
+        .farmer-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; flex-shrink: 0; }
+        .farmer-info { flex: 1; }
+        .farmer-name { font-weight: 600; color: #fff; font-size: 14px; }
+        .farmer-detail { font-size: 12px; color: #94a3b8; }
+        .chart-container { height: 260px; position: relative; }
+
+        /* Dark form controls for vet pages */
+        .form-label { color: #e2e8f0; font-weight: 700; }
+        .form-control, .form-select, textarea.form-control {
+            background: rgba(255,255,255,0.06) !important;
+            border: 1px solid rgba(255,255,255,0.12) !important;
+            border-radius: 12px !important;
+            color: #fff !important;
+            padding: 12px 14px !important;
+            transition: all 0.2s ease;
+        }
+        .form-control::placeholder { color: #64748b; }
+        .form-control:focus, .form-select:focus, textarea.form-control:focus {
+            outline: none !important;
+            border-color: rgba(59,130,246,0.45) !important;
+            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.18) !important;
+            background: rgba(255,255,255,0.08) !important;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon"><i class="fas fa-stethoscope"></i></div>
+                <span class="sidebar-brand-text">CattleCare AI</span>
+            </div>
+            <nav class="sidebar-menu">
+                <div class="menu-section-title">{% trans "CLINIC" %}</div>
+                <a href="{% url 'vets:dashboard' %}" class="menu-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-th-large"></i><span>{% trans "Dashboard" %}</span>
+                </a>
+                <a href="{% url 'vets:cases_list' %}" class="menu-item {% if request.resolver_match.url_name == 'cases_list' %}active{% endif %}">
+                    <i class="fas fa-calendar-check"></i><span>{% trans "Cases" %}</span>
+                </a>
+                <a href="{% url 'vets:cases_list' %}" class="menu-item {% if request.resolver_match.url_name == 'case_detail' %}active{% endif %}">
+                    <i class="fas fa-edit"></i><span>{% trans "Write recommendations" %}</span>
+                </a>
+                <a href="{% url 'vets:farmers_list' %}" class="menu-item {% if request.resolver_match.url_name == 'farmers_list' %}active{% endif %}">
+                    <i class="fas fa-users"></i><span>{% trans "Farmers" %}</span>
+                </a>
+                <div class="menu-section-title">{% trans "MINISTRY COMMUNICATION" %}</div>
+                <a href="{% url 'vets:vaccine_requests' %}" class="menu-item {% if request.resolver_match.url_name == 'vaccine_requests' %}active{% endif %}">
+                    <i class="fas fa-syringe"></i><span>{% trans "Request vaccines" %}</span>
+                </a>
+                <a href="{% url 'vets:area_reports' %}" class="menu-item {% if request.resolver_match.url_name == 'area_reports' %}active{% endif %}">
+                    <i class="fas fa-file-alt"></i><span>{% trans "Area reports" %}</span>
+                </a>
+                <div class="menu-section-title">{% trans "OTHERS" %}</div>
+                <a href="{% url 'vets:help_center' %}" class="menu-item {% if request.resolver_match.url_name == 'help_center' %}active{% endif %}">
+                    <i class="fas fa-headset"></i><span>{% trans "Customer Support & Help" %}</span>
+                </a>
+                <a href="{% url 'accounts:logout' %}" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i><span>{% trans "Logout" %}</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="vet-upgrade-card">
+                    <h6><i class="fas fa-lightbulb" style="margin-right:6px;"></i> {% trans "Quick vet shortcuts" %}</h6>
+                    <p style="margin-bottom:10px;">{% trans "Jump directly to the most common tasks you do every day." %}</p>
+                    <a href="{% url 'vets:cases_list' %}" class="btn-vet-upgrade" style="margin-bottom:8px;">{% trans "View all cases" %}</a>
+                    <a href="{% url 'vets:vaccine_requests' %}" class="btn-vet-upgrade" style="background:linear-gradient(135deg,#0ea5e9 0%,#0284c7 100%);margin-bottom:8px;">
+                        {% trans "Request vaccines" %}
+                    </a>
+                    <a href="{% url 'vets:help_center' %}" class="btn-vet-upgrade" style="background:linear-gradient(135deg,#a855f7 0%,#7c3aed 100%);">
+                        {% trans "Open vet help center" %}
+                    </a>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <a href="{% url 'vets:dashboard' %}" class="topbar-brand">
+                        <div class="topbar-brand-icon"><i class="fas fa-stethoscope"></i></div>
+                        <span class="topbar-brand-text">CattleCare AI</span>
+                    </a>
+                </div>
+                <div class="topbar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="{% trans 'Search' %}" id="globalSearch">
+                </div>
+                <div class="topbar-right">
+                    <form action="{% url 'set_language' %}" method="post" style="display:flex;align-items:center;gap:8px;">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        <select name="language" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#e2e8f0;padding:8px 10px;border-radius:10px;font-size:12px;">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                                <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>{{ lang.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="topbar-icon" style="width:auto;padding:0 12px;font-size:12px;font-weight:600;border:none;" title="{% trans 'Change language' %}">{% trans "Change" %}</button>
+                    </form>
+                    <a href="{% url 'vets:cases_list' %}?filter=critical" class="topbar-icon" title="{% trans 'Notifications (critical cases)' %}">
+                        <i class="fas fa-bell"></i>
+                    </a>
+                    <a href="{% url 'vets:profile_edit' %}" class="topbar-icon" title="{% trans 'Settings & profile' %}">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                    <div class="topbar-user" id="vetUserTrigger">
+                        <div class="topbar-avatar">
+                            {% if vet and vet.profile_photo %}
+                                <img src="{{ vet.profile_photo.url }}" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+                            {% elif vet %}
+                                {{ vet.full_name|slice:":1"|upper }}
+                            {% else %}
+                                V
+                            {% endif %}
+                        </div>
+                        <div class="topbar-user-info">
+                            <div class="topbar-user-name">{% if vet %}Dr. {{ vet.full_name }}{% else %}{% trans "Vet" %}{% endif %}</div>
+                            <div class="topbar-user-role">{% trans "Veterinarian" %}</div>
+                        </div>
+                        <i class="fas fa-chevron-down" style="font-size:12px;color:#94a3b8;"></i>
+                        <div class="vet-dropdown" id="vetUserDropdown">
+                            <a href="{% url 'vets:profile_edit' %}" class="vet-dropdown-item">
+                                <i class="fas fa-user-edit"></i> {% trans "Edit Profile" %}
+                            </a>
+                            <a href="{% url 'accounts:logout' %}" class="vet-dropdown-item">
+                                <i class="fas fa-sign-out-alt"></i> {% trans "Logout" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="main-area">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // User dropdown
+        document.getElementById('vetUserTrigger').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('vetUserDropdown').classList.toggle('show');
+        });
+        document.addEventListener('click', function() {
+            document.getElementById('vetUserDropdown').classList.remove('show');
+        });
+
+        // Global search: redirect to cases list with query
+        const globalSearch = document.getElementById('globalSearch');
+        if (globalSearch) {
+            globalSearch.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const q = globalSearch.value.trim();
+                    const baseUrl = "{% url 'vets:cases_list' %}";
+                    const url = q ? baseUrl + '?q=' + encodeURIComponent(q) : baseUrl;
+                    window.location.href = url;
+                }
+            });
+        }
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

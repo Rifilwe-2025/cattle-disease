@@ -1,0 +1,84 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load cattle_i18n %}
+{% load i18n %}
+
+{% block title %}{% trans "Reports - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Reports" %}{% endblock %}
+{% block page_title %}{% trans "Disease Reports" %}{% endblock %}
+{% block page_subtitle %}{% trans "Filter and view case reports" %}{% endblock %}
+
+{% block content %}
+<div class="content-card" style="margin-bottom: 24px;">
+    <h5 style="margin-bottom: 20px;"><i class="fas fa-filter"></i> {% trans "Filter Reports" %}</h5>
+    <form method="get">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label" style="font-weight:600;">{% trans "Disease" %}</label>
+                <input type="text" name="disease" class="form-control" value="{{ disease_filter }}" placeholder="{% trans 'Disease name' %}" style="background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6);">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label" style="font-weight:600;">{% trans "Province" %}</label>
+                <input type="text" name="province" class="form-control" value="{{ province_filter }}" placeholder="{% trans 'Province' %}" style="background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6);">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" style="font-weight:600;">{% trans "Date From" %}</label>
+                <input type="date" name="date_from" class="form-control" value="{{ date_from }}" style="background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6);">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label" style="font-weight:600;">{% trans "Date To" %}</label>
+                <input type="date" name="date_to" class="form-control" value="{{ date_to }}" style="background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6);">
+            </div>
+            <div class="col-md-2 d-flex align-items-end gap-2">
+                <button type="submit" class="btn-glass btn-glass-primary"><i class="fas fa-search"></i> {% trans "Apply" %}</button>
+                <a href="{% url 'ministry:reports' %}" class="btn-glass btn-glass-outline">{% trans "Clear" %}</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="content-card">
+    <h5 style="margin-bottom: 20px;"><i class="fas fa-file-alt"></i> {% trans "Case Reports" %}</h5>
+    {% if cases %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "Date" %}</th>
+                <th>{% trans "Farmer" %}</th>
+                <th>{% trans "Province" %}</th>
+                <th>{% trans "Disease" %}</th>
+                <th>{% trans "Severity" %}</th>
+                <th>{% trans "Status" %}</th>
+                <th>{% trans "Vet" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for case in cases %}
+            <tr>
+                <td>{{ case.created_at|date:"M d, Y" }}</td>
+                <td><strong>{{ case.farmer.full_name }}</strong></td>
+                <td>{{ case.farmer.province }}</td>
+                <td>{{ case.predicted_disease|local_disease }}</td>
+                <td>
+                    {% if case.severity == 'CRITICAL' %}
+                    <span class="table-badge danger">{{ case.severity|local_severity }}</span>
+                    {% elif case.severity == 'SEVERE' %}
+                    <span class="table-badge warning">{{ case.severity|local_severity }}</span>
+                    {% else %}
+                    <span class="table-badge success">{{ case.severity|local_severity }}</span>
+                    {% endif %}
+                </td>
+                <td><span class="table-badge info">{{ case.status|local_case_status }}</span></td>
+                <td>{% if case.assigned_vet %}{{ case.assigned_vet.full_name }}{% else %}<span style="color:#6c757d;">-</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #6c757d; padding: 60px 20px;">
+        <i class="fas fa-file-alt" style="font-size: 64px; opacity: 0.3; display: block; margin-bottom: 20px;"></i>
+        {% trans "No cases found with the selected filters." %}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

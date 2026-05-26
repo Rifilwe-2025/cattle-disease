@@ -1,0 +1,50 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile - CattleCare AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .card-dark input, .card-dark select, .card-dark textarea {
+        width: 100%; padding: 12px 16px; background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff;
+    }
+    .card-dark select option { background: #1C1D24; color: #fff; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <h1 style="font-size: 24px; font-weight: 700; color: #1f2937;">Edit Profile</h1>
+    <p style="font-size: 14px; color: #6b7280;">Update your account and farm details</p>
+</div>
+
+<div class="card-dark">
+    <div class="card-title">
+        <span><i class="fas fa-user-edit" style="margin-right: 8px;"></i>Profile Information</span>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: grid; gap: 20px; max-width: 500px;">
+            {% for field in profile_form %}
+            <div>
+                <label style="font-size: 13px; font-weight: 600; color: #9ca3af; display: block; margin-bottom: 6px;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}<div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ field.errors.0 }}</div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 24px;">
+            <button type="submit" class="btn-upgrade" style="cursor: pointer;">Save Profile</button>
+        </div>
+    </form>
+</div>
+
+<div class="card-dark">
+    <div class="card-title">
+        <span><i class="fas fa-lock" style="margin-right: 8px;"></i>Change Password</span>
+    </div>
+    <p style="color: #9ca3af; margin-bottom: 16px;">Update your password to keep your account secure.</p>
+    <a href="{% url 'accounts:password_reset' %}" class="btn-upgrade" style="display: inline-block; text-decoration: none;">Reset Password via Email</a>
+</div>
+{% endblock %}

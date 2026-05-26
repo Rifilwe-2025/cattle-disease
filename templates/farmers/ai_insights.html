@@ -1,0 +1,172 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+
+{% block title %}AI Insights - CattleCare AI{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card-dark" style="min-height: 520px; display:flex; flex-direction:column;">
+            <div class="card-title">
+                <span><i class="fas fa-brain" style="margin-right:8px;color:#22c55e;"></i>AI Insights for your herd</span>
+                <span style="font-size:12px;color:#6b7280;">Ask questions and get guidance using your real case history.</span>
+            </div>
+            <div id="aiChatArea" style="flex: 1; overflow-y: auto; max-height: 420px; margin-bottom: 12px;">
+                <div class="ai-chat-bubble">
+                    <div class="ai-chat-question">Tip: Ask about prevention, vaccination, or a specific disease (e.g. “How do I prevent foot-and-mouth disease in my herd?”).</div>
+                    <div class="ai-chat-answer">
+                        I will combine general veterinary best practices with what I know about your own cases to give you personalised insights.
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                <button type="button" class="ai-topic-btn" data-topic="disease tips">Disease Tips</button>
+                <button type="button" class="ai-topic-btn" data-topic="herd health">Herd Health</button>
+                <button type="button" class="ai-topic-btn" data-topic="tip of the day">Tip of the Day</button>
+            </div>
+            <div style="display:none;">{% csrf_token %}</div>
+            <div class="ai-input-wrap">
+                <input type="text" class="ai-input" id="aiQuestionInput" placeholder="Ask a question about cattle health..." maxlength="500">
+                <button type="button" class="ai-send-btn" id="aiSendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card-dark">
+            <div class="card-title">
+                <span>Herd snapshot</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;font-size:13px;">
+                <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(34,197,94,0.3);">
+                    <div style="color:#6b7280;margin-bottom:4px;">Total cases</div>
+                    <div style="font-size:22px;font-weight:700;color:#e5e7eb;">{{ total_cases }}</div>
+                </div>
+                <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);">
+                    <div style="color:#6b7280;margin-bottom:4px;">Active</div>
+                    <div style="font-size:22px;font-weight:700;color:#eab308;">{{ active_cases }}</div>
+                </div>
+                <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(34,197,94,0.4);grid-column:1/-1;">
+                    <div style="color:#6b7280;margin-bottom:4px;">Resolved</div>
+                    <div style="font-size:22px;font-weight:700;color:#22c55e;">{{ resolved_cases }}</div>
+                </div>
+            </div>
+            <div style="margin-top:16px;font-size:12px;color:#9ca3af;line-height:1.6;">
+                <strong style="color:#22c55e;">How this works:</strong><br>
+                • Answers are based on veterinary guidance and AI models.<br>
+                • I will look at your latest recorded case to mention real examples from your herd.<br>
+                • Always confirm treatment decisions with your assigned vet.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .ai-topic-btn { padding: 6px 12px; background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .ai-topic-btn:hover { background: rgba(34,197,94,0.25); transform: translateY(-1px); }
+    .ai-chat-user { text-align: right; margin-bottom: 12px; }
+    .ai-chat-user .ai-chat-question { color: #22c55e; text-transform: capitalize; }
+    .ai-chat-ai .ai-chat-answer { white-space: pre-line; }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function() {
+        const chatArea = document.getElementById('aiChatArea');
+        const input = document.getElementById('aiQuestionInput');
+        const sendBtn = document.getElementById('aiSendBtn');
+        const topicBtns = document.querySelectorAll('.ai-topic-btn');
+
+        function addMessage(question, answer, isUser) {
+            const div = document.createElement('div');
+            div.className = isUser ? 'ai-chat-bubble ai-chat-user' : 'ai-chat-bubble ai-chat-ai';
+            div.innerHTML = isUser
+                ? '<div class="ai-chat-question">' + escapeHtml(question) + '</div>'
+                : '<div class="ai-chat-answer">' + formatAnswer(answer) + '</div>';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatAnswer(text) {
+            return escapeHtml(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        }
+
+        function showLoading() {
+            const div = document.createElement('div');
+            div.id = 'aiLoading';
+            div.className = 'ai-chat-bubble';
+            div.innerHTML = '<div class="ai-chat-answer"><i class="fas fa-spinner fa-spin"></i> Thinking...</div>';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function hideLoading() {
+            const el = document.getElementById('aiLoading');
+            if (el) el.remove();
+        }
+
+        function askAI(question, topic) {
+            const formData = new FormData();
+            if (question) formData.append('question', question);
+            if (topic) formData.append('topic', topic);
+            const csrf = document.querySelector('[name=csrfmiddlewaretoken]');
+            if (csrf) formData.append('csrfmiddlewaretoken', csrf.value);
+
+            showLoading();
+            sendBtn.disabled = true;
+
+            fetch('{% url "farmers:ai_assistant" %}', {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+            .then(r => r.json())
+            .then(data => {
+                hideLoading();
+                sendBtn.disabled = false;
+                if (data.success) {
+                    addMessage('', data.response, false);
+                }
+            })
+            .catch(() => {
+                hideLoading();
+                sendBtn.disabled = false;
+                addMessage('', 'Sorry, something went wrong. Please try again.', false);
+            });
+        }
+
+        sendBtn.addEventListener('click', function() {
+            const q = input.value.trim();
+            if (q) {
+                addMessage(q, '', true);
+                askAI(q, '');
+                input.value = '';
+            }
+        });
+
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+
+        topicBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const topic = this.dataset.topic;
+                addMessage(topic, '', true);
+                askAI('', topic);
+            });
+        });
+    })();
+</script>
+{% endblock %}
+

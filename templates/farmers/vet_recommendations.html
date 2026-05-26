@@ -1,0 +1,93 @@
+{% extends 'farmers/farmer_base.html' %}
+{% load static %}
+{% load cattle_i18n %}
+
+{% block title %}Vet Recommendations - CattleCare AI{% endblock %}
+
+{% block content %}
+<div class="card-dark">
+    <div class="card-title">
+        <span><i class="fas fa-user-md"></i> Vet recommendations</span>
+        <a href="{% url 'farmers:case_history' %}" class="btn-upgrade" style="padding: 8px 16px; text-decoration: none; display: inline-block;">All cases</a>
+    </div>
+    <p class="mb-4" style="color: #9ca3af; font-size: 14px;">Recommendations given by your vet for each case. Always follow your vet’s advice.</p>
+
+    {% if cases_with_recommendations %}
+    <div class="mb-4">
+        <h6 style="color: #22c55e; margin-bottom: 12px;">Cases with vet recommendation</h6>
+        {% for case in cases_with_recommendations %}
+        <div class="card-dark" style="margin-bottom: 16px; padding: 20px; border: 1px solid rgba(34,197,94,0.2);">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                <div>
+                    <strong style="color: #fff;">Case #{{ case.id }}</strong>
+                    <span style="color: #6b7280; font-size: 13px;"> — {{ case.predicted_disease|local_disease }} ({{ case.created_at|date:"M d, Y" }})</span>
+                    {% if case.assigned_vet %}
+                    <p class="mb-1 mt-1" style="font-size: 13px; color: #9ca3af; display:flex;align-items:center;gap:8px;">
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#22c55e 0%,#16a34a 100%);overflow:hidden;">
+                            {% if case.assigned_vet.profile_photo %}
+                                <img src="{{ case.assigned_vet.profile_photo.url }}" alt="Dr. {{ case.assigned_vet.full_name }}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                                <span style="font-size:12px;font-weight:700;color:#fff;">{{ case.assigned_vet.full_name|slice:':1'|upper }}</span>
+                            {% endif %}
+                        </span>
+                        <span>Vet: Dr. {{ case.assigned_vet.full_name }}</span>
+                    </p>
+                    {% endif %}
+                </div>
+                <a href="{% url 'farmers:case_result' case.id %}" class="btn-upgrade" style="padding: 8px 16px; text-decoration: none; font-size: 13px;">View case</a>
+            </div>
+            <div class="mt-3 pt-3" style="border-top: 1px solid rgba(255,255,255,0.06);">
+                {% if case.vet_diagnosis %}
+                <p class="mb-2"><strong style="color: #9ca3af;">Diagnosis:</strong></p>
+                <p style="color: #e5e7eb; white-space: pre-wrap;">{{ case.vet_diagnosis }}</p>
+                {% endif %}
+                <p class="mb-2"><strong style="color: #22c55e;">Vet’s recommendation</strong></p>
+                <p style="color: #fff; white-space: pre-wrap;">{{ case.vet_recommendations }}</p>
+                <small style="color: #6b7280;">{{ case.vet_consultation_date|date:"M d, Y H:i" }}</small>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if all_cases %}
+    <h6 style="color: #6b7280; margin-bottom: 12px;">All cases</h6>
+    <div style="overflow-x: auto;">
+        <table class="table-dark-custom">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Disease</th>
+                    <th>Severity</th>
+                    <th>Vet</th>
+                    <th>Vet recommendation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for case in all_cases %}
+                <tr>
+                    <td>{{ case.created_at|date:"M d, Y" }}</td>
+                    <td>{{ case.predicted_disease|local_disease }}</td>
+                    <td>
+                        {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>
+                        {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>
+                        {% else %}<span class="pill-badge success">{{ case.severity|local_severity }}</span>{% endif %}
+                    </td>
+                    <td>{% if case.assigned_vet %}Dr. {{ case.assigned_vet.full_name }}{% else %}<span style="color:#6b7280;">—</span>{% endif %}</td>
+                    <td>{% if case.vet_recommendations %}<span class="pill-badge success">Yes</span>{% else %}<span style="color:#6b7280;">Pending</span>{% endif %}</td>
+                    <td><a href="{% url 'farmers:case_result' case.id %}" style="color:#22c55e;text-decoration:none;">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:40px 20px;color:#6b7280;">
+        <i class="fas fa-user-md" style="font-size:48px;opacity:0.3;margin-bottom:16px;display:block;"></i>
+        <p>No cases yet. Submit a case and select a vet to receive their recommendation.</p>
+        <a href="{% url 'farmers:submit_case' %}" class="btn-upgrade" style="display:inline-block;padding:12px 24px;text-decoration:none;margin-top:16px;">Submit case</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "How It Works - CattleCare AI" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
+    
+    .page-hero {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.72) 0%, rgba(35, 25, 15, 0.78) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+        min-height: 55vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+        padding: 120px 1rem 80px;
+        text-align: center;
+    }
+    .page-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        pointer-events: none;
+    }
+    .page-hero h1 { font-family: 'Merriweather', serif; font-size: 3.2rem; font-weight: 900; margin-bottom: 1rem; text-shadow: 2px 2px 12px rgba(0,0,0,0.5); position: relative; }
+    .page-hero .lead { font-size: 1.2rem; opacity: 0.95; max-width: 640px; margin: 0 auto; position: relative; }
+    @media (max-width: 768px) {
+        .page-hero { min-height: 45vh; padding: 100px 1rem 60px; background-attachment: scroll; }
+        .page-hero h1 { font-size: 2rem; }
+    }
+
+    .how-section { padding: 4.5rem 0; position: relative; }
+    .how-section.mission-section {
+        background: linear-gradient(160deg, #fff9f2 0%, #fff5eb 30%, #fef3e8 60%, #fdeed9 100%);
+        overflow: hidden;
+    }
+    .how-section.mission-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.06;
+        pointer-events: none;
+    }
+    .how-section.mission-section .container { position: relative; z-index: 1; }
+    .how-section .section-head { font-family: 'Merriweather', serif; font-size: 2.25rem; font-weight: 700; color: #2c1f18; margin-bottom: 1rem; }
+    .how-section.mission-section .section-sub { color: #5c4a3d; }
+    .how-section.mission-section .about-card {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 153, 51, 0.2);
+        box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08), 0 0 0 1px rgba(255,255,255,0.8);
+        border-radius: 20px;
+        padding: 2rem;
+        height: 100%;
+        transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .how-section.mission-section .about-card:hover {
+        border-color: rgba(255, 153, 51, 0.45);
+        box-shadow: 0 20px 50px rgba(44, 31, 24, 0.12);
+        transform: translateY(-6px);
+    }
+    .how-section.mission-section .about-card .icon-wrap {
+        width: 72px; height: 72px; border-radius: 18px;
+        background: linear-gradient(135deg, #FF9933, #FF7828);
+        color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 1.25rem; font-size: 2rem;
+        box-shadow: 0 8px 24px rgba(255, 120, 40, 0.35);
+    }
+    .how-section.mission-section .about-card h5 { color: #2c1f18; font-weight: 700; margin-bottom: 0.75rem; }
+    .how-section.mission-section .about-card p { color: #4a4038; line-height: 1.7; margin-bottom: 0; }
+
+    .how-section.alt {
+        background: linear-gradient(135deg, rgba(52, 35, 25, 0.88) 0%, rgba(35, 25, 15, 0.92) 100%),
+                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat;
+        color: #fff;
+    }
+    .how-section.alt .section-head { color: #fff; }
+    .how-section.alt .section-sub { color: rgba(255, 255, 255, 0.88); }
+    .how-section.alt .step-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        padding: 2rem;
+        height: 100%;
+        transition: all 0.3s;
+    }
+    .how-section.alt .step-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 204, 102, 0.4);
+        transform: translateY(-6px);
+    }
+    .how-section.alt .step-num {
+        width: 64px; height: 64px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        color: #5D3A1A;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .how-section.alt .step-card h5 { color: #fff; font-weight: 700; margin-bottom: 0.75rem; }
+    .how-section.alt .step-card p { color: rgba(255, 255, 255, 0.9); line-height: 1.7; margin-bottom: 0; }
+
+    .how-section.dark {
+        background: linear-gradient(135deg, #2c1f18 0%, #1a120d 100%);
+        color: #fff;
+    }
+    .how-section.dark .section-head { color: #fff; }
+    .how-section.dark .section-sub { color: rgba(255,255,255,0.8); }
+    .how-section.dark .about-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(8px);
+    }
+    .how-section.dark .about-card h5 { color: #fff; }
+    .how-section.dark .about-card p { color: rgba(255,255,255,0.88); }
+    .how-section.dark .about-card .icon-wrap {
+        background: linear-gradient(135deg, #FFD280, #FFB347);
+        color: #5D3A1A;
+        width: 56px; height: 56px; border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 1rem; font-size: 1.5rem;
+    }
+
+    .how-section.partnership-section {
+        background: linear-gradient(180deg, #faf6f2 0%, #f5efe8 50%, #fef9f3 100%);
+    }
+    .how-section.partnership-section .about-card {
+        background: #fff;
+        border: 1px solid rgba(255, 153, 51, 0.25);
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08);
+    }
+    .how-section.partnership-section .about-card:hover { border-color: rgba(255, 153, 51, 0.5); }
+    .how-section.partnership-section .about-card .icon-wrap {
+        width: 56px; height: 56px; border-radius: 14px;
+        background: linear-gradient(135deg, #FFE8CC, #FFD9A6);
+        color: #FF7828;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 1rem; font-size: 1.4rem;
+    }
+    .section-sub { font-size: 1.1rem; color: #666; margin-bottom: 2.5rem; max-width: 700px; }
+    .cta-how {
+        padding: 4rem 0;
+        text-align: center;
+        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
+        color: #fff;
+    }
+    .cta-how h2 { font-family: 'Merriweather', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-how .btn { padding: 14px 32px; border-radius: 50px; font-weight: 600; margin: 0 0.5rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="page-hero">
+    <div class="container position-relative">
+        <h1>{% trans "How It Works" %}</h1>
+        <p class="lead">{% trans "From spotting symptoms to getting recommendations and connecting with vets—here's your step-by-step guide to CattleCare AI." %}</p>
+    </div>
+</section>
+
+<!-- Intro -->
+<section class="how-section mission-section">
+    <div class="container">
+        <h2 class="section-head">{% trans "Simple, Clear Process" %}</h2>
+        <p class="section-sub">{% trans "You don't need technical skills. Register once, then submit cases whenever you notice something wrong with your cattle. Our AI and vet network do the rest." %}</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="about-card card text-center">
+                    <div class="icon-wrap mx-auto"><i class="fas fa-user-plus"></i></div>
+                    <h5>{% trans "Register once" %}</h5>
+                    <p>{% trans "Create your farmer account with your contact details and location. It's free and only takes a few minutes." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="about-card card text-center">
+                    <div class="icon-wrap mx-auto"><i class="fas fa-edit"></i></div>
+                    <h5>{% trans "Submit when needed" %}</h5>
+                    <p>{% trans "Whenever you see symptoms, log in and fill in our guided form. No need to wait for office hours." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="about-card card text-center">
+                    <div class="icon-wrap mx-auto"><i class="fas fa-robot"></i></div>
+                    <h5>{% trans "AI + vets" %}</h5>
+                    <p>{% trans "Get an instant prediction and recommendations. For serious cases, choose a vet from your region." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="about-card card text-center">
+                    <div class="icon-wrap mx-auto"><i class="fas fa-history"></i></div>
+                    <h5>{% trans "Track history" %}</h5>
+                    <p>{% trans "All your cases are saved. Review past predictions and treatments anytime from your dashboard." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- The 4 Steps (dark with image) -->
+<section class="how-section alt">
+    <div class="container">
+        <h2 class="section-head text-center">{% trans "The Four Steps in Detail" %}</h2>
+        <p class="section-sub text-center mx-auto">{% trans "What happens after you submit a case." %}</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card">
+                    <div class="step-num">01</div>
+                    <h5>{% trans "Report Symptoms" %}</h5>
+                    <p>{% trans "Describe what you see: behaviour changes, appetite, skin, eyes, breathing, etc. You can add age, breed, and herd size. The more accurate the information, the better the prediction." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card">
+                    <div class="step-num">02</div>
+                    <h5>{% trans "AI Analysis" %}</h5>
+                    <p>{% trans "Our machine learning models (trained on cattle disease data) analyze the symptoms and return the most likely disease with a confidence score. This usually takes only a few seconds." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card">
+                    <div class="step-num">03</div>
+                    <h5>{% trans "Get Recommendations" %}</h5>
+                    <p>{% trans "You receive treatment suggestions, quarantine steps, and preventive measures tailored to the predicted condition. Follow them while considering your vet's advice for serious cases." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="step-card">
+                    <div class="step-num">04</div>
+                    <h5>{% trans "Connect with Vets" %}</h5>
+                    <p>{% trans "For severe or critical cases, the platform lets you choose a Ministry-approved vet in your province. You can request a consultation so the vet can advise or visit when needed." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What You Need -->
+<section class="how-section dark">
+    <div class="container">
+        <h2 class="section-head text-center">{% trans "What You Need to Get Started" %}</h2>
+        <p class="section-sub text-center mx-auto mb-5">{% trans "A few things that help you get the most out of CattleCare AI." %}</p>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+                    <h5>{% trans "Device and internet" %}</h5>
+                    <p>{% trans "Use a smartphone, tablet, or computer with internet access. The platform works in the browser—no app install required." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-eye"></i></div>
+                    <h5>{% trans "Observation" %}</h5>
+                    <p>{% trans "Note what you see in your cattle: symptoms, duration, and how many animals are affected. Clear descriptions improve prediction accuracy." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
+                    <h5>{% trans "Location" %}</h5>
+                    <p>{% trans "Your province and district help us match you with nearby vets and contribute to national disease surveillance." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tips -->
+<section class="how-section partnership-section">
+    <div class="container">
+        <h2 class="section-head">{% trans "Tips for Best Results" %}</h2>
+        <p class="section-sub">{% trans "Follow these practices to get the most accurate predictions and useful advice." %}</p>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-check-circle"></i></div>
+                    <h5>{% trans "Be as specific as you can" %}</h5>
+                    <p>{% trans "Mention all relevant symptoms (e.g. fever, cough, lameness, loss of appetite). Include how long they’ve been present and whether multiple animals are affected. This helps the AI narrow down the likely disease." %}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="about-card card">
+                    <div class="icon-wrap"><i class="fas fa-user-md"></i></div>
+                    <h5>{% trans "When to involve a vet" %}</h5>
+                    <p>{% trans "For critical or severe cases, or when the recommendation suggests professional care, use the vet connection feature. Don't rely on prediction alone for life-threatening or unclear situations." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-how">
+    <div class="container">
+        <h2>{% trans "Ready to start?" %}</h2>
+        <p class="mb-4">{% trans "Register as a farmer and submit your first case in minutes." %}</p>
+        <a href="{% url 'farmers:register' %}" class="btn btn-light"><i class="fas fa-user-plus me-2"></i>{% trans "Register as Farmer" %}</a>
+        <a href="{% url 'landing:services' %}" class="btn btn-outline-light"><i class="fas fa-th-large me-2"></i>{% trans "View Services" %}</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile - CattleCare AI{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <h1 style="font-size: 24px; font-weight: 700; color: #1f2937;">Edit Profile</h1>
+    <p style="font-size: 14px; color: #6b7280;">Update your account and professional details</p>
+</div>
+
+<div class="card-light">
+    <div class="card-title">
+        <span><i class="fas fa-user-edit" style="margin-right: 8px; color: #3b82f6;"></i>Profile Information</span>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div style="display: grid; gap: 20px; max-width: 500px;">
+            {% for field in form %}
+            <div>
+                <label style="font-size: 13px; font-weight: 600; color: #6b7280; display: block; margin-bottom: 6px;">
+                    {{ field.label }}
+                </label>
+                {% if field.name == 'is_available' %}
+                <div class="form-check">
+                    {{ field }}
+                    <label class="form-check-label" for="{{ field.id_for_label }}">Available for new cases</label>
+                </div>
+                {% elif field.name == 'profile_photo' %}
+                <div>
+                    {% if vet and vet.profile_photo %}
+                    <div style="margin-bottom:8px;">
+                        <img src="{{ vet.profile_photo.url }}" alt="Profile photo" style="width:72px;height:72px;border-radius:999px;object-fit:cover;border:2px solid #3b82f6;">
+                    </div>
+                    {% endif %}
+                    {{ field }}
+                </div>
+                {% else %}
+                {{ field }}
+                {% endif %}
+                {% if field.errors %}<div style="color: #dc2626; font-size: 12px; margin-top: 4px;">{{ field.errors.0 }}</div>{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div style="margin-top: 24px;">
+            <button type="submit" class="btn-primary-vet">Save Profile</button>
+        </div>
+    </form>
+</div>
+
+<div class="card-light">
+    <div class="card-title">
+        <span><i class="fas fa-lock" style="margin-right: 8px; color: #3b82f6;"></i>Change Password</span>
+    </div>
+    <p style="color: #6b7280; margin-bottom: 16px;">Use the forgot password flow to reset your password via email.</p>
+    <a href="{% url 'accounts:password_reset' %}" class="btn-outline-vet"><i class="fas fa-key"></i> Reset Password via Email</a>
+</div>
+{% endblock %}

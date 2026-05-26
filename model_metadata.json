@@ -1,0 +1,19 @@
+{
+    "model_name": "Logistic Regression",
+    "training_date": "2026-05-21 13:52:06",
+    "test_accuracy": 0.928,
+    "test_f1_score": 0.92824565282243,
+    "test_recall": 0.928,
+    "test_precision": 0.931706702543566,
+    "cv_f1_mean": 0.9187313571325664,
+    "cv_f1_std": 0.010204661662762661,
+    "overfitting_gap": 0.04166666666666663,
+    "num_diseases": 26,
+    "num_symptoms": 93,
+    "num_contextual_features": 9,
+    "total_input_features": 102,
+    "total_processed_features": 113,
+    "training_samples": 3000,
+    "testing_samples": 1000,
+    "noise_level": "\u00b141% noise, 15% missingness, 6.5% false positives, 3.5% bleed"
+}

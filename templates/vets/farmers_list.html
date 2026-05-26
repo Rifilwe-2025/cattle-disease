@@ -1,0 +1,84 @@
+{% extends 'vets/vet_base.html' %}
+{% load static %}
+{% load i18n %}
+{% load cattle_i18n %}
+
+{% block title %}{% trans "Farmers - CattleCare AI" %}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 24px;">
+    <h1 style="font-size: 24px; font-weight: 700; color: #1f2937; margin-bottom: 4px;">{% trans "Farmers Assigned to You" %}</h1>
+    <p style="font-size: 14px; color: #6b7280;">{% trans "Farmers who have cases assigned to you and their case history" %}</p>
+</div>
+
+<div class="card-light" style="margin-bottom: 24px;">
+    <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+        <div>
+            <div class="stat-label">{% trans "Total Farmers Assigned" %}</div>
+            <div class="stat-big">{{ total_farmers }}</div>
+        </div>
+    </div>
+</div>
+
+{% if farmers_with_cases %}
+{% for item in farmers_with_cases %}
+<div class="card-light">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="farmer-avatar">{{ item.farmer.full_name|slice:":1"|upper }}</div>
+            <div>
+                <div class="farmer-name" style="font-size: 16px;">{{ item.farmer.full_name }}</div>
+                <div class="farmer-detail">{{ item.farmer.province }}, {{ item.farmer.district }} · {{ item.farmer.cattle_breed }} · {{ item.farmer.number_of_cattle }} {% trans "cattle" %}</div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <span class="pill-badge info">{% blocktrans count c=item.case_count %}{{ c }} case{% plural %}{{ c }} cases{% endblocktrans %}</span>
+            <span class="pill-badge success">{% blocktrans with rc=item.resolved_count %}{{ rc }} resolved{% endblocktrans %}</span>
+        </div>
+    </div>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid #e5e7eb;">
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">{% trans "Date" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">{% trans "Disease" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">{% trans "Severity" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">{% trans "Status" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">{% trans "Action" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for case in item.cases %}
+                <tr style="border-bottom: 1px solid #f3f4f6;">
+                    <td style="padding: 14px 16px; font-size: 14px;">{{ case.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                    <td style="padding: 14px 16px;">
+                        {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>
+                        {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>
+                        {% else %}<span class="pill-badge success">{{ case.severity|local_severity }}</span>{% endif %}
+                    </td>
+                    <td style="padding: 14px 16px;">
+                        {% if case.status == 'RESOLVED' or case.status == 'CLOSED' %}<span class="pill-badge success">{{ case.status|local_case_status }}</span>
+                        {% elif case.status == 'IN_PROGRESS' %}<span class="pill-badge info">{{ case.status|local_case_status }}</span>
+                        {% else %}<span class="pill-badge warning">{{ case.status|local_case_status }}</span>{% endif %}
+                    </td>
+                    <td style="padding: 14px 16px;">
+                        <a href="{% url 'vets:case_detail' case.id %}" class="btn-primary-vet" style="padding: 6px 14px; font-size: 12px;">{% trans "View" %}</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+<div class="card-light">
+    <div style="text-align: center; padding: 60px 20px; color: #9ca3af;">
+        <i class="fas fa-users" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px; display: block;"></i>
+        <p>{% trans "No farmers assigned to you yet." %}</p>
+        <p style="font-size: 13px; margin-top: 8px;">{% trans "Farmers will appear here when they assign cases to you from their region." %}</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

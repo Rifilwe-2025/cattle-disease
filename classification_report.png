@@ -1,0 +1,35 @@
+Classification Report - Logistic Regression
+================================================================================
+
+                                   precision    recall  f1-score   support
+
+                      acetonaemia     0.8723    0.9535    0.9111        43
+                         blackleg     0.9394    0.9118    0.9254        34
+                            bloat     1.0000    0.9444    0.9714        18
+                  calf_diphtheria     0.8864    0.9750    0.9286        40
+                   calf_pneumonia     0.9455    0.9630    0.9541        54
+                      coccidiosis     1.0000    0.7500    0.8571        16
+                cryptosporidiosis     0.8868    0.9038    0.8952        52
+               displaced_abomasum     1.0000    0.8667    0.9286        15
+             fatty_liver_syndrome     0.9643    0.9643    0.9643        56
+                        fog_fever     1.0000    1.0000    1.0000        18
+                   foot_and_mouth     0.9167    0.8250    0.8684        40
+                         foot_rot     0.9615    0.8621    0.9091        29
+                        gut_worms     1.0000    0.9184    0.9574        49
+infectious_bovine_rhinotracheitis     0.8667    0.8966    0.8814        58
+                      listeriosis     0.9310    0.9474    0.9391        57
+                      liver_fluke     1.0000    0.8421    0.9143        19
+                         mastitis     0.8571    0.9231    0.8889        39
+               necrotic_enteritis     0.9545    0.8077    0.8750        26
+           peri_weaning_diarrhoea     0.6500    0.8667    0.7429        15
+                ragwort_poisoning     1.0000    1.0000    1.0000        15
+                rift_valley_fever     1.0000    0.9200    0.9583        50
+                   rumen_acidosis     0.9231    0.9412    0.9320        51
+             schmallen_berg_virus     0.9333    0.9767    0.9545        86
+            traumatic_reticulitis     1.0000    0.9231    0.9600        13
+                   trypanosomosis     0.9091    0.9677    0.9375        62
+                    wooden_tongue     0.9565    0.9778    0.9670        45
+
+                         accuracy                         0.9280      1000
+                        macro avg     0.9367    0.9165    0.9239      1000
+                     weighted avg     0.9317    0.9280    0.9282      1000

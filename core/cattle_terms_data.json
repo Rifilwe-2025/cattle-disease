@@ -1,0 +1,601 @@
+{
+  "symptoms": {
+    "anorexia": {
+      "en": "Anorexia",
+      "sn": "Kushaya hanya yekudya",
+      "nd": "Ukungadli"
+    },
+    "abdominal_pain": {
+      "en": "Abdominal Pain",
+      "sn": "Kurwadza kwechibereko",
+      "nd": "Ubuhlungu besisu"
+    },
+    "anaemia": {
+      "en": "Anaemia",
+      "sn": "Shanduro remusa",
+      "nd": "Ukuncipha kweligazi"
+    },
+    "abortions": {
+      "en": "Abortions",
+      "sn": "Kuberekera vacheche vakafa",
+      "nd": "Ukuphazamiseka kokukhulelwa"
+    },
+    "acetone": {
+      "en": "Acetone",
+      "sn": "Bhegi remumwe (acetone) mumukaka",
+      "nd": "I-acetone emukakini"
+    },
+    "aggression": {
+      "en": "Aggression",
+      "sn": "Kumhanya kunopisa",
+      "nd": "Ukuhlukumeza"
+    },
+    "arthrogyposis": {
+      "en": "Arthrogyposis",
+      "sn": "Kukanganisa kwezvikwambo",
+      "nd": "Izitho ezilimele"
+    },
+    "ankylosis": {
+      "en": "Ankylosis",
+      "sn": "Mavhimi akahwaira",
+      "nd": "Ukuminyanisa kwezitho"
+    },
+    "anxiety": {
+      "en": "Anxiety",
+      "sn": "Kutya nekudzurusa",
+      "nd": "Ukukhathazeka"
+    },
+    "bellowing": {
+      "en": "Bellowing",
+      "sn": "Kudana kunonetsa",
+      "nd": "Ukumemeza okubucayi"
+    },
+    "blood_loss": {
+      "en": "Blood Loss",
+      "sn": "Kukanganisa ropa",
+      "nd": "Ukulahlekelwa yigazi"
+    },
+    "blood_poisoning": {
+      "en": "Blood Poisoning",
+      "sn": "Hutachiwana hweropa",
+      "nd": "Ukugqunywe yigazi"
+    },
+    "blisters": {
+      "en": "Blisters",
+      "sn": "Madzemba",
+      "nd": "Amaqoboshomvu"
+    },
+    "colic": {
+      "en": "Colic",
+      "sn": "Kurwadza kwemudumbu",
+      "nd": "Ukubhobhoka kwesisu"
+    },
+    "Condemnation_of_livers": {
+      "en": "Condemnation Of Livers",
+      "sn": "Chiropa chakatadziswa",
+      "nd": "Isibindi esingasetshenziswa"
+    },
+    "conjunctivae": {
+      "en": "Conjunctivae",
+      "sn": "Hurwadzi hweiso (conjunctivitis)",
+      "nd": "Isiphathelo sehlozi (conjunctivitis)"
+    },
+    "coughing": {
+      "en": "Coughing",
+      "sn": "Kukohwa",
+      "nd": "Ukukhwehlela"
+    },
+    "depression": {
+      "en": "Depression",
+      "sn": "Kudzika kwehunyoro",
+      "nd": "Ukudinwa"
+    },
+    "discomfort": {
+      "en": "Discomfort",
+      "sn": "Kunzwa zvishoma zvakarwadza",
+      "nd": "Ukuzizwa kabi"
+    },
+    "dyspnea": {
+      "en": "Dyspnea",
+      "sn": "Kunetseka kupfuya",
+      "nd": "Ukubulawa kokuphefumula"
+    },
+    "dysentery": {
+      "en": "Dysentery",
+      "sn": "Kudonzera neropa/ropa",
+      "nd": "Ukudlulisa okunegazi"
+    },
+    "diarrhoea": {
+      "en": "Diarrhoea",
+      "sn": "Kudonzera",
+      "nd": "Ukudlulisa"
+    },
+    "dehydration": {
+      "en": "Dehydration",
+      "sn": "Kushaya mvura mumuviri",
+      "nd": "Ukuncipha kwamanzi"
+    },
+    "drooling": {
+      "en": "Drooling",
+      "sn": "Kudira mate zvakawanda",
+      "nd": "Ukudla amathe amaniningi"
+    },
+    "dull": {
+      "en": "Dull",
+      "sn": "Mhene asina hanya",
+      "nd": "Ukungabikhona amandla"
+    },
+    "decreased_fertility": {
+      "en": "Decreased Fertility",
+      "sn": "Kuderera kwekuberekana",
+      "nd": "Ukuncipha kokuzala"
+    },
+    "diffculty_breath": {
+      "en": "Diffculty Breath",
+      "sn": "Kunetseka kupfuya",
+      "nd": "Ukubulawa kokuphefumula"
+    },
+    "emaciation": {
+      "en": "Emaciation",
+      "sn": "Konda zvekutyisa",
+      "nd": "Ukonda"
+    },
+    "encephalitis": {
+      "en": "Encephalitis",
+      "sn": "Ronda yehunzvimbo hwepfungwa",
+      "nd": "Isifo sesihloko"
+    },
+    "fever": {
+      "en": "Fever",
+      "sn": "Hanya",
+      "nd": "Ifiva"
+    },
+    "facial_paralysis": {
+      "en": "Facial Paralysis",
+      "sn": "Kumira kweso",
+      "nd": "Ukulimala Kobuso"
+    },
+    "frothing_of_mouth": {
+      "en": "Frothing Of Mouth",
+      "sn": "Mafoam mumuromo",
+      "nd": "Ukuqina kwemlomo"
+    },
+    "frothing": {
+      "en": "Frothing",
+      "sn": "Kumira mate mafomu",
+      "nd": "Ukufuma amathe"
+    },
+    "gaseous_stomach": {
+      "en": "Gaseous Stomach",
+      "sn": "Dumbu rinodimbidza magetsi",
+      "nd": "Ukugcwala kwesisu"
+    },
+    "highly_diarrhoea": {
+      "en": "Highly Diarrhoea",
+      "sn": "Kudonzera kunotyisa",
+      "nd": "Ukudlulisa okubucayi"
+    },
+    "high_pulse_rate": {
+      "en": "High Pulse Rate",
+      "sn": "Moyo unokurumidza",
+      "nd": "Inhliziyo esheshayo"
+    },
+    "high_temp": {
+      "en": "High Temp",
+      "sn": "Hanya dzakakwirira",
+      "nd": "Ifiva eliphezulu"
+    },
+    "high_proportion": {
+      "en": "High Proportion",
+      "sn": "Huwandu hwakakwirira (clinical)",
+      "nd": "Isilinganiso esiphezulu"
+    },
+    "hyperaemia": {
+      "en": "Hyperaemia",
+      "sn": "Ropa-hanya",
+      "nd": "Igazi elinengi"
+    },
+    "hydrocephalus": {
+      "en": "Hydrocephalus",
+      "sn": "Mvura mumusoro (hydrocephalus)",
+      "nd": "Amanzi esihloko"
+    },
+    "isolation_from_herd": {
+      "en": "Isolation From Herd",
+      "sn": "Kudzimara dende",
+      "nd": "Ukuhlukana nomhlambi"
+    },
+    "infertility": {
+      "en": "Infertility",
+      "sn": "Kushayikwa kwekubereka",
+      "nd": "Ukungabi nazo izingane"
+    },
+    "intermittent_fever": {
+      "en": "Intermittent Fever",
+      "sn": "Hanya inopera-svika",
+      "nd": "Ifiva eya neyabuya"
+    },
+    "jaundice": {
+      "en": "Jaundice",
+      "sn": "Chirwere chemariro (jaundice)",
+      "nd": "Ukubomvu kwamehlo/isikhumba"
+    },
+    "ketosis": {
+      "en": "Ketosis",
+      "sn": "Ketosis",
+      "nd": "I-ketosis"
+    },
+    "loss_of_appetite": {
+      "en": "Loss Of Appetite",
+      "sn": "Kushaya kuda kudya",
+      "nd": "Ukungadli"
+    },
+    "lameness": {
+      "en": "Lameness",
+      "sn": "Kukonoka kwemakumbo",
+      "nd": "Ukulimala kwezinyawo"
+    },
+    "lack_of-coordination": {
+      "en": "Lack Of Coordination",
+      "sn": "Kushayirana kwechinangwa vachi famba",
+      "nd": "Ukungabi lobuqiniso ekuhambeni"
+    },
+    "lethargy": {
+      "en": "Lethargy",
+      "sn": "Kushaya simba nenzira",
+      "nd": "Ukudinwa"
+    },
+    "lacrimation": {
+      "en": "Lacrimation",
+      "sn": "Misodzi yakawanda",
+      "nd": "Ukukhala izinyembezi"
+    },
+    "milk_flakes": {
+      "en": "Milk Flakes",
+      "sn": "Mukaka une zvimedu",
+      "nd": "Ikheji elinamaqumba"
+    },
+    "milk_watery": {
+      "en": "Milk Watery",
+      "sn": "Mukaka wakadzikama",
+      "nd": "Ububi bemukaka (amanzi)"
+    },
+    "milk_clots": {
+      "en": "Milk Clots",
+      "sn": "Mukaka unopedzika madota",
+      "nd": "Ukuphuka kwemukaka"
+    },
+    "mild_diarrhoea": {
+      "en": "Mild Diarrhoea",
+      "sn": "Kudonzera kunopfuva",
+      "nd": "Ukudlulisa okuncane"
+    },
+    "moaning": {
+      "en": "Moaning",
+      "sn": "Kuchema kunopisa",
+      "nd": "Ukukhononda"
+    },
+    "mucosal_lesions": {
+      "en": "Mucosal Lesions",
+      "sn": "Mavhanga muhuro",
+      "nd": "Izilonda zomlomo"
+    },
+    "milk_fever": {
+      "en": "Milk Fever",
+      "sn": "Hanya yemuviri mushure mekubereka",
+      "nd": "Ifiva yokubeletha"
+    },
+    "nausea": {
+      "en": "Nausea",
+      "sn": "Kunzwa kunya kwedumbu",
+      "nd": "Ukugulukela"
+    },
+    "nasel_discharges": {
+      "en": "Nasel Discharges",
+      "sn": "Zvinobuda mumhino",
+      "nd": "Ukuphuma kwemakhi"
+    },
+    "oedema": {
+      "en": "Oedema",
+      "sn": "Kuvava kwemuviri (edema)",
+      "nd": "Ukuvuvukala"
+    },
+    "pain": {
+      "en": "Pain",
+      "sn": "Kurwadza",
+      "nd": "Ubuhlungu"
+    },
+    "painful_tongue": {
+      "en": "Painful Tongue",
+      "sn": "Rurimi runorwadza",
+      "nd": "Ulwimi olubuhlungu"
+    },
+    "pneumonia": {
+      "en": "Pneumonia",
+      "sn": "Hurwadzi hwepfuva",
+      "nd": "Isifo samaphaphu"
+    },
+    "photo_sensitization": {
+      "en": "Photo Sensitization",
+      "sn": "Kutya chiratidzirwa chezuva",
+      "nd": "Ukulimala yilanga"
+    },
+    "quivering_lips": {
+      "en": "Quivering Lips",
+      "sn": "Minwa inodedera",
+      "nd": "Izindebe ezididizelayo"
+    },
+    "reduction_milk_vields": {
+      "en": "Reduction Milk Vields",
+      "sn": "Kuderera kweuko hwemukaka",
+      "nd": "Ukwehla kwemukaka"
+    },
+    "rapid_breathing": {
+      "en": "Rapid Breathing",
+      "sn": "Kupfuya nekukurumidza",
+      "nd": "Ukuphefumula ngokushesha"
+    },
+    "rumenstasis": {
+      "en": "Rumenstasis",
+      "sn": "Kumira kwechibereko chepamba",
+      "nd": "Ukumisa kwesisu"
+    },
+    "reduced_rumination": {
+      "en": "Reduced Rumination",
+      "sn": "Kudzikama kwekusafura",
+      "nd": "Ukudla okuncane"
+    },
+    "reduced_fertility": {
+      "en": "Reduced Fertility",
+      "sn": "Kuderera kwekuberekana",
+      "nd": "Ukwehla kokuzala"
+    },
+    "reduced_fat": {
+      "en": "Reduced Fat",
+      "sn": "Mafuta achipfungana",
+      "nd": "Amafutha aphansi"
+    },
+    "reduces_feed_intake": {
+      "en": "Reduces Feed Intake",
+      "sn": "Kudya mudya mashoma",
+      "nd": "Ukudla okuncane"
+    },
+    "raised_breathing": {
+      "en": "Raised Breathing",
+      "sn": "Kupfuya kunokwira",
+      "nd": "Ukuphefumula okujulile"
+    },
+    "stomach_pain": {
+      "en": "Stomach Pain",
+      "sn": "Kurwadza kwedumbu",
+      "nd": "Ubuhlungu besisu"
+    },
+    "salivation": {
+      "en": "Salivation",
+      "sn": "Kudira mate",
+      "nd": "Ukudla amathe"
+    },
+    "stillbirths": {
+      "en": "Stillbirths",
+      "sn": "Kuberekera vakafa",
+      "nd": "Ukuzala izibulo ezifileyo"
+    },
+    "shallow_breathing": {
+      "en": "Shallow Breathing",
+      "sn": "Kupfuya kushallow",
+      "nd": "Ukuphefumula okungaphezulu"
+    },
+    "swollen_pharyngeal": {
+      "en": "Swollen Pharyngeal",
+      "sn": "Chiuno chakavava",
+      "nd": "Ukuvuvukala komphimbo"
+    },
+    "swelling": {
+      "en": "Swelling",
+      "sn": "Kuvava",
+      "nd": "Ukuvuvukala"
+    },
+    "saliva": {
+      "en": "Saliva",
+      "sn": "Mate akawanda",
+      "nd": "Amathe amaniningi"
+    },
+    "swollen_tongue": {
+      "en": "Swollen Tongue",
+      "sn": "Rurimi rwakavava",
+      "nd": "Ulwimi oluvuvukile"
+    },
+    "tachycardia": {
+      "en": "Tachycardia",
+      "sn": "Moyo unokurumidza",
+      "nd": "Inhliziyo esheshayo"
+    },
+    "torticollis": {
+      "en": "Torticollis",
+      "sn": "Musoro wakatsika",
+      "nd": "Ukukhomba intamo"
+    },
+    "udder_swelling": {
+      "en": "Udder Swelling",
+      "sn": "Mazamu akavava",
+      "nd": "Ukuvuvukala kwamabele"
+    },
+    "udder_heat": {
+      "en": "Udder Heat",
+      "sn": "Mazamu anopisa",
+      "nd": "Amabele ashotayo"
+    },
+    "udder_hardeness": {
+      "en": "Udder Hardeness",
+      "sn": "Mazamu akasimba",
+      "nd": "Amabele abukhali"
+    },
+    "udder_redness": {
+      "en": "Udder Redness",
+      "sn": "Mazamu akatsvuku",
+      "nd": "Amabele abomvu"
+    },
+    "udder_pain": {
+      "en": "Udder Pain",
+      "sn": "Mazamu anorwadza",
+      "nd": "Amabele abuhlungu"
+    },
+    "unwillingness_to_move": {
+      "en": "Unwillingness To Move",
+      "sn": "Kuramba kufamba",
+      "nd": "Ukungafuni ukuhamba"
+    },
+    "ulcers": {
+      "en": "Ulcers",
+      "sn": "Ma-ulcer mumuromo/mumazamu",
+      "nd": "Izilonda"
+    },
+    "vomiting": {
+      "en": "Vomiting",
+      "sn": "Kurutsa",
+      "nd": "Ukubhuda"
+    },
+    "weight_loss": {
+      "en": "Weight Loss",
+      "sn": "Kuderera",
+      "nd": "Ukuncipha komzimba"
+    },
+    "weakness": {
+      "en": "Weakness",
+      "sn": "Kushaya simba",
+      "nd": "Ukuba buthakathaka"
+    }
+  },
+  "diseases": {
+    "acetonaemia": {
+      "en": "Acetonaemia",
+      "sn": "Acetonaemia (ketosis)",
+      "nd": "I-acetonaemia"
+    },
+    "blackleg": {
+      "en": "Blackleg",
+      "sn": "Blackleg (rukodzi rwezvipfuva)",
+      "nd": "I-blackleg"
+    },
+    "bloat": {
+      "en": "Bloat",
+      "sn": "Dumbu rinodziya (bloat)",
+      "nd": "Isisu esigcwala amagesi"
+    },
+    "calf_diphtheria": {
+      "en": "Calf Diphtheria",
+      "sn": "Calf diphtheria",
+      "nd": "I-calf diphtheria"
+    },
+    "calf_pneumonia": {
+      "en": "Calf Pneumonia",
+      "sn": "Pneumonia yencane",
+      "nd": "Isifo samaphaphu ezincane"
+    },
+    "coccidiosis": {
+      "en": "Coccidiosis",
+      "sn": "Coccidiosis",
+      "nd": "I-coccidiosis"
+    },
+    "cryptosporidiosis": {
+      "en": "Cryptosporidiosis",
+      "sn": "Cryptosporidiosis",
+      "nd": "I-cryptosporidiosis"
+    },
+    "displaced_abomasum": {
+      "en": "Displaced Abomasum",
+      "sn": "Dumbu rakatemwa nzvimbo",
+      "nd": "Isisu esishelelayo"
+    },
+    "fatty_liver_syndrome": {
+      "en": "Fatty Liver Syndrome",
+      "sn": "Chiropa chinomafuta zhinji",
+      "nd": "Isibindi esinamafutha amaningi"
+    },
+    "fog_fever": {
+      "en": "Fog Fever",
+      "sn": "Fog fever",
+      "nd": "I-fog fever"
+    },
+    "foot_and_mouth": {
+      "en": "Foot And Mouth",
+      "sn": "Chirwere chemuromo nemazino (FMD)",
+      "nd": "Isifo senyawo nomlomo (FMD)"
+    },
+    "foot_rot": {
+      "en": "Foot Rot",
+      "sn": "Ronda yemakumbo (foot rot)",
+      "nd": "Isifo sezinyawo (foot rot)"
+    },
+    "gut_worms": {
+      "en": "Gut Worms",
+      "sn": "Minzwa mudumbu",
+      "nd": "Izibungu zesisu"
+    },
+    "infectious_bovine_rhinotracheitis": {
+      "en": "Infectious Bovine Rhinotracheitis",
+      "sn": "IBR (huru yomuhapwa)",
+      "nd": "I-IBR"
+    },
+    "listeriosis": {
+      "en": "Listeriosis",
+      "sn": "Listeriosis",
+      "nd": "I-listeriosis"
+    },
+    "liver_fluke": {
+      "en": "Liver Fluke",
+      "sn": "Minzwa muchiropa",
+      "nd": "Izibungu zesisibindi"
+    },
+    "mastitis": {
+      "en": "Mastitis",
+      "sn": "Hurwadzi hwemazamu (mastitis)",
+      "nd": "Isifo samabele (mastitis)"
+    },
+    "necrotic_enteritis": {
+      "en": "Necrotic Enteritis",
+      "sn": "Enteritis inouraya danda",
+      "nd": "I-necrotic enteritis"
+    },
+    "peri_weaning_diarrhoea": {
+      "en": "Peri Weaning Diarrhoea",
+      "sn": "Kudonzera pamusana pokubvisa mukaka",
+      "nd": "Ukudlulisa ngaphambi kokuhlikihla"
+    },
+    "ragwort_poisoning": {
+      "en": "Ragwort Poisoning",
+      "sn": "Kudyiwa nezvinorawa (ragwort)",
+      "nd": "Ukugaxekwa yi-ragwort"
+    },
+    "rift_valley_fever": {
+      "en": "Rift Valley Fever",
+      "sn": "Hanya yeRift Valley",
+      "nd": "Ifiva ye-Rift Valley"
+    },
+    "rumen_acidosis": {
+      "en": "Rumen Acidosis",
+      "sn": "Acidosis yechibereko",
+      "nd": "I-rumen acidosis"
+    },
+    "schmallen_berg_virus": {
+      "en": "Schmallen Berg Virus",
+      "sn": "Schmallenberg virus",
+      "nd": "I-Schmallenberg virus"
+    },
+    "traumatic_reticulitis": {
+      "en": "Traumatic Reticulitis",
+      "sn": "Kukuvadzwa kwedumbu",
+      "nd": "I-traumatic reticulitis"
+    },
+    "trypanosomosis": {
+      "en": "Trypanosomosis",
+      "sn": "Trypanosomosis (domora)",
+      "nd": "I-trypanosomosis"
+    },
+    "wooden_tongue": {
+      "en": "Wooden Tongue",
+      "sn": "Rurimi runosimba (wooden tongue)",
+      "nd": "Ulwimi olulukile (wooden tongue)"
+    }
+  }
+}

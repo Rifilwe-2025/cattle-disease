@@ -1,0 +1,177 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% trans "CattleCare AI - Farmer" %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/farmer-dashboard.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="farmer-dashboard">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar" id="farmerSidebar">
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-icon"><i class="fas fa-shield-alt"></i></div>
+                <span class="sidebar-brand-text">CattleCare AI</span>
+                <i class="fas fa-chevron-left sidebar-toggle" id="sidebarCloseBtn" title="{% trans 'Close menu' %}"></i>
+            </div>
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <div class="menu-section-title">{% trans "Main" %}</div>
+                    <a href="{% url 'farmers:dashboard' %}" class="menu-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                        <i class="fas fa-home"></i><span>{% trans "Overview" %}</span>
+                    </a>
+                    <a href="{% url 'farmers:case_history' %}" class="menu-item {% if request.resolver_match.url_name == 'case_history' %}active{% endif %}">
+                        <i class="fas fa-file-alt"></i><span>{% trans "Cattle Records" %}</span>
+                    </a>
+                    <a href="{% url 'farmers:active_cases' %}" class="menu-item {% if request.resolver_match.url_name == 'active_cases' %}active{% endif %}">
+                        <i class="fas fa-clipboard-list"></i><span>{% trans "Cases" %}</span>
+                    </a>
+                    <a href="{% url 'farmers:vet_recommendations' %}" class="menu-item {% if request.resolver_match.url_name == 'vet_recommendations' %}active{% endif %}">
+                        <i class="fas fa-stethoscope"></i><span>{% trans "Vet Recommendations" %}</span>
+                    </a>
+                    <a href="{% url 'farmers:submit_case' %}" class="menu-item {% if request.resolver_match.url_name == 'submit_case' %}active{% endif %}">
+                        <i class="fas fa-plus-medical"></i><span>{% trans "Submit Case" %}</span>
+                    </a>
+                </div>
+                <div class="menu-section">
+                    <div class="menu-section-title">{% trans "Features" %}</div>
+                    <a href="{% url 'farmers:ai_insights' %}" class="menu-item {% if request.resolver_match.url_name == 'ai_insights' %}active{% endif %}">
+                        <i class="fas fa-brain"></i><span>{% trans "AI Insights" %}</span>
+                    </a>
+                </div>
+                <div class="menu-section">
+                    <div class="menu-section-title">{% trans "Tools" %}</div>
+                    <a href="{% url 'farmers:profile_edit' %}" class="menu-item {% if request.resolver_match.url_name == 'profile_edit' %}active{% endif %}">
+                        <i class="fas fa-user-edit"></i><span>{% trans "Edit Profile" %}</span>
+                    </a>
+                    <a href="{% url 'farmers:help_center' %}" class="menu-item {% if request.resolver_match.url_name == 'help_center' %}active{% endif %}">
+                        <i class="fas fa-question-circle"></i><span>{% trans "Help Center" %}</span>
+                    </a>
+                    <a href="{% url 'accounts:logout' %}" class="menu-item">
+                        <i class="fas fa-sign-out-alt"></i><span>{% trans "Logout" %}</span>
+                    </a>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="help-card">
+                    <h6><i class="fas fa-life-ring" style="color: var(--fc-green);"></i> {% trans "Need help?" %}</h6>
+                    <p>{% trans "Get quick guidance on symptoms, cases, and herd health from our AI assistant." %}</p>
+                    <a href="{% url 'farmers:ai_insights' %}" class="btn-help-ai">{% trans "Ask AI Assistant" %}</a>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="topbar">
+                <button type="button" class="topbar-menu-btn" id="sidebarOpenBtn" aria-label="{% trans 'Open menu' %}">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="topbar-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="{% trans 'Search for cattle, cases, disease...' %}" id="globalSearch">
+                </div>
+                <div class="topbar-right">
+                    <form action="{% url 'set_language' %}" method="post" class="lang-form">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.get_full_path }}">
+                        <select name="language" aria-label="{% trans 'Language' %}">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang in LANGUAGES %}
+                                <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>{{ lang.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="lang-btn">{% trans "Change" %}</button>
+                    </form>
+                    <div class="topbar-icon" title="{% trans 'Notifications' %}" id="farmerNotifBtn">
+                        <i class="fas fa-bell"></i>
+                        {% if critical_cases or active_cases %}
+                        <span class="topbar-icon-badge">{% if critical_cases %}{{ critical_cases }}{% else %}{{ active_cases }}{% endif %}</span>
+                        {% endif %}
+                        <div class="notif-dropdown" id="farmerNotifDropdown">
+                            {% if critical_cases %}
+                            <div class="notif-item">
+                                <i class="fas fa-exclamation-triangle" style="color:#f97316;"></i>
+                                <span>{% blocktrans count counter=critical_cases %}You have {{ counter }} critical case. Please contact a vet urgently.{% plural %}You have {{ counter }} critical cases. Please contact a vet urgently.{% endblocktrans %}</span>
+                            </div>
+                            {% endif %}
+                            {% if active_cases %}
+                            <div class="notif-item">
+                                <i class="fas fa-stethoscope" style="color:#22c55e;"></i>
+                                <span>{% blocktrans count counter=active_cases %}{{ counter }} active case waiting for vet recommendations.{% plural %}{{ counter }} active cases waiting for vet recommendations.{% endblocktrans %}</span>
+                            </div>
+                            {% endif %}
+                            {% if not critical_cases and not active_cases %}
+                            <div class="notif-item">
+                                <i class="fas fa-check-circle" style="color:#22c55e;"></i>
+                                <span>{% trans "No new case alerts. Your herd looks stable." %}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="{% url 'farmers:profile_edit' %}" class="topbar-profile">
+                        <div class="topbar-avatar">
+                            {% if farmer %}{{ farmer.full_name|slice:":1"|upper }}{% if farmer.full_name|length > 1 %}{{ farmer.full_name|slice:"1:2"|upper }}{% endif %}{% else %}F{% endif %}
+                        </div>
+                        <div class="topbar-profile-info">
+                            <span class="topbar-profile-name">{% if farmer %}{{ farmer.full_name }}{% else %}{% trans "Farmer" %}{% endif %}</span>
+                            <span class="topbar-profile-role">{% trans "Farmer" %}</span>
+                        </div>
+                    </a>
+                </div>
+            </header>
+            <div class="main-area">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show alert-farmer" role="alert">{{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function() {
+            const sidebar = document.getElementById('farmerSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const openBtn = document.getElementById('sidebarOpenBtn');
+            const closeBtn = document.getElementById('sidebarCloseBtn');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                overlay.classList.add('show');
+            }
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('show');
+            }
+            if (openBtn) openBtn.addEventListener('click', openSidebar);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+            if (overlay) overlay.addEventListener('click', closeSidebar);
+        })();
+
+        (function() {
+            const btn = document.getElementById('farmerNotifBtn');
+            const dropdown = document.getElementById('farmerNotifDropdown');
+            if (!btn || !dropdown) return;
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+            document.addEventListener('click', function() {
+                dropdown.classList.remove('show');
+            });
+        })();
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

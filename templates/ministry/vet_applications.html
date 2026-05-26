@@ -1,0 +1,144 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Vet Applications - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Vet Applications" %}{% endblock %}
+{% block page_title %}{% trans "Veterinary Doctor Applications" %}{% endblock %}
+{% block page_subtitle %}{% trans "Review and manage veterinarian applications" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+.nav-tabs-glass { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 2px solid rgba(102,126,234,0.15); }
+.nav-tab-glass { padding: 12px 24px; font-size: 14px; font-weight: 600; color: #6c757d; text-decoration: none; border-radius: 8px 8px 0 0; transition: all 0.25s ease; background: rgba(255,255,255,0.2); }
+.nav-tab-glass:hover { color: #667eea; background: rgba(102,126,234,0.08); }
+.nav-tab-glass.active { color: #667eea; background: rgba(255,255,255,0.4); border-bottom: 2px solid #667eea; }
+.btn-approve { background: linear-gradient(135deg,#28a745 0%,#20c997 100%); color: white; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+.btn-approve:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(40,167,69,0.4); }
+.btn-reject { background: linear-gradient(135deg,#dc3545 0%,#c82333 100%); color: white; padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; }
+.btn-reject:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(220,53,69,0.4); }
+.provinces-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.province-tag { padding: 2px 8px; background: rgba(102,126,234,0.15); color: #667eea; border-radius: 4px; font-size: 11px; font-weight: 600; }
+</style>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs mb-4" id="appTabs" role="tablist" style="border: none; gap: 8px;">
+    <li class="nav-item">
+        <button class="nav-link active" style="background: rgba(255,255,255,0.4); border: none; border-radius: 8px; padding: 10px 20px; font-weight: 600; color: #667eea;" data-bs-toggle="tab" data-bs-target="#pending">{% trans "Pending" %} ({{ pending.count }})</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" style="background: rgba(255,255,255,0.2); border: none; border-radius: 8px; padding: 10px 20px; font-weight: 600; color: #6c757d;" data-bs-toggle="tab" data-bs-target="#approved">{% trans "Approved" %} ({{ approved.count }})</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" style="background: rgba(255,255,255,0.2); border: none; border-radius: 8px; padding: 10px 20px; font-weight: 600; color: #6c757d;" data-bs-toggle="tab" data-bs-target="#rejected">{% trans "Rejected" %} ({{ rejected.count }})</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="pending">
+        <div class="content-card">
+            {% if pending %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "License" %}</th>
+                        <th>{% trans "Qualification" %}</th>
+                        <th>{% trans "Experience" %}</th>
+                        <th>{% trans "Provinces" %}</th>
+                        <th>{% trans "Applied" %}</th>
+                        <th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in pending %}
+                    <tr>
+                        <td><div style="font-weight:600;">{{ app.full_name }}</div><div style="font-size:12px;color:#6c757d;">{{ app.email }}</div></td>
+                        <td>{{ app.license_number }}</td>
+                        <td>{{ app.qualification|truncatewords:6 }}</td>
+                        <td>{% blocktrans with y=app.years_of_experience %}{{ y }} years{% endblocktrans %}</td>
+                        <td>
+                            <div class="provinces-list">
+                                {% for p in app.get_provinces_list %}
+                                    <span class="province-tag">{{ p }}</span>
+                                {% empty %}
+                                    <span style="color:#6c757d;">{% trans "N/A" %}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td>{{ app.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <a href="{% url 'ministry:approve_vet' app.id %}" class="btn-approve"><i class="fas fa-check"></i> {% trans "Approve" %}</a>
+                            <a href="{% url 'ministry:reject_vet' app.id %}" class="btn-reject" style="margin-left:8px;"><i class="fas fa-times"></i> {% trans "Reject" %}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align:center;color:#6c757d;padding:60px 20px;">
+                <i class="fas fa-check-circle" style="font-size:64px;opacity:0.3;display:block;margin-bottom:20px;color:#28a745;"></i>
+                {% trans "No pending applications. All caught up!" %}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="approved">
+        <div class="content-card">
+            {% if approved %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "License" %}</th>
+                        <th>{% trans "Approved Date" %}</th>
+                        <th>{% trans "Status" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in approved %}
+                    <tr>
+                        <td><div style="font-weight:600;">{{ app.full_name }}</div></td>
+                        <td>{{ app.license_number }}</td>
+                        <td>{{ app.approved_at|date:"M d, Y" }}</td>
+                        <td><span class="table-badge success"><i class="fas fa-check"></i> {% trans "Approved" %}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align:center;color:#6c757d;padding:60px 20px;">{% trans "No approved applications yet." %}</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="tab-pane fade" id="rejected">
+        <div class="content-card">
+            {% if rejected %}
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{% trans "Name" %}</th>
+                        <th>{% trans "License" %}</th>
+                        <th>{% trans "Rejected Date" %}</th>
+                        <th>{% trans "Reason" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in rejected %}
+                    <tr>
+                        <td><div style="font-weight:600;">{{ app.full_name }}</div></td>
+                        <td>{{ app.license_number }}</td>
+                        <td>{{ app.approved_at|date:"M d, Y" }}</td>
+                        <td>{{ app.rejection_reason|truncatewords:15 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p style="text-align:center;color:#6c757d;padding:60px 20px;">{% trans "No rejected applications." %}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'ministry/base_ministry.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{% trans "Registered Farmers - CattleCare AI" %}{% endblock %}
+{% block topbar_title %}{% trans "Farmers" %}{% endblock %}
+{% block page_title %}{% trans "Registered Farmers" %}{% endblock %}
+{% block page_subtitle %}{% blocktrans with n=total_farmers %}Total of {{ n }} farmers registered on the platform{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="filter-group" style="margin-bottom: 24px;">
+    <select class="filter-select" onchange="window.location='?province=' + this.value">
+        <option value="">{% trans "All Provinces" %}</option>
+        <option value="Harare" {% if province_filter == 'Harare' %}selected{% endif %}>Harare</option>
+        <option value="Bulawayo" {% if province_filter == 'Bulawayo' %}selected{% endif %}>Bulawayo</option>
+        <option value="Manicaland" {% if province_filter == 'Manicaland' %}selected{% endif %}>Manicaland</option>
+        <option value="Mashonaland Central" {% if province_filter == 'Mashonaland Central' %}selected{% endif %}>Mashonaland Central</option>
+        <option value="Mashonaland East" {% if province_filter == 'Mashonaland East' %}selected{% endif %}>Mashonaland East</option>
+        <option value="Mashonaland West" {% if province_filter == 'Mashonaland West' %}selected{% endif %}>Mashonaland West</option>
+        <option value="Masvingo" {% if province_filter == 'Masvingo' %}selected{% endif %}>Masvingo</option>
+        <option value="Matabeleland North" {% if province_filter == 'Matabeleland North' %}selected{% endif %}>Matabeleland North</option>
+        <option value="Matabeleland South" {% if province_filter == 'Matabeleland South' %}selected{% endif %}>Matabeleland South</option>
+        <option value="Midlands" {% if province_filter == 'Midlands' %}selected{% endif %}>Midlands</option>
+    </select>
+</div>
+
+{% if province_stats %}
+<div class="stats-mini-grid">
+    {% for stat in province_stats %}
+    <div class="stat-mini-card">
+        <div class="stat-mini-value">{{ stat.count }}</div>
+        <div class="stat-mini-label">{{ stat.province }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="content-card">
+    {% if farmers %}
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Contact" %}</th>
+                <th>{% trans "Email" %}</th>
+                <th>{% trans "Province" %}</th>
+                <th>{% trans "District" %}</th>
+                <th>{% trans "Herd Size" %}</th>
+                <th>{% trans "Registered" %}</th>
+                <th>{% trans "Status" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for farmer in farmers %}
+            <tr>
+                <td><div style="font-weight: 600;">{{ farmer.full_name }}</div></td>
+                <td>{{ farmer.phone_number|default:farmer.user.phone_number|default:"—" }}</td>
+                <td>{{ farmer.email|default:farmer.user.email|default:"—" }}</td>
+                <td>{{ farmer.province }}</td>
+                <td>{{ farmer.district }}</td>
+                <td><span style="font-weight: 600; color: #667eea;">{{ farmer.number_of_cattle }}</span></td>
+                <td>{{ farmer.created_at|date:"M d, Y" }}</td>
+                <td><span class="table-badge success"><i class="fas fa-check-circle"></i> {% trans "Active" %}</span></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #6c757d; padding: 60px 20px;">
+        <i class="fas fa-users" style="font-size: 64px; opacity: 0.3; display: block; margin-bottom: 20px;"></i>
+        {% trans "No farmers found. Farmers will appear here once they register." %}
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('globalSearch').addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.data-table tbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,5157 @@
+# Shona translations for CattleCare AI (project templates).
+# Copyright (C) CattleCare AI
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: CattleCare AI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-20 14:06+0200\n"
+"PO-Revision-Date: 2026-04-03 20:00+0200\n"
+"Language: sn\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\farmers\views.py:26 .\farmers\views.py:120 .\farmers\views.py:247
+msgid "Access denied. Farmers only."
+msgstr ""
+
+#: .\farmers\views.py:34
+msgid "Please complete your farmer profile."
+msgstr ""
+
+#: .\farmers\views.py:141
+msgid "Access denied."
+msgstr ""
+
+#: .\farmers\views.py:157
+#, fuzzy
+#| msgid "Chart exported successfully!"
+msgid "Profile updated successfully."
+msgstr "Chati yabviswa zvakabudirira!"
+
+#: .\farmers\views.py:160
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\farmers\views.py:172
+msgid "Access denied"
+msgstr ""
+
+#: .\farmers\views.py:175
+msgid "Method not allowed"
+msgstr ""
+
+#: .\farmers\views.py:187
+msgid ""
+"Please enter a question or select a topic. I can help with disease tips, "
+"herd health, and cattle care guidance."
+msgstr ""
+
+#: .\farmers\views.py:221
+#, fuzzy
+#| msgid "Unknown"
+msgid "Unknown disease"
+msgstr "Haizivikanwe"
+
+#: .\farmers\views.py:225
+#, python-format
+msgid ""
+"\n"
+"\n"
+"In your own herd, the most recent recorded case is **%(disease)s** from "
+"%(date)s (severity: **%(severity)s**, status: **%(status)s**). Use this as a "
+"reference when monitoring similar symptoms."
+msgstr ""
+
+#: .\templates\accounts\login.html:5
+msgid "Log in - CattleCare AI"
+msgstr "Pinda - CattleCare AI"
+
+#: .\templates\accounts\login.html:356
+msgid "Welcome Back to CattleCare AI"
+msgstr "Wadzoka kuCattleCare AI"
+
+#: .\templates\accounts\login.html:357
+msgid ""
+"AI-powered early disease prediction for your cattle. Protect your livestock "
+"investment today."
+msgstr "Kufungidzira zvirwere zvemombe nekukurumidza uchishandisa AI. Dzivirira mari yawaisa mumombe nhasi."
+
+#: .\templates\accounts\login.html:362
+msgid "95%% Accurate Disease Prediction"
+msgstr "Kufungidzira zvirwere kwakanyatsoita 95%%"
+
+#: .\templates\accounts\login.html:366
+msgid "Instant Treatment Recommendations"
+msgstr "Mazano ekurapa nekukurumidza"
+
+#: .\templates\accounts\login.html:370
+msgid "Connect with Qualified Vets"
+msgstr "Batanidzwa neveti vakadzidza"
+
+#: .\templates\accounts\login.html:374
+msgid "24/7 Access Anywhere"
+msgstr "Kuwana sevhisi 24/7 chero kupi"
+
+#: .\templates\accounts\login.html:384 .\templates\accounts\login.html:446
+#: .\templates\accounts\password_reset_complete.html:94
+#: .\templates\base.html:111
+msgid "Log in"
+msgstr "Pinda"
+
+#: .\templates\accounts\login.html:385
+msgid "Enter your credentials to access your account"
+msgstr "Isa zvaunoshandisa kupinda kuti uwane account yako"
+
+#: .\templates\accounts\login.html:401 .\templates\farmers\register.html:527
+msgid "Username"
+msgstr "Zita rokushandisa"
+
+#: .\templates\accounts\login.html:409
+msgid "Enter your username"
+msgstr "Isa zita rako rokushandisa"
+
+#: .\templates\accounts\login.html:420 .\templates\farmers\register.html:542
+#: .\templates\vets\register.html:650
+msgid "Password"
+msgstr "Pasiwedhi"
+
+#: .\templates\accounts\login.html:428
+msgid "Enter your password"
+msgstr "Isa pasiwedhi yako"
+
+#: .\templates\accounts\login.html:435
+msgid "Forgot password?"
+msgstr "Wakanganwa pasiwedhi?"
+
+#: .\templates\accounts\login.html:451
+msgid "New to CattleCare AI?"
+msgstr "Mutsvakuwo ku CattleCare AI?"
+
+#: .\templates\accounts\login.html:455
+msgid "Don't have an account? Register now"
+msgstr "Hauna account? Nyoresa iye zvino"
+
+#: .\templates\accounts\login.html:457 .\templates\landing\about.html:310
+#: .\templates\landing\home.html:842 .\templates\landing\how_it_works.html:312
+#: .\templates\landing\services.html:325
+msgid "Register as Farmer"
+msgstr "Nyoresa semurimi"
+
+#: .\templates\accounts\login.html:461 .\templates\landing\home.html:872
+#: .\templates\landing\services.html:326
+msgid "Apply as Vet"
+msgstr "Isa chikumbiro sedokotela wemhuka"
+
+#: .\templates\accounts\login.html:467 .\templates\farmers\register.html:732
+#: .\templates\vets\apply.html:649 .\templates\vets\register.html:799
+#: .\templates\vets\track_application.html:769
+msgid "Back to Home"
+msgstr "Dzokera kumba"
+
+#: .\templates\accounts\logout.html:5
+msgid "Logout - CattleCare AI"
+msgstr "Buda - CattleCare AI"
+
+#: .\templates\accounts\logout.html:213
+msgid "Confirm Logout"
+msgstr "Simbisa Kubuda"
+
+#: .\templates\accounts\logout.html:239
+msgid "User"
+msgstr "Mushandisi"
+
+#: .\templates\accounts\logout.html:245
+msgid ""
+"Are you sure you want to logout? You'll need to login again to access your "
+"dashboard and submit disease cases."
+msgstr ""
+"Une chokwadi chekuti unoda kubuda here? Uchafanira kupinda zvakare kuti "
+"uwane dhashibhodi yako uye utumire nyaya dzezvirwere."
+
+#: .\templates\accounts\logout.html:252
+msgid "Yes, Logout"
+msgstr "Hongu, Buda"
+
+#: .\templates\accounts\logout.html:255
+msgid "Cancel"
+msgstr "Dzima"
+
+#: .\templates\accounts\logout.html:262
+msgid "You are already logged out."
+msgstr "Watobuda kare."
+
+#: .\templates\accounts\logout.html:266
+msgid "Login Again"
+msgstr "Pinda zvakare"
+
+#: .\templates\accounts\logout.html:269
+msgid "Go Home"
+msgstr "Enda kumba"
+
+#: .\templates\accounts\logout.html:277
+msgid "Your session will be securely terminated"
+msgstr "Session yako ichavharwa zvakachengeteka"
+
+#: .\templates\accounts\password_reset.html:5
+msgid "Forgot Password - CattleCare AI"
+msgstr "Wakanganwa Pasiwedhi - CattleCare AI"
+
+#: .\templates\accounts\password_reset.html:120
+msgid "Forgot Password"
+msgstr "Wakanganwa Pasiwedhi"
+
+#: .\templates\accounts\password_reset.html:121
+msgid ""
+"Enter the email address you used during registration. We'll send a reset "
+"link and a verification code (OTP) to your inbox."
+msgstr ""
+"Isa kero yeimero yawakashandisa pakunyoresa. Tichakutumira link "
+"yekugadzirisa pasiwedhi uye kodhi yekusimbisa (OTP) ku-inbox yako."
+
+#: .\templates\accounts\password_reset.html:125
+#, fuzzy
+#| msgid "Email Address"
+msgid "Email address"
+msgstr "Kero yeImero"
+
+#: .\templates\accounts\password_reset.html:126
+msgid "Enter your email"
+msgstr "Isa imero yako"
+
+#: .\templates\accounts\password_reset.html:129
+msgid "Send reset link"
+msgstr "Tumira link yekugadzirisa"
+
+#: .\templates\accounts\password_reset.html:131
+#: .\templates\accounts\password_reset_done.html:94
+msgid "Back to login"
+msgstr "Dzokera pakupinda"
+
+#: .\templates\accounts\password_reset_complete.html:5
+msgid "Password reset complete - CattleCare AI"
+msgstr "Kugadzirisa pasiwedhi kwapera - CattleCare AI"
+
+#: .\templates\accounts\password_reset_complete.html:92
+msgid "Password reset complete"
+msgstr "Kugadzirisa pasiwedhi kwapera"
+
+#: .\templates\accounts\password_reset_complete.html:93
+msgid "Your password has been set. You can now log in with your new password."
+msgstr "Pasiwedhi yako yaiswa. Unogona kupinda ne pasiwedhi yako itsva."
+
+#: .\templates\accounts\password_reset_confirm.html:5
+msgid "Set new password - CattleCare AI"
+msgstr "Gadza pasiwedhi itsva - CattleCare AI"
+
+#: .\templates\accounts\password_reset_confirm.html:110
+msgid "Set new password"
+msgstr "Gadza pasiwedhi itsva"
+
+#: .\templates\accounts\password_reset_confirm.html:115
+msgid "New password"
+msgstr "Pasiwedhi itsva"
+
+#: .\templates\accounts\password_reset_confirm.html:116
+msgid "Enter new password"
+msgstr "Isa pasiwedhi itsva"
+
+#: .\templates\accounts\password_reset_confirm.html:120
+#: .\templates\accounts\password_reset_confirm.html:121
+msgid "Confirm new password"
+msgstr "Simbisa pasiwedhi itsva"
+
+#: .\templates\accounts\password_reset_confirm.html:124
+msgid "Reset password"
+msgstr "Gadzirisa pasiwedhi"
+
+#: .\templates\accounts\password_reset_confirm.html:127
+msgid "This reset link is invalid or has expired. Please request a new one."
+msgstr "Link iyi haina kushanda kana yapera. Ndokumbira ukumbire itsva."
+
+#: .\templates\accounts\password_reset_confirm.html:128
+msgid "Request new reset link"
+msgstr "Kumbira link itsva"
+
+#: .\templates\accounts\password_reset_done.html:5
+msgid "Check your email - CattleCare AI"
+msgstr "Tarisa imero yako - CattleCare AI"
+
+#: .\templates\accounts\password_reset_done.html:92
+msgid "Check your email"
+msgstr "Tarisa imero yako"
+
+#: .\templates\accounts\password_reset_done.html:93
+msgid ""
+"If an account exists with that email, we've sent a reset link and "
+"verification code (OTP). Please check your inbox and spam folder."
+msgstr ""
+"Kana account iripo neimero iyoyo, tatumira link yekugadzirisa uye kodhi "
+"yekusimbisa (OTP). Ndokumbira utarise inbox yako ne spam."
+
+#: .\templates\accounts\password_reset_otp.html:5
+msgid "Enter verification code - CattleCare AI"
+msgstr "Isa kodhi yekusimbisa - CattleCare AI"
+
+#: .\templates\accounts\password_reset_otp.html:134
+msgid "Verify your identity"
+msgstr "Simbisa kuzivikanwa kwako"
+
+#: .\templates\accounts\password_reset_otp.html:135
+msgid "Enter the 6-digit verification code sent to your email."
+msgstr "Isa kodhi yekusimbisa ine manhamba 6 yatatumirwa kuimero yako."
+
+#: .\templates\accounts\password_reset_otp.html:137
+msgid "Check your email inbox (and spam folder) for the code."
+msgstr "Tarisa inbox yeimero (uye spam) kuti uwane kodhi."
+
+#: .\templates\accounts\password_reset_otp.html:142
+msgid "Verification code (OTP)"
+msgstr "Kodhi yekusimbisa (OTP)"
+
+#: .\templates\accounts\password_reset_otp.html:143
+msgid "000000"
+msgstr "000000"
+
+#: .\templates\accounts\password_reset_otp.html:152
+msgid "Verify and continue"
+msgstr "Simbisa woenderera"
+
+#: .\templates\accounts\password_reset_otp.html:154
+msgid "Request new link"
+msgstr "Kumbira link itsva"
+
+#: .\templates\base.html:7
+msgid "Cattle Disease Prediction System"
+msgstr "Sisitimu yekutarisa zvirwere zvenkomo kare"
+
+#: .\templates\base.html:39 .\templates\base.html:46 .\templates\base.html:50
+#: .\templates\landing\home.html:907
+#: .\templates\ministry\base_ministry.html:132
+#: .\templates\ministry\dashboard.html:993
+#: .\templates\ministry\dashboard.html:1066 .\templates\vets\dashboard.html:12
+#: .\templates\vets\vet_base.html:116
+msgid "Dashboard"
+msgstr "Dhashibhodi"
+
+#: .\templates\base.html:42 .\templates\farmers\farmer_base.html:189
+#: .\templates\farmers\farmer_base.html:215
+#: .\templates\farmers\help_center.html:31
+#: .\templates\farmers\submit_case.html:6
+msgid "Submit Case"
+msgstr "Tumira nyaya"
+
+#: .\templates\base.html:53
+msgid "Maps"
+msgstr "Mapu"
+
+#: .\templates\base.html:68 .\templates\base.html:105
+#: .\templates\farmers\farmer_base.html:244
+#: .\templates\ministry\base_ministry.html:200
+#: .\templates\partials\lang_switch_fixed.html:14
+#: .\templates\vets\vet_base.html:179
+msgid "Change"
+msgstr "Shandura"
+
+#: .\templates\base.html:74 .\templates\farmers\farmer_base.html:207
+#: .\templates\ministry\base_ministry.html:173
+#: .\templates\ministry\base_ministry.html:241
+#: .\templates\ministry\dashboard.html:1044
+#: .\templates\ministry\dashboard.html:1106 .\templates\vets\vet_base.html:139
+#: .\templates\vets\vet_base.html:207
+msgid "Logout"
+msgstr "Buda"
+
+#: .\templates\base.html:79
+msgid "Home"
+msgstr "Kumba"
+
+#: .\templates\base.html:82 .\templates\base.html:261
+msgid "Services"
+msgstr "Zviitwa"
+
+#: .\templates\base.html:85 .\templates\base.html:262
+#: .\templates\landing\home.html:771 .\templates\landing\how_it_works.html:171
+#: .\templates\landing\services.html:254
+msgid "How It Works"
+msgstr "Zvinoshanda sei"
+
+#: .\templates\base.html:88 .\templates\base.html:263
+#: .\templates\landing\home.html:828
+msgid "For Farmers"
+msgstr "Kune Varimi"
+
+#: .\templates\base.html:91 .\templates\base.html:260
+msgid "About"
+msgstr "Nezvedu"
+
+#: .\templates\base.html:116 .\templates\base.html:238
+msgid "Get Started"
+msgstr "Tanga"
+
+#: .\templates\base.html:236 .\templates\landing\about.html:308
+msgid "Ready to protect your herd?"
+msgstr "Wakagadzirira kuchengeta mhomho yako?"
+
+#: .\templates\base.html:237
+msgid "Join farmers using AI for early disease prediction."
+msgstr "Joina vamwe varimi vanoshandisa AI kuziva zvirwere kare."
+
+#: .\templates\base.html:249
+msgid "Early disease prediction and veterinary support for Zimbabwean farmers."
+msgstr ""
+"Kutarisa zvirwere kare uye rubatsiro rwedokotela wemhuka kune varimi "
+"veZimbabwe."
+
+#: .\templates\base.html:250
+msgid "Connect with us"
+msgstr "Bata nhevedzo nesu"
+
+#: .\templates\base.html:258
+msgid "Company"
+msgstr "Kambani"
+
+#: .\templates\base.html:267
+msgid "Platform"
+msgstr "Ndima"
+
+#: .\templates\base.html:269
+msgid "Register"
+msgstr "Nyoresa"
+
+#: .\templates\base.html:270 .\templates\landing\home.html:934
+msgid "Login"
+msgstr "Pinda"
+
+#: .\templates\base.html:271
+msgid "Vet Apply"
+msgstr "Dokotela Wemhuka Isa Chikumbiro"
+
+#: .\templates\base.html:272 .\templates\landing\home.html:875
+msgid "Track Application"
+msgstr "Tevedzera Chikumbiro"
+
+#: .\templates\base.html:276 .\templates\ministry\farmers_list.html:44
+#: .\templates\ministry\vets_list.html:44 .\templates\vets\register.html:606
+msgid "Contact"
+msgstr "Bata"
+
+#: .\templates\base.html:296
+msgid "All rights reserved."
+msgstr "Kodzero dzose dzakachengetwa."
+
+#: .\templates\base.html:298 .\templates\landing\privacy_policy.html:65
+msgid "Privacy Policy"
+msgstr "Mutemo weKuchengetedzwa kweRuzivo"
+
+#: .\templates\base.html:299 .\templates\landing\terms_of_service.html:66
+msgid "Terms of Service"
+msgstr "Mitemo yeSevhisi"
+
+#: .\templates\farmers\dashboard.html:6
+msgid "Farmer Dashboard - CattleCare AI"
+msgstr "Dhashibhodi remurimi - CattleCare AI"
+
+#: .\templates\farmers\dashboard.html:14
+#: .\templates\farmers\help_center.html:21
+msgid "Herd Summary"
+msgstr "Pfupiso yeBoka"
+
+#: .\templates\farmers\dashboard.html:16
+msgid "Help"
+msgstr "Rubatsiro"
+
+#: .\templates\farmers\dashboard.html:20
+msgid "Total Cattle in Herd"
+msgstr "Huwandu hwemombe muboka"
+
+#: .\templates\farmers\dashboard.html:21
+#, python-format
+msgid "Compared to last month +0%%"
+msgstr "Zvichienzaniswa nemwedzi wapfuura +0%%"
+
+#: .\templates\farmers\dashboard.html:22
+msgid "Total Cases:"
+msgstr "Nyaya dzose:"
+
+#: .\templates\farmers\dashboard.html:24 .\templates\farmers\dashboard.html:213
+msgid "AI Assistant"
+msgstr "Mubatsiri weAI"
+
+#: .\templates\farmers\dashboard.html:25
+msgid "Monitoring your herd health..."
+msgstr "Tiri kutarisa utano hweboka rako..."
+
+#: .\templates\farmers\dashboard.html:28
+msgid "How to read this card"
+msgstr "Maverengero ekadhi iri"
+
+#: .\templates\farmers\dashboard.html:29
+msgid "• Total cattle is your current herd size saved in your profile."
+msgstr "• Huwandu hwemombe ndiyo saizi yeboka rako yakachengetwa muprofayiri."
+
+#: .\templates\farmers\dashboard.html:30
+msgid "• Total cases counts every disease case you have submitted so far."
+msgstr ""
+"• Nyaya dzose dzinoverenga nyaya dzese dzechirwere dzawakaisa kusvika zvino."
+
+#: .\templates\farmers\dashboard.html:31
+msgid ""
+"• Watch if cases keep rising compared to your herd size — that’s a signal to "
+"submit more details and contact your vet early."
+msgstr ""
+"• Tarisa kana nyaya dzichiramba dzichiwedzera kana tichienzanisa nesaizi "
+"yeboka rako — izvi chiratidzo chekuti uise rumwe ruzivo uye ubate vet "
+"nekukurumidza."
+
+#: .\templates\farmers\dashboard.html:40
+#: .\templates\farmers\help_center.html:22
+msgid "Herd Health Metrics"
+msgstr "Zviratidzo zveUtano hweBoka"
+
+#: .\templates\farmers\dashboard.html:47
+msgid "View active cases"
+msgstr "Ona nyaya dziri kushanda"
+
+#: .\templates\farmers\dashboard.html:50
+msgid "Open case history"
+msgstr "Vhura nhoroondo yenyaya"
+
+#: .\templates\farmers\dashboard.html:57
+msgid "Active Cases"
+msgstr "Nyaya dziri kushanda"
+
+#: .\templates\farmers\dashboard.html:61
+#, fuzzy
+#| msgid "Resolved cases"
+msgid "Resolved Cases"
+msgstr "Nyaya dzakapera"
+
+#: .\templates\farmers\dashboard.html:65
+msgid "Critical Alerts"
+msgstr "Yambiro dzakakomba"
+
+#: .\templates\farmers\dashboard.html:70
+msgid "Add New"
+msgstr "Wedzera Itsva"
+
+#: .\templates\farmers\dashboard.html:71
+#, fuzzy
+#| msgid "View cases"
+msgid "View Cases"
+msgstr "Ona nyaya"
+
+#: .\templates\farmers\dashboard.html:80
+#: .\templates\farmers\help_center.html:23
+#, fuzzy
+#| msgid "Disease Prediction"
+msgid "Disease Tracking"
+msgstr "Kutarisa Zvirwere"
+
+#: .\templates\farmers\dashboard.html:82
+msgid "Full year"
+msgstr "Gore rose"
+
+#: .\templates\farmers\dashboard.html:83
+msgid "Last 6 months"
+msgstr "Mwedzi 6 yapfuura"
+
+#: .\templates\farmers\dashboard.html:97 .\templates\farmers\dashboard.html:253
+#: .\templates\vets\dashboard.html:23 .\templates\vets\dashboard.html:112
+msgid "No cases yet"
+msgstr "Hapana nyaya kusvika zvino"
+
+#: .\templates\farmers\dashboard.html:102
+#, fuzzy
+#| msgid "Total cases:"
+msgid "Total cases this year:"
+msgstr "Nyaya dzose gore rino:"
+
+#: .\templates\farmers\dashboard.html:103
+#, fuzzy
+#| msgid "Resolved"
+msgid "Resolved:"
+msgstr "Zvakapera:"
+
+#: .\templates\farmers\dashboard.html:117
+#: .\templates\farmers\help_center.html:24
+msgid "Case Severity Breakdown"
+msgstr "Kupatsanurwa kweKuoma kweNyaya"
+
+#: .\templates\farmers\dashboard.html:122
+#: .\templates\farmers\dashboard.html:256
+#, fuzzy
+#| msgid "Critical cases"
+msgid "Critical"
+msgstr "Yakakomba"
+
+#: .\templates\farmers\dashboard.html:131
+#, fuzzy
+#| msgid "Severity"
+msgid "Severe"
+msgstr "Yakaoma"
+
+#: .\templates\farmers\dashboard.html:140
+msgid "Non-Severe"
+msgstr "Isiri Yakaoma"
+
+#: .\templates\farmers\dashboard.html:148
+#: .\templates\farmers\dashboard.html:168
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "All Records"
+msgstr "Zvinyorwa zvenkomo"
+
+#: .\templates\farmers\dashboard.html:149
+#: .\templates\farmers\dashboard.html:169
+#: .\templates\ministry\vet_applications.html:28 .\vets\models.py:178
+msgid "Pending"
+msgstr "Kumirira"
+
+#: .\templates\farmers\dashboard.html:150
+#: .\templates\farmers\dashboard.html:170
+#: .\templates\farmers\dashboard.html:255
+msgid "Resolved"
+msgstr "Yakabudiswa"
+
+#: .\templates\farmers\dashboard.html:159
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "Case Records"
+msgstr "Zvinyorwa zvenkomo"
+
+#: .\templates\farmers\dashboard.html:164
+#, fuzzy
+#| msgid "Search farmers, vets, cases..."
+msgid "Search case records..."
+msgstr "Tsvaga varimi, veti, nyaya..."
+
+#: .\templates\farmers\dashboard.html:176 .\templates\maps\disease_map.html:30
+#: .\templates\ministry\analytics.html:31
+#: .\templates\ministry\cases_overview.html:66
+#: .\templates\ministry\dashboard.html:1337
+#: .\templates\ministry\dashboard.html:1396
+#: .\templates\ministry\notifications.html:56
+#: .\templates\ministry\notifications.html:91
+#: .\templates\ministry\reports.html:17 .\templates\ministry\reports.html:49
+#: .\templates\ministry\tasks.html:83 .\templates\vets\dashboard.html:200
+#: .\templates\vets\farmers_list.html:44
+msgid "Disease"
+msgstr "Chirwere"
+
+#: .\templates\farmers\dashboard.html:177
+#: .\templates\ministry\cases_overview.html:67
+#: .\templates\ministry\reports.html:50 .\templates\vets\dashboard.html:201
+#: .\templates\vets\farmers_list.html:45
+msgid "Severity"
+msgstr "Kukomba"
+
+#: .\templates\farmers\dashboard.html:178
+#: .\templates\ministry\cases_overview.html:68
+#: .\templates\ministry\farmers_list.html:50
+#: .\templates\ministry\reports.html:51 .\templates\ministry\tasks.html:85
+#: .\templates\ministry\tasks.html:125
+#: .\templates\ministry\vaccine_requests.html:27
+#: .\templates\ministry\vet_applications.html:96
+#: .\templates\ministry\vet_reports.html:26
+#: .\templates\ministry\vets_list.html:49 .\templates\vets\area_reports.html:77
+#: .\templates\vets\dashboard.html:202 .\templates\vets\farmers_list.html:46
+#: .\templates\vets\vaccine_requests.html:68
+msgid "Status"
+msgstr "Mamiriro"
+
+#: .\templates\farmers\dashboard.html:179
+#: .\templates\ministry\dashboard.html:1397
+#: .\templates\ministry\notifications.html:58
+#: .\templates\ministry\notifications.html:92
+#: .\templates\ministry\reports.html:46 .\templates\vets\dashboard.html:198
+#: .\templates\vets\farmers_list.html:43
+msgid "Date"
+msgstr "Zuva"
+
+#: .\templates\farmers\dashboard.html:198 .\templates\vets\dashboard.html:223
+#: .\templates\vets\farmers_list.html:66
+msgid "View"
+msgstr "Ona"
+
+#: .\templates\farmers\dashboard.html:201
+#, fuzzy
+#| msgid "No cases assigned yet."
+msgid "No cases submitted yet."
+msgstr "Hapana nyaya dzakaiswa kusvika zvino."
+
+#: .\templates\farmers\dashboard.html:201
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit your first case"
+msgstr "Tumira nyaya"
+
+#: .\templates\farmers\dashboard.html:215
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit a case"
+msgstr "Tumira nyaya"
+
+#: .\templates\farmers\dashboard.html:220
+#, fuzzy
+#| msgid "Join farmers using AI for early disease prediction."
+msgid "What should I do for early disease prevention?"
+msgstr "Joina vamwe varimi vanoshandisa AI kuziva zvirwere kare."
+
+#: .\templates\farmers\dashboard.html:221
+msgid ""
+"Monitor symptoms daily, keep vaccination records, and report any unusual "
+"behavior in cattle promptly. Use CattleCare AI to submit a case for instant "
+"predictions."
+msgstr ""
+
+#: .\templates\farmers\dashboard.html:225
+#, fuzzy
+#| msgid "Disease Map"
+msgid "Disease Tips"
+msgstr "Mapu yeZvirwere"
+
+#: .\templates\farmers\dashboard.html:226
+msgid "Herd Health"
+msgstr "Utano hweBoka"
+
+#: .\templates\farmers\dashboard.html:227
+msgid "Tip of the Day"
+msgstr "Zano reZuva"
+
+#: .\templates\farmers\dashboard.html:231
+msgid "Ask or Search..."
+msgstr "Bvunza kana Tsvaga..."
+
+#: .\templates\farmers\dashboard.html:254 .\templates\vets\dashboard.html:243
+msgid "No cases"
+msgstr "Hapana nyaya"
+
+#: .\templates\farmers\dashboard.html:257
+msgid "Thinking..."
+msgstr "Ndiri kufunga..."
+
+#: .\templates\farmers\dashboard.html:258
+msgid "You asked"
+msgstr "Wabvunza"
+
+#: .\templates\farmers\dashboard.html:259
+msgid "No cases match this filter."
+msgstr "Hapana nyaya dzinoenderana nesefa iri."
+
+#: .\templates\farmers\dashboard.html:260
+msgid "Sorry, something went wrong. Please try again."
+msgstr "Ndineurombo, pane chakanganisika. Ndapota edza zvakare."
+
+#: .\templates\farmers\farmer_base.html:8
+msgid "CattleCare AI - Farmer"
+msgstr "CattleCare AI - Murimi"
+
+#: .\templates\farmers\farmer_base.html:175
+msgid "Main"
+msgstr "Hurukuro"
+
+#: .\templates\farmers\farmer_base.html:177
+msgid "Overview"
+msgstr "Chidimbu"
+
+#: .\templates\farmers\farmer_base.html:180
+msgid "Cattle Records"
+msgstr "Zvinyorwa zvenkomo"
+
+#: .\templates\farmers\farmer_base.html:183
+#: .\templates\ministry\base_ministry.html:143
+#: .\templates\ministry\cases_overview.html:6
+#: .\templates\ministry\dashboard.html:1006 .\templates\vets\vet_base.html:119
+msgid "Cases"
+msgstr "Nyaya"
+
+#: .\templates\farmers\farmer_base.html:186
+msgid "Vet recommendations"
+msgstr "Zvakakodzera kubva kuveti"
+
+#: .\templates\farmers\farmer_base.html:193
+msgid "Features"
+msgstr "Zvinhu zvinoshamisa"
+
+#: .\templates\farmers\farmer_base.html:195
+msgid "AI Insights"
+msgstr "Kuona neAI"
+
+#: .\templates\farmers\farmer_base.html:199
+msgid "Tools"
+msgstr "Zvishandiso"
+
+#: .\templates\farmers\farmer_base.html:201
+#: .\templates\ministry\base_ministry.html:238
+#: .\templates\ministry\settings.html:12 .\templates\vets\vet_base.html:204
+msgid "Edit Profile"
+msgstr "Chinjisa profile"
+
+#: .\templates\farmers\farmer_base.html:204
+msgid "Help center"
+msgstr "Nzvimbo yebatsiro"
+
+#: .\templates\farmers\farmer_base.html:213
+msgid "Get Pro Insights"
+msgstr "Wana mashoko akakura"
+
+#: .\templates\farmers\farmer_base.html:214
+msgid "Unlock advanced disease predictions and herd analytics."
+msgstr "Vhura kutarisa zvirwere zvakakwirira uye kuona mhomho zvakananga."
+
+#: .\templates\farmers\farmer_base.html:230
+msgid "Search for cattle, cases, disease..."
+msgstr "Tsvaga nkomo, nyaya, chirwere..."
+
+#: .\templates\farmers\farmer_base.html:256
+#, python-format
+msgid "You have %(counter)s critical case. Please contact a vet urgently."
+msgid_plural ""
+"You have %(counter)s critical cases. Please contact a vet urgently."
+msgstr[0] ""
+"Une nyaya %(counter)s inokosha. Ndokumbira ubate veti nokukurumidza."
+msgstr[1] ""
+"Une nyaya %(counter)s dzinokosha. Ndokumbira ubate veti nokukurumidza."
+
+#: .\templates\farmers\farmer_base.html:262
+#, python-format
+msgid "%(counter)s active case waiting for vet recommendations."
+msgid_plural "%(counter)s active cases waiting for vet recommendations."
+msgstr[0] "Nyaya %(counter)s iri kumirira mashoko kubva kuveti."
+msgstr[1] "Nyaya %(counter)s dziri kumirira mashoko kubva kuveti."
+
+#: .\templates\farmers\farmer_base.html:268
+msgid "No new case alerts. Your herd looks stable."
+msgstr "Hapana nyaya itsva. Mhomho yako inoonekwa kuti yakachengeteka."
+
+#: .\templates\farmers\help_center.html:4
+#, fuzzy
+#| msgid "Log in - CattleCare AI"
+msgid "Help Center - CattleCare AI"
+msgstr "Pinda - CattleCare AI"
+
+#: .\templates\farmers\help_center.html:11
+#, fuzzy
+#| msgid "How It Works - CattleCare AI"
+msgid "How to use CattleCare AI"
+msgstr "Zvinoshanda sei - CattleCare AI"
+
+#: .\templates\farmers\help_center.html:12
+#, fuzzy
+#| msgid "Back to Dashboard"
+msgid "Back to dashboard"
+msgstr "Dzokera kudhashibhodi"
+
+#: .\templates\farmers\help_center.html:15
+msgid ""
+"This page explains the main parts of your farmer dashboard, how to submit a "
+"case, and what happens after you send it to a vet."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:19
+msgid "1. Reading your dashboard"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:21
+#, fuzzy
+#| msgid "• Total cases counts every disease case you have submitted so far."
+msgid ""
+"shows your total cattle and how many disease cases you have ever submitted."
+msgstr ""
+"• Nyaya dzose dzinoverenga nyaya dzese dzechirwere dzawakaisa kusvika zvino."
+
+#: .\templates\farmers\help_center.html:22
+msgid ""
+"tells you how many cases are active, resolved, and how many are critical and "
+"need vet attention quickly."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:23
+msgid ""
+"shows which diseases are appearing most often and a graph of critical vs "
+"resolved cases over the months."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:24
+msgid ""
+"gives a quick view of how many cases are Critical, Severe, or Non‑Severe."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:29
+#, fuzzy
+#| msgid "Submit Case"
+msgid "2. Submitting a new case"
+msgstr "Tumira nyaya"
+
+#: .\templates\farmers\help_center.html:31
+#: .\templates\farmers\help_center.html:36
+msgid "Click"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:31
+msgid "in the left sidebar."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:32
+msgid "On the first step,"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:32
+msgid "select all symptoms"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:32
+msgid "you see in your cattle. Use the search box to find symptoms faster."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:33
+#: .\templates\farmers\help_center.html:34
+msgid "Fill in"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:33
+#, fuzzy
+#| msgid "Location Information"
+msgid "cattle information"
+msgstr "Ruzivo rweNzvimbo"
+
+#: .\templates\farmers\help_center.html:33
+msgid "(age, sex, breed, vaccination, herd size, farming type)."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:34
+msgid "environment"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:34
+msgid "(recent movement, season, province)."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:35
+#, fuzzy
+#| msgid "Add New"
+msgid "Add extra"
+msgstr "Wedzera Itsva"
+
+#: .\templates\farmers\help_center.html:35
+msgid "notes"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:35
+msgid "if there is anything special you want the vet to know."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:36
+#, fuzzy
+#| msgid "Submit Case"
+msgid "Submit Case for Diagnosis"
+msgstr "Tumira nyaya"
+
+#: .\templates\farmers\help_center.html:36
+msgid "and wait while the AI analyzes your case."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:41
+msgid "3. After submitting – AI result & vet selection"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:43
+msgid "The"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:43
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "Case Result"
+msgstr "Zvinyorwa zvenkomo"
+
+#: .\templates\farmers\help_center.html:43
+msgid ""
+"page shows the AI predicted disease, confidence, and severity (Critical, "
+"Severe, Non‑Severe)."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:44
+msgid "If no vet is selected yet, you will see a"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:44
+msgid "Select vet"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:44
+msgid "button – click it to choose a vet from your province."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:45
+msgid "On the"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:45
+msgid "Select Vet"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:45
+msgid ""
+"page, pick the doctor you prefer (look at distance, experience and phone) "
+"and confirm."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:46
+msgid "Once a vet is assigned, they review your case and add their"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:46
+#, fuzzy
+#| msgid "Instant treatment recommendations"
+msgid "diagnosis and recommendation"
+msgstr "Mazano ekurapa nokukurumidza"
+
+#: .\templates\farmers\help_center.html:46
+msgid "which appears at the top of the Case Result page."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:51
+#, fuzzy
+#| msgid "Tips for Best Results"
+msgid "4. Tips for best results"
+msgstr "Mazano ekuwana Mhedzisiro Yakanaka"
+
+#: .\templates\farmers\help_center.html:53
+msgid ""
+"Always submit a case as soon as you notice unusual behaviour, not when "
+"cattle are already very sick."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:54
+msgid "Select"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:54
+msgid "all symptoms"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:54
+msgid ", even if they seem small – this increases accuracy."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:55
+msgid "Keep your"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:55
+msgid "phone number and province"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:55
+msgid "updated in your profile so vets can contact you easily."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:56
+msgid "Use the"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:56
+#, fuzzy
+#| msgid "Pending cases"
+msgid "Pending / Resolved"
+msgstr "Nyaya dziri kumirira"
+
+#: .\templates\farmers\help_center.html:56
+msgid "filters on the dashboard to follow up on outstanding cases."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:65
+#, fuzzy
+#| msgid "Quick vet shortcuts"
+msgid "Quick stats"
+msgstr "Nzira dzokukurumidza dzeveti"
+
+#: .\templates\farmers\help_center.html:67
+msgid ""
+"These numbers are from your own account and match what you see on the "
+"dashboard."
+msgstr ""
+
+#: .\templates\farmers\help_center.html:70
+#, fuzzy
+#| msgid "No cases assigned yet."
+msgid "Total cases submitted"
+msgstr "Hapana nyaya dzakaiswa kusvika zvino."
+
+#: .\templates\farmers\help_center.html:74
+#, fuzzy
+#| msgid "Pending cases"
+msgid "Active (pending) cases"
+msgstr "Nyaya dziri kumirira"
+
+#: .\templates\farmers\help_center.html:78
+#, fuzzy
+#| msgid "Resolved / Closed:"
+msgid "Resolved / closed cases"
+msgstr "Yakabudiswa / Yakavharwa:"
+
+#: .\templates\farmers\help_center.html:84
+msgid "Need more help? Use the AI Assistant on the dashboard and ask for"
+msgstr ""
+
+#: .\templates\farmers\help_center.html:84
+#, fuzzy
+#| msgid "Herd Health Metrics"
+msgid "herd health tips"
+msgstr "Zviratidzo zveUtano hweBoka"
+
+#: .\templates\farmers\help_center.html:84
+msgid "or contact your assigned vet directly from your case result page."
+msgstr ""
+
+#: .\templates\farmers\register.html:5
+msgid "Farmer Registration - CattleCare AI"
+msgstr "Kunyoreswa kweVarimi - CattleCare AI"
+
+#: .\templates\farmers\register.html:448
+msgid "Join CattleCare AI"
+msgstr "Joina CattleCare AI"
+
+#: .\templates\farmers\register.html:449
+msgid ""
+"Register now and protect your livestock with AI-powered disease prediction"
+msgstr "Nyoresa iye zvino uchidzivirira mombe yako nekutarisa zvirwere neAI"
+
+#: .\templates\farmers\register.html:454
+#, python-format
+msgid "Predict diseases early with 95%% accuracy"
+msgstr "Tarisa zvirwere kare nezve 95%% kurongeka"
+
+#: .\templates\farmers\register.html:458
+msgid "Get instant treatment recommendations"
+msgstr "Wana mazano ekurapa nokukurumidza"
+
+#: .\templates\farmers\register.html:462
+msgid "Connect with qualified veterinarians"
+msgstr "Bata nhevedzo nedokotela wemhuka wakadzidza"
+
+#: .\templates\farmers\register.html:466
+msgid "Track your cattle health history"
+msgstr "Tevedzera nhoroondo yeutano hwemombe yako"
+
+#: .\templates\farmers\register.html:470
+msgid "Receive disease outbreak alerts"
+msgstr "Gashira ziviso dzekubuda kwezvirwere"
+
+#: .\templates\farmers\register.html:474 .\templates\landing\home.html:839
+msgid "24/7 access from anywhere"
+msgstr "Pinda nguva dzose kubva kwese kwese"
+
+#: .\templates\farmers\register.html:484
+msgid "Farmer Registration"
+msgstr "Kunyoreswa kweVarimi"
+
+#: .\templates\farmers\register.html:485
+msgid "Fill in your details to create your account"
+msgstr "Isa ruzivo rwako kugadzira account yako"
+
+#: .\templates\farmers\register.html:492 .\templates\vets\register.html:602
+msgid "Account"
+msgstr "Account"
+
+#: .\templates\farmers\register.html:496 .\templates\vets\apply.html:487
+msgid "Personal"
+msgstr "Ruzivo Rwako"
+
+#: .\templates\farmers\register.html:500
+#: .\templates\landing\how_it_works.html:275 .\templates\vets\apply.html:495
+#: .\templates\vets\register.html:610
+msgid "Location"
+msgstr "Nzvimbo"
+
+#: .\templates\farmers\register.html:504
+msgid "Farm"
+msgstr "Purazi"
+
+#: .\templates\farmers\register.html:522
+msgid "Account Information"
+msgstr "Ruzivo rweAccount"
+
+#: .\templates\farmers\register.html:556 .\templates\vets\register.html:663
+msgid "Confirm Password"
+msgstr "Simbisa Pasiwedhi"
+
+#: .\templates\farmers\register.html:570 .\templates\vets\apply.html:513
+msgid "Personal Information"
+msgstr "Ruzivo Rwako"
+
+#: .\templates\farmers\register.html:575 .\templates\vets\apply.html:518
+#: .\templates\vets\track_application.html:643
+msgid "Full Name"
+msgstr "Zita Rizere"
+
+#: .\templates\farmers\register.html:585 .\templates\ministry\settings.html:30
+#: .\templates\vets\apply.html:528 .\templates\vets\register.html:696
+msgid "Phone Number"
+msgstr "Nhamba yeFoni"
+
+#: .\templates\farmers\register.html:594
+#: .\templates\ministry\farmers_list.html:45
+msgid "Email"
+msgstr "Imero"
+
+#: .\templates\farmers\register.html:609
+msgid "Location Information"
+msgstr "Ruzivo rweNzvimbo"
+
+#: .\templates\farmers\register.html:616 .\templates\maps\disease_map.html:39
+#: .\templates\ministry\cases_overview.html:69
+#: .\templates\ministry\dashboard.html:1339
+#: .\templates\ministry\dashboard.html:1398
+#: .\templates\ministry\farmers_list.html:46
+#: .\templates\ministry\notifications.html:57
+#: .\templates\ministry\reports.html:21 .\templates\ministry\reports.html:22
+#: .\templates\ministry\reports.html:48 .\templates\ministry\tasks.html:84
+#: .\templates\ministry\tasks.html:167 .\templates\vets\register.html:716
+#: .\vets\forms.py:265 .\vets\forms.py:280
+msgid "Province"
+msgstr "Murovha"
+
+#: .\templates\farmers\register.html:627
+#: .\templates\ministry\farmers_list.html:47 .\templates\vets\register.html:729
+msgid "District"
+msgstr "Dunhu"
+
+#: .\templates\farmers\register.html:641
+msgid "Latitude (Optional)"
+msgstr "Latitude (Kwete Kumanikidzwa)"
+
+#: .\templates\farmers\register.html:670 .\templates\vets\apply.html:631
+#: .\templates\vets\register.html:762
+msgid "Get My GPS Location Automatically"
+msgstr "Tora Nzvimbo yangu yeGPS Otomatiki"
+
+#: .\templates\farmers\register.html:672 .\templates\vets\apply.html:633
+#: .\templates\vets\register.html:764
+msgid "Click to automatically capture your GPS coordinates"
+msgstr "Dzvanya kuti utore GPS yako otomatiki"
+
+#: .\templates\farmers\register.html:679
+msgid "Farm Information"
+msgstr "Ruzivo rwePurazi"
+
+#: .\templates\farmers\register.html:686
+msgid "Cattle Breed"
+msgstr "Rudzi rweMombe"
+
+#: .\templates\farmers\register.html:700
+msgid "Number of Cattle"
+msgstr "Nhamba yeMombe"
+
+#: .\templates\farmers\register.html:723 .\templates\vets\register.html:790
+msgid "Complete Registration"
+msgstr "Pedza Kunyoreswa"
+
+#: .\templates\farmers\register.html:727
+msgid "Already have an account?"
+msgstr "Unayo account kare?"
+
+#: .\templates\farmers\register.html:727 .\templates\vets\apply.html:643
+msgid "Sign in here"
+msgstr "Pinda pano"
+
+#: .\templates\landing\about.html:5
+msgid "About Us - CattleCare AI"
+msgstr "Nezvedu - CattleCare AI"
+
+#: .\templates\landing\about.html:192
+msgid "About CattleCare AI"
+msgstr "Nezve CattleCare AI"
+
+#: .\templates\landing\about.html:193
+msgid ""
+"We combine artificial intelligence and veterinary expertise to protect "
+"cattle and support Zimbabwean farmers."
+msgstr ""
+"Tinosanganisa hucherechedzo hwemashine uye unyanzvi hwekutarisira mhuka "
+"kuchengetedza mombe uye kushandira varimi veZimbabwe."
+
+#: .\templates\landing\about.html:200
+msgid "Our Mission & Vision"
+msgstr "Zvatinoda Kuita & Chitarisiro Chedu"
+
+#: .\templates\landing\about.html:201
+msgid ""
+"CattleCare AI was built to reduce livestock losses and improve animal health "
+"through early disease detection and timely veterinary support."
+msgstr ""
+"CattleCare AI yakavakwa kuti ideredze kurasika kwemhuka uye kusimudzira "
+"utano hwemhuka nekutarisa zvirwere kare uye kubatsirwa kwedokotela wemhuka "
+"nguva yakakodzera."
+
+#: .\templates\landing\about.html:206
+msgid "Mission"
+msgstr "Chinangwa"
+
+#: .\templates\landing\about.html:207
+msgid ""
+"To empower every farmer in Zimbabwe with AI-powered early disease prediction "
+"and instant access to qualified veterinarians, so that cattle health is "
+"protected and livelihoods are secured."
+msgstr ""
+"Kupa simba varimi vose muZimbabwe nekutaura zvirwere nekuchenjera kweAI uye "
+"kusvika kumashure kune vatariri vemhuka vakadzidza, kuti utano hwemombe "
+"huchengetedzwe uye hupenyu hwunochengetwa."
+
+#: .\templates\landing\about.html:213
+msgid "Vision"
+msgstr "Chitarisiro"
+
+#: .\templates\landing\about.html:214
+msgid ""
+"A Zimbabwe where no farmer loses cattle to preventable diseases because of "
+"late detection or lack of veterinary care. We aim to be the national "
+"platform for livestock health intelligence."
+msgstr ""
+"Zimbabwe ine varimi vasingarasi mombe kune zvirwere zvinogona kudzivirirwa "
+"nekuda kwekutariswa kwakukurumidza kana kusava nedokotela wemhuka. Tinoda "
+"kuva ndima yemunyika yehuchenjeri hweutano hwemhuka."
+
+#: .\templates\landing\about.html:220
+msgid "Values"
+msgstr "Tsika"
+
+#: .\templates\landing\about.html:221
+msgid ""
+"Accuracy, accessibility, and trust. We use robust machine learning models, "
+"keep the platform available 24/7, and work with Ministry-approved vets so "
+"farmers get reliable support."
+msgstr ""
+"Chokwadi, kuwanikwa, nekuvimbika. Tinoshandisa mamodeli akasimba ekudzidza "
+"kwemuchina, tinochemera nzvimbo inowanikwa 24/7, uye tinoshanda nevatariri "
+"vemhuka vakabvumidzwa neHurumende kuti varimi vawane rubatsiro rwakavimbika."
+
+#: .\templates\landing\about.html:231
+msgid "Why CattleCare AI?"
+msgstr "Nei CattleCare AI?"
+
+#: .\templates\landing\about.html:232
+msgid ""
+"Livestock is central to many Zimbabwean families. Disease outbreaks can wipe "
+"out herds and income. We built this system to change that."
+msgstr ""
+"Mhuka dziri pakati pemhuri dzakawanda eZimbabwe. Kubuda kwezvirwere kunogona "
+"kuparadza mhomho uye mari. Takavaka sisitimu iyi kuchinja izvozvo."
+
+#: .\templates\landing\about.html:237
+msgid "Early Detection Saves Herds"
+msgstr "Kutarisisa Kwekutanga Kunochengetedza Mapoka eMombe"
+
+#: .\templates\landing\about.html:238
+msgid ""
+"Many cattle diseases can be treated or contained if caught early. Our AI "
+"analyzes symptoms and predicts likely diseases so farmers can act quickly—"
+"often before a vet can physically visit."
+msgstr ""
+"Zvirwere zvakawanda zvemombe zvinogona kurапwa kana kuvharwa kana "
+"zvikaonekwa nekukurumidza. AI yedu inoongorora zviratidzo uye inofanotaura "
+"zvirwere zvinogona kuitika kuti varimi vabve vaita zvinhu nekukurumidza—"
+"kazhinji kusati kwave mutariri wemhuka asvika."
+
+#: .\templates\landing\about.html:244
+msgid "Connecting Farmers and Vets"
+msgstr "Kubatanidza Varimi neDokotela weMhuka"
+
+#: .\templates\landing\about.html:245
+msgid ""
+"Rural farmers often lack easy access to veterinarians. CattleCare AI links "
+"farmers with Ministry-approved vets, supports remote consultation, and helps "
+"vets prioritize critical cases."
+msgstr ""
+"Varimi vemumaruwa kazhinji havana nzira nyore yekusvika kuna dokotela "
+"wemhuka. CattleCare AI inobatanidza varimi neveti vakabvumidzwa neMinistry, "
+"inopa rubatsiro rwekubvunzana kure, uye inobatsira veti kuisa pakutanga "
+"nyaya dzinokosha."
+
+#: .\templates\landing\about.html:255
+msgid "Our Impact"
+msgstr "Mabatirwo Edu"
+
+#: .\templates\landing\about.html:256
+msgid "Numbers that show our commitment to livestock health."
+msgstr "Nhamba dzinoratidzira kuzvipira kwedu kune utano hwemhuka."
+
+#: .\templates\landing\about.html:261
+msgid "Prediction Accuracy"
+msgstr "Kururama kwekutarisa"
+
+#: .\templates\landing\about.html:267 .\templates\landing\home.html:687
+#: .\templates\vets\register.html:614
+msgid "Availability"
+msgstr "Kuwanikwa"
+
+#: .\templates\landing\about.html:273 .\templates\landing\home.html:691
+msgid "Verified Vets"
+msgstr "Veti Vakasimbiswa"
+
+#: .\templates\landing\about.html:279
+msgid "Provinces Covered"
+msgstr "Mamurovha Anotarisirwa"
+
+#: .\templates\landing\about.html:289
+msgid "Ministry of Agriculture Partnership"
+msgstr "Ukama neMuranda weHurumende weMirimo yeZembe"
+
+#: .\templates\landing\about.html:290
+msgid ""
+"CattleCare AI supports the Ministry of Agriculture with real-time disease "
+"surveillance and data to inform vaccination campaigns and livestock health "
+"policy across Zimbabwe."
+msgstr ""
+"CattleCare AI inobatsira Muranda weHurumende weMirimo yeZembe nekutarisa "
+"zvirwere panguva chaiyo uye ruzivo rwekudzivisa mishando yemikanda uye "
+"mutemo weutano hwemhuka muZimbabwe yose."
+
+#: .\templates\landing\about.html:295
+msgid "National Dashboard"
+msgstr "Dhashibhodi yeMunyika"
+
+#: .\templates\landing\about.html:298
+msgid ""
+"Ministry staff can monitor disease trends, outbreak hotspots, and vet "
+"coverage. This helps plan vaccinations, quarantine zones, and resource "
+"allocation so that livestock health is protected at scale."
+msgstr ""
+"Vashandi veMinistry vanogona kutarisa zvakajairika nezvirwere, nzvimbo "
+"dzinobuda zvirwere, uye kuvharidzirwa kweveti. Izvi zvinobatsira kuronga "
+"maBhakisini, nzvimbo dzekuchengetwa, uye kugovera zvinhu kuitira kuti utano "
+"hwemhuka huchengete."
+
+#: .\templates\landing\about.html:309
+msgid "Join farmers and vets already using CattleCare AI."
+msgstr "Joina varimi neveti vari kushandisa CattleCare AI kare."
+
+#: .\templates\landing\about.html:311 .\templates\landing\how_it_works.html:313
+msgid "View Services"
+msgstr "Ona Zviitwa"
+
+#: .\templates\landing\home.html:5
+msgid "CattleCare AI - Early Disease Prediction"
+msgstr "CattleCare AI - Kutarisa Zvirwere Kare"
+
+#: .\templates\landing\home.html:663
+msgid "AI-Powered Disease Prediction"
+msgstr "Kutarisa Zvirwere kweAI"
+
+#: .\templates\landing\home.html:666
+msgid "Protect Your Cattle with"
+msgstr "Dzivirira Mombe Yako ne"
+
+#: .\templates\landing\home.html:667
+msgid "Early Disease Detection"
+msgstr "Kutariswa kweZvirwere Kare"
+
+#: .\templates\landing\home.html:670
+msgid ""
+"Our machine learning system helps Zimbabwean farmers predict cattle diseases "
+"early, get treatment recommendations, and connect with qualified "
+"veterinarians instantly."
+msgstr ""
+"Sisitimu yedu yekudzidza kwemashini inobatsira varimi veZimbabwe kutarisa "
+"zvirwere zvemombe kare, kuwana mazano ekurapa, uye kubata nhevedzo "
+"nedokotela wemhuka wakadzidza nokukurumidza."
+
+#: .\templates\landing\home.html:674
+msgid "I'm a Farmer"
+msgstr "Ndiri Murimi"
+
+#: .\templates\landing\home.html:677
+msgid "I'm a Veterinarian"
+msgstr "Ndiri Dokotela weMhuka"
+
+#: .\templates\landing\home.html:683
+msgid "Accuracy Rate"
+msgstr "Mwero wekururama"
+
+#: .\templates\landing\home.html:703 .\templates\landing\services.html:188
+msgid "Our Services"
+msgstr "Zviitwa zvedu"
+
+#: .\templates\landing\home.html:705
+msgid ""
+"Comprehensive AI-powered solutions to protect your livestock and improve "
+"farm productivity"
+msgstr ""
+"Mhinduro dzakakwana dzeAI kuchengetedza mhuka dzako uye kusimudzira kuwanda "
+"kwepurazi"
+
+#: .\templates\landing\home.html:714 .\templates\landing\services.html:202
+msgid "AI Disease Prediction"
+msgstr "Kutarisa Zvirwere neAI"
+
+#: .\templates\landing\home.html:715
+msgid ""
+"Our machine learning models analyze symptoms to predict diseases with high "
+"accuracy using Naive Bayes, Random Forest, and more."
+msgstr ""
+"Mamodhi edu ekudzidza kwemashini anotarisa zviratidzo kuzivisa zvirwere "
+"nezve kururama kwakakwirira uchishandisa Naive Bayes, Random Forest, "
+"nezvinwe."
+
+#: .\templates\landing\home.html:723 .\templates\landing\services.html:210
+msgid "Treatment Recommendations"
+msgstr "Mazano ekurapa"
+
+#: .\templates\landing\home.html:724
+msgid ""
+"Receive instant treatment suggestions, quarantine steps, and preventive "
+"measures tailored to your cattle's condition."
+msgstr ""
+"Gashira mazano ekurapa nokukurumidza, nhanho dzekuchengetwa, uye nzira "
+"dzekudzivirira dzakagadziridzirwa mamiriro emombe yako."
+
+#: .\templates\landing\home.html:732 .\templates\landing\services.html:218
+msgid "Vet Connection"
+msgstr "Kubatana neveti"
+
+#: .\templates\landing\home.html:733
+msgid ""
+"Automatically connect with qualified, Ministry-approved veterinary doctors "
+"for professional consultation when needed."
+msgstr ""
+"Bata nhevedzo otomatiki nedokotela wemhuka wakadzidza, akabvumidzwa "
+"neMinistry kubvunzana kweprofession kana zvichidikanwa."
+
+#: .\templates\landing\home.html:741 .\templates\landing\services.html:226
+msgid "Ministry Dashboard"
+msgstr "Dhashibhodi yeMinistry"
+
+#: .\templates\landing\home.html:742
+msgid ""
+"Real-time disease outbreak monitoring and analytics for the Ministry of "
+"Agriculture to plan vaccinations and policies."
+msgstr ""
+"Kutarisa kubuda kwezvirwere nguva yacho uye ongororo yeMunisitiri weZembe "
+"kugadzira maBhakisini uye mitemo."
+
+#: .\templates\landing\home.html:750 .\templates\landing\services.html:234
+msgid "Data Security"
+msgstr "Kuchengetedzwa kweruzivo"
+
+#: .\templates\landing\home.html:751
+msgid ""
+"Your farm and cattle data is encrypted and stored securely, complying with "
+"Zimbabwe's data protection policies."
+msgstr ""
+"Ruzivo rwepurazi nemombe yako rwakavharwa uye rwakachengetwa zvakanaka, "
+"uchitevedza mitemo yekuchengetedzwa kweruzivo yeZimbabwe."
+
+#: .\templates\landing\home.html:759 .\templates\landing\services.html:242
+msgid "24/7 Availability"
+msgstr "Kuwanikwa nguva dzose"
+
+#: .\templates\landing\home.html:760
+msgid ""
+"Access disease prediction and recommendations anytime, anywhere - no more "
+"waiting for office hours or traveling long distances."
+msgstr ""
+"Svika pakutarisa zvirwere uye mazano nguva dzose, kwese kwese - hakuchisati "
+"kumirirwa nguva dzemahofisi kana kufamba nzira refu."
+
+#: .\templates\landing\home.html:773
+msgid ""
+"Our simple 4-step process helps you protect your cattle from diseases "
+"quickly and efficiently."
+msgstr ""
+"Nzira yedu nyore yenhanho 4 inokubatsira kuchengetedza mombe yako kubva "
+"kuzvirwere nokukurumidza uye zvakanaka."
+
+#: .\templates\landing\home.html:780 .\templates\landing\how_it_works.html:223
+msgid "Report Symptoms"
+msgstr "Rondedzera Zviratidzo"
+
+#: .\templates\landing\home.html:781
+msgid ""
+"Register and input the symptoms you observe in your cattle through our "
+"simple form."
+msgstr "Nyoresa uye isa zviratidzo zvauona mumombe yako nefomo redu nyore."
+
+#: .\templates\landing\home.html:787 .\templates\landing\how_it_works.html:230
+msgid "AI Analysis"
+msgstr "Ongororo yeAI"
+
+#: .\templates\landing\home.html:788
+msgid ""
+"Our ML models analyze the symptoms using multiple algorithms to predict the "
+"most likely disease."
+msgstr ""
+"Mamodhi edu eML anotarisa zviratidzo achishandisa algorithms dzakawanda "
+"kuzivisa chirwere chingangodiwa."
+
+#: .\templates\landing\home.html:794 .\templates\landing\how_it_works.html:237
+msgid "Get Recommendations"
+msgstr "Wana Mazano"
+
+#: .\templates\landing\home.html:795
+msgid ""
+"Receive instant treatment suggestions, quarantine measures, and preventive "
+"care advice."
+msgstr ""
+"Gashira mazano ekurapa nokukurumidza, nzira dzekuchengetwa, uye mazano "
+"ekurapa edziviriro."
+
+#: .\templates\landing\home.html:801 .\templates\landing\how_it_works.html:244
+msgid "Connect with Vets"
+msgstr "Bata nhevedzo neveti"
+
+#: .\templates\landing\home.html:802
+msgid ""
+"If needed, we automatically connect you with a qualified vet for "
+"professional assistance."
+msgstr ""
+"Kana zvichidikanwa, tinokubatanidza otomatiki neveti wakadzidza rubatsiro "
+"rweprofession."
+
+#: .\templates\landing\home.html:812
+#, python-format
+msgid "95%% Accuracy"
+msgstr "Kururama kwe 95%%"
+
+#: .\templates\landing\home.html:813
+msgid "Disease Prediction"
+msgstr "Kutarisa Zvirwere"
+
+#: .\templates\landing\home.html:825
+msgid "Farmer with cattle"
+msgstr "Murimi nemombe"
+
+#: .\templates\landing\home.html:829
+msgid "Secure Your Livestock Investment"
+msgstr "Chengetedza Mari Yako Yemhuka"
+
+#: .\templates\landing\home.html:831
+msgid ""
+"Join thousands of farmers across Zimbabwe who trust CattleCare AI to protect "
+"their cattle and improve farm productivity."
+msgstr ""
+"Joina chiuru chevarimi muZimbabwe vanovimba neCattleCare AI kuchengetedza "
+"mombe yavo uye kusimudzira kuwanda kwepurazi."
+
+#: .\templates\landing\home.html:834
+msgid "Quick disease prediction from symptoms"
+msgstr "Kutarisa zvirwere nokukurumidza kubva kuzviratidzo"
+
+#: .\templates\landing\home.html:835
+msgid "Instant treatment recommendations"
+msgstr "Mazano ekurapa nokukurumidza"
+
+#: .\templates\landing\home.html:836
+msgid "Connect with nearby qualified vets"
+msgstr "Bata nhevedzo neveti vakadzidza vari pedyo"
+
+#: .\templates\landing\home.html:837
+msgid "Track cattle health history"
+msgstr "Tevedzera nhoroondo yeutano hwemombe"
+
+#: .\templates\landing\home.html:838
+msgid "Early outbreak alerts in your area"
+msgstr "Ziviso dzekubuda kwezvirwere mundunhu yako"
+
+#: .\templates\landing\home.html:854 .\templates\landing\home.html:927
+#: .\templates\vets\vet_base.html:199
+msgid "Veterinarian"
+msgstr "Dokotela weMhuka"
+
+#: .\templates\landing\home.html:857
+msgid "For Veterinarians"
+msgstr "Kune Vadokotela veMhuka"
+
+#: .\templates\landing\home.html:858 .\templates\vets\apply.html:443
+msgid "Join Our Veterinary Network"
+msgstr "Joina Netiweki yedu yeDokotela weMhuka"
+
+#: .\templates\landing\home.html:860
+msgid ""
+"Are you a qualified veterinarian? Join our platform to connect with farmers, "
+"provide remote consultations, and help improve livestock health across "
+"Zimbabwe."
+msgstr ""
+"Uri dokotela wemhuka wakadzidza here? Joina ndima yedu kubatana nevarimi, "
+"ipa kubvunzana kure, uye batsira kusimudzira utano hwemhuka muZimbabwe."
+
+#: .\templates\landing\home.html:863
+msgid "Apply to join our network of certified vets"
+msgstr "Isa chikumbiro kujoinisa netiweki yedu yeveti vakasimbiswa"
+
+#: .\templates\landing\home.html:864
+msgid "Receive consultation requests from farmers"
+msgstr "Gashira zvikumbiro zvekubvunzana kubva kuvarimi"
+
+#: .\templates\landing\home.html:865
+msgid "Get paid for your professional services"
+msgstr "Bhadhara sevhisi dzako dzeprofession"
+
+#: .\templates\landing\home.html:866 .\templates\vets\apply.html:461
+msgid "Access disease outbreak data and trends"
+msgstr "Svika paruzivo rwekubuda kwezvirwere uye zvakajairika"
+
+#: .\templates\landing\home.html:867
+msgid "Expand your practice to rural areas"
+msgstr "Kuwedzera practice yako kumaruwa"
+
+#: .\templates\landing\home.html:868 .\templates\vets\apply.html:465
+msgid "Ministry-approved and verified"
+msgstr "Yakabvumidzwa uye yakasimbiswa neMinistry"
+
+#: .\templates\landing\home.html:888
+msgid "For Ministry of Agriculture"
+msgstr "Kune Munisitiri weZembe"
+
+#: .\templates\landing\home.html:890
+msgid "National Disease"
+msgstr "Chirwere cheMunyika"
+
+#: .\templates\landing\home.html:890
+msgid "Surveillance Dashboard"
+msgstr "Dhashibhodi yeKuongorora"
+
+#: .\templates\landing\home.html:893
+msgid ""
+"Monitor cattle disease outbreaks across Zimbabwe in real-time. Make data-"
+"driven decisions for vaccination campaigns, quarantine zones, and national "
+"livestock health policies."
+msgstr ""
+"Tarisa kubuda kwezvirwere zvemombe muZimbabwe nguva yacho. Gadzira zvido "
+"zvinobva paruzivo kune mishandirapamwe yemaBhakisini, nzvimbo "
+"dzekuchengetwa, uye mitemo yemunyika yeutano hwemhuka."
+
+#: .\templates\landing\home.html:896
+msgid "Real-time disease outbreak maps across all provinces"
+msgstr "Mapu ekubuda kwezvirwere nguva yacho mumamurovha ose"
+
+#: .\templates\landing\home.html:897
+msgid "Trend analysis and predictive analytics"
+msgstr "Ongororo yezvakajairika uye kutarisa kwekumashure"
+
+#: .\templates\landing\home.html:898
+msgid "Veterinarian network management and approvals"
+msgstr "Kutarisirwa kwenetiweki yevadokotela nemvumo"
+
+#: .\templates\landing\home.html:899
+msgid "Exportable reports for policy decisions"
+msgstr "Mireporiti inogona kubviswa yemitemo"
+
+#: .\templates\landing\home.html:900
+msgid "Automated outbreak alerts when thresholds exceeded"
+msgstr "Ziviso dzotomatiki dzekubuda kwezvirwere kana mipimo yakwirirwa"
+
+#: .\templates\landing\home.html:903
+msgid "Request Demo"
+msgstr "Kumbira Demo"
+
+#: .\templates\landing\home.html:916 .\templates\landing\services.html:323
+msgid "Get Started Today"
+msgstr "Tanga Nhasi"
+
+#: .\templates\landing\home.html:918
+msgid ""
+"Join our platform and start protecting your cattle with AI-powered disease "
+"prediction"
+msgstr ""
+"Joina ndima yedu uye utange kuchengetedza mombe yako nekutarisa zvirwere "
+"kweAI"
+
+#: .\templates\landing\home.html:922
+#: .\templates\ministry\cases_overview.html:65
+#: .\templates\ministry\dashboard.html:1336
+#: .\templates\ministry\dashboard.html:1395
+#: .\templates\ministry\notifications.html:55
+#: .\templates\ministry\notifications.html:90
+#: .\templates\ministry\reports.html:47 .\templates\ministry\tasks.html:82
+#: .\templates\vets\dashboard.html:199
+msgid "Farmer"
+msgstr "Murimi"
+
+#: .\templates\landing\home.html:923
+msgid ""
+"Register as a farmer to start reporting disease cases and get AI-powered "
+"predictions."
+msgstr ""
+"Nyoresa semurimi kutanga kurondedzera nyaya dzezvirwere uye kuwana "
+"zvitarisiro zveAI."
+
+#: .\templates\landing\home.html:924
+msgid "Register Now"
+msgstr "Nyoresa Iye Zvino"
+
+#: .\templates\landing\home.html:928
+msgid ""
+"Apply to become a registered veterinary doctor and help farmers in your area."
+msgstr ""
+"Isa chikumbiro kuve dokotela wemhuka anyoreswa ubatsire varimi mundunhu yako."
+
+#: .\templates\landing\home.html:929
+#: .\templates\vets\track_application.html:753
+msgid "Apply Now"
+msgstr "Isa Chikumbiro Iye Zvino"
+
+#: .\templates\landing\home.html:932
+msgid "Already Registered?"
+msgstr "Wanyoreswa Kare?"
+
+#: .\templates\landing\home.html:933
+msgid "Login to access your dashboard and start using the system right away."
+msgstr "Pinda kuna dhashibhodi yako uye utange kushandisa sisitimu iye zvino."
+
+#: .\templates\landing\how_it_works.html:5
+msgid "How It Works - CattleCare AI"
+msgstr "Zvinoshanda sei - CattleCare AI"
+
+#: .\templates\landing\how_it_works.html:172
+msgid ""
+"From spotting symptoms to getting recommendations and connecting with vets—"
+"here's your step-by-step guide to CattleCare AI."
+msgstr ""
+"Kubva pakuona zviratidzo kusvika kuwana mazano uye kubatana neveti—ino nzira "
+"yako yenhanho nhanho kuCattleCare AI."
+
+#: .\templates\landing\how_it_works.html:179
+msgid "Simple, Clear Process"
+msgstr "Nzira Nyore, Yakajeka"
+
+#: .\templates\landing\how_it_works.html:180
+msgid ""
+"You don't need technical skills. Register once, then submit cases whenever "
+"you notice something wrong with your cattle. Our AI and vet network do the "
+"rest."
+msgstr ""
+"Haunei kuziva zvokuita. Nyoresa kamwe, wobva uisa nyaya pese pawanoona "
+"chinhu chakaipa nemombe dzako. AI yedu nevatariri vemhuka vanoita zvimwe."
+
+#: .\templates\landing\how_it_works.html:185
+msgid "Register once"
+msgstr "Nyoresa kamwe chete"
+
+#: .\templates\landing\how_it_works.html:186
+msgid ""
+"Create your farmer account with your contact details and location. It's free "
+"and only takes a few minutes."
+msgstr ""
+"Gadzira account yako yemurimi neruzivo rwekubata nhevedzo uye nzvimbo. "
+"Haibhadharwi uye inotorawo maminitsi mashoma."
+
+#: .\templates\landing\how_it_works.html:192
+msgid "Submit when needed"
+msgstr "Tumira kana zvichidikanwa"
+
+#: .\templates\landing\how_it_works.html:193
+msgid ""
+"Whenever you see symptoms, log in and fill in our guided form. No need to "
+"wait for office hours."
+msgstr ""
+"Kana waona zviratidzo, pinda uye uzadze fomo redu rinoratidza nzira. Hakuda "
+"kumirira nguva dzemahofisi."
+
+#: .\templates\landing\how_it_works.html:199
+msgid "AI + vets"
+msgstr "AI + veti"
+
+#: .\templates\landing\how_it_works.html:200
+msgid ""
+"Get an instant prediction and recommendations. For serious cases, choose a "
+"vet from your region."
+msgstr ""
+"Wana chitarisiro uye mazano nokukurumidza. Kune nyaya dzakakomba, sarudza "
+"veti kubva mundunhu yako."
+
+#: .\templates\landing\how_it_works.html:206
+msgid "Track history"
+msgstr "Tevedzera nhoroondo"
+
+#: .\templates\landing\how_it_works.html:207
+msgid ""
+"All your cases are saved. Review past predictions and treatments anytime "
+"from your dashboard."
+msgstr ""
+"Nyaya dzako dzose dzakachengetwa. Ona zvitarisiro zvekare uye kurapa nguva "
+"dzose kubva kadhashibhodi yako."
+
+#: .\templates\landing\how_it_works.html:217
+msgid "The Four Steps in Detail"
+msgstr "Matanho Mana Nenzira Yakazara"
+
+#: .\templates\landing\how_it_works.html:218
+msgid "What happens after you submit a case."
+msgstr "Chinoitika mushure mekuisa nyaya."
+
+#: .\templates\landing\how_it_works.html:224
+msgid ""
+"Describe what you see: behaviour changes, appetite, skin, eyes, breathing, "
+"etc. You can add age, breed, and herd size. The more accurate the "
+"information, the better the prediction."
+msgstr ""
+"Rondedzera zvawaona: shanduko dzamaitiro, mwero wekudya, ganda, maziso, "
+"kupfuura mweya, nezvimwe. Unogona kuwedzera makore, rudzi, uye huwandu "
+"hwemhomho. Ruzivo rwakakwana runopa chitarisiro chakanakanisa."
+
+#: .\templates\landing\how_it_works.html:231
+msgid ""
+"Our machine learning models (trained on cattle disease data) analyze the "
+"symptoms and return the most likely disease with a confidence score. This "
+"usually takes only a few seconds."
+msgstr ""
+"Mamodeli edu ekudzidza kwemuchina (adzidziswa pamwe neruzivo rwezvirwere "
+"zvemombe) anoongorora zviratidzo uye anodzorera chirwere chakanyanya kuita "
+"seche chikwereti chekuvimba. Izvi zvinowanzotora masekondi mashoma chete."
+
+#: .\templates\landing\how_it_works.html:238
+msgid ""
+"You receive treatment suggestions, quarantine steps, and preventive measures "
+"tailored to the predicted condition. Follow them while considering your "
+"vet's advice for serious cases."
+msgstr ""
+"Unogashira mazano ekurapa, nhanho dzekuchengetwa, uye nzira dzekudzivirira "
+"dzakagadziridzirwa mamiriro akatarisirwa. Atevere uchifunga mazano aveti "
+"wako kune nyaya dzakakomba."
+
+#: .\templates\landing\how_it_works.html:245
+msgid ""
+"For severe or critical cases, the platform lets you choose a Ministry-"
+"approved vet in your province. You can request a consultation so the vet can "
+"advise or visit when needed."
+msgstr ""
+"Kune nyaya dzakakomba kana dzakakomba kwazvo, ndima inokubvumidza kusarudza "
+"veti akabvumidzwa neMinistry mumurovha wako. Unogona kukumbira kubvunzana "
+"kuitira kuti veti akupe zano kana kuuya kana zvichidikanwa."
+
+#: .\templates\landing\how_it_works.html:255
+msgid "What You Need to Get Started"
+msgstr "Zvaunoda Kutanga"
+
+#: .\templates\landing\how_it_works.html:256
+msgid "A few things that help you get the most out of CattleCare AI."
+msgstr ""
+"Zvinhu zvishoma zvinokubatsira kuwana zvakawanda kubva kuCattleCare AI."
+
+#: .\templates\landing\how_it_works.html:261
+msgid "Device and internet"
+msgstr "Mudziyo neinternet"
+
+#: .\templates\landing\how_it_works.html:262
+msgid ""
+"Use a smartphone, tablet, or computer with internet access. The platform "
+"works in the browser—no app install required."
+msgstr ""
+"Shandisa foni yekuchenjera, tablet, kana kompyuta ine internet. Nzvimbo "
+"inoshanda mubrowser—hapana app inofanirwa kuiswa."
+
+#: .\templates\landing\how_it_works.html:268
+msgid "Observation"
+msgstr "Kutarisa"
+
+#: .\templates\landing\how_it_works.html:269
+msgid ""
+"Note what you see in your cattle: symptoms, duration, and how many animals "
+"are affected. Clear descriptions improve prediction accuracy."
+msgstr ""
+"Nyora zvawaona mumombe yako: zviratidzo, nguva, uye mhuka ngapi dzakabatwa. "
+"Rondedzero yakajeka inowedzera kururama kwekutarisa."
+
+#: .\templates\landing\how_it_works.html:276
+msgid ""
+"Your province and district help us match you with nearby vets and contribute "
+"to national disease surveillance."
+msgstr ""
+"Purovhinzi yako nedunhu rinokubatsira isu kukubatanidza nevatariri vemhuka "
+"vepedyo uye kuita basa rekutarira zvirwere panyika."
+
+#: .\templates\landing\how_it_works.html:286
+msgid "Tips for Best Results"
+msgstr "Mazano ekuwana Mhedzisiro Yakanaka"
+
+#: .\templates\landing\how_it_works.html:287
+msgid ""
+"Follow these practices to get the most accurate predictions and useful "
+"advice."
+msgstr ""
+"Tevedza nzira idzi kuwana zvitarisiro zvakanyanya kururama uye mazano "
+"anobatsira."
+
+#: .\templates\landing\how_it_works.html:292
+msgid "Be as specific as you can"
+msgstr "Iva nenharembozha sezvaungakwanisa"
+
+#: .\templates\landing\how_it_works.html:293
+#, fuzzy
+#| msgid ""
+#| "Mention all relevant symptoms (e.g. fever, cough, lameness, loss of "
+#| "appetite). Include how long they've been present and whether multiple "
+#| "animals are affected. This helps the AI narrow down the likely disease."
+msgid ""
+"Mention all relevant symptoms (e.g. fever, cough, lameness, loss of "
+"appetite). Include how long they’ve been present and whether multiple "
+"animals are affected. This helps the AI narrow down the likely disease."
+msgstr ""
+"Taura zviratidzo zvose zvakakosha (semuenzaniso. febhe, chikosoro, kurema "
+"kwemakumbo, kusada kudya). Sanganisira nguva yazvange zviripo uye kana mhuka "
+"dzakawanda dzakatorwa. Izvi zvibatsira AI kuderedza chirwere chinonetsa."
+
+#: .\templates\landing\how_it_works.html:299
+msgid "When to involve a vet"
+msgstr "Rinhi rokuisa veti"
+
+#: .\templates\landing\how_it_works.html:300
+msgid ""
+"For critical or severe cases, or when the recommendation suggests "
+"professional care, use the vet connection feature. Don't rely on prediction "
+"alone for life-threatening or unclear situations."
+msgstr ""
+"Kune nyaya dzinokosha kana dzakakomba, kana kana mazano achiti fambira kune "
+"rukova rweprofession, shandisa chimiro chekubatana neveti. Usavimba "
+"nekutarisa chete kune mamiriro anotyisa kana asina kujeka."
+
+#: .\templates\landing\how_it_works.html:310
+msgid "Ready to start?"
+msgstr "Wakagadzirira kutanga?"
+
+#: .\templates\landing\how_it_works.html:311
+msgid "Register as a farmer and submit your first case in minutes."
+msgstr "Nyoresa semurimi uye tumira nyaya yako yekutanga mumaminitsi."
+
+#: .\templates\landing\privacy_policy.html:5
+msgid "Privacy Policy - CattleCare AI"
+msgstr "Mutemo weKuchengetedzwa kweRuzivo - CattleCare AI"
+
+#: .\templates\landing\privacy_policy.html:66
+msgid "How CattleCare AI collects, uses, and protects your information."
+msgstr ""
+"Nzira iyo CattleCare AI inoungana, kushandisa, uye kuchengetedza ruzivo "
+"rwako nayo."
+
+#: .\templates\landing\privacy_policy.html:72
+#: .\templates\landing\terms_of_service.html:74
+msgid "Last updated:"
+msgstr "Yakachinjiwa panaguru:"
+
+#: .\templates\landing\privacy_policy.html:74
+msgid "1. Introduction"
+msgstr "1. Nhanganyaya"
+
+#: .\templates\landing\privacy_policy.html:75
+msgid ""
+"CattleCare AI (“we”, “our”, or “the platform”) is an early disease "
+"prediction and veterinary support system for cattle, operated in support of "
+"the Ministry of Agriculture, Zimbabwe. This Privacy Policy explains how we "
+"collect, use, store, and protect your personal and farm-related information "
+"when you use our website and services."
+msgstr ""
+"CattleCare AI (“isu”, “yedu”, kana “puratifomu”) inzira yekufungidzira "
+"zvirwere nekukurumidza uye rubatsiro rweveti rwemombe, inoshandiswa "
+"kutsigira Ministry yeAgriculture yeZimbabwe. Mutemo uyu weKuvanzika "
+"unotsanangura kuti tinounganidza sei, tinoshandisa sei, tinochengeta sei, "
+"uye tinodzivirira sei ruzivo rwako uye rwepurazi paunoshandisa webhusaiti "
+"nemasevhisi edu."
+
+#: .\templates\landing\privacy_policy.html:76
+msgid ""
+"By registering as a farmer, applying as a veterinarian, or using the "
+"platform in any way, you agree to the practices described in this policy."
+msgstr ""
+"Nekunyoresa semurimi, kunyorera kuva vet, kana kushandisa puratifomu neimwe "
+"nzira, unobvuma maitiro atsanangurwa mumutemo uyu."
+
+#: .\templates\landing\privacy_policy.html:78
+msgid "2. Information We Collect"
+msgstr "2. Ruzivo Rwatinoungana"
+
+#: .\templates\landing\privacy_policy.html:79
+msgid "Account and profile information"
+msgstr "Ruzivo rweaccount neprofile"
+
+#: .\templates\landing\privacy_policy.html:80
+msgid "When you register or use the platform, we may collect:"
+msgstr "Paunonyoresa kana kushandisa puratifomu, tinogona kuunganidza:"
+
+#: .\templates\landing\privacy_policy.html:82
+msgid "Name, email address, phone number, and username"
+msgstr "Zita, kero yeemail, nhamba yefoni, uye zita rekushandisa (username)"
+
+#: .\templates\landing\privacy_policy.html:83
+msgid "Province, district, and (where provided) location or GPS coordinates"
+msgstr "Purovhinzi, dunhu, uye (kana zvapihwa) nzvimbo kana maGPS coordinates"
+
+#: .\templates\landing\privacy_policy.html:84
+msgid ""
+"For farmers: farm details such as cattle breed, herd size, and farming type"
+msgstr ""
+"Kune varimi: ruzivo rwepurazi senge rudzi rwemombe, huwandu hweboka, uye "
+"mhando yekurima"
+
+#: .\templates\landing\privacy_policy.html:85
+msgid ""
+"For veterinarians: professional details, qualifications, and provinces served"
+msgstr ""
+"Kune veti: ruzivo rwebasa, zvinokwanisa (qualifications), uye mapurovhinzi "
+"avanoshanda"
+
+#: .\templates\landing\privacy_policy.html:87
+msgid "Case and usage information"
+msgstr "Ruzivo rwenyaya nekushandiswa"
+
+#: .\templates\landing\privacy_policy.html:88
+msgid "When you submit a disease case or use our features, we collect:"
+msgstr ""
+"Paunotumira nyaya yechirwere kana kushandisa zvinhu zvedu, tinounganidza:"
+
+#: .\templates\landing\privacy_policy.html:90
+msgid "Symptoms and other data you enter for disease prediction"
+msgstr "Zviratidzo nezvimwe zvaunopinda kuti chirwere chifungidzirwe"
+
+#: .\templates\landing\privacy_policy.html:91
+msgid "Case history, recommendations, and vet assignment information"
+msgstr "Nhoroondo yenyaya, mazano, uye ruzivo rwekupihwa vet"
+
+#: .\templates\landing\privacy_policy.html:92
+msgid ""
+"General usage data (e.g. pages visited, actions taken) to improve the service"
+msgstr ""
+"Ruzivo rwekushandiswa (semapeji awakashanyira, zvaunenge waita) kuti "
+"tivandudze sevhisi"
+
+#: .\templates\landing\privacy_policy.html:95
+msgid "3. How We Use Your Information"
+msgstr "3. Nzira Yatinodungamira nayo Ruzivo Rwako"
+
+#: .\templates\landing\privacy_policy.html:96
+msgid "We use the information we collect to:"
+msgstr "Tinoshandisa ruzivo rwatinounganidza kuti:"
+
+#: .\templates\landing\privacy_policy.html:98
+msgid ""
+"Provide disease prediction, treatment recommendations, and vet connection "
+"services"
+msgstr ""
+"Kupa kufungidzira zvirwere, mazano ekurapa, uye sevhisi yekubatanidza neveti"
+
+#: .\templates\landing\privacy_policy.html:99
+msgid "Manage your account and authenticate you when you log in"
+msgstr "Kutarisira account yako uye kukusimbisa kana wapinda (log in)"
+
+#: .\templates\landing\privacy_policy.html:100
+msgid ""
+"Send you important notices (e.g. password reset emails, service updates)"
+msgstr ""
+"Kukutumira zviziviso zvakakosha (sememaemail ekugadzirisa password, kana "
+"zvigadziriso zveservice)"
+
+#: .\templates\landing\privacy_policy.html:101
+msgid ""
+"Support the Ministry of Agriculture with aggregated, anonymized disease "
+"surveillance and analytics"
+msgstr ""
+"Kutsigira Ministry yeAgriculture neruzivo rwakaunganidzwa uye rusingaratidzi "
+"munhu (anonymized) rwekutarisa zvirwere neongororo"
+
+#: .\templates\landing\privacy_policy.html:102
+msgid "Improve our platform, algorithms, and user experience"
+msgstr "Kuvandudza puratifomu yedu, maalgorithms, uye ruzivo rwevashandisi"
+
+#: .\templates\landing\privacy_policy.html:103
+msgid "Comply with applicable laws and protect the security of the platform"
+msgstr ""
+"Kutevedza mitemo inoshandiswa uye kuchengetedza chengetedzo yepuratifomu"
+
+#: .\templates\landing\privacy_policy.html:106
+msgid "4. Data Sharing and Disclosure"
+msgstr "4. Kugovana uye Kuzivisa Ruzivo"
+
+#: .\templates\landing\privacy_policy.html:107
+msgid ""
+"We do not sell your personal information. We may share data only in these "
+"circumstances:"
+msgstr "Hatitengesi ruzivo rwako. Tinogovana ruzivo chete mumamiriro aya:"
+
+#: .\templates\landing\privacy_policy.html:109
+msgid ""
+"<strong>Ministry of Agriculture:</strong> Aggregated and anonymized disease "
+"and outbreak data for national surveillance, policy, and vaccination "
+"planning. Where relevant, Ministry staff with appropriate access may view "
+"regional or national dashboards."
+msgstr ""
+"<strong>Ministry of Agriculture:</strong> Ruzivo rwezvirwere nemhirizhonga "
+"rwakaunganidzwa uye rusingaratidzi munhu, rwekutarisa nyika yose, mitemo, "
+"uye kuronga mabhakisini. Kana zvichidiwa, vashandi veMinistry vane mvumo "
+"vanogona kuona madhashibhodi ematunhu kana enyika."
+
+#: .\templates\landing\privacy_policy.html:110
+msgid ""
+"<strong>Veterinarians:</strong> When you request a vet consultation, "
+"relevant case and contact information may be shared with the selected "
+"veterinarian so they can assist you."
+msgstr ""
+"<strong>Veti:</strong> Paunokumbira kubatsirwa neveti, ruzivo rwenyaya "
+"nezvekukubata runogona kugoverwa neveti yawasarudza kuti akubatsire."
+
+#: .\templates\landing\privacy_policy.html:111
+msgid ""
+"<strong>Legal and safety:</strong> When required by law, or to protect the "
+"rights, safety, or security of users or the public."
+msgstr ""
+"<strong>Mutemo nekuchengeteka:</strong> Kana zvichidikanwa nemutemo, kana "
+"kudzivirira kodzero, kuchengeteka, kana chengetedzo yevashandisi kana "
+"veruzhinji."
+
+#: .\templates\landing\privacy_policy.html:114
+msgid "5. Data Security"
+msgstr "5. Kuchengetedzwa kweRuzivo"
+
+#: .\templates\landing\privacy_policy.html:115
+msgid ""
+"We use appropriate technical and organisational measures to protect your "
+"data against unauthorised access, loss, or misuse. This includes secure "
+"storage, access controls, and encryption where applicable. You are "
+"responsible for keeping your login credentials confidential."
+msgstr ""
+"Tinoshandisa nzira dzakakodzera dzehunyanzvi uye dzekuronga kuchengetedza "
+"ruzivo rwako kuti rusasvikwe zvisiri pamutemo, rusarasike, kana kushandiswa "
+"zvisiri izvo. Izvi zvinosanganisira kuchengetera kwakachengeteka, kudzora "
+"kupinda (access controls), uye encryption kana zvichikodzera. Iwe ndiwe "
+"unofanira kuchengetedza zvakavanzika zvaunoshandisa kupinda muaccount."
+
+#: .\templates\landing\privacy_policy.html:117
+msgid "6. Data Retention"
+msgstr "6. Kuchengetwa kweRuzivo"
+
+#: .\templates\landing\privacy_policy.html:120
+msgid "7. Your Rights"
+msgstr "7. Kodzero Dzako"
+
+#: .\templates\landing\privacy_policy.html:121
+msgid ""
+"Depending on applicable law, you may have the right to access, correct, or "
+"delete your personal data, or to object to or restrict certain processing. "
+"To exercise these rights or ask questions about your data, contact us using "
+"the details below."
+msgstr ""
+"Zvichienderana nemutemo unoshanda, unogona kuva nekodzero yekuwana, "
+"kugadzirisa, kana kudzima ruzivo rwako, kana kupikisa kana kudzora mamwe "
+"maitiro ekugadzirisa ruzivo. Kuti ushandise kodzero idzi kana kubvunza "
+"nezveruzivo rwako, taura nesu uchishandisa mashoko ari pazasi."
+
+#: .\templates\landing\privacy_policy.html:123
+msgid "8. Cookies and Similar Technologies"
+msgstr "8. Cookies neTekinoroji Dzakafanana"
+
+#: .\templates\landing\privacy_policy.html:126
+msgid "9. Changes to This Policy"
+msgstr "9. Shanduko dzoMutemo uyu"
+
+#: .\templates\landing\privacy_policy.html:129
+msgid "10. Contact Us"
+msgstr "10. Bata Nhevedzo Nesu"
+
+#: .\templates\landing\privacy_policy.html:130
+msgid "For privacy-related questions or requests, contact us at:"
+msgstr ""
+"Kune mibvunzo kana zvikumbiro zvine chekuita nekuchengetwa kwemuzvakare, "
+"bata nhevedzo nesu pa:"
+
+#: .\templates\landing\privacy_policy.html:131
+#: .\templates\landing\terms_of_service.html:130
+#: .\templates\vets\application_success.html:522
+msgid "Email:"
+msgstr "Imero:"
+
+#: .\templates\landing\privacy_policy.html:132
+#: .\templates\landing\terms_of_service.html:131
+msgid "Location:"
+msgstr "Nzvimbo:"
+
+#: .\templates\landing\privacy_policy.html:132
+#: .\templates\landing\terms_of_service.html:131
+msgid "Harare, Zimbabwe"
+msgstr "Harare, Zimbabwe"
+
+#: .\templates\landing\services.html:5
+msgid "Our Services - CattleCare AI"
+msgstr "Zviitwa zvedu - CattleCare AI"
+
+#: .\templates\landing\services.html:189
+msgid ""
+"AI-powered disease prediction, treatment guidance, and veterinary connection—"
+"all in one platform for Zimbabwean farmers."
+msgstr ""
+"Kutarisa zvirwere kweAI, kuratidza kurapa, uye kubatana neveti—zvose pane "
+"imwe ndima kune varimi veZimbabwe."
+
+#: .\templates\landing\services.html:196
+msgid "What We Offer"
+msgstr "Zvatinoita"
+
+#: .\templates\landing\services.html:197
+msgid ""
+"From symptom-based prediction to vet assignment and ministry analytics, we "
+"cover the full spectrum of livestock health support."
+msgstr ""
+"Kubva pakutarisa kusinganyanyi zviratidzo kusvika pakuisa veti uye ongororo "
+"yeMinistry, tinoita rubatsiro rwose rweutano hwemhuka."
+
+#: .\templates\landing\services.html:203
+msgid ""
+"Enter the symptoms you see in your cattle. Our machine learning models "
+"(including Naive Bayes and Random Forest) analyze them and predict the most "
+"likely disease with high accuracy."
+msgstr ""
+"Isa zviratidzo zvauona mumombe yako. Mamodhi edu ekudzidza kwemashini "
+"(anosanganisira Naive Bayes uye Random Forest) anoatarisa uye anozivisa "
+"chirwere chingangodiwa nezve kururama kwakakwirira."
+
+#: .\templates\landing\services.html:204
+msgid "Fast, free, and available 24/7 from any device."
+msgstr "Nokukurumidza, mahara, uye kuwanikwa nguva dzose kubva pamudziyo wose."
+
+#: .\templates\landing\services.html:211
+msgid ""
+"Get instant, tailored treatment suggestions, quarantine steps, and "
+"preventive measures. Recommendations are aligned with common cattle diseases "
+"and best practices."
+msgstr ""
+"Wana mazano ekurapa akagadziridzirwa, nhanho dzekuchengetwa, uye nzira "
+"dzekudzivirira nokukurumidza. Mazano akangana nezvirwere zvemombe "
+"zvinonyanya uye nzira dzakanaka."
+
+#: .\templates\landing\services.html:212
+msgid "Reduce guesswork and act with confidence."
+msgstr "Deredza kufunga pasina ruzivo uye ita nechivimbo."
+
+#: .\templates\landing\services.html:219
+msgid ""
+"For severe or critical cases, we connect you with Ministry-approved "
+"veterinarians. Choose from vets in your province, see distance, and request "
+"consultation."
+msgstr ""
+"Kune nyaya dzakakomba kana dzinokosha, tinokubatanidza nevadokotela vemhuka "
+"vakabvumidzwa neMinistry. Sarudza kubva kuveti mumurovha wako, ona "
+"chinhambwe, uye kumbira kubvunzana."
+
+#: .\templates\landing\services.html:220
+msgid "Verified vets, transparent assignment."
+msgstr "Veti vakasimbiswa, kuisa kwakajeka."
+
+#: .\templates\landing\services.html:227
+msgid ""
+"Real-time disease outbreak monitoring and analytics for the Ministry of "
+"Agriculture. Track trends by province, plan vaccinations, and support "
+"national livestock policy."
+msgstr ""
+"Kutarisa kubuda kwezvirwere nguva yacho uye ongororo kune Munisitiri "
+"weZembe. Tevedzera zvakajairika mumurovha, ronga maBhakisini, uye simbisa "
+"mutemo wemhuka wenyika."
+
+#: .\templates\landing\services.html:228
+msgid "Maps, reports, and exportable data."
+msgstr "Mapu, mireporiti, uye ruzivo runogona kubviswa."
+
+#: .\templates\landing\services.html:235
+msgid ""
+"Your farm and case data are stored securely. We follow best practices for "
+"data protection and comply with local policies so you can use the platform "
+"with confidence."
+msgstr ""
+"Ruzivo rwepurazi uye nyaya rwako rwakachengetwa zvakanaka. Titevedza nzira "
+"dzakanakisa dzekuchengetedza ruzivo uye titevedza mitemo yenzvimbo kuitira "
+"kuti ushandise ndima nechivimbo."
+
+#: .\templates\landing\services.html:236
+msgid "Encrypted and access-controlled."
+msgstr "Yakavharwa uye yakasimbiswa pakupinda."
+
+#: .\templates\landing\services.html:243
+msgid ""
+"Submit cases and get predictions anytime. No need to wait for office hours "
+"or travel long distances. Especially valuable in remote or rural areas."
+msgstr ""
+"Tumira nyaya uye uwane zvitarisiro nguva dzose. Hakuda kumirira nguva "
+"dzemahofisi kana kufamba nzira refu. Inokosha zvikuru munzvimbo dziri kure "
+"kana dzemaruwa."
+
+#: .\templates\landing\services.html:244
+msgid "Always on, from phone or computer."
+msgstr "Nguva dzose, kubva foni kana kompyuta."
+
+#: .\templates\landing\services.html:255
+msgid "Four simple steps from symptom to solution."
+msgstr "Nhanho nhatu nyore kubva kuzviratidzo kusvika pakubudiswa."
+
+#: .\templates\landing\services.html:255
+msgid "See full guide →"
+msgstr "Ona chiratidzo chizere →"
+
+#: .\templates\landing\services.html:260
+msgid "1. Report Symptoms"
+msgstr "1. Rondedzera Zviratidzo"
+
+#: .\templates\landing\services.html:261
+msgid ""
+"Register as a farmer, then describe the symptoms you see in your cattle "
+"through our guided form."
+msgstr ""
+"Nyoresa semurimi, wotsanangura zviratidzo zvauona mumombe yako nefomo redu "
+"rinoratidza nzira."
+
+#: .\templates\landing\services.html:267
+msgid "2. AI Analysis"
+msgstr "2. Ongororo yeAI"
+
+#: .\templates\landing\services.html:268
+msgid ""
+"Our models analyze the symptoms and return a disease prediction with a "
+"confidence score."
+msgstr ""
+"Mamodhi edu anotarisa zviratidzo uye anodzorera chitarisiro chechirwere "
+"nevhoti yechivimbo."
+
+#: .\templates\landing\services.html:274
+msgid "3. Get Recommendations"
+msgstr "3. Wana Mazano"
+
+#: .\templates\landing\services.html:275
+msgid ""
+"Receive treatment suggestions, quarantine steps, and preventive advice "
+"tailored to the result."
+msgstr ""
+"Gashira mazano ekurapa, nhanho dzekuchengetwa, uye mazano edziviriro "
+"akagadziridzirwa mhedzisiro."
+
+#: .\templates\landing\services.html:281
+msgid "4. Connect with Vets"
+msgstr "4. Bata nhevedzo neveti"
+
+#: .\templates\landing\services.html:282
+msgid ""
+"For severe cases, select a vet from your region and request professional "
+"consultation."
+msgstr ""
+"Kune nyaya dzakakomba, sarudza veti kubva mundunhu yako uye kumbira "
+"kubvunzana kweprofession."
+
+#: .\templates\landing\services.html:292
+msgid "Who We Serve"
+msgstr "Vanotarisirwa nesu"
+
+#: .\templates\landing\services.html:293
+msgid ""
+"Farmers, veterinarians, and the Ministry of Agriculture—all in one ecosystem."
+msgstr "Varimi, vadokotela vemhuka, uye Munisitiri weZembe—zvose pamwe chete."
+
+#: .\templates\landing\services.html:298
+#: .\templates\ministry\base_ministry.html:135
+#: .\templates\ministry\dashboard.html:997
+#: .\templates\ministry\farmers_list.html:6 .\templates\vets\vet_base.html:125
+msgid "Farmers"
+msgstr "Varimi"
+
+#: .\templates\landing\services.html:299
+msgid ""
+"Register for free, submit cases, get AI predictions and treatment advice, "
+"and connect with vets when you need expert help. Track your case history and "
+"protect your herd."
+msgstr ""
+"Nyoresa mahara, tumira nyaya, wana zvitarisiro zveAI uye mazano ekurapa, uye "
+"bata nhevedzo neveti kana uchida rubatsiro rwenyanzvi. Tevedzera nhoroondo "
+"yenyaya yako uye chengetedza mhomho yako."
+
+#: .\templates\landing\services.html:305
+#: .\templates\ministry\base_ministry.html:139
+#: .\templates\ministry\dashboard.html:1002
+#: .\templates\ministry\vets_list.html:6
+msgid "Veterinarians"
+msgstr "Vadokotela veMhuka"
+
+#: .\templates\landing\services.html:306
+msgid ""
+"Apply to join our network. Get matched with farmers in your area, respond to "
+"consultation requests, and access disease trend data. Ministry-approved and "
+"verified."
+msgstr ""
+"Isa chikumbiro kujoinisa netiweki yedu. Bvumirwa kusvikana nevarimi mundunhu "
+"yako, pindura zvikumbiro zvekubvunzana, uye svika paruzivo rwezvakajairika "
+"zvezvirwere. Yakabvumidzwa uye yakasimbiswa neMinistry."
+
+#: .\templates\landing\services.html:312
+msgid "Ministry of Agriculture"
+msgstr "Munisitiri weZembe"
+
+#: .\templates\landing\services.html:313
+msgid ""
+"Use the dashboard to monitor outbreaks, view maps and analytics, manage vet "
+"approvals, and export data for policy and vaccination planning."
+msgstr ""
+"Shandisa dhashibhodi kutarisa kubuda kwezvirwere, ona mapu uye ongororo, "
+"tarisira mvumo dzeveti, uye bvisa ruzivo kune mitemo uye kuronga maBhakisini."
+
+#: .\templates\landing\services.html:324
+msgid "Register as a farmer or apply as a veterinarian."
+msgstr "Nyoresa semurimi kana isa chikumbiro sedokotela wemhuka."
+
+#: .\templates\landing\terms_of_service.html:5
+msgid "Terms of Service - CattleCare AI"
+msgstr "Mitemo yeSevhisi - CattleCare AI"
+
+#: .\templates\landing\terms_of_service.html:67
+msgid "Terms and conditions for using CattleCare AI."
+msgstr "Mitemo nemamiriro ekushandisa CattleCare AI."
+
+#: .\templates\landing\terms_of_service.html:76
+msgid "1. Acceptance of Terms"
+msgstr "1. Kubvuma Mitemo"
+
+#: .\templates\landing\terms_of_service.html:77
+msgid ""
+"By accessing or using CattleCare AI (“the platform”, “we”, “our”), including "
+"the website and any related services for farmers, veterinarians, and the "
+"Ministry of Agriculture, you agree to be bound by these Terms of Service. If "
+"you do not agree, do not use the platform."
+msgstr ""
+"Nekupinda kana kushandisa CattleCare AI (“puratifomu”, “isu”, “yedu”), kusanganisira "
+"webhusaiti nemasevhisi ayo anobatsira varimi, veti, neMinistry of Agriculture, "
+"unobvuma kusungwa nemitemo iyi yeSevhisi. Kana usingabvumirani, usashandise puratifomu."
+
+#: .\templates\landing\terms_of_service.html:79
+msgid "2. Description of Service"
+msgstr "2. Tsanangudzo yeSevhisi"
+
+#: .\templates\landing\terms_of_service.html:80
+msgid "CattleCare AI provides:"
+msgstr "CattleCare AI inopa:"
+
+#: .\templates\landing\terms_of_service.html:82
+msgid ""
+"AI-powered early disease prediction for cattle based on symptoms and "
+"contextual data"
+msgstr "Kufungidzira zvirwere zvemombe nekukurumidza uchishandisa AI zvichibva pazviratidzo neruzivo rwemamiriro"
+
+#: .\templates\landing\terms_of_service.html:83
+msgid "Treatment recommendations and preventive guidance"
+msgstr "Mazano ekurapa uye gwara rekudzivirira"
+
+#: .\templates\landing\terms_of_service.html:84
+msgid "Connection between farmers and Ministry-approved veterinarians"
+msgstr "Kubatanidza varimi neveti vakabvumidzwa neMinistry"
+
+#: .\templates\landing\terms_of_service.html:85
+#, fuzzy
+#| msgid ""
+#| "Real-time disease outbreak monitoring and analytics for the Ministry of "
+#| "Agriculture to plan vaccinations and policies."
+msgid "Disease surveillance and analytics for the Ministry of Agriculture"
+msgstr ""
+"Kutarisa kubuda kwezvirwere nguva yacho uye ongororo yeMunisitiri weZembe "
+"kugadzira maBhakisini uye mitemo."
+
+#: .\templates\landing\terms_of_service.html:87
+msgid ""
+"The platform is intended to support, not replace, professional veterinary "
+"care. Predictions and recommendations are for guidance only and do not "
+"constitute a formal diagnosis or treatment plan."
+msgstr ""
+"Puratifomu inoitirwa kubatsira, kwete kutsiva, basa revanachiremba vemhuka. "
+"Zvinofungidzirwa nemazano ndezvegwara chete uye hazvisi kuongorora kwechiremba kana hurongwa hwekurapa."
+
+#: .\templates\landing\terms_of_service.html:89
+msgid "3. User Accounts and Eligibility"
+msgstr "3. Accounts dzeMashandisi uye Kugashirika"
+
+#: .\templates\landing\terms_of_service.html:90
+msgid ""
+"To use certain features, you must register and maintain an account. You "
+"agree to:"
+msgstr "Kuti ushandise zvimwe zvinhu, unofanira kunyoresa uye kuchengetedza account. Unobvuma:"
+
+#: .\templates\landing\terms_of_service.html:92
+msgid "Provide accurate, current, and complete information during registration"
+msgstr "Kupa ruzivo rwechokwadi, rwazvino, uye rwakazara paunonyoresa"
+
+#: .\templates\landing\terms_of_service.html:93
+msgid "Keep your password secure and notify us of any unauthorised use"
+msgstr "Kuchengetedza password yako uye kutizivisa kana paine kushandiswa kusina mvumo"
+
+#: .\templates\landing\terms_of_service.html:94
+msgid ""
+"Be at least 18 years of age or have parental or guardian consent where "
+"applicable"
+msgstr ""
+
+#: .\templates\landing\terms_of_service.html:96
+msgid ""
+"Farmers register as themselves; veterinarians must apply and be approved by "
+"the platform/Ministry before gaining full access. We reserve the right to "
+"suspend or terminate accounts that violate these terms or that we reasonably "
+"believe pose a risk to the service or other users."
+msgstr ""
+"Varimi vanonyoresa vari ivo; veti vanofanira kunyorera uye kubvumidzwa nepuratifomu/Ministry vasati vawana mukana wakazara. "
+"Tine kodzero yekumisa kana kuvhara maaccount anotyora mitemo iyi kana atinoona achikanganisa sevhisi kana vamwe."
+
+#: .\templates\landing\terms_of_service.html:98
+msgid "4. Acceptable Use"
+msgstr "4. Kushandiswa Kunogashirwa"
+
+#: .\templates\landing\terms_of_service.html:99
+msgid ""
+"You agree to use the platform only for lawful purposes and in a way that "
+"does not:"
+msgstr "Unobvuma kushandisa puratifomu chete pazvinhu zviri pamutemo uye nenzira isinga:"
+
+#: .\templates\landing\terms_of_service.html:101
+msgid "Violate any applicable law or regulation"
+msgstr "Tyore chero mutemo kana mitemo inoshanda"
+
+#: .\templates\landing\terms_of_service.html:102
+msgid "Infringe the rights of others or harm others"
+msgstr "Kutyora kodzero dzevamwe kana kukuvadza vamwe"
+
+#: .\templates\landing\terms_of_service.html:103
+msgid ""
+"Introduce malware, spam, or attempt to gain unauthorised access to our "
+"systems or other users’ data"
+msgstr ""
+
+#: .\templates\landing\terms_of_service.html:104
+msgid ""
+"Submit false or misleading information for disease prediction or vet "
+"assignment"
+msgstr "Kutumira ruzivo rwenhema kana runotsausa pakufungidzira chirwere kana kupihwa vet"
+
+#: .\templates\landing\terms_of_service.html:105
+msgid ""
+"Use the service in a manner that could damage, disable, or overburden the "
+"platform"
+msgstr ""
+
+#: .\templates\landing\terms_of_service.html:107
+msgid ""
+"We may remove content or suspend access where we reasonably believe there is "
+"a breach of these terms."
+msgstr "Tinogona kubvisa zvinyorwa kana kumisa mukana kana tichifunga kuti mitemo iyi yatyokwa."
+
+#: .\templates\landing\terms_of_service.html:109
+msgid "5. Disclaimers"
+msgstr "5. Zvisungo zvekuzivisa (Disclaimers)"
+
+#: .\templates\landing\terms_of_service.html:110
+msgid ""
+"<strong>Medical / veterinary disclaimer:</strong> CattleCare AI is a "
+"decision-support tool. Disease predictions are based on algorithms and the "
+"information you provide; they are not a substitute for a qualified "
+"veterinarian’s examination and diagnosis. Always seek professional "
+"veterinary care for serious, persistent, or unclear conditions. We are not "
+"liable for any loss or harm resulting from reliance on predictions or "
+"recommendations without appropriate professional oversight."
+msgstr ""
+"<strong>Chiziviso chekurapa/cheveti:</strong> CattleCare AI ishoko rekubatsira pakuita sarudzo. "
+"Kufungidzira zvirwere kunobva kumaalgorithms neruzivo rwaunopa; hazvitsivi kuongororwa nekucherechedzwa neveti ane hunyanzvi. "
+"Gara uchitsvaga rubatsiro rweveti pazvirwere zvakakomba, zvinoramba zviripo, kana zvisina kujeka. "
+"Hatina mhosva yekurasikirwa kana kukuvara kunokonzerwa nekutsamira pamazano pasina kutarisirwa neveti."
+
+#: .\templates\landing\terms_of_service.html:111
+msgid ""
+"<strong>Service “as is”:</strong> The platform is provided “as is” and “as "
+"available”. We do not guarantee uninterrupted, error-free, or secure "
+"operation, though we strive to maintain high availability and security."
+msgstr ""
+"<strong>Sevhisi “sezvazviri”:</strong> Puratifomu inopihwa “sezvazviri” uye “sezviripo”. "
+"Hatigone kuvimbisa kuti ichashanda nguva dzose pasina kukanganisa kana kuti yakachengeteka nguva dzese, "
+"kunyangwe tichiedza kuchengetedza kuwanikwa nekuchengeteka kwepamusoro."
+
+#: .\templates\landing\terms_of_service.html:113
+msgid "6. Limitation of Liability"
+msgstr "6. Kuganhurwa kweMangwanani"
+
+#: .\templates\landing\terms_of_service.html:114
+msgid ""
+"To the fullest extent permitted by law, CattleCare AI and its operators "
+"shall not be liable for any indirect, incidental, special, consequential, or "
+"punitive damages, or for any loss of profits, data, or goodwill, arising "
+"from your use or inability to use the platform. Our total liability for any "
+"claims related to the service shall not exceed the amount (if any) you paid "
+"to use the service in the twelve (12) months preceding the claim, or such "
+"other limit as may be required by applicable law."
+msgstr ""
+"Kusvika pamuganhu unobvumidzwa nemutemo, CattleCare AI nevanoishandisa "
+"havangavi nemhosva yekukuvara kusiri kwakananga, kwechiitiko, kwakakosha, "
+"kunotevera, kana kwekuranga, kana kurasikirwa nepurofiti, ruzivo (data), kana "
+"mukurumbira (goodwill) kunokonzerwa nekushandisa kwako kana kukundikana "
+"kushandisa puratifomu. Mhosva yedu yose pane chero zvichemo zvine chekuita "
+"nesevhisi haifaniri kudarika mari (kana iripo) yawakabhadhara kushandisa "
+"sevhisi mumwedzi gumi nembiri (12) yakapfuura chisati chichemo, kana mumwe "
+"muganhu unodiwa nemutemo."
+
+#: .\templates\landing\terms_of_service.html:116
+msgid "7. Intellectual Property"
+msgstr "7. Pfuma yeKufunga"
+
+#: .\templates\landing\terms_of_service.html:117
+msgid ""
+"The platform, including its design, text, graphics, logos, and software "
+"(excluding user-generated content), is owned by or licensed to CattleCare AI "
+"and is protected by intellectual property laws. You may not copy, modify, "
+"distribute, or create derivative works without our prior written permission, "
+"except for normal use of the service."
+msgstr ""
+"Puratifomu, kusanganisira dhizaini yayo, zvinyorwa, mifananidzo, ma-logo, "
+"nesoftware (kusabvisa zvemushandisi), ndeyaCattleCare AI kana yakapihwa "
+"rezinesi, uye inodzivirirwa nemitemo yepfuma yehungwaru. Haubvumidzwi "
+"kukopa, kugadzirisa, kugovera, kana kugadzira mabasa anobva pairi pasina "
+"mvumo yedu yakanyorwa, kunze kwekushandisa sevhisi zvakajairika."
+
+#: .\templates\landing\terms_of_service.html:119
+msgid "8. Privacy"
+msgstr "8. Kuchengetwa kwemuzvakare"
+
+#: .\templates\landing\terms_of_service.html:120
+#, python-format
+msgid ""
+"Your use of the platform is also governed by our <a href=\"%(url)s\">Privacy "
+"Policy</a>, which describes how we collect, use, and protect your "
+"information. By using the platform, you consent to those practices."
+msgstr ""
+"Kushandiswa kwako kwendima hakuganhuriwe nemutemo wedu we<a "
+"href=\"%(url)s\">Kuchengetwa kwemuzvakare</a>, unotsanangura nzira "
+"yatinounganidza, tishandise, uye tichengetedze ruzivo rwako nayo. "
+"Nekushandisa ndima, unobvumira nzira idzi."
+
+#: .\templates\landing\terms_of_service.html:122
+msgid "9. Changes to the Service and Terms"
+msgstr "9. Shanduko dzeSevhisi uye Mitemo"
+
+#: .\templates\landing\terms_of_service.html:123
+msgid ""
+"We may change or discontinue features of the platform with reasonable notice "
+"where practicable. We may update these Terms of Service from time to time; "
+"the “Last updated” date will be revised accordingly. Continued use of the "
+"platform after changes constitutes acceptance of the new terms. If you do "
+"not agree, you must stop using the service."
+msgstr ""
+"Tinogona kushandura kana kumisa zvimwe zvinhu zvepuratifomu tichikuzivisa "
+"zvine mwero kana zvichiita. Tinogona kugadzirisa Mitemo yeSevhisi iyi nguva "
+"nenguva; zuva re “Yakagadziridzwa” richachinjwa zvinoenderana. Kuramba "
+"uchishandisa puratifomu mushure meshinduko zvinoreva kubvuma mitemo mitsva. "
+"Kana usingabvumirani, unofanira kurega kushandisa sevhisi."
+
+#: .\templates\landing\terms_of_service.html:125
+msgid "10. Governing Law and Disputes"
+msgstr "10. Mutemo Unotonga uye Kukakavadzana"
+
+#: .\templates\landing\terms_of_service.html:126
+msgid ""
+"These terms shall be governed by the laws of Zimbabwe. Any dispute arising "
+"in connection with these terms or the platform shall be subject to the "
+"exclusive jurisdiction of the courts of Zimbabwe, to the extent permitted by "
+"law."
+msgstr ""
+
+#: .\templates\landing\terms_of_service.html:128
+msgid "11. Contact"
+msgstr "11. Bata nhevedzo"
+
+#: .\templates\landing\terms_of_service.html:129
+msgid "For questions about these Terms of Service, contact us at:"
+msgstr "Kune mibvunzo nezve Mitemo iyi yeSevhisi, bata nhevedzo nesu pa:"
+
+#: .\templates\maps\disease_map.html:5
+#, fuzzy
+#| msgid "Farmers - CattleCare AI"
+msgid "Disease Map - CattleCare AI"
+msgstr "Varimi - CattleCare AI"
+
+#: .\templates\maps\disease_map.html:6
+#: .\templates\ministry\base_ministry.html:165
+#: .\templates\ministry\dashboard.html:1027
+msgid "Disease Map"
+msgstr "Mapu yeZvirwere"
+
+#: .\templates\maps\disease_map.html:7
+msgid "Disease Surveillance Map"
+msgstr "Mapu ekutevera zvirwere"
+
+#: .\templates\maps\disease_map.html:8
+#, fuzzy
+#| msgid "Real-time disease outbreak maps across all provinces"
+msgid "View disease distribution across Zimbabwe provinces"
+msgstr "Mapu ekubuda kwezvirwere nguva yacho mumamurovha ose"
+
+#: .\templates\maps\disease_map.html:27
+msgid "Filters"
+msgstr "Zvinosefa"
+
+#: .\templates\maps\disease_map.html:32
+msgid "All Diseases"
+msgstr "Zvirwere zvose"
+
+#: .\templates\maps\disease_map.html:41
+#: .\templates\ministry\farmers_list.html:13
+#: .\templates\ministry\vets_list.html:13
+msgid "All Provinces"
+msgstr "Murovha yose"
+
+#: .\templates\maps\disease_map.html:48 .\templates\ministry\reports.html:25
+msgid "Date From"
+msgstr "Zuva kubva"
+
+#: .\templates\maps\disease_map.html:52 .\templates\ministry\reports.html:29
+msgid "Date To"
+msgstr "Zuva kusvika"
+
+#: .\templates\maps\disease_map.html:55
+msgid "Apply Filters"
+msgstr "Shandisa zvinosifa"
+
+#: .\templates\maps\disease_map.html:68
+msgid "Severity:"
+msgstr "Kukomba:"
+
+#: .\templates\maps\disease_map.html:69
+msgid "Province:"
+msgstr "Murovha:"
+
+#: .\templates\maps\disease_map.html:70 .\templates\vets\dashboard.html:242
+msgid "Date:"
+msgstr "Zuva:"
+
+#: .\templates\ministry\analytics.html:6
+msgid "Disease Analytics - CattleCare AI"
+msgstr "Ongororo yeZvirwere - CattleCare AI"
+
+#: .\templates\ministry\analytics.html:7
+#: .\templates\ministry\base_ministry.html:161
+#: .\templates\ministry\dashboard.html:1019
+msgid "Analytics"
+msgstr "Ongororo"
+
+#: .\templates\ministry\analytics.html:8
+msgid "Disease Analytics"
+msgstr "Ongororo yeZvirwere"
+
+#: .\templates\ministry\analytics.html:9
+msgid "Disease distribution and severity statistics across the platform"
+msgstr "Kupararira kwezvirwere nemanhamba ekukomba papuratifomu yose"
+
+#: .\templates\ministry\analytics.html:26
+msgid "Disease Distribution"
+msgstr "Kupararira kweZvirwere"
+
+#: .\templates\ministry\analytics.html:32
+msgid "Number of Cases"
+msgstr "Huwandu hweNyaya"
+
+#: .\templates\ministry\analytics.html:47
+msgid "No disease data available yet. Cases will appear here once reported."
+msgstr ""
+"Hapana ruzivo rwezvirwere parizvino. Nyaya dzichaonekwa pano kana "
+"dzareportwa."
+
+#: .\templates\ministry\analytics.html:53
+msgid "Severity Distribution"
+msgstr "Kupararira kweKukomba"
+
+#: .\templates\ministry\analytics.html:62
+msgid "No severity data"
+msgstr "Hapana ruzivo rwekukomba"
+
+#: .\templates\ministry\analytics.html:67
+msgid "Province Distribution"
+msgstr "Kupararira neMurovha"
+
+#: .\templates\ministry\analytics.html:76
+msgid "No province data"
+msgstr "Hapana ruzivo rwemurovha"
+
+#: .\templates\ministry\analytics.html:82
+#: .\templates\ministry\vet_reports.html:27
+msgid "Summary"
+msgstr "Pfupiso"
+
+#: .\templates\ministry\analytics.html:84
+#, python-format
+msgid ""
+"Recent cases (last 30 days): <strong style=\"color: #667eea;\">%(n)s</strong>"
+msgstr ""
+"Nyaya dzemazuva 30 apfuura: <strong style=\"color: #667eea;\">%(n)s</strong>"
+
+#: .\templates\ministry\base_ministry.html:127
+#: .\templates\ministry\dashboard.html:986
+msgid "Search farmers, vets, cases..."
+msgstr "Tsvaga varimi, veti, nyaya..."
+
+#: .\templates\ministry\base_ministry.html:130
+#: .\templates\ministry\dashboard.html:990
+msgid "Main Menu"
+msgstr "Menyu Huru"
+
+#: .\templates\ministry\base_ministry.html:146
+#: .\templates\ministry\tasks.html:6
+msgid "Tasks"
+msgstr "Mabasa"
+
+#: .\templates\ministry\base_ministry.html:148
+msgid "Field Management"
+msgstr "Kutarisirwa kweSango"
+
+#: .\templates\ministry\base_ministry.html:150
+msgid "Vaccine requests"
+msgstr "Zvikumbiro zvemabhakisini"
+
+#: .\templates\ministry\base_ministry.html:153
+msgid "Vet reports"
+msgstr "Mireporiti yeveti"
+
+#: .\templates\ministry\base_ministry.html:155
+#: .\templates\ministry\dashboard.html:1009
+msgid "Management"
+msgstr "Kutarisirwa"
+
+#: .\templates\ministry\base_ministry.html:157
+#: .\templates\ministry\dashboard.html:1012
+msgid "Applications"
+msgstr "Zvikumbiro"
+
+#: .\templates\ministry\base_ministry.html:163
+#: .\templates\ministry\dashboard.html:1023 .\templates\ministry\reports.html:7
+msgid "Reports"
+msgstr "Mireporiti"
+
+#: .\templates\ministry\base_ministry.html:168
+#: .\templates\ministry\base_ministry.html:205
+#: .\templates\ministry\base_ministry.html:209
+#: .\templates\ministry\dashboard.html:1031
+#: .\templates\ministry\dashboard.html:1072
+#: .\templates\ministry\dashboard.html:1078
+#: .\templates\ministry\notifications.html:7
+msgid "Notifications"
+msgstr "Ziviso"
+
+#: .\templates\ministry\base_ministry.html:171
+#: .\templates\ministry\dashboard.html:1037
+msgid "Preferences"
+msgstr "Zvido"
+
+#: .\templates\ministry\base_ministry.html:172
+#: .\templates\ministry\base_ministry.html:204
+#: .\templates\ministry\dashboard.html:1040
+#: .\templates\ministry\dashboard.html:1071
+#: .\templates\ministry\settings.html:6 .\templates\ministry\settings.html:7
+msgid "Settings"
+msgstr "Zvigadziriro"
+
+#: .\templates\ministry\base_ministry.html:188
+#: .\templates\ministry\dashboard.html:1102
+msgid "Admin"
+msgstr "Mutarisiri"
+
+#: .\templates\ministry\base_ministry.html:200
+#: .\templates\vets\vet_base.html:179
+msgid "Change language"
+msgstr "Shandura mutauro"
+
+#: .\templates\ministry\base_ministry.html:202
+msgid "Back to Dashboard"
+msgstr "Dzokera kudhashibhodi"
+
+#: .\templates\ministry\base_ministry.html:203
+#: .\templates\ministry\dashboard.html:1068
+msgid "Refresh"
+msgstr "Vandudza"
+
+#: .\templates\ministry\base_ministry.html:213
+#, python-format
+msgid "%(c)s new vet application"
+msgid_plural "%(c)s new vet applications"
+msgstr[0] "%(c)s chikumbiro chitsva cheveti"
+msgstr[1] "%(c)s zvikumbiro zvitsva zveveti"
+
+#: .\templates\ministry\base_ministry.html:219
+#, python-format
+msgid "%(c)s critical case needs attention"
+msgid_plural "%(c)s critical cases need attention"
+msgstr[0] "%(c)s nyaya inokosha inoda kutariswa"
+msgstr[1] "%(c)s nyaya dzinokosha dzinoda kutariswa"
+
+#: .\templates\ministry\base_ministry.html:225
+#: .\templates\ministry\dashboard.html:1093
+msgid "No new notifications"
+msgstr "Hapana ziviso itsva"
+
+#: .\templates\ministry\base_ministry.html:229
+#: .\templates\ministry\dashboard.html:1097
+msgid "View all notifications"
+msgstr "Ona ziviso dzose"
+
+#: .\templates\ministry\base_ministry.html:249
+msgid "Page Title"
+msgstr "Musoro wepeji"
+
+#: .\templates\ministry\cases_overview.html:5
+msgid "Cases - CattleCare AI"
+msgstr "Nyaya - CattleCare AI"
+
+#: .\templates\ministry\cases_overview.html:7
+msgid "Cases overview"
+msgstr "Ongororo yenyaya"
+
+#: .\templates\ministry\cases_overview.html:9
+msgid ""
+"Monitor and manage all reported disease cases across provinces, with quick "
+"filters for status and severity."
+msgstr ""
+"Tarisa uye batira pamwe nyaya dzose dzezvirwere dzareportwa mumapurovhinzi, "
+"uine zvinosefa zvinokurumidza zvemamiriro nekukomba."
+
+#: .\templates\ministry\cases_overview.html:16
+#, fuzzy
+#| msgid "Total cases:"
+msgid "Total cases"
+msgstr "Nyaya dzose:"
+
+#: .\templates\ministry\cases_overview.html:20
+msgid "Active / in-progress"
+msgstr "Iri kushanda / richiri kuitwa"
+
+#: .\templates\ministry\cases_overview.html:24
+#: .\templates\ministry\dashboard.html:1209
+#: .\templates\ministry\dashboard.html:1408
+msgid "Critical cases"
+msgstr "Nyaya dzinokosha"
+
+#: .\templates\ministry\cases_overview.html:28
+msgid "Resolved / closed"
+msgstr "Yakagadziriswa / yakavharwa"
+
+#: .\templates\ministry\cases_overview.html:37
+msgid "All statuses"
+msgstr "Mamiriro ose"
+
+#: .\templates\ministry\cases_overview.html:44
+msgid "Search by farmer or disease..."
+msgstr "Tsvaga nemurimi kana chirwere..."
+
+#: .\templates\ministry\cases_overview.html:48
+#: .\templates\ministry\reports.html:33
+#, fuzzy
+#| msgid "Vet Apply"
+msgid "Apply"
+msgstr "Shandisa"
+
+#: .\templates\ministry\cases_overview.html:54
+msgid "Reset filters"
+msgstr "Dzorerazve zvinosefa"
+
+#: .\templates\ministry\cases_overview.html:64
+#: .\templates\ministry\cases_overview.html:77
+#: .\templates\ministry\dashboard.html:1394
+#: .\templates\ministry\notifications.html:54
+#: .\templates\ministry\notifications.html:65
+#: .\templates\ministry\notifications.html:89
+#: .\templates\ministry\notifications.html:98
+#: .\templates\ministry\tasks.html:81 .\templates\ministry\tasks.html:92
+msgid "Case"
+msgstr "Nyaya"
+
+#: .\templates\ministry\cases_overview.html:70
+#: .\templates\ministry\tasks.html:86
+#: .\templates\ministry\vaccine_requests.html:71
+#: .\templates\vets\vaccine_requests.html:70
+msgid "Created"
+msgstr "Yakagadzirwa"
+
+#: .\templates\ministry\cases_overview.html:71
+msgid "Assigned vet"
+msgstr "Veti akapiwa"
+
+#: .\templates\ministry\cases_overview.html:79
+#: .\templates\ministry\dashboard.html:1239
+#: .\templates\ministry\dashboard.html:1640
+msgid "Unknown"
+msgstr "Haizivikanwe"
+
+#: .\templates\ministry\cases_overview.html:105
+msgid "Not assigned"
+msgstr "Haina kupihwa"
+
+#: .\templates\ministry\cases_overview.html:114
+msgid ""
+"Showing up to 200 most recent cases. Use filters above to focus on critical "
+"or unresolved work."
+msgstr ""
+"Kuratidza kusvika ku200 nyaya dzazvino. Shandisa zvinosefa zviri pamusoro "
+"kuti utarise nyaya dzinokosha kana dzisati dzagadziriswa."
+
+#: .\templates\ministry\cases_overview.html:118
+#, fuzzy
+#| msgid "No cases match this filter."
+msgid "No cases found for the current filters."
+msgstr "Hapana nyaya dzawanikwa nesefa rakasarudzwa."
+
+#: .\templates\ministry\dashboard.html:9
+msgid "Ministry Dashboard - CattleCare AI"
+msgstr "Dhashibhodi yeMinistry - CattleCare AI"
+
+#: .\templates\ministry\dashboard.html:1082
+#, python-format
+msgid "%(counter)s new vet application"
+msgid_plural "%(counter)s new vet applications"
+msgstr[0] "%(counter)s chikumbiro chitsva cheveti"
+msgstr[1] "%(counter)s zvikumbiro zvitsva zveveti"
+
+#: .\templates\ministry\dashboard.html:1088
+#, python-format
+msgid "%(counter)s critical case needs attention"
+msgid_plural "%(counter)s critical cases need attention"
+msgstr[0] "%(counter)s nyaya inokosha inoda kutariswa"
+msgstr[1] "%(counter)s nyaya dzinokosha dzinoda kutariswa"
+
+#: .\templates\ministry\dashboard.html:1126
+msgid "Total Farmers"
+msgstr "Varimi vose"
+
+#: .\templates\ministry\dashboard.html:1132
+msgid "Registered farmers"
+msgstr "Varimi vanyoreswa"
+
+#: .\templates\ministry\dashboard.html:1152
+msgid "Approved veterinarians"
+msgstr "Vadokotela vemhuka vakabvumidzwa"
+
+#: .\templates\ministry\dashboard.html:1166
+msgid "Total Cases"
+msgstr "Nyaya dzose"
+
+#: .\templates\ministry\dashboard.html:1190
+msgid "Case Forecast"
+msgstr "Kutarisa kwenyaya"
+
+#: .\templates\ministry\dashboard.html:1192
+#: .\templates\ministry\dashboard.html:1226
+msgid "Export chart"
+msgstr "Bvisa chati"
+
+#: .\templates\ministry\dashboard.html:1213
+#: .\templates\ministry\dashboard.html:1409
+msgid "Pending cases"
+msgstr "Nyaya dziri kumirira"
+
+#: .\templates\ministry\dashboard.html:1217
+#: .\templates\ministry\dashboard.html:1410
+msgid "Resolved cases"
+msgstr "Nyaya dzakabudiswa"
+
+#: .\templates\ministry\dashboard.html:1248
+msgid "No case data by province yet."
+msgstr "Hapana ruzivo rwenyaya mumurovha kusvika zvino."
+
+#: .\templates\ministry\dashboard.html:1253
+#: .\templates\ministry\notifications.html:76
+#: .\templates\vets\vet_base.html:146
+msgid "View all cases"
+msgstr "Ona nyaya dzose"
+
+#: .\templates\ministry\dashboard.html:1261
+msgid "Recent Cases"
+msgstr "Nyaya dzezvino"
+
+#: .\templates\ministry\dashboard.html:1282
+msgid "Open full cases page"
+msgstr "Vhura peji rine nyaya dzose"
+
+#: .\templates\ministry\dashboard.html:1286
+msgid "Export this table (CSV)"
+msgstr "Bvisa tafura iyi (CSV)"
+
+#: .\templates\ministry\dashboard.html:1314
+msgid "New"
+msgstr "Itsva"
+
+#: .\templates\ministry\dashboard.html:1335
+msgid "Case name"
+msgstr "Zita renyaya"
+
+#: .\templates\ministry\dashboard.html:1338
+msgid "Date created"
+msgstr "Zuva rakagadzirwa"
+
+#: .\templates\ministry\dashboard.html:1340
+#: .\templates\ministry\dashboard.html:1399
+msgid "Stage"
+msgstr "Nhanho"
+
+#: .\templates\ministry\dashboard.html:1382
+msgid "No cases reported yet."
+msgstr "Hapana nyaya dzakarondedzwa kusvika zvino."
+
+#: .\templates\ministry\dashboard.html:1389
+msgid "Chart exported successfully!"
+msgstr "Chati yabviswa zvakabudirira!"
+
+#: .\templates\ministry\dashboard.html:1390
+msgid "Refreshing dashboard data..."
+msgstr "Kuvandudza ruzivo rwadhashibhodi..."
+
+#: .\templates\ministry\dashboard.html:1391
+msgid "Dashboard refreshed successfully!"
+msgstr "Dhashibhodi yavandudza zvakabudirira!"
+
+#: .\templates\ministry\dashboard.html:1392
+msgid "Recent cases exported as CSV."
+msgstr "Nyaya dzezvino dzabviswa seCVS."
+
+#: .\templates\ministry\dashboard.html:1393
+msgid "Value:"
+msgstr "Mwero:"
+
+#: .\templates\ministry\dashboard.html:1411
+msgid "Jan"
+msgstr "Ndira"
+
+#: .\templates\ministry\dashboard.html:1412
+msgid "Feb"
+msgstr "Kukadzi"
+
+#: .\templates\ministry\dashboard.html:1413
+msgid "Mar"
+msgstr "Kurume"
+
+#: .\templates\ministry\dashboard.html:1414
+msgid "Apr"
+msgstr "Kubvumbi"
+
+#: .\templates\ministry\dashboard.html:1415
+msgid "May"
+msgstr "Chivabvu"
+
+#: .\templates\ministry\dashboard.html:1416
+msgid "Jun"
+msgstr "Chikumi"
+
+#: .\templates\ministry\dashboard.html:1417
+msgid "Jul"
+msgstr "Chikunguru"
+
+#: .\templates\ministry\dashboard.html:1418
+msgid "Aug"
+msgstr "Nyamavhuvhu"
+
+#: .\templates\ministry\dashboard.html:1419
+msgid "Sep"
+msgstr "Gunyana"
+
+#: .\templates\ministry\dashboard.html:1420
+msgid "Oct"
+msgstr "Gumiguru"
+
+#: .\templates\ministry\dashboard.html:1421
+msgid "Nov"
+msgstr "Mbudzi"
+
+#: .\templates\ministry\dashboard.html:1422
+msgid "Dec"
+msgstr "Zvita"
+
+#: .\templates\ministry\dashboard.html:1642
+msgid "No data"
+msgstr "Hapana ruzivo"
+
+#: .\templates\ministry\farmers_list.html:5
+msgid "Registered Farmers - CattleCare AI"
+msgstr "Varimi Vakanyoreswa - CattleCare AI"
+
+#: .\templates\ministry\farmers_list.html:7
+#, fuzzy
+#| msgid "Registered farmers"
+msgid "Registered Farmers"
+msgstr "Varimi vanyoreswa"
+
+#: .\templates\ministry\farmers_list.html:8
+#, python-format
+msgid "Total of %(n)s farmers registered on the platform"
+msgstr "Varimi vakanyoreswa papuratifomu: %(n)s"
+
+#: .\templates\ministry\farmers_list.html:43
+#: .\templates\ministry\notifications.html:18
+#: .\templates\ministry\vet_applications.html:45
+#: .\templates\ministry\vet_applications.html:93
+#: .\templates\ministry\vet_applications.html:121
+msgid "Name"
+msgstr "Zita"
+
+#: .\templates\ministry\farmers_list.html:48
+msgid "Herd Size"
+msgstr "Huwandu hweboka"
+
+#: .\templates\ministry\farmers_list.html:49
+#: .\templates\ministry\vets_list.html:48
+msgid "Registered"
+msgstr "Yakanyoreswa"
+
+#: .\templates\ministry\farmers_list.html:63
+msgid "Active"
+msgstr "Inoshanda"
+
+#: .\templates\ministry\farmers_list.html:71
+msgid "No farmers found. Farmers will appear here once they register."
+msgstr "Hapana varimi vawanikwa. Varimi vachaonekwa pano kana vangonyoresa."
+
+#: .\templates\ministry\notifications.html:6
+#, fuzzy
+#| msgid "Vet Registration - CattleCare AI"
+msgid "Notifications - CattleCare AI"
+msgstr "Ziviso - CattleCare AI"
+
+#: .\templates\ministry\notifications.html:8
+#, fuzzy
+#| msgid "Notifications"
+msgid "Notifications Center"
+msgstr "Nzvimbo yezviziviso"
+
+#: .\templates\ministry\notifications.html:9
+msgid "Review vet applications, critical cases, and pending items"
+msgstr "Ongorora zvikumbiro zveveti, nyaya dzinokosha, nezviri kumirira"
+
+#: .\templates\ministry\notifications.html:13
+#, fuzzy
+#| msgid "Submit Application"
+msgid "Pending Vet Applications"
+msgstr "Zvikumbiro zveveti zviri kumirira"
+
+#: .\templates\ministry\notifications.html:19
+#: .\templates\ministry\tasks.html:45
+#: .\templates\ministry\vet_applications.html:46
+#: .\templates\ministry\vet_applications.html:94
+#: .\templates\ministry\vet_applications.html:122
+#: .\templates\ministry\vets_list.html:47
+#, fuzzy
+#| msgid "License:"
+msgid "License"
+msgstr "Raizeni:"
+
+#: .\templates\ministry\notifications.html:20
+#: .\templates\ministry\vet_applications.html:47
+#: .\templates\vets\apply.html:568
+msgid "Qualification"
+msgstr "Kudzidza"
+
+#: .\templates\ministry\notifications.html:21
+#: .\templates\ministry\vet_applications.html:50
+msgid "Applied"
+msgstr "Yakaiswa"
+
+#: .\templates\ministry\notifications.html:22
+#: .\templates\ministry\notifications.html:59
+#: .\templates\vets\farmers_list.html:47
+msgid "Action"
+msgstr "Chiito"
+
+#: .\templates\ministry\notifications.html:33
+#: .\templates\ministry\vet_applications.html:72
+#, fuzzy
+#| msgid "Approved"
+msgid "Approve"
+msgstr "Bvumidza"
+
+#: .\templates\ministry\notifications.html:34
+#: .\templates\ministry\vet_applications.html:73
+#, fuzzy
+#| msgid "Rejected"
+msgid "Reject"
+msgstr "Ramba"
+
+#: .\templates\ministry\notifications.html:41
+#, fuzzy
+#| msgid "View all notifications"
+msgid "View all applications"
+msgstr "Ona zvikumbiro zvose"
+
+#: .\templates\ministry\notifications.html:44
+#, fuzzy
+#| msgid "%(c)s new vet application"
+#| msgid_plural "%(c)s new vet applications"
+msgid "No pending vet applications."
+msgstr "Hapana zvikumbiro zveveti zviri kumirira."
+
+#: .\templates\ministry\notifications.html:49
+#: .\templates\vets\dashboard.html:57
+msgid "Critical Cases"
+msgstr "Nyaya dzinokosha"
+
+#: .\templates\ministry\notifications.html:70
+#: .\templates\vets\dashboard.html:45
+msgid "View cases"
+msgstr "Ona nyaya"
+
+#: .\templates\ministry\notifications.html:79
+#, fuzzy
+#| msgid "%(c)s critical case needs attention"
+#| msgid_plural "%(c)s critical cases need attention"
+msgid "No critical cases requiring attention."
+msgstr "Hapana nyaya dzinokosha dzinoda kutariswa."
+
+#: .\templates\ministry\notifications.html:84
+#, fuzzy
+#| msgid "Recent Cases"
+msgid "Recent Pending Cases"
+msgstr "Nyaya dzichangobva kumirira"
+
+#: .\templates\ministry\notifications.html:107
+#, fuzzy
+#| msgid "Pending cases"
+msgid "No pending cases."
+msgstr "Hapana nyaya dziri kumirira."
+
+#: .\templates\ministry\reports.html:6
+#, fuzzy
+#| msgid "Farmers - CattleCare AI"
+msgid "Reports - CattleCare AI"
+msgstr "Mireporiti - CattleCare AI"
+
+#: .\templates\ministry\reports.html:8
+#, fuzzy
+#| msgid "Disease Map"
+msgid "Disease Reports"
+msgstr "Mireporiti yezvirwere"
+
+#: .\templates\ministry\reports.html:9
+msgid "Filter and view case reports"
+msgstr "Sefa uye ona mireporiti yenyaya"
+
+#: .\templates\ministry\reports.html:13
+#, fuzzy
+#| msgid "Reports"
+msgid "Filter Reports"
+msgstr "Sefa Mireporiti"
+
+#: .\templates\ministry\reports.html:18
+#, fuzzy
+#| msgid "Disease Map"
+msgid "Disease name"
+msgstr "Zita rechirwere"
+
+#: .\templates\ministry\reports.html:34
+msgid "Clear"
+msgstr "Bvisa"
+
+#: .\templates\ministry\reports.html:41
+#, fuzzy
+#| msgid "Cattle Records"
+msgid "Case Reports"
+msgstr "Mireporiti yenyaya"
+
+#: .\templates\ministry\reports.html:52 .\templates\ministry\tasks.html:121
+#: .\templates\ministry\tasks.html:166
+#: .\templates\ministry\vaccine_requests.html:22
+#: .\templates\ministry\vet_reports.html:22 .\templates\vets\vet_base.html:198
+msgid "Vet"
+msgstr "Veti"
+
+#: .\templates\ministry\reports.html:80
+#, fuzzy
+#| msgid "No cases match this filter."
+msgid "No cases found with the selected filters."
+msgstr "Hapana nyaya dzawanikwa nesefa rakasarudzwa."
+
+#: .\templates\ministry\settings.html:5
+#, fuzzy
+#| msgid "Log in - CattleCare AI"
+msgid "Settings - CattleCare AI"
+msgstr "Zvigadziriro - CattleCare AI"
+
+#: .\templates\ministry\settings.html:8
+#, fuzzy
+#| msgid "Create your account and start helping farmers."
+msgid "Manage your account and preferences"
+msgstr "Ronga account yako nezvaunoda"
+
+#: .\templates\ministry\settings.html:13
+msgid "Update your admin account information."
+msgstr "Gadzirisa ruzivo rweaccount yako yemutungamiri."
+
+#: .\templates\ministry\settings.html:18
+#, fuzzy
+#| msgid "Full Name"
+msgid "First Name"
+msgstr "Zita rokutanga"
+
+#: .\templates\ministry\settings.html:22
+#, fuzzy
+#| msgid "Last updated:"
+msgid "Last Name"
+msgstr "Zita rokupedzisira"
+
+#: .\templates\ministry\settings.html:26
+msgid "Email (for password reset)"
+msgstr "Imero (yekugadzirisa pasiwedhi)"
+
+#: .\templates\ministry\settings.html:31
+msgid "+263XXXXXXXXX"
+msgstr "+263XXXXXXXXX"
+
+#: .\templates\ministry\settings.html:35
+#, fuzzy
+#| msgid "Edit Profile"
+msgid "Save Profile"
+msgstr "Chengeta profile"
+
+#: .\templates\ministry\settings.html:41
+#, fuzzy
+#| msgid "Confirm Password"
+msgid "Change Password"
+msgstr "Chinja pasiwedhi"
+
+#: .\templates\ministry\settings.html:42
+msgid ""
+"Forgot your password? Use the reset link to receive instructions via email."
+msgstr ""
+"Wakanganwa pasiwedhi? Shandisa link yekugadzirisa kuti ugamuchire mirairo "
+"nemaimero."
+
+#: .\templates\ministry\settings.html:43
+msgid "Reset Password via Email"
+msgstr "Gadzirisa pasiwedhi nemaimero"
+
+#: .\templates\ministry\settings.html:47
+#, fuzzy
+#| msgid "Notifications"
+msgid "Notification Preferences"
+msgstr "Ziviso"
+
+#: .\templates\ministry\settings.html:48
+msgid "Manage how you receive alerts (coming soon)."
+msgstr "Ronga maitiro aunogamuchira ziviso (zvichauya munguva pfupi)."
+
+#: .\templates\ministry\settings.html:49
+msgid ""
+"Email alerts for critical cases and new vet applications will be available "
+"in a future update."
+msgstr ""
+
+#: .\templates\ministry\settings.html:53
+msgid "Appearance"
+msgstr ""
+
+#: .\templates\ministry\settings.html:54
+msgid "Theme preferences (coming soon)."
+msgstr ""
+
+#: .\templates\ministry\tasks.html:5
+#, fuzzy
+#| msgid "Farmers - CattleCare AI"
+msgid "Tasks - CattleCare AI"
+msgstr "Varimi - CattleCare AI"
+
+#: .\templates\ministry\tasks.html:7
+msgid "Action centre"
+msgstr "Nzvimbo yemabasa"
+
+#: .\templates\ministry\tasks.html:9
+msgid ""
+"See everything that needs the Ministry's attention right now – vet "
+"applications, critical cases, vaccine requests and unread vet reports."
+msgstr "Ona zvese zvinoda kutariswa neMinistry izvozvi – zvikumbiro zveveti, nyaya dzinokosha, zvikumbiro zvemabhakisini, nemireporiti yeveti isina kuverengwa."
+
+#: .\templates\ministry\tasks.html:16
+msgid "Pending vet applications"
+msgstr "Zvikumbiro zveveti zviri kumirira"
+
+#: .\templates\ministry\tasks.html:20
+msgid "Critical / high‑risk cases"
+msgstr "Nyaya dzinokosha / dzine njodzi"
+
+#: .\templates\ministry\tasks.html:24
+msgid "Open vaccine requests"
+msgstr "Zvikumbiro zvemabhakisini zvakavhurika"
+
+#: .\templates\ministry\tasks.html:28 .\templates\ministry\tasks.html:155
+msgid "Unread vet area reports"
+msgstr "Mireporiti yenzvimbo dzeveti dzisina kuverengwa"
+
+#: .\templates\ministry\tasks.html:34
+msgid "Vet applications awaiting decision"
+msgstr "Zvikumbiro zveveti zviri kumirira sarudzo"
+
+#: .\templates\ministry\tasks.html:36
+msgid "Open full applications view"
+msgstr "Vhura maapplication ose"
+
+#: .\templates\ministry\tasks.html:44
+msgid "Applicant"
+msgstr "Munyoreri"
+
+#: .\templates\ministry\tasks.html:46
+msgid "Province(s)"
+msgstr "Mapurovhinzi"
+
+#: .\templates\ministry\tasks.html:47
+#: .\templates\ministry\vet_applications.html:48
+#: .\templates\ministry\vets_list.html:46
+msgid "Experience"
+msgstr "Ruzivo"
+
+#: .\templates\ministry\tasks.html:48 .\templates\ministry\tasks.html:169
+#: .\templates\ministry\vet_reports.html:74
+#: .\templates\vets\area_reports.html:79 .\vets\models.py:220
+msgid "Submitted"
+msgstr "Yatumirwa"
+
+#: .\templates\ministry\tasks.html:57
+#: .\templates\ministry\vet_applications.html:60
+#: .\templates\ministry\vets_list.html:70
+#: .\templates\vets\application_success.html:527
+#: .\templates\vets\register.html:593
+#, python-format
+msgid "%(y)s years"
+msgstr "%(y)s makore"
+
+#: .\templates\ministry\tasks.html:65
+msgid "No pending vet applications – you are up to date here."
+msgstr "Hapana zvikumbiro zveveti zviri kumirira — makarurama pano."
+
+#: .\templates\ministry\tasks.html:71
+msgid "Critical and high‑risk cases"
+msgstr "Nyaya dzinokosha uye dzine njodzi"
+
+#: .\templates\ministry\tasks.html:73
+msgid "View all critical cases"
+msgstr "Ona nyaya dzinokosha dzose"
+
+#: .\templates\ministry\tasks.html:104
+#, fuzzy
+#| msgid "%(c)s critical case needs attention"
+#| msgid_plural "%(c)s critical cases need attention"
+msgid "No outstanding critical cases right now."
+msgstr "Hapana nyaya dzinokosha dzinoda kutariswa."
+
+#: .\templates\ministry\tasks.html:110
+msgid "Vaccine and stock requests"
+msgstr "Zvikumbiro zvemabhakisini nemishonga"
+
+#: .\templates\ministry\tasks.html:112
+msgid "Manage vaccine requests"
+msgstr "Tarisira zvikumbiro zvemabhakisini"
+
+#: .\templates\ministry\tasks.html:120 .\templates\ministry\tasks.html:165
+#: .\templates\ministry\vaccine_requests.html:23
+#: .\templates\ministry\vet_reports.html:23
+#: .\templates\vets\area_reports.html:74
+#: .\templates\vets\vaccine_requests.html:64 .\vets\forms.py:229
+#: .\vets\forms.py:263
+msgid "Title"
+msgstr "Musoro"
+
+#: .\templates\ministry\tasks.html:122
+#: .\templates\ministry\vaccine_requests.html:24
+#: .\templates\vets\vaccine_requests.html:65
+msgid "Product"
+msgstr "Chigadzirwa"
+
+#: .\templates\ministry\tasks.html:123
+msgid "Quantity"
+msgstr "Huwandu"
+
+#: .\templates\ministry\tasks.html:124
+#: .\templates\ministry\vaccine_requests.html:26
+#: .\templates\vets\vaccine_requests.html:67 .\vets\forms.py:232
+msgid "Priority"
+msgstr "Kukurumidza"
+
+#: .\templates\ministry\tasks.html:132 .\templates\ministry\tasks.html:176
+#: .\templates\ministry\vaccine_requests.html:36
+#: .\templates\ministry\vet_reports.html:35
+#: .\templates\ministry\vets_list.html:56
+msgid "Dr."
+msgstr "Dr."
+
+#: .\templates\ministry\tasks.html:137 .\vets\models.py:174
+msgid "Urgent"
+msgstr "Nekukurumidza"
+
+#: .\templates\ministry\tasks.html:139 .\vets\models.py:173
+msgid "Normal"
+msgstr "Zvakajairika"
+
+#: .\templates\ministry\tasks.html:149
+msgid "No open vaccine or stock requests at the moment."
+msgstr "Hapana zvikumbiro zvemabhakisini kana mishonga zvakavhurika parizvino."
+
+#: .\templates\ministry\tasks.html:157
+msgid "View all vet reports"
+msgstr "Ona mireporiti yeveti yose"
+
+#: .\templates\ministry\tasks.html:168 .\templates\ministry\vet_reports.html:25
+#: .\templates\vets\area_reports.html:76
+msgid "Period"
+msgstr "Nguva"
+
+#: .\templates\ministry\tasks.html:182
+msgid "Not specified"
+msgstr "Hazvina kutsanangurwa"
+
+#: .\templates\ministry\tasks.html:192
+msgid "No unread vet area reports – all reports have been opened."
+msgstr "Hapana mireporiti yenzvimbo dzeveti isina kuverengwa — mireporiti yose yavhurwa."
+
+#: .\templates\ministry\vaccine_requests.html:4
+#, fuzzy
+#| msgid "Vaccine Requests - CattleCare AI"
+msgid "Vaccine Requests - CattleCare AI Admin"
+msgstr "Zvikumbiro zvemabhakisini - CattleCare AI"
+
+#: .\templates\ministry\vaccine_requests.html:5
+#, fuzzy
+#| msgid "Vaccine requests"
+msgid "Vaccine Requests"
+msgstr "Zvikumbiro zvemabhakisini"
+
+#: .\templates\ministry\vaccine_requests.html:6
+#, fuzzy
+#| msgid "Request vaccines & medical stock"
+msgid "Vaccine & medical stock requests"
+msgstr "Kumbira mabhakisini nemishonga"
+
+#: .\templates\ministry\vaccine_requests.html:7
+msgid "Review requests from vets and record your response / decision."
+msgstr ""
+
+#: .\templates\ministry\vaccine_requests.html:12
+#, fuzzy
+#| msgid "Vaccine requests"
+msgid "Incoming requests"
+msgstr "Zvikumbiro zvemabhakisini"
+
+#: .\templates\ministry\vaccine_requests.html:14
+#, fuzzy, python-format
+#| msgid "Total %(t)s"
+msgid "Total %(c)s request"
+msgid_plural "Total %(c)s requests"
+msgstr[0] "Zvose %(t)s"
+msgstr[1] "Zvose %(t)s"
+
+#: .\templates\ministry\vaccine_requests.html:25
+#: .\templates\vets\vaccine_requests.html:66
+msgid "Qty"
+msgstr "Huwandu"
+
+#: .\templates\ministry\vaccine_requests.html:28
+#: .\templates\ministry\vet_reports.html:28
+#, fuzzy
+#| msgid "Responded"
+msgid "Response"
+msgstr "Yapindurwa"
+
+#: .\templates\ministry\vaccine_requests.html:29
+#: .\templates\ministry\vet_applications.html:51
+#: .\templates\vets\dashboard.html:203
+msgid "Actions"
+msgstr "Zviito"
+
+#: .\templates\ministry\vaccine_requests.html:54
+#: .\templates\vets\area_reports.html:109
+#: .\templates\vets\vaccine_requests.html:99
+msgid "No response yet"
+msgstr "Hapana mhinduro kusvika zvino"
+
+#: .\templates\ministry\vaccine_requests.html:66
+msgid "Type/update your response..."
+msgstr ""
+
+#: .\templates\ministry\vaccine_requests.html:68
+#, fuzzy
+#| msgid "No response yet"
+msgid "Save response"
+msgstr "Hapana mhinduro kusvika zvino"
+
+#: .\templates\ministry\vaccine_requests.html:71
+#, fuzzy
+#| msgid "Last updated:"
+msgid "last updated"
+msgstr "Yakachinjiwa panaguru:"
+
+#: .\templates\ministry\vaccine_requests.html:81
+#, fuzzy
+#| msgid "No cases assigned yet."
+msgid "No vaccine requests have been submitted yet."
+msgstr "Hapana nyaya dzakaiswa kusvika zvino."
+
+#: .\templates\ministry\vet_applications.html:5
+#, fuzzy
+#| msgid "Veterinarian Application - CattleCare AI"
+msgid "Vet Applications - CattleCare AI"
+msgstr "Chikumbiro cheDokotela weMhuka - CattleCare AI"
+
+#: .\templates\ministry\vet_applications.html:6
+#, fuzzy
+#| msgid "Applications"
+msgid "Vet Applications"
+msgstr "Zvikumbiro"
+
+#: .\templates\ministry\vet_applications.html:7
+#, fuzzy
+#| msgid "Veterinarian Application"
+msgid "Veterinary Doctor Applications"
+msgstr "Chikumbiro cheDokotela weMhuka"
+
+#: .\templates\ministry\vet_applications.html:8
+#, fuzzy
+#| msgid "Veterinarian Application"
+msgid "Review and manage veterinarian applications"
+msgstr "Chikumbiro cheDokotela weMhuka"
+
+#: .\templates\ministry\vet_applications.html:31
+#: .\templates\ministry\vet_applications.html:105 .\vets\models.py:179
+msgid "Approved"
+msgstr "Yabvumidzwa"
+
+#: .\templates\ministry\vet_applications.html:34 .\vets\models.py:181
+msgid "Rejected"
+msgstr "Yarambwa"
+
+#: .\templates\ministry\vet_applications.html:49
+#, fuzzy
+#| msgid "Province"
+msgid "Provinces"
+msgstr "Murovha"
+
+#: .\templates\ministry\vet_applications.html:66
+#: .\templates\ministry\vets_list.html:67
+msgid "N/A"
+msgstr ""
+
+#: .\templates\ministry\vet_applications.html:82
+#, fuzzy
+#| msgid "%(c)s new vet application"
+#| msgid_plural "%(c)s new vet applications"
+msgid "No pending applications. All caught up!"
+msgstr "Hapana zvikumbiro zveveti zviri kumirira."
+
+#: .\templates\ministry\vet_applications.html:95
+#, fuzzy
+#| msgid "Approved"
+msgid "Approved Date"
+msgstr "Yabvumidzwa"
+
+#: .\templates\ministry\vet_applications.html:111
+#, fuzzy
+#| msgid "%(c)s new vet application"
+#| msgid_plural "%(c)s new vet applications"
+msgid "No approved applications yet."
+msgstr "Hapana zvikumbiro zveveti zviri kumirira."
+
+#: .\templates\ministry\vet_applications.html:123
+#, fuzzy
+#| msgid "Rejected"
+msgid "Rejected Date"
+msgstr "Yarambwa"
+
+#: .\templates\ministry\vet_applications.html:124
+#, fuzzy
+#| msgid "Reason:"
+msgid "Reason"
+msgstr "Chikonzero:"
+
+#: .\templates\ministry\vet_applications.html:139
+#, fuzzy
+#| msgid "%(c)s new vet application"
+#| msgid_plural "%(c)s new vet applications"
+msgid "No rejected applications."
+msgstr "Hapana zvikumbiro zveveti zviri kumirira."
+
+#: .\templates\ministry\vet_reports.html:4
+msgid "Vet Reports - CattleCare AI Admin"
+msgstr "Mireporiti yeVeti - CattleCare AI Admin"
+
+#: .\templates\ministry\vet_reports.html:5
+msgid "Vet Area Reports"
+msgstr "Mireporiti yeNzvimbo dzeVeti"
+
+#: .\templates\ministry\vet_reports.html:6
+msgid "Reports from field veterinarians"
+msgstr "Mireporiti kubva kuveti vemumunda"
+
+#: .\templates\ministry\vet_reports.html:7
+msgid ""
+"Review narrative reports and respond with guidance or follow-up actions."
+msgstr "Tarisa mireporiti yakanyorwa uye pindura nemazano kana zviito zvekutevera."
+
+#: .\templates\ministry\vet_reports.html:12
+msgid "Submitted reports"
+msgstr "Mireporiti yatumirwa"
+
+#: .\templates\ministry\vet_reports.html:14
+#, python-format
+msgid "Total %(c)s report"
+msgid_plural "Total %(c)s reports"
+msgstr[0] "Zvose %(c)s reporiti"
+msgstr[1] "Zvose %(c)s mireporiti"
+
+#: .\templates\ministry\vet_reports.html:24
+#: .\templates\vets\area_reports.html:75
+msgid "Area"
+msgstr "Nzvimbo"
+
+#: .\templates\ministry\vet_reports.html:69
+msgid "Type/update your response or follow-up actions..."
+msgstr "Nyora/gadzirisa mhinduro yako kana zviito zvekutevera..."
+
+#: .\templates\ministry\vet_reports.html:71
+msgid "Save Ministry response"
+msgstr "Chengeta mhinduro yeMinistry"
+
+#: .\templates\ministry\vet_reports.html:74
+msgid "responded"
+msgstr "yapindurwa"
+
+#: .\templates\ministry\vet_reports.html:84
+msgid "No reports have been submitted yet."
+msgstr "Hapana mireporiti yatumirwa kusvika zvino."
+
+#: .\templates\ministry\vets_list.html:5
+#, fuzzy
+#| msgid "Veterinarian Application - CattleCare AI"
+msgid "Veterinarians - CattleCare AI"
+msgstr "Chikumbiro cheDokotela weMhuka - CattleCare AI"
+
+#: .\templates\ministry\vets_list.html:7
+#, fuzzy
+#| msgid "Approved veterinarians"
+msgid "Approved Veterinarians"
+msgstr "Vadokotela vemhuka vakabvumidzwa"
+
+#: .\templates\ministry\vets_list.html:8
+#, python-format
+msgid "Total of %(n)s approved veterinarians on the platform"
+msgstr ""
+
+#: .\templates\ministry\vets_list.html:43
+#, fuzzy
+#| msgid "Professional Credentials"
+msgid "Name & Credentials"
+msgstr "Zviziviso zveprofession"
+
+#: .\templates\ministry\vets_list.html:45
+#, fuzzy
+#| msgid "Province to Serve"
+msgid "Provinces Served"
+msgstr "Murovha wekushandira"
+
+#: .\templates\ministry\vets_list.html:73
+#, fuzzy
+#| msgid "Verified Vets"
+msgid "Verified"
+msgstr "Veti Vakasimbiswa"
+
+#: .\templates\ministry\vets_list.html:81
+msgid "No veterinarians found. Approved vets will appear here."
+msgstr ""
+
+#: .\templates\partials\lang_switch_fixed.html:6
+msgid "Language"
+msgstr "Mutauro"
+
+#: .\templates\vets\application_success.html:5
+msgid "Application Submitted Successfully"
+msgstr "Chikumbiro Chatumirwa Zvakabudirira"
+
+#: .\templates\vets\application_success.html:458
+msgid "Application Submitted Successfully!"
+msgstr "Chikumbiro Chatumirwa Zvakabudirira!"
+
+#: .\templates\vets\application_success.html:459
+msgid "Your veterinary application is now under review"
+msgstr "Chikumbiro chako chedokotela wemhuka chiri kuongorora iye zvino"
+
+#: .\templates\vets\application_success.html:464
+#, python-format
+msgid "Thank you, Dr. %(n)s!"
+msgstr "Tinotenda, Dkt. %(n)s!"
+
+#: .\templates\vets\application_success.html:465
+msgid ""
+"Your application has been received and is being processed by the Ministry."
+msgstr "Chikumbiro chako chagashirwa uye chinoitwa neMinistry."
+
+#: .\templates\vets\application_success.html:470
+msgid "IMPORTANT"
+msgstr "KUKOSHA"
+
+#: .\templates\vets\application_success.html:471
+msgid ""
+"Save this Application ID now. You'll need it to track your status and "
+"register when approved."
+msgstr ""
+"Chengetedza Nambari yeChikumbiro ino iye zvino. Uchaida kutevedzera mamiriro "
+"ako uye kunyoresa kana wakabvumidzwa."
+
+#: .\templates\vets\application_success.html:474
+msgid "Your Application ID"
+msgstr "Nambari yeChikumbiro chako"
+
+#: .\templates\vets\application_success.html:475
+msgid "Click to select"
+msgstr "Dzvanya kusarudza"
+
+#: .\templates\vets\application_success.html:479
+msgid "Copy ID"
+msgstr "Kopisha Nambari"
+
+#: .\templates\vets\application_success.html:482
+msgid "Print Page"
+msgstr "Dhinda Peji"
+
+#: .\templates\vets\application_success.html:485
+msgid "Download"
+msgstr "Dhauniroda"
+
+#: .\templates\vets\application_success.html:490
+msgid "Ways to save"
+msgstr "Nzira dzekuchengetedza"
+
+#: .\templates\vets\application_success.html:491
+msgid ""
+"Screenshot this page · Write it down · Copy to notes · Email yourself · Save "
+"as contact"
+msgstr ""
+"Fota peji iri · Nyora pasi · Kopisha kuma nota · Zvitumira imero · "
+"Chengetedza sehama"
+
+#: .\templates\vets\application_success.html:496
+msgid "Please save this information"
+msgstr "Ndokumbira uchengetedze ruzivo urwu"
+
+#: .\templates\vets\application_success.html:498
+msgid "Application ID:"
+msgstr "Nambari yeChikumbiro:"
+
+#: .\templates\vets\application_success.html:499
+msgid "Use this ID to track your application status"
+msgstr "Shandisa nambari iyi kutevedzera mamiriro echikumbiro chako"
+
+#: .\templates\vets\application_success.html:500
+msgid "Take a screenshot or write it down in a safe place"
+msgstr "Fota kana unyore munzvimbo yakachengeteka"
+
+#: .\templates\vets\application_success.html:501
+msgid "Review typically takes 3–5 business days"
+msgstr "Kuongorora kazhinji kunotora mazuva 3–5 ebhizimisi"
+
+#: .\templates\vets\application_success.html:508
+msgid "What happens next?"
+msgstr "Chii chinoitika zvinotevera?"
+
+#: .\templates\vets\application_success.html:510
+msgid "Review:"
+msgstr "Kuongorora:"
+
+#: .\templates\vets\application_success.html:510
+msgid "The Ministry of Agriculture will review your application."
+msgstr "Munisitiri weZembe achaongorora chikumbiro chako."
+
+#: .\templates\vets\application_success.html:511
+msgid "Track:"
+msgstr "Tevedzera:"
+
+#: .\templates\vets\application_success.html:511
+msgid "Use your Application ID to check status anytime."
+msgstr "Shandisa Nambari yeChikumbiro kutarisa mamiriro nguva dzose."
+
+#: .\templates\vets\application_success.html:512
+msgid "Approval:"
+msgstr "Mvumo:"
+
+#: .\templates\vets\application_success.html:512
+msgid "If approved, you can complete registration."
+msgstr "Kana wakabvumidzwa, unogona kupedza kunyoresa."
+
+#: .\templates\vets\application_success.html:513
+msgid "Register:"
+msgstr "Nyoresa:"
+
+#: .\templates\vets\application_success.html:513
+msgid "Create your account and start helping farmers."
+msgstr "Gadzira account yako uye utange kubatsira varimi."
+
+#: .\templates\vets\application_success.html:518
+msgid "Application details submitted"
+msgstr "Ruzivo rwechikumbiro rwatumirwa"
+
+#: .\templates\vets\application_success.html:521
+#: .\templates\vets\register.html:581
+msgid "Name:"
+msgstr "Zita:"
+
+#: .\templates\vets\application_success.html:523
+msgid "Phone:"
+msgstr "Foni:"
+
+#: .\templates\vets\application_success.html:526
+#: .\templates\vets\register.html:585
+msgid "License:"
+msgstr "Raizeni:"
+
+#: .\templates\vets\application_success.html:527
+#: .\templates\vets\register.html:593
+msgid "Experience:"
+msgstr "Ruzivo:"
+
+#: .\templates\vets\application_success.html:528
+msgid "Status:"
+msgstr "Mamiriro:"
+
+#: .\templates\vets\application_success.html:528
+msgid "PENDING"
+msgstr "KUMIRIRA"
+
+#: .\templates\vets\application_success.html:537
+msgid "Track my application"
+msgstr "Tevedzera chikumbiro changu"
+
+#: .\templates\vets\application_success.html:541
+msgid "How to save my ID?"
+msgstr "Nzira yekuchengetedza Nambari yangu?"
+
+#: .\templates\vets\application_success.html:545
+msgid "Back to home"
+msgstr "Dzokera kumba"
+
+#: .\templates\vets\apply.html:5
+msgid "Veterinarian Application - CattleCare AI"
+msgstr "Chikumbiro cheDokotela weMhuka - CattleCare AI"
+
+#: .\templates\vets\apply.html:444
+msgid ""
+"Register now and help farmers across Zimbabwe with professional veterinary "
+"services"
+msgstr ""
+"Nyoresa iye zvino ubatsire varimi muZimbabwe nesevhisi dzeprofession "
+"dzedokotela wemhuka"
+
+#: .\templates\vets\apply.html:449
+msgid "Expand your practice to rural communities"
+msgstr "Kuwedzera practice yako kunharaunda dzemaruwa"
+
+#: .\templates\vets\apply.html:453
+msgid "Get paid for professional consultations"
+msgstr "Bhadhara kubvunzana kweprofession"
+
+#: .\templates\vets\apply.html:457
+msgid "Provide remote veterinary services"
+msgstr "Ipa sevhisi dzedokotela wemhuka kure"
+
+#: .\templates\vets\apply.html:469
+msgid "Join Zimbabwe's leading livestock platform"
+msgstr "Joina ndima huru yemhuka yeZimbabwe"
+
+#: .\templates\vets\apply.html:479
+msgid "Veterinarian Application"
+msgstr "Chikumbiro cheDokotela weMhuka"
+
+#: .\templates\vets\apply.html:480
+msgid "Fill in your details to join our network"
+msgstr "Isa ruzivo rwako kujoinisa netiweki yedu"
+
+#: .\templates\vets\apply.html:491
+msgid "Professional"
+msgstr "Veuprofession"
+
+#: .\templates\vets\apply.html:538 .\templates\vets\register.html:683
+msgid "Email Address"
+msgstr "Kero yeImero"
+
+#: .\templates\vets\apply.html:550
+msgid "Professional Credentials"
+msgstr "Zviziviso zveprofession"
+
+#: .\templates\vets\apply.html:555 .\templates\vets\track_application.html:647
+msgid "License Number"
+msgstr "Nambari yeRaizeni"
+
+#: .\templates\vets\apply.html:581
+msgid "Years of Experience"
+msgstr "Makore eRuzivo"
+
+#: .\templates\vets\apply.html:591
+msgid "Province to Serve"
+msgstr "Murovha wekushandira"
+
+#: .\templates\vets\apply.html:606
+msgid "GPS Coordinates (Optional)"
+msgstr "GPS Coordinates (Kwete Kumanikidzwa)"
+
+#: .\templates\vets\apply.html:611 .\templates\vets\register.html:746
+msgid "Latitude"
+msgstr "Latitude"
+
+#: .\templates\vets\apply.html:621 .\templates\vets\register.html:754
+msgid "Longitude"
+msgstr "Longitude"
+
+#: .\templates\vets\apply.html:639
+msgid "Submit Application"
+msgstr "Tumira Chikumbiro"
+
+#: .\templates\vets\apply.html:643
+msgid "Already registered?"
+msgstr "Wanyoreswa kare?"
+
+#: .\templates\vets\apply.html:644
+msgid "Track existing application"
+msgstr "Tevedzera chikumbiro chiripo"
+
+#: .\templates\vets\area_reports.html:5
+msgid "Area Reports to Ministry - CattleCare AI"
+msgstr "Mireporiti yendunhu kuMinistry - CattleCare AI"
+
+#: .\templates\vets\area_reports.html:10
+msgid "Reports to Ministry"
+msgstr "Mireporiti kuMinistry"
+
+#: .\templates\vets\area_reports.html:12
+msgid ""
+"Share situation reports about disease patterns, challenges, and general "
+"suggestions for your area."
+msgstr ""
+"Goverana mamiriro ezvirwere, zvinopikisa, uye mazano pamusoro pendunhu rako."
+
+#: .\templates\vets\area_reports.html:23
+msgid "New area / situation report"
+msgstr "Ripoti itsva yendunhu / mamiriro"
+
+#: .\templates\vets\area_reports.html:58
+msgid "Send report to Ministry"
+msgstr "Tumira ripoti kuMinistry"
+
+#: .\templates\vets\area_reports.html:67
+msgid "Your submitted reports"
+msgstr "Mireporiti yako yatumirwa"
+
+#: .\templates\vets\area_reports.html:78
+#: .\templates\vets\vaccine_requests.html:69
+msgid "Ministry response"
+msgstr "Mhinduro yeMinistry"
+
+#: .\templates\vets\area_reports.html:119
+msgid "You have not submitted any reports yet."
+msgstr "Hapana mireporiti yatumirwa kusvika zvino."
+
+#: .\templates\vets\dashboard.html:6
+msgid "Vet Dashboard - CattleCare AI"
+msgstr "Dhashibhodi yeveti - CattleCare AI"
+
+#: .\templates\vets\dashboard.html:13
+msgid "Welcome back to CattleCare AI."
+msgstr "Wauya zvakare kuCattleCare AI."
+
+#: .\templates\vets\dashboard.html:27
+msgid "Export"
+msgstr "Bvisa"
+
+#: .\templates\vets\dashboard.html:28
+msgid "View All Cases"
+msgstr "Ona Nyaya dzose"
+
+#: .\templates\vets\dashboard.html:36
+msgid "Farmers Assigned"
+msgstr "Varimi vakaiswa"
+
+#: .\templates\vets\dashboard.html:38
+msgid "View farmers"
+msgstr "Ona varimi"
+
+#: .\templates\vets\dashboard.html:43
+msgid "Total Cases Solved"
+msgstr "Nyaya dzose dzakabudiswa"
+
+#: .\templates\vets\dashboard.html:50
+msgid "Total Cases Assigned"
+msgstr "Nyaya dzose dzakaiswa"
+
+#: .\templates\vets\dashboard.html:52
+msgid "All time"
+msgstr "Nguva yose"
+
+#: .\templates\vets\dashboard.html:59
+msgid "Requires attention"
+msgstr "Inoda kutariswa"
+
+#: .\templates\vets\dashboard.html:59
+msgid "None pending"
+msgstr "Hapana iri kumirira"
+
+#: .\templates\vets\dashboard.html:69
+msgid "Case Statistics"
+msgstr "Zvinyorwa zvenyaya"
+
+#: .\templates\vets\dashboard.html:77
+msgid "Assigned / Pending:"
+msgstr "Dzakaiswa / Dziri kumirira:"
+
+#: .\templates\vets\dashboard.html:81
+msgid "In progress:"
+msgstr "Iri kuitwa:"
+
+#: .\templates\vets\dashboard.html:85 .\templates\vets\help_center.html:21
+msgid "Resolved / Closed:"
+msgstr "Yakabudiswa / Yakavharwa:"
+
+#: .\templates\vets\dashboard.html:88 .\templates\vets\help_center.html:20
+msgid "Total cases:"
+msgstr "Nyaya dzose:"
+
+#: .\templates\vets\dashboard.html:97
+msgid "Cases by Disease Type"
+msgstr "Nyaya nerudzi rwechirwere"
+
+#: .\templates\vets\dashboard.html:104
+#, python-format
+msgid "Total %(t)s"
+msgstr "Zvose %(t)s"
+
+#: .\templates\vets\dashboard.html:125
+msgid "Top Diagnoses"
+msgstr "Zvipenhendo zviripamusoro"
+
+#: .\templates\vets\dashboard.html:139 .\templates\vets\farmers_list.html:35
+#, python-format
+msgid "%(c)s case"
+msgid_plural "%(c)s cases"
+msgstr[0] "%(c)s nyaya"
+msgstr[1] "%(c)s nyaya"
+
+#: .\templates\vets\dashboard.html:142
+msgid "No diagnoses yet"
+msgstr "Hapana kurondedzwa kusvika zvino"
+
+#: .\templates\vets\dashboard.html:150
+msgid "Farmers Under Care"
+msgstr "Varimi vari pakuchengetwa"
+
+#: .\templates\vets\dashboard.html:151
+msgid "View All"
+msgstr "Ona zvose"
+
+#: .\templates\vets\dashboard.html:165
+msgid "No farmers assigned yet"
+msgstr "Hapana varimi vakaiswa kusvika zvino"
+
+#: .\templates\vets\dashboard.html:173
+msgid "Resolution Rate"
+msgstr "Mwero wekubudisa"
+
+#: .\templates\vets\dashboard.html:178
+#, python-format
+msgid ""
+"This month: <strong>%(r)s</strong> of <strong>%(counter)s</strong> case "
+"resolved (%(p)s%%)."
+msgid_plural ""
+"This month: <strong>%(r)s</strong> of <strong>%(counter)s</strong> cases "
+"resolved (%(p)s%%)."
+msgstr[0] ""
+"Mwedzi uno: <strong>%(r)s</strong> kubva ku<strong>%(counter)s</strong> "
+"nyaya yakabudiswa (%(p)s%%)."
+msgstr[1] ""
+"Mwedzi uno: <strong>%(r)s</strong> kubva ku<strong>%(counter)s</strong> "
+"nyaya dzakabudiswa (%(p)s%%)."
+
+#: .\templates\vets\dashboard.html:183
+msgid ""
+"Your resolution rate reflects the percentage of cases you have successfully "
+"diagnosed and closed. Keep up the great work!"
+msgstr ""
+"Mwero wekubudisa wako unoratidza muzana wenyaya dzakabvumidzwa uye "
+"dzakavharwa newe. Ramba uchishandira!"
+
+#: .\templates\vets\dashboard.html:191
+msgid "Assigned Cases"
+msgstr "Nyaya dzakaiswa"
+
+#: .\templates\vets\dashboard.html:233
+msgid "No cases assigned yet."
+msgstr "Hapana nyaya dzakaiswa kusvika zvino."
+
+#: .\templates\vets\dashboard.html:234
+msgid "Cases will appear here once farmers assign you from your region."
+msgstr "Nyaya dzichazviratidza pano kana varimi vakakuisa kubva mundunhu yako."
+
+#: .\templates\vets\dashboard.html:241
+msgid "New cases per day"
+msgstr "Nyaya itsva pazuva"
+
+#: .\templates\vets\dashboard.html:244
+#, python-format
+msgid "Resolution %%"
+msgstr "Mwero %%"
+
+#: .\templates\vets\farmers_list.html:6
+msgid "Farmers - CattleCare AI"
+msgstr "Varimi - CattleCare AI"
+
+#: .\templates\vets\farmers_list.html:10
+msgid "Farmers Assigned to You"
+msgstr "Varimi vakaiswa kwauri"
+
+#: .\templates\vets\farmers_list.html:11
+msgid "Farmers who have cases assigned to you and their case history"
+msgstr "Varimi vane nyaya dzakaiswa kwauri uye nhoroondo yavo yenyaya."
+
+#: .\templates\vets\farmers_list.html:17
+msgid "Total Farmers Assigned"
+msgstr "Varimi vese vakaiswa"
+
+#: .\templates\vets\farmers_list.html:31
+msgid "cattle"
+msgstr "mombe"
+
+#: .\templates\vets\farmers_list.html:36
+#, python-format
+msgid "%(rc)s resolved"
+msgstr "%(rc)s dzakabudiswa"
+
+#: .\templates\vets\farmers_list.html:79
+msgid "No farmers assigned to you yet."
+msgstr "Hapana varimi vakaiswa kwauri kusvika zvino."
+
+#: .\templates\vets\farmers_list.html:80
+msgid ""
+"Farmers will appear here when they assign cases to you from their region."
+msgstr "Varimi vanozviratidza pano vakaisa nyaya kwauri kubva mundunhu ravo."
+
+#: .\templates\vets\help_center.html:5
+msgid "Vet Help Center - CattleCare AI"
+msgstr "Nzvimbo yebatsiro yeveti - CattleCare AI"
+
+#: .\templates\vets\help_center.html:10
+msgid "Vet Help Center"
+msgstr "Nzvimbo yebatsiro yeveti"
+
+#: .\templates\vets\help_center.html:12
+msgid ""
+"Short guide for vet doctors on how to use the CattleCare AI dashboard, "
+"manage cases, and communicate with the Ministry."
+msgstr ""
+"Mududziro pfupi kune madokotera emhuka pamusoro pekushandisa dhashibhodi "
+"yeCattleCare AI, kugadzirisa nyaya, uye kutaurirana neMinistry."
+
+#: .\templates\vets\help_center.html:18
+msgid "Your quick stats"
+msgstr "Nhamba dzako dzekukurumidza"
+
+#: .\templates\vets\help_center.html:22
+msgid "Open (Assigned + In progress):"
+msgstr "Dzakavhurika (Dzakaiswa + Kuri kufambwa):"
+
+#: .\templates\vets\help_center.html:31
+msgid "1. Understanding your vet dashboard"
+msgstr "1. Kunzwisisa dhashibhodi yako yeveti"
+
+#: .\templates\vets\help_center.html:34
+msgid "Header bar (top of the page)"
+msgstr "Guha repamusoro (pamusoro pepeji)"
+
+#: .\templates\vets\help_center.html:36
+msgid ""
+"<strong>Date range &amp; new cases graph</strong>: shows when new cases were "
+"received. Blue points = days with at least one new case."
+msgstr ""
+"<strong>Nguva nemachati enyaya itsva</strong>: zvinoratidza nguva nyaya "
+"dzakagamuchirwa. Mabhwe aneulu = mazuva ane nyaya itsva kana imwe chete."
+
+#: .\templates\vets\help_center.html:37
+msgid ""
+"<strong>View all cases</strong>: opens the full list of cases assigned to "
+"you, grouped by status."
+msgstr ""
+"<strong>Ona nyaya dzose</strong>: inovhura rondedzero rwose rwenyaya "
+"dzakaiswa kwauri, dzakapindwa nemamiriro."
+
+#: .\templates\vets\help_center.html:38
+msgid ""
+"<strong>Export</strong>: downloads all your cases as a CSV file that you can "
+"open in Excel."
+msgstr ""
+"<strong>Bvisa</strong>: inobvisa nyaya dzako dzose sefaira yeCSV inogona "
+"kuvhurwa muExcel."
+
+#: .\templates\vets\help_center.html:41
+msgid "Key cards (top of dashboard)"
+msgstr "Makadhi akakosha (pamusoro pedhashibhodi)"
+
+#: .\templates\vets\help_center.html:43
+msgid ""
+"<strong>Farmers Assigned</strong>: number of unique farmers you have served. "
+"Click “View farmers” to see recent farmers and their cases."
+msgstr ""
+"<strong>Varimi vakaiswa</strong>: nhamba yevarimi vakasiyana vawakabatsira. "
+"Dzvanya “Ona varimi” kuona varimi vavapfuura uye nyaya dzavo."
+
+#: .\templates\vets\help_center.html:44
+msgid ""
+"<strong>Total Cases Solved</strong>: all cases you have resolved or closed."
+msgstr ""
+"<strong>Nyaya dzose dzakabudiswa</strong>: nyaya dzose dzawakabudisa kana "
+"kuvhara."
+
+#: .\templates\vets\help_center.html:45
+msgid ""
+"<strong>Total Cases Assigned</strong>: all cases that were ever assigned to "
+"you."
+msgstr ""
+"<strong>Nyaya dzose dzakaiswa</strong>: nyaya dzose dzakaiswa kwauri nguva "
+"dzose."
+
+#: .\templates\vets\help_center.html:46
+msgid ""
+"<strong>Critical Cases</strong>: active cases with critical severity that "
+"need urgent attention."
+msgstr ""
+"<strong>Nyaya dzinokosha</strong>: nyaya dzakasimba dzine kukomba kunopinda "
+"dzinoda kutariswa nekukurumidza."
+
+#: .\templates\vets\help_center.html:49
+msgid "Case Statistics (big graph)"
+msgstr "Zvinyorwa zvenyaya (chati chikuru)"
+
+#: .\templates\vets\help_center.html:51
+msgid "Shows <strong>new cases per day</strong> for the last 12 months."
+msgstr ""
+"Inoratidza <strong>nyaya itsva pazuva</strong> kwemwedzi gumi nemiviri  "
+"yapfuura."
+
+#: .\templates\vets\help_center.html:52
+msgid ""
+"Hover a point to see the <strong>exact date</strong> and the number of new "
+"cases you received that day."
+msgstr ""
+"Isa musoro pamusoro pechinjanja kuona <strong>zuva rakakwana</strong> "
+"nenhamba yenyaya itsva yawakagamuchira zuva iroro."
+
+#: .\templates\vets\help_center.html:55
+msgid "Resolution Rate card"
+msgstr "Kadhi remwero wekubudisa"
+
+#: .\templates\vets\help_center.html:57
+#, python-format
+msgid "<strong>Big %%</strong> = overall resolution rate for all your cases."
+msgstr "<strong>%% huru</strong> = mwero wose wekubudisa nyaya dzako dzose."
+
+#: .\templates\vets\help_center.html:58
+msgid ""
+"Green text below shows <strong>how many cases you have resolved this month</"
+"strong>."
+msgstr ""
+"Mashoko ane girinhi pazasi anoratidza <strong>nhamba yenyaya dzawakabudisa "
+"mwedzi uno</strong>."
+
+#: .\templates\vets\help_center.html:59
+msgid ""
+"The green mini-graph shows your <strong>monthly resolution rate over the "
+"last 12 months</strong>."
+msgstr ""
+"Chati chidiki chene girinhi chinoratidza <strong>mwero wekubudisa ngwedzi-"
+"ngwedzi kwemwedzi gumi nemiviri yapfuura</strong>."
+
+#: .\templates\vets\help_center.html:62
+msgid "Assigned cases table (bottom)"
+msgstr "Tafura renyaya dzakaiswa (pazasi)"
+
+#: .\templates\vets\help_center.html:64
+msgid ""
+"Each row is a case with <strong>date, farmer name, predicted disease, "
+"severity and status</strong>."
+msgstr ""
+"Mutsara wese ndonyaya ine <strong>zuva, zita remurimi, chirwere "
+"chakatariswa, kukomba nemamiriro</strong>."
+
+#: .\templates\vets\help_center.html:65
+msgid ""
+"Click <strong>“View”</strong> to open the case detail page, enter your "
+"diagnosis and recommendations, and then mark the case as resolved when "
+"appropriate."
+msgstr ""
+"Dzvanya <strong>“Ona”</strong> kuvhura peji renyaya, isa kurwadziwa kwako "
+"nemazano, uye tarisa nyaya seyakabudiswa kana zvakakodzera."
+
+#: .\templates\vets\help_center.html:72
+msgid "2. Working with cases step by step"
+msgstr "2. Kushanda nenyaya nhanho nenhanho"
+
+#: .\templates\vets\help_center.html:75
+msgid ""
+"<strong>Open your case list</strong>: Use the sidebar <strong>“Cases”</"
+"strong> link to see all assigned, in‑progress, and resolved cases."
+msgstr ""
+"<strong>Vhura rondedzero renyaya</strong>: Shandisa link yeparutivi "
+"<strong>“Nyaya”</strong> kuona nyaya dzese dzakaiswa, dziri kufambwa, uye "
+"dzakabudiswa."
+
+#: .\templates\vets\help_center.html:77
+msgid ""
+"<strong>Review farmer information</strong>: From the dashboard or the "
+"<strong>“Farmers”</strong> menu, you can see which farmers are under your "
+"care and their recent cases."
+msgstr ""
+"<strong>Ongorora ruzivo rwemurimi</strong>: Kubva padashibhodi kana menyu "
+"<strong>“Varimi”</strong>, unogona kuona varimi vari pasi pekuchengetwa "
+"kwako uye nyaya dzavo dzichangobva kuitika."
+
+#: .\templates\vets\help_center.html:79
+msgid ""
+"<strong>Open a case detail</strong>: Click <strong>“View”</strong> on any "
+"case to see: symptoms, predicted disease, severity, farm location and farmer "
+"contact information."
+msgstr ""
+"<strong>Vhura ruzivo rwenyaya</strong>: Dzvanya <strong>“Ona”</strong> pane "
+"nyaya ipi zvayo kuona: zviratidzo, chirwere chakatariswa, kukomba, nzvimbo "
+"yefamu uye mashoko ekubata murimi."
+
+#: .\templates\vets\help_center.html:82
+msgid ""
+"<strong>Record your diagnosis and recommendations</strong>: Use the form on "
+"the case detail page to enter your professional diagnosis and clear "
+"treatment recommendations (dosage, quarantine, follow‑up, etc.)."
+msgstr ""
+"<strong>Nyora kuongorora kwako nemazano</strong>: Shandisa fomu riri papeji "
+"renyaya kuisa kuongorora kwako kwehunyanzvi uye mazano akajeka ekurapa "
+"(madosi, kuvharira, kudzoka kuongorora, nezvimwe)."
+
+#: .\templates\vets\help_center.html:84
+msgid ""
+"<strong>Update status</strong>: When you finish, mark the case as "
+"<strong>“Resolved”</strong> / <strong>“Closed”</strong> so that the farmer "
+"and Ministry can see that the case has been attended."
+msgstr ""
+"<strong>Gadzirisa mamiriro</strong>: Kana wapedza, nyora nyaya se "
+"<strong>“Yakabudiswa”</strong> / <strong>“Yakavharwa”</strong> kuti murimi "
+"neMinistry vaone kuti nyaya yakabatwa."
+
+#: .\templates\vets\help_center.html:93
+msgid "3. Communicating with Ministry"
+msgstr "3. Kutaurirana neMinistry"
+
+#: .\templates\vets\help_center.html:96
+msgid "Requesting vaccines / medical stock"
+msgstr "Kukumbira mabhakisini / mishonga"
+
+#: .\templates\vets\help_center.html:98
+msgid "In the sidebar, click <strong>“Request vaccines”</strong>."
+msgstr "Parutivi, dzvanya <strong>“Kumbira mabhakisini”</strong>."
+
+#: .\templates\vets\help_center.html:99
+msgid ""
+"Fill in the <strong>title</strong>, product name, estimated quantity, "
+"<strong>priority</strong> (Normal or Urgent), and a clear justification "
+"(disease, area, herd size)."
+msgstr ""
+"Zadza <strong>musoro</strong>, zita rechigadzirwa, huwandu hunofungidzirwa, "
+"<strong>kukurumidza</strong> (Normal kana Urgent), uye chikonzero chakajeka "
+"(chirwere, nzvimbo, huwandu hweboka)."
+
+#: .\templates\vets\help_center.html:100
+msgid ""
+"After you submit, you can see the <strong>status and Ministry response</"
+"strong> in the same page."
+msgstr ""
+"Kana watumira, unogona kuona <strong>mamiriro nemhinduro yeMinistry</strong> "
+"papeji imwechete."
+
+#: .\templates\vets\help_center.html:103
+msgid "Writing area reports"
+msgstr "Kunyora mireporiti yendunhu"
+
+#: .\templates\vets\help_center.html:105
+msgid "Use the <strong>“Area reports”</strong> link in the sidebar."
+msgstr "Shandisa link <strong>“Mireporiti yendunhu”</strong> parutivi."
+
+#: .\templates\vets\help_center.html:106
+msgid ""
+"Send <strong>monthly or outbreak reports</strong> describing disease trends, "
+"challenges and your recommendations for the area."
+msgstr ""
+"Tumira <strong>mireporiti yemwedzi kana yekubuda kwechirwere</strong> "
+"inotsanangura mafambiro ezvirwere, zvinopikisa, uye mazano ako endunhu."
+
+#: .\templates\vets\help_center.html:107
+msgid ""
+"Ministry can respond to these reports; you will see their feedback in the "
+"same list."
+msgstr ""
+"Ministry inogona kupindura mireporiti iyi; unoona mhinduro dzavo "
+"murondedzero imwechete."
+
+#: .\templates\vets\help_center.html:110
+msgid "What information is most helpful?"
+msgstr "Ndeupi ruzivo runonyanya kubatsira?"
+
+#: .\templates\vets\help_center.html:112
+msgid "Clear description of <strong>clinical signs</strong> you are observing."
+msgstr "Tsananguro yakajeka ye <strong>zviratidzo</strong> zvauri kuona."
+
+#: .\templates\vets\help_center.html:113
+msgid "Approximate <strong>number of affected animals</strong> and herds."
+msgstr "Fungidziro ye <strong>nhamba yemhuka dzabatwa</strong> nemapoka."
+
+#: .\templates\vets\help_center.html:114
+msgid "Any <strong>suspected disease</strong> based on your experience."
+msgstr ""
+"Chero <strong>chirwere chaunofungidzira</strong> zvichibva paruzivo rwako."
+
+#: .\templates\vets\help_center.html:115
+msgid ""
+"Urgency: is this a <strong>local outbreak</strong> or a <strong>wider "
+"regional trend</strong>?"
+msgstr ""
+"Kukurumidza: izvi <strong>kubuda kwechirwere munzvimbo</strong> kana "
+"<strong>mafambiro akakura mudunhu</strong>?"
+
+#: .\templates\vets\help_center.html:122
+msgid "4. Tips for using CattleCare AI effectively"
+msgstr "4. Mazano ekushandisa CattleCare AI zvinobudirira"
+
+#: .\templates\vets\help_center.html:125
+msgid ""
+"<strong>Confirm AI predictions</strong> with your clinical judgement – the "
+"system is a support tool, not a replacement for your expertise."
+msgstr ""
+"<strong>Simbisa zvinofungidzirwa neAI</strong> nekutonga kwako kwehunyanzvi "
+"– sisitimu iyi inongobatsira, haisi kutsiva ruzivo rwako."
+
+#: .\templates\vets\help_center.html:126
+msgid ""
+"<strong>Keep statuses up to date</strong> (Assigned → In progress → "
+"Resolved) so that Ministry and farmers can see real‑time progress."
+msgstr ""
+"<strong>Chengeta mamiriro achigadziridzwa</strong> (Dzakaiswa → Kuri "
+"kufambwa → Yakabudiswa) kuti Ministry nevarimi vaone kufambira mberi panguva "
+"chaiyo."
+
+#: .\templates\vets\help_center.html:127
+msgid ""
+"<strong>Use clear language</strong> in recommendations so farmers can follow "
+"treatment safely."
+msgstr ""
+"<strong>Shandisa mutauro wakajeka</strong> mumazano kuti varimi vatevedzere "
+"kurapwa zvakachengeteka."
+
+#: .\templates\vets\help_center.html:128
+msgid ""
+"<strong>Export your cases</strong> regularly if you need to keep personal "
+"records for audits, CPD or reporting."
+msgstr ""
+"<strong>Bvisa nyaya dzako</strong> nguva nenguva kana uchida kuchengetedza "
+"marekodhi ako ekuongorora, CPD kana mireporiti."
+
+#: .\templates\vets\register.html:5
+msgid "Vet Registration - CattleCare AI"
+msgstr "Kunyoreswa kweveti - CattleCare AI"
+
+#: .\templates\vets\register.html:539
+msgid "Almost There!"
+msgstr "Wapedza panoda!"
+
+#: .\templates\vets\register.html:540
+msgid ""
+"Your application has been approved. Complete your registration to start "
+"helping farmers"
+msgstr ""
+"Chikumbiro chako chabvumidzwa. Pedza kunyoresa kutanga kubatsira varimi"
+
+#: .\templates\vets\register.html:545
+msgid "Your credentials have been verified"
+msgstr "Zviziviso zvako zvasimbiswa"
+
+#: .\templates\vets\register.html:549
+msgid "Ministry-approved veterinarian"
+msgstr "Dokotela wemhuka akabvumidzwa neMinistry"
+
+#: .\templates\vets\register.html:553
+msgid "Ready to receive consultation requests"
+msgstr "Wakagadzirira kugashira zvikumbiro zvekubvunzana"
+
+#: .\templates\vets\register.html:557
+msgid "Access to disease outbreak data"
+msgstr "Svika paruzivo rwekubuda kwezvirwere"
+
+#: .\templates\vets\register.html:561
+msgid "Start earning from consultations"
+msgstr "Tanga kuwana mari kubva kubvunzana"
+
+#: .\templates\vets\register.html:571
+msgid "Complete Your Registration"
+msgstr "Pedza Kunyoresa kwako"
+
+#: .\templates\vets\register.html:572
+msgid "Create your account to access the veterinary dashboard"
+msgstr "Gadzira account yako kuna dhashibhodi yeveti"
+
+#: .\templates\vets\register.html:577
+msgid "Application Approved"
+msgstr "Chikumbiro Chabvumidzwa"
+
+#: .\templates\vets\register.html:589
+msgid "Qualification:"
+msgstr "Kudzidza:"
+
+#: .\templates\vets\register.html:678
+msgid "Contact Information"
+msgstr "Ruzivo rekubata nhevedzo"
+
+#: .\templates\vets\register.html:711
+msgid "Practice Location"
+msgstr "Nzvimbo yepractice"
+
+#: .\templates\vets\register.html:742
+msgid "GPS Coordinates (Optional):"
+msgstr "GPS Coordinates (Kwete Kumanikidzwa):"
+
+#: .\templates\vets\register.html:742
+msgid "Adding your location helps farmers find you more easily"
+msgstr "Kuwedzera nzvimbo yako kunobatsira varimi kukuwana nyore"
+
+#: .\templates\vets\register.html:769
+msgid "Availability Status"
+msgstr "Mamiriro ekuwanikwa"
+
+#: .\templates\vets\register.html:794
+msgid ""
+"Your information is secure and will only be used to connect you with farmers "
+"in need"
+msgstr ""
+"Ruzivo rwako rwakachengeteka uye ruchangoshandiswa kukubatanidza nevarimi "
+"vanoda rubatsiro"
+
+#: .\templates\vets\track_application.html:5
+msgid "Track Your Application - CattleCare AI"
+msgstr "Tevedzera Chikumbiro chako - CattleCare AI"
+
+#: .\templates\vets\track_application.html:555
+msgid "Track Your Application"
+msgstr "Tevedzera Chikumbiro chako"
+
+#: .\templates\vets\track_application.html:556
+msgid "Check the status of your veterinarian application anytime"
+msgstr "Tarisa mamiriro echikumbiro chako chedokotela wemhuka nguva dzose"
+
+#: .\templates\vets\track_application.html:561
+msgid "Real-time application status updates"
+msgstr "Zvigadziriso zvemamiriro echikumbiro nguva yacho"
+
+#: .\templates\vets\track_application.html:565
+msgid "Instant notification when approved"
+msgstr "Ziviso nokukurumidza kana wakabvumidzwa"
+
+#: .\templates\vets\track_application.html:569
+msgid "Direct access to registration"
+msgstr "Kupinda kwakananga pakuNyoresa"
+
+#: .\templates\vets\track_application.html:573
+msgid "Track review progress"
+msgstr "Tevedzera kufambira mberi kwekuongorora"
+
+#: .\templates\vets\track_application.html:577
+msgid "Secure and confidential"
+msgstr "Wakachengeteka uye wakavanzika"
+
+#: .\templates\vets\track_application.html:587
+msgid "Track Application Status"
+msgstr "Tevedzera Mamiriro eChikumbiro"
+
+#: .\templates\vets\track_application.html:588
+msgid "Enter your Application ID to check your status"
+msgstr "Isa Nambari yeChikumbiro kutarisa mamiriro ako"
+
+#: .\templates\vets\track_application.html:593
+msgid "Enter Application ID"
+msgstr "Isa Nambari yeChikumbiro"
+
+#: .\templates\vets\track_application.html:598
+msgid "Application ID"
+msgstr "Nambari yeChikumbiro"
+
+#: .\templates\vets\track_application.html:623
+msgid "Not Found"
+msgstr "Haizowani"
+
+#: .\templates\vets\track_application.html:632
+msgid "Application Details"
+msgstr "Ruzivo rwechikumbiro"
+
+#: .\templates\vets\track_application.html:651
+msgid "Submitted Date"
+msgstr "Zuva rakabviswa"
+
+#: .\templates\vets\track_application.html:658
+msgid "Current Status"
+msgstr "Mamiriro Ano"
+
+#: .\templates\vets\track_application.html:661
+msgid "PENDING REVIEW"
+msgstr "KUMIRIRA KUONGORORA"
+
+#: .\templates\vets\track_application.html:663
+msgid "APPROVED"
+msgstr "YAKABVUMIDZWA"
+
+#: .\templates\vets\track_application.html:665
+msgid "REJECTED"
+msgstr "YAKARAMBWA"
+
+#: .\templates\vets\track_application.html:673
+msgid "Application Under Review"
+msgstr "Chikumbiro Chiri kuOngorora"
+
+#: .\templates\vets\track_application.html:675
+msgid ""
+"Your application is currently being reviewed by the Ministry of Agriculture. "
+"This process typically takes 3-5 business days. Please check back later for "
+"updates."
+msgstr ""
+"Chikumbiro chako chiri kuongorwa neMinistry weZembe iye zvino. Nzira iyi "
+"inotorawo mazuva 3-5 ebhizimisi. Ndokumbira utarisei zvino pano kune "
+"zvigadziriso."
+
+#: .\templates\vets\track_application.html:684
+msgid "Application Submitted"
+msgstr "Chikumbiro Chatumirwa"
+
+#: .\templates\vets\track_application.html:691
+msgid "Under Review"
+msgstr "Iri kuOngorwa"
+
+#: .\templates\vets\track_application.html:692
+msgid "Ministry is reviewing your application"
+msgstr "Ministry iri kuongorora chikumbiro chako"
+
+#: .\templates\vets\track_application.html:698
+msgid "Registration"
+msgstr "Kunyoresa"
+
+#: .\templates\vets\track_application.html:699
+msgid "Complete your registration after approval"
+msgstr "Pedza kunyoresa wako kana wabvumidzwa"
+
+#: .\templates\vets\track_application.html:706
+msgid "Congratulations! Your Application is Approved!"
+msgstr "Makorokoto! Chikumbiro chako Chabvumidzwa!"
+
+#: .\templates\vets\track_application.html:708
+msgid ""
+"You can now proceed to complete your registration and create your account."
+msgstr ""
+"Unogona iye zvino kuenda mberi kupedza kunyoresa kwako uye kugadzira account "
+"yako."
+
+#: .\templates\vets\track_application.html:713
+msgid "Proceed to Registration"
+msgstr "Enda kunyoresa"
+
+#: .\templates\vets\track_application.html:717
+msgid "You have already registered. Please login to access your dashboard."
+msgstr "Wanyoreswa kare. Ndokumbira upinde kuna dhashibhodi yako."
+
+#: .\templates\vets\track_application.html:720
+msgid "Login Now"
+msgstr "Pinda iye zvino"
+
+#: .\templates\vets\track_application.html:727
+msgid "Application Rejected"
+msgstr "Chikumbiro Chakarambwa"
+
+#: .\templates\vets\track_application.html:728
+msgid ""
+"We regret to inform you that your application has not been approved at this "
+"time."
+msgstr ""
+"Tinochema kukuzivisa kuti chikumbiro chako hachina kubvumidzwa panguva ino."
+
+#: .\templates\vets\track_application.html:731
+msgid "Reason:"
+msgstr "Chikonzero:"
+
+#: .\templates\vets\track_application.html:737
+msgid ""
+"If you believe this is an error or would like to reapply, please contact the "
+"Ministry of Agriculture."
+msgstr ""
+"Kana uchifunga kuti ichi chikonzero kana uchida kuisa chikumbiro zvakare, "
+"ndokumbira ubate nhevedzo neMinistry weZembe."
+
+#: .\templates\vets\track_application.html:748
+msgid "Don't have an Application ID yet?"
+msgstr "Hauna Nambari yeChikumbiro kusvika zvino?"
+
+#: .\templates\vets\track_application.html:750
+msgid "If you haven't applied yet, you can submit your application now."
+msgstr "Kana usina kuisa chikumbiro, unogona kuitumira iye zvino."
+
+#: .\templates\vets\track_application.html:761
+msgid "New Application"
+msgstr "Chikumbiro chitsva"
+
+#: .\templates\vets\track_application.html:765
+msgid "Sign In"
+msgstr "Pinda"
+
+#: .\templates\vets\vaccine_requests.html:5
+msgid "Vaccine Requests - CattleCare AI"
+msgstr "Zvikumbiro zvemabhakisini - CattleCare AI"
+
+#: .\templates\vets\vaccine_requests.html:10
+msgid "Request vaccines & medical stock"
+msgstr "Kumbira mabhakisini nemishonga"
+
+#: .\templates\vets\vaccine_requests.html:12
+msgid ""
+"Send vaccine / medical stock requests directly to the Ministry and track "
+"their responses here."
+msgstr ""
+"Tumira zvikumbiro zvemabhakisini kana mishonga kuMinistry zvakananga, uye "
+"tevedzera mhinduro dzavo pano."
+
+#: .\templates\vets\vaccine_requests.html:23
+msgid "New vaccine request"
+msgstr "Chikumbiro chitsva chemabhakisini"
+
+#: .\templates\vets\vaccine_requests.html:48
+msgid "Send request to Ministry"
+msgstr "Tumira chikumbiro kuMinistry"
+
+#: .\templates\vets\vaccine_requests.html:57
+msgid "Your recent vaccine requests"
+msgstr "Zvikumbiro zvako zvemabhakisini zvichangobva kuitwa"
+
+#: .\templates\vets\vaccine_requests.html:109
+msgid "You have not submitted any vaccine requests yet."
+msgstr "Hapana zvikumbiro zvemabhakisini zvatumirwa kusvika zvino."
+
+#: .\templates\vets\vet_base.html:114
+msgid "CLINIC"
+msgstr "KIRINIKI"
+
+#: .\templates\vets\vet_base.html:122
+msgid "Write recommendations"
+msgstr "Nyora mazano"
+
+#: .\templates\vets\vet_base.html:127
+msgid "MINISTRY COMMUNICATION"
+msgstr "NHAURIRANO NEMINISTRY"
+
+#: .\templates\vets\vet_base.html:129 .\templates\vets\vet_base.html:148
+msgid "Request vaccines"
+msgstr "Kumbira mabhakisini"
+
+#: .\templates\vets\vet_base.html:132
+msgid "Area reports"
+msgstr "Mireporiti yendunhu"
+
+#: .\templates\vets\vet_base.html:134
+msgid "OTHERS"
+msgstr "ZVIMWE"
+
+#: .\templates\vets\vet_base.html:136
+msgid "Customer Support & Help"
+msgstr "Rubatsiro rweMutengi"
+
+#: .\templates\vets\vet_base.html:144
+msgid "Quick vet shortcuts"
+msgstr "Nzira dzokukurumidza dzeveti"
+
+#: .\templates\vets\vet_base.html:145
+msgid "Jump directly to the most common tasks you do every day."
+msgstr "Bhururuka kana mabasa akaita savali anoitwa nguva dzose."
+
+#: .\templates\vets\vet_base.html:151
+msgid "Open vet help center"
+msgstr "Vhura nzvimbo yebatsiro yeveti"
+
+#: .\templates\vets\vet_base.html:166
+msgid "Search"
+msgstr "Tsvaga"
+
+#: .\templates\vets\vet_base.html:181
+msgid "Notifications (critical cases)"
+msgstr "Ziviso (nyaya dzinokosha)"
+
+#: .\templates\vets\vet_base.html:184
+msgid "Settings & profile"
+msgstr "Zvigadziriro & profile"
+
+#: .\vets\forms.py:230
+msgid "Vaccine / product name"
+msgstr "Zita rebhakisini / chigadzirwa"
+
+#: .\vets\forms.py:231
+msgid "Estimated quantity (doses)"
+msgstr "Huwandu hunofungidzirwa (madosi)"
+
+#: .\vets\forms.py:233
+msgid "Reason & justification"
+msgstr "Chikonzero & tsananguro"
+
+#: .\vets\forms.py:238
+msgid "Short title of request"
+msgstr "Musoro mupfupi wechikumbiro"
+
+#: .\vets\forms.py:242
+msgid "e.g. FMD vaccine"
+msgstr "semuenzaniso: bhakisini reFMD"
+
+#: .\vets\forms.py:250
+msgid "Explain why you need these vaccines, affected areas, herd sizes, etc."
+msgstr ""
+"Tsanangura kuti sei uchida mabhakisini aya, nzvimbo dzabatwa, huwandu "
+"hweboka, nezvimwe."
+
+#: .\vets\forms.py:264
+msgid "Short summary"
+msgstr "Pfupiso pfupi"
+
+#: .\vets\forms.py:266
+msgid "District / area"
+msgstr "Dunhu / nzvimbo"
+
+#: .\vets\forms.py:267
+msgid "Period start"
+msgstr "Kutanga kwenguva"
+
+#: .\vets\forms.py:268
+msgid "Period end"
+msgstr "Kupera kwenguva"
+
+#: .\vets\forms.py:269
+msgid "Detailed report"
+msgstr "Ripoti yakadzama"
+
+#: .\vets\forms.py:274
+msgid "e.g. Monthly report – Midlands North"
+msgstr "semuenzaniso: ripoti yemwedzi – Midlands North"
+
+#: .\vets\forms.py:278
+msgid "Short summary of main findings"
+msgstr "Pfupiso pfupi yezvakakosha zvawanikwa"
+
+#: .\vets\forms.py:283
+msgid "District / area (optional)"
+msgstr "Dunhu / nzvimbo (kusarudza)"
+
+#: .\vets\forms.py:291
+msgid ""
+"Describe disease trends, challenges, vaccine gaps, and your "
+"recommendations..."
+msgstr ""
+"Tsanangura mafambiro ezvirwere, zvinopikisa, kushomeka kwemabhakisini, uye "
+"mazano ako..."
+
+#: .\vets\models.py:180
+msgid "Partially fulfilled"
+msgstr "Yazadziswa zvishoma"
+
+#: .\vets\models.py:221
+msgid "Read"
+msgstr "Yaverengwa"
+
+#: .\vets\models.py:222
+msgid "Responded"
+msgstr "Yapindurwa"
