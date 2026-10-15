@@ -30,9 +30,13 @@ def dashboard(request):
     try:
         farmer = Farmer.objects.get(user=request.user)
     except Farmer.DoesNotExist:
-        # If farmer profile doesn't exist, redirect to complete registration
+        # Profile is missing (e.g. the user was created in the admin, or
+        # registration half-failed). Send them to profile_edit, which can
+        # create it. Sending them to farmers:register instead caused an
+        # infinite redirect loop, because register bounces logged-in
+        # farmers back to this dashboard.
         messages.info(request, _('Please complete your farmer profile.'))
-        return redirect('farmers:register')
+        return redirect('farmers:profile_edit')
     
     # Get cases for this farmer
     cases = Case.objects.filter(farmer=farmer).order_by('-created_at')[:10]
@@ -141,12 +145,17 @@ def profile_edit(request):
         messages.error(request, _('Access denied.'))
         return redirect('accounts:login')
 
-    farmer = get_object_or_404(Farmer, user=request.user)
+    # May legitimately be absent - this view doubles as "complete your
+    # profile" for a FARMER user who has no Farmer row yet.
+    farmer = Farmer.objects.filter(user=request.user).first()
+    is_new_profile = farmer is None
 
     if request.method == 'POST':
         profile_form = FarmerProfileForm(request.POST, instance=farmer)
         if profile_form.is_valid():
-            profile_form.save()
+            farmer = profile_form.save(commit=False)
+            farmer.user = request.user
+            farmer.save()
             # Sync email and phone to User for password reset and auth
             farmer.refresh_from_db()
             if farmer.email:
@@ -154,6 +163,9 @@ def profile_edit(request):
             if farmer.phone_number:
                 request.user.phone_number = farmer.phone_number
             request.user.save()
+            if is_new_profile:
+                messages.success(request, _('Profile completed. Welcome!'))
+                return redirect('farmers:dashboard')
             messages.success(request, _('Profile updated successfully.'))
             return redirect('farmers:profile_edit')
         else:
@@ -161,7 +173,11 @@ def profile_edit(request):
     else:
         profile_form = FarmerProfileForm(instance=farmer)
 
-    context = {'farmer': farmer, 'profile_form': profile_form}
+    context = {
+        'farmer': farmer,
+        'profile_form': profile_form,
+        'is_new_profile': is_new_profile,
+    }
     return render(request, 'farmers/profile_edit.html', context)
 
 
@@ -271,6 +287,10 @@ def register(request):
     # If user is already logged in, redirect to dashboard
     if request.user.is_authenticated:
         if request.user.is_farmer():
+            # Only to the dashboard if the profile exists; otherwise the two
+            # views redirect to each other forever.
+            if not Farmer.objects.filter(user=request.user).exists():
+                return redirect('farmers:profile_edit')
             return redirect('farmers:dashboard')
         else:
             messages.info(request, 'You are already logged in.')
@@ -442,10 +462,18 @@ def case_result(request, case_id):
     
     farmer = get_object_or_404(Farmer, user=request.user)
     case = get_object_or_404(Case, id=case_id, farmer=farmer)
+
+    from django.utils import translation
+    from farmers.disease_advice import get_waiting_advice_for_case
+
+    waiting_advice = None
+    if not case.vet_recommendations:
+        waiting_advice = get_waiting_advice_for_case(case, translation.get_language())
     
     context = {
         'case': case,
         'farmer': farmer,
+        'waiting_advice': waiting_advice,
     }
     
     return render(request, 'farmers/case_result.html', context)

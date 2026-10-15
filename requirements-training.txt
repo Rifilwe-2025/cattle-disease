@@ -1,0 +1,16 @@
+# Optional - only needed to RETRAIN the model or open ml_model_training.ipynb.
+# The site and the MCP server run fine without any of this.
+#
+# Install:  venv\Scripts\python.exe -m pip install -r requirements-training.txt
+#
+# Heads up: this is a large dependency tree (jupyter pulls ~60 packages) and
+# took the longest by far on a slow connection. Install it when you actually
+# need to retrain, not as part of normal setup.
+
+-r requirements.txt
+
+matplotlib>=3.7.0
+seaborn>=0.12.0
+jupyter>=1.0.0
+notebook>=7.0.0
+ipython>=8.0.0

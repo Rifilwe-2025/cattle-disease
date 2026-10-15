@@ -20,8 +20,14 @@ if _env_file.exists():
     except ImportError:
         pass
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-change-this-in-production-1234567890'
+# SECURITY WARNING: keep the secret key secret!
+# The real key lives in .env (gitignored). The fallback below is for local
+# development only - it is deliberately marked insecure so it can never be
+# mistaken for a production key.
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-local-dev-only-set-DJANGO_SECRET_KEY-in-env',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,35 +96,38 @@ WSGI_APPLICATION = 'cattle_disease_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Using SQLite for easy setup (works immediately)
-# To switch to PostgreSQL, see instructions below
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('POSTGRES_DB', 'cattle_disease_db'),
-        'USER': os.environ.get('POSTGRES_USER', 'Admin_Ree'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', '@ADMIN2026'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-    },
-    'backup': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-}
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+#
+# SQLite by default, so the project runs straight after a clone with no
+# database setup. To use PostgreSQL instead, put this in your .env:
+#
+#     DB_ENGINE=postgresql
+#     POSTGRES_DB=cattle_disease_db
+#     POSTGRES_USER=Admin_Ree
+#     POSTGRES_PASSWORD=your-password-here
+#
+# No credential has a hardcoded default any more - PostgreSQL reads them
+# all from the environment.
 
-# PostgreSQL Configuration (Uncomment and configure to use PostgreSQL)
-# IMPORTANT: Update the PASSWORD to match your PostgreSQL setup
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'cattle_disease_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'your_postgres_password_here',  # ⚠️ CHANGE THIS
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+if os.environ.get('DB_ENGINE', 'sqlite').lower().startswith('post'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('POSTGRES_DB', 'cattle_disease_db'),
+            'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+            'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+            'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+            'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation

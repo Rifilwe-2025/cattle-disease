@@ -111,7 +111,9 @@ def get_disease_label(name: str | None) -> str:
     norm = normalize_disease_key(raw)
     row = data.get('diseases', {}).get(norm)
     if row:
-        return _pick(row, lang)
+        label = _pick(row, lang)
+        if label:
+            return label
     # Allow pretty English if key not in table
     return raw.replace('_', ' ').replace('-', ' ').title()
 

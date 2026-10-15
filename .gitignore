@@ -22,6 +22,12 @@ db.sqlite3-journal
 # ML Models
 *.pkl
 *.joblib
+# ...but DO commit the four trained artifacts the app loads at runtime.
+# Together they are ~38KB, and without them a fresh clone cannot predict.
+!best_disease_model.pkl
+!preprocessor.pkl
+!label_encoder.pkl
+!feature_names.pkl
 *.h5
 *.pth
 
@@ -42,3 +48,21 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# --- Virtual environments -------------------------------------------------
+# "venv/" alone does not match sibling names like venv_old_laptop_dead/,
+# which would otherwise commit ~700MB of another machine's site-packages.
+venv*/
+.venv/
+
+# --- Accidental nested copy of the whole project --------------------------
+# Created when the project folder was transferred between laptops. It has
+# its own .git, so git would otherwise add it as an embedded repo.
+Early Disease Prediction For Cattle/
+
+# --- Local database backups ----------------------------------------------
+db.sqlite3.backup-*
+*.sqlite3.bak
+
+# --- Office lock files ----------------------------------------------------
+~$*

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "cattle-disease": {
+      "command": "venv\\Scripts\\python.exe",
+      "args": ["-m", "mcp_server.server"],
+      "env": {
+        "DJANGO_SETTINGS_MODULE": "cattle_disease_system.settings",
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  }
+}

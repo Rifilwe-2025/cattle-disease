@@ -1,6 +1,8 @@
 """
 Views for maps and disease surveillance.
 """
+import json
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
@@ -65,7 +67,6 @@ def disease_map(request):
     # Get disease list for filter
     diseases = Case.objects.values_list('predicted_disease', flat=True).distinct()
     
-    import json
     
     context = {
         'map_data': json.dumps(map_data),
@@ -107,8 +108,12 @@ def heatmap(request):
             'intensity': 1 if case.severity == 'NON_SEVERE' else (2 if case.severity == 'SEVERE' else 3),
         })
     
+    # Serialise for the template, matching disease_map above. Passing the raw
+    # list would render as Python repr rather than JSON.
     context = {
-        'heatmap_data': heatmap_data,
+        'heatmap_data': json.dumps(heatmap_data),
+        'total_points': len(heatmap_data),
+        'active_menu': 'heatmap',
     }
-    
+
     return render(request, 'maps/heatmap.html', context)

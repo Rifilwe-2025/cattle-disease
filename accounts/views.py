@@ -24,31 +24,21 @@ def login_view(request):
             password = form.cleaned_data['password']
             
             # Debug: Print authentication attempt
-            print(f"\n[DEBUG LOGIN] Attempting login:")
-            print(f"  Username: {username}")
-            print(f"  Password length: {len(password)}")
             
             # Check if user exists
             from accounts.models import User
             try:
                 user_obj = User.objects.get(username=username)
-                print(f"  User exists: YES")
-                print(f"  User role: {user_obj.role}")
-                print(f"  User active: {user_obj.is_active}")
-                print(f"  Has usable password: {user_obj.has_usable_password()}")
             except User.DoesNotExist:
-                print(f"  User exists: NO")
                 messages.error(request, 'Invalid username. This username does not exist.')
                 return render(request, 'accounts/login.html', {'form': form})
             
             # Authenticate user
             user = authenticate(request, username=username, password=password)
-            print(f"  Authentication result: {user}")
             
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    print(f"  Login successful! Role: {user.role}")
                     
                     # Get user's display name
                     try:
@@ -61,17 +51,12 @@ def login_view(request):
                     
                     messages.success(request, f'Welcome back, {display_name}!')
                     # Redirect based on role
-                    print(f"  Redirecting to: accounts:redirect_after_login")
                     return redirect('accounts:redirect_after_login')
                 else:
-                    print(f"  User is inactive!")
                     messages.error(request, 'Your account is inactive. Please contact administrator.')
             else:
-                print(f"  Authentication FAILED - incorrect password")
                 messages.error(request, 'Invalid password. Please check your password and try again.')
         else:
-            print(f"\n[DEBUG LOGIN] Form validation failed:")
-            print(f"  Errors: {form.errors}")
             messages.error(request, 'Please correct the errors below.')
     else:
         form = LoginForm()
@@ -84,24 +69,14 @@ def redirect_after_login(request):
     """
     Redirect users to their respective dashboards based on role.
     """
-    print(f"\n[DEBUG REDIRECT] Redirecting user:")
-    print(f"  Username: {request.user.username}")
-    print(f"  Role: {request.user.role}")
-    print(f"  Is farmer: {request.user.is_farmer()}")
-    print(f"  Is vet: {request.user.is_vet()}")
-    print(f"  Is ministry: {request.user.is_ministry()}")
     
     if request.user.is_farmer():
-        print(f"  Redirecting to: farmers:dashboard")
         return redirect('farmers:dashboard')
     elif request.user.is_vet():
-        print(f"  Redirecting to: vets:dashboard")
         return redirect('vets:dashboard')
     elif request.user.is_ministry():
-        print(f"  Redirecting to: ministry:dashboard")
         return redirect('ministry:dashboard')
     else:
-        print(f"  No role match - redirecting to: landing:home")
         return redirect('landing:home')
 
 

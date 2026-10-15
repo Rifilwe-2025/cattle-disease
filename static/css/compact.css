@@ -1,0 +1,307 @@
+/* ==========================================================================
+   CattleCare AI - compact density
+   --------------------------------------------------------------------------
+   These pages were laid out on a 1920x1080 screen at 100% scaling. On a
+   1536x864 laptop viewport (1920x1080 at 125% Windows scaling) the headings,
+   logo tiles and padding are roughly a third too large, and two structural
+   bugs force a scrollbar on every page:
+
+     1. style.css sets  body { padding-top: 76px }  to clear the fixed navbar,
+        while each auth container is  min-height: 100vh. Together that is
+        always 76px taller than the viewport, so the page scrolls even when
+        the content would fit. Fixed with calc(100vh - var(--nav-h)).
+
+     2. The split-screen image sides use  height: 100vh  for the same reason.
+
+   Loaded LAST in every shell so it wins at equal specificity. Nothing here
+   changes colour or layout structure - only scale and spacing.
+   ========================================================================== */
+
+:root {
+    --nav-h: 76px;          /* must match body padding-top in style.css */
+}
+
+/* --------------------------------------------------------------------------
+   1. Stop the guaranteed overflow on the split-screen auth pages
+   -------------------------------------------------------------------------- */
+
+.login-container,
+.register-container,
+.apply-container,
+.vet-register-container,
+.track-container {
+    min-height: calc(100vh - var(--nav-h));
+}
+
+.login-image-side,
+.register-image-side,
+.apply-image-side,
+.vet-register-image-side,
+.track-image-side {
+    height: auto;
+    min-height: calc(100vh - var(--nav-h));
+}
+
+/* Centred single-card pages (password reset, logout, success, guide) */
+.reset-container,
+.logout-container,
+.success-container,
+.guide-container,
+.reset-page-wrap,
+.success-page-wrap,
+.guide-page-wrap {
+    min-height: calc(100vh - var(--nav-h));
+}
+
+/* --------------------------------------------------------------------------
+   2. Logo tiles: 80px squares with 2.5rem glyphs -> a sane header mark
+   -------------------------------------------------------------------------- */
+
+.login-logo,
+.register-logo,
+.apply-logo,
+.vet-register-logo,
+.track-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 13px;
+    margin-bottom: 18px;
+    box-shadow: 0 6px 20px rgba(255, 153, 51, 0.32);
+}
+
+.login-logo i,
+.register-logo i,
+.apply-logo i,
+.vet-register-logo i,
+.track-logo i {
+    font-size: 1.45rem;
+}
+
+/* --------------------------------------------------------------------------
+   3. Type scale
+   -------------------------------------------------------------------------- */
+
+/* Marketing headline on the image half */
+.login-image-side h1,
+.register-image-side h1,
+.apply-image-side h1,
+.vet-register-image-side h1,
+.track-image-side h1 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    line-height: 1.25;
+    text-shadow: 2px 2px 7px rgba(0, 0, 0, 0.45);
+}
+
+.login-image-side p,
+.register-image-side p,
+.apply-image-side p,
+.vet-register-image-side p,
+.track-image-side p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+/* Form-side heading */
+.login-header h2,
+.register-header h2,
+.apply-header h2,
+.track-header h2,
+.logout-header h2,
+.guide-header h2,
+.success-card-header h2 {
+    font-size: 1.5rem;
+    margin-bottom: 6px;
+}
+
+.login-header p,
+.register-header p,
+.apply-header p,
+.track-header p {
+    font-size: 0.9rem;
+}
+
+.login-header,
+.register-header,
+.apply-header,
+.track-header {
+    margin-bottom: 20px;
+}
+
+/* Oversized decorative glyphs (track_application used 4rem) */
+.timeline-icon,
+.logout-icon,
+.empty-state-card i,
+.success-card-header i,
+.guide-header i {
+    font-size: 2rem;
+}
+
+.app-id-text,
+.id-example {
+    font-size: 1.15rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Spacing: the form half had 50px/60px padding
+   -------------------------------------------------------------------------- */
+
+.login-form-side,
+.register-form-side,
+.apply-form-side,
+.vet-register-form-side,
+.track-form-side {
+    padding: 26px 32px;
+}
+
+.login-form-container,
+.register-form-container,
+.apply-form-container,
+.vet-register-form-container,
+.track-form-container {
+    max-width: 560px;
+}
+
+.form-group { margin-bottom: 0.85rem; }
+.form-section { margin-bottom: 1.1rem; }
+.section-title { font-size: 1rem; margin-bottom: 0.6rem; }
+
+.benefit-item,
+.login-feature-item {
+    margin-bottom: 11px;
+    font-size: 0.9rem;
+}
+.benefit-item i,
+.login-feature-item i {
+    font-size: 1rem;
+    margin-right: 9px;
+}
+
+.login-features,
+.track-benefits,
+.apply-benefits,
+.vet-register-benefits,
+.register-benefits {
+    margin-top: 18px;
+}
+
+/* Cards on the single-column pages */
+.logout-card,
+.reset-card,
+.success-card,
+.guide-card,
+.status-card,
+.details-card,
+.empty-state-card,
+.availability-card {
+    padding: 22px 26px;
+}
+.guide-card-inner { padding: 0; }
+
+.progress-steps { margin-bottom: 1.1rem; }
+.progress-step-circle { width: 30px; height: 30px; font-size: 0.85rem; }
+.progress-step-label { font-size: 0.75rem; }
+
+/* --------------------------------------------------------------------------
+   5. Controls - Bootstrap's default control height is tall at this density
+   -------------------------------------------------------------------------- */
+
+.login-container .form-control,
+.register-container .form-control,
+.apply-container .form-control,
+.vet-register-container .form-control,
+.track-container .form-control,
+.login-container .form-select,
+.register-container .form-select,
+.apply-container .form-select,
+.vet-register-container .form-select,
+.reset-card .form-control {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.925rem;
+}
+
+.form-label { font-size: 0.85rem; margin-bottom: 0.3rem; }
+.form-text  { font-size: 0.78rem; }
+
+.btn-login, .btn-register, .btn-apply, .btn-track,
+.btn-reset, .btn-logout, .btn-cancel, .btn-proceed, .btn-apply-now {
+    padding: 0.6rem 1.3rem;
+    font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   6. Dashboards - trim the few remaining outliers
+   -------------------------------------------------------------------------- */
+
+.sidebar { width: 248px; }
+.main-content, .dashboard-main { margin-left: 248px; }
+
+.page-title    { font-size: 1.35rem; }
+.page-subtitle { font-size: 0.85rem; }
+
+.stat-value, .stat-number { font-size: 1.5rem; }
+.stat-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+}
+
+.content-card { padding: 18px 20px; }
+
+/* Font Awesome occasionally inherits a huge size from a parent heading */
+.content-card h1 i, .content-card h2 i,
+.page-title i, .topbar-title i { font-size: 1em; }
+
+/* --------------------------------------------------------------------------
+   7. Taller screens get some breathing room back
+   -------------------------------------------------------------------------- */
+
+@media (min-height: 1000px) {
+    .login-form-side,
+    .register-form-side,
+    .apply-form-side,
+    .vet-register-form-side,
+    .track-form-side {
+        padding: 40px 48px;
+    }
+    .login-image-side h1,
+    .register-image-side h1,
+    .apply-image-side h1,
+    .vet-register-image-side h1,
+    .track-image-side h1 { font-size: 2rem; }
+
+    .login-header h2,
+    .register-header h2,
+    .apply-header h2,
+    .track-header h2 { font-size: 1.85rem; }
+
+    .login-logo, .register-logo, .apply-logo,
+    .vet-register-logo, .track-logo { width: 64px; height: 64px; }
+    .login-logo i, .register-logo i, .apply-logo i,
+    .vet-register-logo i, .track-logo i { font-size: 1.8rem; }
+}
+
+/* --------------------------------------------------------------------------
+   8. Narrow screens: the split-screen collapses, so drop the 100vh floor
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 991.98px) {
+    .login-image-side,
+    .register-image-side,
+    .apply-image-side,
+    .vet-register-image-side,
+    .track-image-side {
+        min-height: 0;
+        padding: 28px 24px;
+    }
+    .login-container,
+    .register-container,
+    .apply-container,
+    .vet-register-container,
+    .track-container {
+        min-height: 0;
+    }
+    .sidebar { width: 100%; }
+    .main-content, .dashboard-main { margin-left: 0; }
+}

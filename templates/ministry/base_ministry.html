@@ -113,6 +113,7 @@
         .main-area::-webkit-scrollbar-thumb:hover { background: rgba(102,126,234,0.5); }
         @media (max-width: 768px) { .sidebar { width: 100%; } .main-content { margin-left: 0; } .dashboard-wrapper { flex-direction: column; } }
     </style>
+    <link rel="stylesheet" href="{% static 'css/compact.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -190,14 +191,13 @@
                     <form action="{% url 'set_language' %}" method="post" style="display:flex;align-items:center;gap:6px;margin-right:4px;">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="{{ request.get_full_path }}">
-                        <select name="language" style="padding:6px 8px;border:1px solid rgba(0,0,0,0.12);border-radius:6px;font-size:12px;max-width:140px;">
+                        <select name="language" style="padding:6px 8px;border:1px solid rgba(0,0,0,0.12);border-radius:6px;font-size:12px;max-width:140px;" onchange="this.form.submit()" aria-label="{% trans 'Language' %}">
                             {% get_current_language as LANGUAGE_CODE %}
                             {% get_available_languages as LANGUAGES %}
                             {% for lang in LANGUAGES %}
                                 <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>{{ lang.1 }}</option>
                             {% endfor %}
                         </select>
-                        <button type="submit" class="topbar-btn" title="{% trans 'Change language' %}" style="width:auto;padding:6px 10px;font-size:12px;">{% trans "Change" %}</button>
                     </form>
                     <a href="{% url 'ministry:dashboard' %}" class="topbar-btn" title="{% trans 'Back to Dashboard' %}"><i class="fas fa-arrow-left"></i></a>
                     <button class="topbar-btn" onclick="location.reload()" title="{% trans 'Refresh' %}"><i class="fas fa-sync-alt"></i></button>
