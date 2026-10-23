@@ -43,10 +43,35 @@ main {
 .navbar .nav-link {
     font-weight: 500;
     font-size: 0.95rem;
-    padding: 8px 16px !important;
-    margin: 0 5px;
+    /* Was 8px 16px with a 5px margin -- 42px of horizontal space per link.
+       Across seven links plus two buttons and a language select that overflowed
+       the bar at desktop width, and Bootstrap's flex items then wrapped their
+       own text, so "How It Works" and "For Farmers" broke onto two and three
+       lines. Trimming to 26px per link recovers enough room to fit. */
+    padding: 8px 11px !important;
+    margin: 0 2px;
     border-radius: 8px;
     transition: all 0.3s ease;
+    /* The actual fix for the wrapping: a nav link is a label, and a label that
+       breaks mid-phrase stops reading as one destination. */
+    white-space: nowrap;
+}
+
+/* The row itself may wrap between links on a narrow desktop; what it must not
+   do is wrap inside one. */
+.navbar .navbar-nav {
+    align-items: center;
+}
+
+/* Below lg the navbar collapses into the stacked drawer, where each link owns
+   a full-width row. Nowrap there would push a long label under the viewport
+   edge instead of letting it use the space it has. */
+@media (max-width: 991.98px) {
+    .navbar .nav-link {
+        white-space: normal;
+        padding: 10px 14px !important;
+        margin: 0;
+    }
 }
 
 .navbar .nav-link:hover {
