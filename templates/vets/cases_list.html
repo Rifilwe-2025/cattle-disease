@@ -6,8 +6,8 @@
 
 {% block content %}
 <div style="margin-bottom: 24px;">
-    <h1 style="font-size: 24px; font-weight: 700; color: #1f2937; margin-bottom: 4px;">All Cases</h1>
-    <p style="font-size: 14px; color: #6b7280;">Your cases grouped by status</p>
+    <h1 style="font-size: 24px; font-weight: 700; color: rgb(var(--color-text)); margin-bottom: 4px;">All Cases</h1>
+    <p style="font-size: 14px; color: rgb(var(--color-text-muted));">Your cases grouped by status</p>
 </div>
 
 <div class="row g-4" style="margin-bottom: 24px;">
@@ -20,7 +20,7 @@
     <div class="col-md-4">
         <div class="card-light">
             <div class="stat-label">Cases Solved (Resolved)</div>
-            <div class="stat-big" style="color: #22c55e;">{{ total_resolved }}</div>
+            <div class="stat-big" style="color: rgb(var(--color-success));">{{ total_resolved }}</div>
         </div>
     </div>
     <div class="col-md-4">
@@ -34,30 +34,30 @@
 <!-- Tabs for grouped cases -->
 <ul class="nav nav-tabs mb-4" style="border: none; gap: 8px;">
     <li class="nav-item">
-        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#assigned" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #d97706;">Assigned ({{ assigned_cases.count }})</button>
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#assigned" style="background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border)); border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #d97706;">Assigned ({{ assigned_cases.count }})</button>
     </li>
     <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#inprogress" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #2563eb;">In Progress ({{ in_progress_cases.count }})</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#inprogress" style="background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border)); border-radius: 10px; padding: 10px 20px; font-weight: 600; color: rgb(var(--color-accent));">In Progress ({{ in_progress_cases.count }})</button>
     </li>
     <li class="nav-item">
-        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#resolved" style="background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 20px; font-weight: 600; color: #16a34a;">Resolved ({{ resolved_cases.count }})</button>
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#resolved" style="background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border)); border-radius: 10px; padding: 10px 20px; font-weight: 600; color: rgb(var(--color-success));">Resolved ({{ resolved_cases.count }})</button>
     </li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane fade show active" id="assigned">
         <div class="card-light">
-            <div class="card-title"><span>Assigned Cases</span><span style="font-size: 13px; color: #6b7280;">Awaiting your action</span></div>
+            <div class="card-title"><span>Assigned Cases</span><span style="font-size: 13px; color: rgb(var(--color-text-muted));">Awaiting your action</span></div>
             {% if assigned_cases %}
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
-                        <tr style="border-bottom: 2px solid #e5e7eb;">
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Severity</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        <tr style="border-bottom: 2px solid rgb(var(--color-border));">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Severity</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
                 </table>
             </div>
             {% else %}
-            <div style="text-align: center; padding: 40px; color: #9ca3af;">No assigned cases.</div>
+            <div style="text-align: center; padding: 40px; color: rgb(var(--color-text-subtle));">No assigned cases.</div>
             {% endif %}
         </div>
     </div>
@@ -85,11 +85,11 @@
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
-                        <tr style="border-bottom: 2px solid #e5e7eb;">
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        <tr style="border-bottom: 2px solid rgb(var(--color-border));">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,22 +105,22 @@
                 </table>
             </div>
             {% else %}
-            <div style="text-align: center; padding: 40px; color: #9ca3af;">No cases in progress.</div>
+            <div style="text-align: center; padding: 40px; color: rgb(var(--color-text-subtle));">No cases in progress.</div>
             {% endif %}
         </div>
     </div>
     <div class="tab-pane fade" id="resolved">
         <div class="card-light">
-            <div class="card-title"><span>Resolved Cases</span><span style="font-size: 13px; color: #16a34a;">Successfully closed</span></div>
+            <div class="card-title"><span>Resolved Cases</span><span style="font-size: 13px; color: rgb(var(--color-success));">Successfully closed</span></div>
             {% if resolved_cases %}
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
-                        <tr style="border-bottom: 2px solid #e5e7eb;">
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Date</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Farmer</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Disease</th>
-                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #6b7280; text-transform: uppercase;">Action</th>
+                        <tr style="border-bottom: 2px solid rgb(var(--color-border));">
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Date</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Farmer</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Disease</th>
+                            <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,7 +136,7 @@
                 </table>
             </div>
             {% else %}
-            <div style="text-align: center; padding: 40px; color: #9ca3af;">No resolved cases yet.</div>
+            <div style="text-align: center; padding: 40px; color: rgb(var(--color-text-subtle));">No resolved cases yet.</div>
             {% endif %}
         </div>
     </div>

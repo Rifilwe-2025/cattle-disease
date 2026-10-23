@@ -23,11 +23,11 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+        background: linear-gradient(135deg, rgb(var(--color-success)) 0%, rgb(var(--color-success)) 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        color: rgb(var(--color-text));
         font-weight: 700;
         overflow: hidden;
         flex-shrink: 0;
@@ -71,9 +71,9 @@
                 {% endif %}
             </div>
             <div>
-                <h5 style="color: #22c55e; margin:0;"><i class="fas fa-user-md"></i> Vet’s recommendation (follow this)</h5>
+                <h5 style="color: rgb(var(--color-success)); margin:0;"><i class="fas fa-user-md"></i> Vet’s recommendation (follow this)</h5>
                 {% if case.assigned_vet %}
-                <small style="color:#9ca3af;">Dr. {{ case.assigned_vet.full_name }}</small>
+                <small style="color:rgb(var(--color-text-subtle));">Dr. {{ case.assigned_vet.full_name }}</small>
                 {% endif %}
             </div>
         </div>
@@ -81,9 +81,9 @@
         <p class="mb-2 mt-2"><strong>Diagnosis:</strong></p>
         <p style="white-space: pre-wrap;">{{ case.vet_diagnosis }}</p>
         {% endif %}
-        <p class="mb-2"><strong style="color: #16a34a;">Recommendation:</strong></p>
+        <p class="mb-2"><strong style="color: rgb(var(--color-success));">Recommendation:</strong></p>
         <p style="white-space: pre-wrap;">{{ case.vet_recommendations }}</p>
-        <small style="color: #6b7280;">{{ case.vet_consultation_date|date:"M d, Y H:i" }}</small>
+        <small style="color: rgb(var(--color-text-muted));">{{ case.vet_consultation_date|date:"M d, Y H:i" }}</small>
     </div>
     {% endif %}
 
@@ -109,7 +109,7 @@
             <div class="progress-bar-custom">
                 <div class="progress-fill {% if case.confidence_score >= 0.4 %}green{% elif case.confidence_score >= 0.22 %}yellow{% else %}red{% endif %}" style="width: {% widthratio case.confidence_score 1 100 %}%;"></div>
             </div>
-            <span style="color: #9ca3af;">{% widthratio case.confidence_score 1 100 %}%</span>
+            <span style="color: rgb(var(--color-text-subtle));">{% widthratio case.confidence_score 1 100 %}%</span>
         </div>
     </div>
 
@@ -127,17 +127,17 @@
     </div>
     {% elif not case.vet_recommendations %}
     <div class="card-dark mb-4" style="padding: 16px; border: 1px solid rgba(255,255,255,0.1);">
-        <p class="mb-0" style="color: #9ca3af;"><i class="fas fa-info-circle"></i> Vet <strong>Dr. {{ case.assigned_vet.full_name }}</strong> has been assigned. They will review your case and add their recommendation here. Contact: <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: #22c55e;">{{ case.assigned_vet.phone_number }}</a></p>
+        <p class="mb-0" style="color: rgb(var(--color-text-subtle));"><i class="fas fa-info-circle"></i> Vet <strong>Dr. {{ case.assigned_vet.full_name }}</strong> has been assigned. They will review your case and add their recommendation here. Contact: <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: rgb(var(--color-success));">{{ case.assigned_vet.phone_number }}</a></p>
     </div>
     {% endif %}
 
     {% if case.assigned_vet and not case.vet_recommendations %}
-    <p class="mb-2" style="color: #6b7280; font-size: 13px;"><strong>Assigned vet:</strong> Dr. {{ case.assigned_vet.full_name }} — <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: #22c55e;">{{ case.assigned_vet.phone_number }}</a></p>
+    <p class="mb-2" style="color: rgb(var(--color-text-muted)); font-size: 13px;"><strong>Assigned vet:</strong> Dr. {{ case.assigned_vet.full_name }} — <a href="tel:{{ case.assigned_vet.phone_number }}" style="color: rgb(var(--color-success));">{{ case.assigned_vet.phone_number }}</a></p>
     {% endif %}
 
     {% if waiting_advice and not case.vet_recommendations %}
     <div class="card-dark mt-3" style="padding: 20px; border: 1px solid rgba(34,197,94,0.25);">
-        <h5 style="color: #22c55e; margin-bottom: 10px;">
+        <h5 style="color: rgb(var(--color-success)); margin-bottom: 10px;">
             <i class="fas fa-lightbulb"></i>
             {% if case.is_low_confidence %}
                 {% blocktrans with disease=waiting_advice.disease_label %}General advice while you wait (model is uncertain — showing guidance for {{ disease }}){% endblocktrans %}
@@ -146,7 +146,7 @@
             {% endif %}
         </h5>
         {% if case.is_low_confidence %}
-        <p class="mb-2" style="color: #eab308; font-size: 14px;">
+        <p class="mb-2" style="color: rgb(var(--color-warning)); font-size: 14px;">
             <i class="fas fa-exclamation-triangle"></i>
             {% trans "The model is not fully certain. Your vet will confirm the diagnosis — follow their recommendation when they respond." %}
         </p>
@@ -157,7 +157,7 @@
             <li class="mb-1">{{ step }}</li>
             {% endfor %}
         </ul>
-        <p class="mb-0" style="color: #6b7280; font-size: 13px;">
+        <p class="mb-0" style="color: rgb(var(--color-text-muted)); font-size: 13px;">
             <i class="fas fa-info-circle"></i>
             {% trans "This is general care guidance only — not a prescription. Your vet’s recommendation is the final advice." %}
         </p>

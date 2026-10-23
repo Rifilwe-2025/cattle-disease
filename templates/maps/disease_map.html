@@ -12,10 +12,10 @@
 <style>
 #map { height: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
 .filter-panel { background: rgba(255,255,255,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.5); margin-bottom: 24px; }
-.filter-panel h5 { font-weight: 700; margin-bottom: 16px; color: #1a1a1a; }
-.filter-panel .form-label { font-weight: 600; color: #495057; }
+.filter-panel h5 { font-weight: 700; margin-bottom: 16px; color: rgb(var(--color-text)); }
+.filter-panel .form-label { font-weight: 600; color: rgb(var(--color-text-muted)); }
 .filter-panel .form-select, .filter-panel .form-control { background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6); }
-.filter-panel .btn { background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); border: none; padding: 10px 20px; font-weight: 600; }
+.filter-panel .btn { background: linear-gradient(135deg,rgb(var(--color-brand)) 0%,rgb(var(--color-brand-ink)) 100%); border: none; padding: 10px 20px; font-weight: 600; }
 .leaflet-popup-content { font-family: 'Inter', sans-serif; }
 </style>
 {% endblock %}

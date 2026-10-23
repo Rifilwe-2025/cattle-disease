@@ -7,8 +7,8 @@
 {% block content %}
 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:24px;flex-wrap:wrap;">
     <div>
-        <h1 style="font-size:22px;font-weight:700;color:#fff;margin-bottom:4px;">{% trans "Request vaccines & medical stock" %}</h1>
-        <p style="font-size:13px;color:#94a3b8;max-width:520px;">
+        <h1 style="font-size:22px;font-weight:700;color:rgb(var(--color-text));margin-bottom:4px;">{% trans "Request vaccines & medical stock" %}</h1>
+        <p style="font-size:13px;color:rgb(var(--color-text-muted));max-width:520px;">
             {% blocktrans trimmed %}
             Send vaccine / medical stock requests directly to the Ministry and track their responses here.
             {% endblocktrans %}
@@ -58,8 +58,8 @@
             </div>
             {% if requests %}
             <div class="table-responsive">
-                <table class="table table-borderless align-middle" style="color:#e5e7eb;font-size:13px;">
-                    <thead style="color:#9ca3af;">
+                <table class="table table-borderless align-middle" style="color:rgb(var(--color-text));font-size:13px;">
+                    <thead style="color:rgb(var(--color-text-subtle));">
                         <tr>
                             <th>{% trans "Title" %}</th>
                             <th>{% trans "Product" %}</th>
@@ -94,9 +94,9 @@
                             </td>
                             <td style="max-width:260px;">
                                 {% if req.ministry_response %}
-                                    <span style="font-size:12px;color:#cbd5f5;">{{ req.ministry_response|truncatewords:18 }}</span>
+                                    <span style="font-size:12px;color:rgb(var(--color-text-muted));">{{ req.ministry_response|truncatewords:18 }}</span>
                                 {% else %}
-                                    <span style="font-size:12px;color:#6b7280;">{% trans "No response yet" %}</span>
+                                    <span style="font-size:12px;color:rgb(var(--color-text-muted));">{% trans "No response yet" %}</span>
                                 {% endif %}
                             </td>
                             <td style="white-space:nowrap;">{{ req.created_at|date:"d M Y" }}</td>
@@ -106,7 +106,7 @@
                 </table>
             </div>
             {% else %}
-            <p style="font-size:13px;color:#9ca3af;">{% trans "You have not submitted any vaccine requests yet." %}</p>
+            <p style="font-size:13px;color:rgb(var(--color-text-subtle));">{% trans "You have not submitted any vaccine requests yet." %}</p>
             {% endif %}
         </div>
     </div>

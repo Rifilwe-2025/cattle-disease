@@ -10,7 +10,7 @@
 <div class="content-card">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0" style="font-weight:700;">{% trans "Incoming requests" %}</h5>
-        <span style="font-size:12px;color:#6c757d;">
+        <span style="font-size:12px;color:rgb(var(--color-text-muted));">
             {% blocktrans count c=all_requests|length %}Total {{ c }} request{% plural %}Total {{ c }} requests{% endblocktrans %}
         </span>
     </div>
@@ -34,7 +34,7 @@
                 <tr>
                     <td>
                         {% trans "Dr." %} {{ r.vet.full_name }}<br>
-                        <span style="font-size:11px;color:#6c757d;">{{ r.vet.get_provinces_list|first }}</span>
+                        <span style="font-size:11px;color:rgb(var(--color-text-muted));">{{ r.vet.get_provinces_list|first }}</span>
                     </td>
                     <td>{{ r.title }}</td>
                     <td>{{ r.vaccine_name }}</td>
@@ -49,7 +49,7 @@
                     </td>
                     <td style="max-width:260px;">
                         {% if r.ministry_response %}
-                            <span style="font-size:12px;color:#495057;">{{ r.ministry_response|truncatewords:18 }}</span>
+                            <span style="font-size:12px;color:rgb(var(--color-text-muted));">{{ r.ministry_response|truncatewords:18 }}</span>
                         {% else %}
                             <span style="font-size:12px;color:#adb5bd;">{% trans "No response yet" %}</span>
                         {% endif %}
@@ -67,7 +67,7 @@
                             <button type="submit" class="btn-glass btn-glass-primary" style="font-size:12px;padding:6px 10px;justify-content:center;">
                                 <i class="fas fa-save"></i> {% trans "Save response" %}
                             </button>
-                            <small style="font-size:11px;color:#6c757d;">
+                            <small style="font-size:11px;color:rgb(var(--color-text-muted));">
                                 {% trans "Created" %} {{ r.created_at|date:"d M Y" }}{% if r.responded_at %}, {% trans "last updated" %} {{ r.responded_at|date:"d M Y H:i" }}{% endif %}
                             </small>
                         </form>
@@ -78,7 +78,7 @@
         </table>
     </div>
     {% else %}
-    <p class="mb-0" style="font-size:13px;color:#6c757d;">{% trans "No vaccine requests have been submitted yet." %}</p>
+    <p class="mb-0" style="font-size:13px;color:rgb(var(--color-text-muted));">{% trans "No vaccine requests have been submitted yet." %}</p>
     {% endif %}
 </div>
 {% endblock %}

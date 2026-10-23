@@ -6,13 +6,76 @@
 {% block title %}{% trans "Farmer Dashboard - CattleCare AI" %}{% endblock %}
 
 {% block content %}
+{# ===================================================================== #}
+{# The hero panel.                                                       #}
+{#                                                                       #}
+{# This is where the photograph lives now -- bounded, cropped, served at #}
+{# 1x and 2x -- rather than stretched behind the whole page. The image   #}
+{# itself is set on .hero-farmer in farmer_base.html; the gradient stack #}
+{# and the tile styling are shared across all three roles.               #}
+{#                                                                       #}
+{# The four tiles are the same four figures the cards below report. They #}
+{# lead because a farmer opening this screen is asking one question --   #}
+{# "is anything wrong with my herd today" -- and the answer should not   #}
+{# require scrolling.                                                    #}
+{# ===================================================================== #}
+<section class="hero-panel hero-farmer">
+    <div class="hero-head">
+        <div style="min-width:0;">
+            <p class="hero-salutation">
+                {% if farmer %}{% blocktrans with name=farmer.full_name %}Good day, {{ name }}{% endblocktrans %}{% else %}{% trans "Good day" %}{% endif %}
+            </p>
+            <p class="hero-welcome">{% trans "Welcome back to your herd overview." %}</p>
+            <h1 class="hero-headline">{% trans "Here is how your herd is doing today." %}</h1>
+        </div>
+        <p class="hero-date">
+            {% now "l, j F Y" %}<br>
+            <span class="tabular">{% trans "Viewed" %} {% now "H:i" %} CAT</span>
+        </p>
+    </div>
+
+    <div class="hero-tiles">
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Cattle in herd" %}</p>
+            {# A herd size of zero is a profile that has not been filled in, not #}
+            {# a farmer with no cattle -- so it is said in words, not as a 0.    #}
+            {% if farmer.number_of_cattle %}
+                <p class="hero-tile-value">{{ farmer.number_of_cattle }}</p>
+                <p class="hero-tile-hint">{% blocktrans with n=total_cases %}{{ n }} cases submitted in total{% endblocktrans %}</p>
+            {% else %}
+                <p class="hero-tile-hint" style="margin-top:8px;">{% trans "Herd size not recorded yet" %}</p>
+            {% endif %}
+        </div>
+
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Active cases" %}</p>
+            <p class="hero-tile-value">{{ active_cases }}</p>
+            <p class="hero-tile-hint">{% trans "Awaiting a vet recommendation" %}</p>
+        </div>
+
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Critical alerts" %}</p>
+            <p class="hero-tile-value">{{ critical_cases }}</p>
+            <p class="hero-tile-hint">
+                {% if critical_cases %}{% trans "Contact your vet urgently" %}{% else %}{% trans "Nothing critical right now" %}{% endif %}
+            </p>
+        </div>
+
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Resolved" %}</p>
+            <p class="hero-tile-value">{{ resolved_cases }}</p>
+            <p class="hero-tile-hint">{% trans "Closed with a vet outcome" %}</p>
+        </div>
+    </div>
+</section>
+
 <div class="row g-4" style="margin-bottom: 24px;">
     <!-- Herd Summary Card (like Financial Summary) -->
     <div class="col-lg-4">
             <div class="card-dark" style="min-height: 280px;">
             <div class="card-title">
                 <span>{% trans "Herd Summary" %}</span>
-                <button type="button" id="herdHelpBtn" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:0;">
+                <button type="button" id="herdHelpBtn" style="background:none;border:none;color:rgb(var(--color-text-muted));cursor:pointer;padding:0;">
                     <i class="fas fa-question-circle" title="{% trans "Help" %}"></i>
                 </button>
             </div>
@@ -25,7 +88,7 @@
                 <div class="text">{% trans "Monitoring your herd health..." %}</div>
             </div>
             <div id="herdHelpInfo" class="help-info-box">
-                <strong style="color:#22c55e;">{% trans "How to read this card" %}</strong><br>
+                <strong style="color:rgb(var(--color-success));">{% trans "How to read this card" %}</strong><br>
                 {% trans "• Total cattle is your current herd size saved in your profile." %}<br>
                 {% trans "• Total cases counts every disease case you have submitted so far." %}<br>
                 {% trans "• Watch if cases keep rising compared to your herd size — that’s a signal to submit more details and contact your vet early." %}
@@ -39,15 +102,15 @@
             <div class="card-title">
                 <span>{% trans "Herd Health Metrics" %}</span>
                 <div id="healthMenu" style="position:relative;">
-                    <button type="button" id="healthMenuBtn" style="background:none;border:none;color:#6b7280;cursor:pointer;padding:0;">
+                    <button type="button" id="healthMenuBtn" style="background:none;border:none;color:rgb(var(--color-text-muted));cursor:pointer;padding:0;">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <div id="healthMenuList" class="dropdown-menu-light">
-                        <button type="button" data-action="view-active" style="width:100%;padding:8px 12px;background:none;border:none;color:#e5e7eb;font-size:13px;text-align:left;cursor:pointer;">
-                            <i class="fas fa-exclamation-triangle" style="color:#facc15;margin-right:6px;"></i> {% trans "View active cases" %}
+                        <button type="button" data-action="view-active" style="width:100%;padding:8px 12px;background:none;border:none;color:rgb(var(--color-text));font-size:13px;text-align:left;cursor:pointer;">
+                            <i class="fas fa-exclamation-triangle" style="color:rgb(var(--color-warning));margin-right:6px;"></i> {% trans "View active cases" %}
                         </button>
-                        <button type="button" data-action="view-history" style="width:100%;padding:8px 12px;background:none;border:none;color:#e5e7eb;font-size:13px;text-align:left;cursor:pointer;border-top:1px solid rgba(148,163,184,0.3);">
-                            <i class="fas fa-table" style="color:#93c5fd;margin-right:6px;"></i> {% trans "Open case history" %}
+                        <button type="button" data-action="view-history" style="width:100%;padding:8px 12px;background:none;border:none;color:rgb(var(--color-text));font-size:13px;text-align:left;cursor:pointer;border-top:1px solid rgba(148,163,184,0.3);">
+                            <i class="fas fa-table" style="color:rgb(var(--color-accent-text));margin-right:6px;"></i> {% trans "Open case history" %}
                         </button>
                     </div>
                 </div>
@@ -78,7 +141,7 @@
         <div class="card-dark" style="min-height: 280px;">
             <div class="card-title">
                 <span>{% trans "Disease Tracking" %}</span>
-                <select id="diseaseRangeFilter" style="background: #fff; border: 1px solid var(--fc-border); color: var(--fc-text-muted); padding: 6px 12px; border-radius: 999px; font-size: 12px;">
+                <select id="diseaseRangeFilter" style="background: rgb(var(--color-surface)); border: 1px solid var(--fc-border); color: var(--fc-text-muted); padding: 6px 12px; border-radius: 999px; font-size: 12px;">
                     <option value="year" selected>{% trans "Full year" %}</option>
                     <option value="6m">{% trans "Last 6 months" %}</option>
                 </select>
@@ -94,13 +157,13 @@
                         <span style="font-size: 13px; font-weight: 600; color: var(--fc-text);">{{ item.count }}</span>
                     </div>
                     {% empty %}
-                    <div style="font-size: 13px; color: #6b7280;">{% trans "No cases yet" %}</div>
+                    <div style="font-size: 13px; color: rgb(var(--color-text-muted));">{% trans "No cases yet" %}</div>
                     {% endfor %}
                 </div>
             </div>
-            <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:#9ca3af;">
+            <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:rgb(var(--color-text-subtle));">
                 <span>{% trans "Total cases this year:" %} <strong>{{ total_cases }}</strong></span>
-                <span>{% trans "Resolved:" %} <strong style="color:#22c55e;">{{ resolved_cases }}</strong></span>
+                <span>{% trans "Resolved:" %} <strong style="color:rgb(var(--color-success));">{{ resolved_cases }}</strong></span>
             </div>
             <div class="chart-container" style="height: 80px; margin-top: 10px;">
                 <canvas id="miniLineChart"></canvas>
@@ -120,7 +183,7 @@
             <div style="margin-bottom: 16px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
                     <span style="font-size: 13px; color: var(--fc-text-muted);">{% trans "Critical" %} ({{ critical_count }})</span>
-                    <span style="font-size: 12px; color: #6b7280;">{{ critical_pct }}%</span>
+                    <span style="font-size: 12px; color: rgb(var(--color-text-muted));">{{ critical_pct }}%</span>
                 </div>
                 <div class="progress-bar-custom">
                     <div class="progress-fill red" style="width: {{ critical_pct }}%;"></div>
@@ -128,8 +191,8 @@
             </div>
             <div style="margin-bottom: 16px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 13px; color: #9ca3af;">{% trans "Severe" %} ({{ severe_count }})</span>
-                    <span style="font-size: 12px; color: #6b7280;">{{ severe_pct }}%</span>
+                    <span style="font-size: 13px; color: rgb(var(--color-text-subtle));">{% trans "Severe" %} ({{ severe_count }})</span>
+                    <span style="font-size: 12px; color: rgb(var(--color-text-muted));">{{ severe_pct }}%</span>
                 </div>
                 <div class="progress-bar-custom">
                     <div class="progress-fill yellow" style="width: {{ severe_pct }}%;"></div>
@@ -137,8 +200,8 @@
             </div>
             <div style="margin-bottom: 16px;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 13px; color: #9ca3af;">{% trans "Non-Severe" %} ({{ non_severe_count }})</span>
-                    <span style="font-size: 12px; color: #6b7280;">{{ non_severe_pct }}%</span>
+                    <span style="font-size: 13px; color: rgb(var(--color-text-subtle));">{% trans "Non-Severe" %} ({{ non_severe_count }})</span>
+                    <span style="font-size: 12px; color: rgb(var(--color-text-muted));">{{ non_severe_pct }}%</span>
                 </div>
                 <div class="progress-bar-custom">
                     <div class="progress-fill green" style="width: {{ non_severe_pct }}%;"></div>
@@ -195,10 +258,10 @@
                                 {% else %}<span class="pill-badge warning">{{ case.status|local_case_status }}</span>{% endif %}
                             </td>
                             <td>{{ case.created_at|date:"M d, Y" }}</td>
-                            <td><a href="{% url 'farmers:case_result' case.id %}" style="color: #22c55e; text-decoration: none; font-size: 13px;">{% trans "View" %}</a></td>
+                            <td><a href="{% url 'farmers:case_result' case.id %}" style="color: rgb(var(--color-success)); text-decoration: none; font-size: 13px;">{% trans "View" %}</a></td>
                         </tr>
                         {% empty %}
-                        <tr><td colspan="5" style="text-align: center; padding: 40px; color: #6b7280;">{% trans "No cases submitted yet." %} <a href="{% url 'farmers:submit_case' %}" style="color: #22c55e;">{% trans "Submit your first case" %}</a></td></tr>
+                        <tr><td colspan="5" style="text-align: center; padding: 40px; color: rgb(var(--color-text-muted));">{% trans "No cases submitted yet." %} <a href="{% url 'farmers:submit_case' %}" style="color: rgb(var(--color-success));">{% trans "Submit your first case" %}</a></td></tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -212,7 +275,7 @@
             <div class="card-title" id="ai-assistant">
                 <span>{% trans "AI Assistant" %}</span>
                 <div>
-                    <a href="{% url 'farmers:submit_case' %}" title="{% trans "Submit a case" %}" style="color: #9ca3af; margin-right: 8px;"><i class="fas fa-plus-circle"></i></a>
+                    <a href="{% url 'farmers:submit_case' %}" title="{% trans "Submit a case" %}" style="color: rgb(var(--color-text-subtle)); margin-right: 8px;"><i class="fas fa-plus-circle"></i></a>
                 </div>
             </div>
             <div id="aiChatArea" style="flex: 1; overflow-y: auto; max-height: 280px; margin-bottom: 12px;">
@@ -245,7 +308,10 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="{% static 'js/design-tokens.js' %}"></script>
+    <!-- Resolves --color-* tokens for the canvas, which cannot read CSS
+         variables itself. Must precede Chart.js. See the file header. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     window.FARMER_I18N = {
         noCasesYet: "{% trans 'No cases yet' %}",
@@ -270,7 +336,7 @@
                 labels: labels.length ? labels : ['No cases'],
                 datasets: [{
                     data: data.length ? data : [1],
-                    backgroundColor: ['#22c55e', '#eab308', '#3b82f6', '#f97316', '#a855f7'],
+                    backgroundColor: [dsToken('success'), dsToken('warning'), dsToken('accent'), dsToken('chart-2'), dsToken('chart-5')],
                     borderWidth: 0
                 }]
             },
@@ -312,8 +378,8 @@
                 data: {
                     labels: labels,
                     datasets: [
-                        { label: window.FARMER_I18N.resolved, data: res, borderColor: '#22c55e', backgroundColor: 'rgba(34,197,94,0.15)', tension: 0.4, fill: true },
-                        { label: window.FARMER_I18N.critical, data: crit, borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.15)', tension: 0.4, fill: true }
+                        { label: window.FARMER_I18N.resolved, data: res, borderColor: dsToken('success'), backgroundColor: dsToken('success', 0.15), tension: 0.4, fill: true },
+                        { label: window.FARMER_I18N.critical, data: crit, borderColor: dsToken('danger'), backgroundColor: dsToken('danger', 0.15), tension: 0.4, fill: true }
                     ]
                 },
                 options: {
@@ -322,20 +388,20 @@
                     plugins: {
                         legend: {
                             display: true,
-                            labels: { color: '#9ca3af', font: { size: 10 } }
+                            labels: { color: dsToken('text-subtle'), font: { size: 10 } }
                         }
                     },
                     scales: {
                         y: {
                             display: true,
                             beginAtZero: true,
-                            grid: { color: 'rgba(148,163,184,0.3)' },
-                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                            grid: { color: dsToken('border') },
+                            ticks: { color: dsToken('text-subtle'), font: { size: 10 } }
                         },
                         x: {
                             display: true,
                             grid: { display: false },
-                            ticks: { color: '#9ca3af', font: { size: 10 } }
+                            ticks: { color: dsToken('text-subtle'), font: { size: 10 } }
                         }
                     }
                 }
@@ -361,16 +427,16 @@
             e.stopPropagation();
             if (helpBox.style.display === 'none' || !helpBox.style.display) {
                 helpBox.style.display = 'block';
-                herdHelpBtn.style.color = '#22c55e';
+                herdHelpBtn.style.color = 'rgb(var(--color-success))';
             } else {
                 helpBox.style.display = 'none';
-                herdHelpBtn.style.color = '#6b7280';
+                herdHelpBtn.style.color = 'rgb(var(--color-text-muted))';
             }
         });
         document.addEventListener('click', function () {
             if (helpBox.style.display === 'block') {
                 helpBox.style.display = 'none';
-                herdHelpBtn.style.color = '#6b7280';
+                herdHelpBtn.style.color = 'rgb(var(--color-text-muted))';
             }
         });
     }
@@ -462,7 +528,7 @@
             if (hasRealCases && visibleCount === 0) {
                 const tr = document.createElement('tr');
                 tr.setAttribute('data-filter-msg', '1');
-                tr.innerHTML = `<td colspan="5" style="text-align:center;padding:28px;color:#6b7280;">
+                tr.innerHTML = `<td colspan="5" style="text-align:center;padding:28px;color:rgb(var(--color-text-muted));">
                     ${window.FARMER_I18N.noCasesMatch}
                 </td>`;
                 tbody.appendChild(tr);
@@ -512,7 +578,7 @@
             div.className = isUser ? 'ai-chat-bubble ai-chat-user' : 'ai-chat-bubble ai-chat-ai';
             div.innerHTML = isUser
                 ? '<div class="ai-chat-question">' + escapeHtml(question) + '</div>'
-                : '<div class="ai-chat-question" style="color:#9ca3af;">' + window.FARMER_I18N.youAsked + '</div><div class="ai-chat-answer">' + formatAnswer(answer) + '</div>';
+                : '<div class="ai-chat-question" style="color:rgb(var(--color-text-subtle));">' + window.FARMER_I18N.youAsked + '</div><div class="ai-chat-answer">' + formatAnswer(answer) + '</div>';
             chatArea.appendChild(div);
             chatArea.scrollTop = chatArea.scrollHeight;
         }

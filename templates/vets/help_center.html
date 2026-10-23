@@ -7,19 +7,19 @@
 {% block content %}
 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:24px;">
     <div>
-        <h1 style="font-size:24px;font-weight:700;color:#fff;margin-bottom:4px;">{% trans "Vet Help Center" %}</h1>
-        <p style="font-size:13px;color:#94a3b8;max-width:520px;">
+        <h1 style="font-size:24px;font-weight:700;color:rgb(var(--color-text));margin-bottom:4px;">{% trans "Vet Help Center" %}</h1>
+        <p style="font-size:13px;color:rgb(var(--color-text-muted));max-width:520px;">
             {% blocktrans trimmed %}
             Short guide for vet doctors on how to use the CattleCare AI dashboard, manage cases, and communicate with the Ministry.
             {% endblocktrans %}
         </p>
     </div>
     <div class="card-light" style="padding:14px 18px;min-width:220px;max-width:260px;">
-        <div style="font-size:12px;color:#94a3b8;margin-bottom:4px;">{% trans "Your quick stats" %}</div>
+        <div style="font-size:12px;color:rgb(var(--color-text-muted));margin-bottom:4px;">{% trans "Your quick stats" %}</div>
         <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
-            <div><span style="color:#9ca3af;">{% trans "Total cases:" %}</span> <strong>{{ total_cases }}</strong></div>
-            <div><span style="color:#9ca3af;">{% trans "Resolved / Closed:" %}</span> <strong style="color:#4ade80;">{{ resolved_cases }}</strong></div>
-            <div><span style="color:#9ca3af;">{% trans "Open (Assigned + In progress):" %}</span> <strong style="color:#fbbf24;">{{ pending_cases }}</strong></div>
+            <div><span style="color:rgb(var(--color-text-subtle));">{% trans "Total cases:" %}</span> <strong>{{ total_cases }}</strong></div>
+            <div><span style="color:rgb(var(--color-text-subtle));">{% trans "Resolved / Closed:" %}</span> <strong style="color:rgb(var(--color-success));">{{ resolved_cases }}</strong></div>
+            <div><span style="color:rgb(var(--color-text-subtle));">{% trans "Open (Assigned + In progress):" %}</span> <strong style="color:#fbbf24;">{{ pending_cases }}</strong></div>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
             <div class="card-title">
                 <span>{% trans "1. Understanding your vet dashboard" %}</span>
             </div>
-            <div style="font-size:13px;color:#cbd5f5;line-height:1.7;">
+            <div style="font-size:13px;color:rgb(var(--color-text-muted));line-height:1.7;">
                 <p><strong>{% trans "Header bar (top of the page)" %}</strong></p>
                 <ul style="padding-left:18px;margin-bottom:12px;">
                     <li>{% blocktrans trimmed %}<strong>Date range &amp; new cases graph</strong>: shows when new cases were received. Blue points = days with at least one new case.{% endblocktrans %}</li>
@@ -71,7 +71,7 @@
             <div class="card-title">
                 <span>{% trans "2. Working with cases step by step" %}</span>
             </div>
-            <ol style="font-size:13px;color:#cbd5f5;line-height:1.7;padding-left:18px;margin-bottom:0;">
+            <ol style="font-size:13px;color:rgb(var(--color-text-muted));line-height:1.7;padding-left:18px;margin-bottom:0;">
                 <li>{% blocktrans trimmed %}<strong>Open your case list</strong>:
                     Use the sidebar <strong>“Cases”</strong> link to see all assigned, in‑progress, and resolved cases.{% endblocktrans %}</li>
                 <li>{% blocktrans trimmed %}<strong>Review farmer information</strong>:
@@ -92,7 +92,7 @@
             <div class="card-title">
                 <span>{% trans "3. Communicating with Ministry" %}</span>
             </div>
-            <div style="font-size:13px;color:#cbd5f5;line-height:1.7;">
+            <div style="font-size:13px;color:rgb(var(--color-text-muted));line-height:1.7;">
                 <p><strong>{% trans "Requesting vaccines / medical stock" %}</strong></p>
                 <ul style="padding-left:18px;margin-bottom:12px;">
                     <li>{% blocktrans trimmed %}In the sidebar, click <strong>“Request vaccines”</strong>.{% endblocktrans %}</li>
@@ -121,7 +121,7 @@
             <div class="card-title">
                 <span>{% trans "4. Tips for using CattleCare AI effectively" %}</span>
             </div>
-            <ul style="font-size:13px;color:#cbd5f5;line-height:1.7;padding-left:18px;margin-bottom:0;">
+            <ul style="font-size:13px;color:rgb(var(--color-text-muted));line-height:1.7;padding-left:18px;margin-bottom:0;">
                 <li>{% blocktrans trimmed %}<strong>Confirm AI predictions</strong> with your clinical judgement – the system is a support tool, not a replacement for your expertise.{% endblocktrans %}</li>
                 <li>{% blocktrans trimmed %}<strong>Keep statuses up to date</strong> (Assigned → In progress → Resolved) so that Ministry and farmers can see real‑time progress.{% endblocktrans %}</li>
                 <li>{% blocktrans trimmed %}<strong>Use clear language</strong> in recommendations so farmers can follow treatment safely.{% endblocktrans %}</li>

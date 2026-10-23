@@ -1,0 +1,554 @@
+/* ============================================================================
+   CattleCare AI - design system
+   ----------------------------------------------------------------------------
+   Ported from the Nash Paints Retail AI dashboard system (apps/web/src/index.css
+   + tailwind.config.js). Same structure, same rules, same two typefaces; the
+   pigments that carried *identity* there are re-chosen here, for one reason
+   documented beside the brand tokens below.
+
+   Three things this file is the single source of:
+
+     1. every colour in the product, as a token
+     2. the type scale, as one class per role
+     3. the component surfaces -- card, badge, button, table, rail, hero
+
+   Components never hardcode a hex. Re-theming is a change in this file alone.
+
+   Theme handling has three states, exactly as the source system:
+     - an explicit choice stamps data-theme on <html>
+     - the default "system" setting stamps nothing and falls through to
+       prefers-color-scheme
+   So each token is defined three times: once on bare :root (light), once under
+   the media query guarded against an explicit light choice, and once under
+   [data-theme="dark"] so a toggle wins either way.
+   ========================================================================= */
+
+/* --- Typefaces ---------------------------------------------------------------
+   Self-hosted, never a CDN. These are the same @fontsource variable files the
+   source system ships, copied into static/fonts/ so Django serves them and the
+   page has no third-party font dependency to block first paint.
+
+   font-display: swap so text is readable immediately in the fallback and
+   re-renders when the face lands, rather than sitting invisible.
+
+   The latin-ext face is listed with its own narrower unicode-range so the
+   browser only fetches it for pages that actually need those codepoints --
+   which matters here, because this product ships in English, Shona and Ndebele.
+   -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Geist Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/geist-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Geist Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/geist-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("../fonts/jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 800;
+  src: url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* --- Typefaces ----------------------------------------------------------
+     Two faces, with a job each. Carried over unchanged from the source system,
+     including the reasoning, because it applies here identically.
+
+     Geist carries prose and controls. JetBrains Mono carries everything read
+     as *data* rather than *language* -- headings, figures, badges, labels --
+     and it is a genuine monospace, so every digit occupies the same width
+     whether or not tabular-nums is asked for.
+
+     That matters more here than it did there. A vet scans a column of case
+     counts, temperatures and confidence percentages downwards looking for the
+     outlier; digits that do not line up turn a comparison into an exercise.
+
+     This replaces Poppins + Playfair Display on the public pages and Inter on
+     all three dashboards -- three faces across one product, none of which drew
+     a distinction between a word and a number. --- */
+  --font-sans:
+    "Geist Variable", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Surfaces -----------------------------------------------------------
+     Gesso: primed canvas, a hair warm, so a white card still reads as "a
+     document" laid on the page rather than disappearing into it. --- */
+  --color-bg: 251 250 249;
+  --color-surface: 255 255 255;
+  --color-surface-raised: 255 255 255;
+  --color-surface-sunken: 238 240 243;
+  /* The mobile drawer's scrim, and it is brand navy rather than black: the
+     rail it reveals is navy, so the page dims towards the chrome. */
+  --color-overlay: 10 35 66;
+
+  /* --- Text. Graphite: blue-leaning near-black, a real hue rather than black
+     diluted, which is what stops a dense case table reading as grey mush. --- */
+  --color-text: 19 25 31;
+  --color-text-muted: 91 97 103;
+  /* Measured, and deliberately darker than the source system's 129 135 141.
+
+     That value is 3.63:1 on the card surface, 3.48:1 on the page and 3.18:1
+     on the sunken surface -- all three under AA's 4.5 for text this size. It
+     passed unnoticed there because it carried decoration; here it carries the
+     severity labels on the farmer's breakdown card and the comparison line
+     under a herd figure, which are text a farmer is meant to read.
+
+     104 110 116 measures 5.16 / 4.95 / 4.52 on those same three surfaces. The
+     gap to --color-text-muted narrows as a result, which is the honest cost:
+     a third tier that clears AA on a sunken surface cannot be much lighter
+     than the second. */
+  --color-text-subtle: 104 110 116;
+  --color-text-inverse: 255 255 255;
+
+  /* --- Lines --- */
+  --color-border: 219 222 225;
+  --color-border-strong: 213 216 219;
+
+  /* --- Accent: ultramarine.
+     Deliberately NOT red, amber or green. In this product those three are not
+     decoration, they are the severity scale -- a case is literally CRITICAL,
+     SEVERE or NON_SEVERE, and the disease map colours districts on the same
+     triad. An accent sharing those hues would make a neutral button read as a
+     verdict about an animal's health.
+
+     This is the same rule the source system states for stock-risk flags, and
+     it binds harder here, because the thing being judged is alive. --- */
+  --color-accent: 34 74 192;
+  --color-accent-hover: 19 54 172;
+  --color-accent-subtle: 233 237 245;
+  --color-accent-text: 20 53 155;
+  --color-accent-contrast: 255 255 255;
+
+  /* --- Status. Pigment names, because colour here is load-bearing.
+
+     Three tokens each, and the -ink one is the point. -subtle is the badge
+     fill and the base is its border and dot, but the base is too light to
+     carry words: cadmium yellow measures 3.58:1 on gesso, under AA's 4.5 for
+     text this size. So text uses -ink, which clears AA on its own fill by
+     7.76:1 at worst (success 11.72, danger 9.43, warning 7.76 -- measured,
+     not inherited).
+
+     Measured values, carried over from the source system rather than re-mixed,
+     so the contrast work does not have to be redone to be trusted. --- */
+  --color-success: 3 105 70; /* phthalo green     -- resolved, healthy */
+  --color-success-ink: 0 56 35;
+  --color-success-subtle: 223 247 234;
+  --color-warning: 176 122 0; /* cadmium yellow    -- severe, awaiting  */
+  --color-warning-ink: 106 68 0;
+  --color-warning-subtle: 255 242 214;
+  --color-danger: 186 43 46; /* alizarin crimson  -- critical          */
+  --color-danger-ink: 128 6 19;
+  --color-danger-subtle: 255 236 233;
+  --color-info: 34 74 192;
+  --color-info-subtle: 233 237 245;
+
+  /* --- Brand. Printed identity values, so they do NOT move between themes --
+     a logo sheet has no dark variant. Confined to identity surfaces: the
+     navigation rail's ground, its active item, the hero panel, the sign-in
+     card. Never beside a figure.
+
+     ## Why these are not the source system's values
+
+     The structure is ported verbatim. The two hues are not, and both
+     substitutions are forced by the rule that structure encodes:
+
+     - The source identity red (#ED1C24) is a paint company's registered mark.
+       It is also, in this product, the colour of a critical case. A red brand
+       tile beside a herd figure would read as an alarm every time it appeared.
+
+     - The outgoing CattleCare green (#22c55e) fails the same test from the
+       other direction: green here means "resolved / healthy", so a green
+       brand button told the farmer their herd was fine before it told them
+       what it did.
+
+     So identity is deep navy plus a clinical teal. Teal sits outside the
+     severity band entirely, reads medical rather than agricultural, and keeps
+     the navy rail the source system's layout is built around.
+
+     --color-brand-ink exists for the same reason nash-red-ink did: white on
+     the mark teal measures 4.95:1, which clears AA but with almost no margin,
+     and the rail's active item is a 13px label on exactly that fill. The mark
+     keeps the exact teal; anything carrying words on teal uses the ink. --- */
+  --color-brand-navy: 10 35 66; /* #0A2342 -- the rail, the hero ground */
+  --color-brand: 14 124 134; /* #0E7C86 -- the mark                  */
+  --color-brand-ink: 11 100 108; /* #0B646C -- words on the mark         */
+  --color-brand-contrast: 255 255 255;
+  --color-brand-subtle: 224 243 245;
+  --color-brand-grey: 245 247 250;
+
+  /* --- Highlight: the identity teal as a wash. Decoration on brand surfaces
+     only -- the hero's bloom, the logo tile. Never a status, which is the
+     whole reason it is a separate token from the three above. --- */
+  --color-highlight: 14 124 134;
+  --color-highlight-subtle: 224 243 245;
+
+  /* --- Domain series. Four measures, four fixed colours, on every chart and
+     every screen: a vet who learns "amber is awaiting review" on their own
+     dashboard must not meet amber as something else on the ministry's.
+
+     Unlike the source system's revenue/profit series, three of these four
+     genuinely *are* statuses, so they take the status pigments rather than a
+     neutral palette -- that is the correct use of a loaded colour. Only
+     "cases submitted" is a plain count, and it takes the accent blue. --- */
+  --color-series-cases: 42 120 214; /* submitted / total       */
+  --color-series-resolved: 3 105 70; /* resolved                */
+  --color-series-active: 176 122 0; /* active / awaiting vet   */
+  --color-series-critical: 186 43 46; /* critical                */
+
+  /* --- Chart categories: the validated ramp, kept at the values that were
+     actually measured in the source system.
+
+     Separated on BOTH hue and lightness, not hue alone, so the slots stay
+     distinguishable in greyscale and to a deuteranope -- which hue separation
+     by itself does not guarantee. This is the ramp for *nominal* categories:
+     disease names, districts, breeds. Slots are assigned in fixed order and
+     never cycled; a sixth category folds into "Other" rather than getting a
+     sixth hue. Re-validate before adding one. --- */
+  --color-chart-1: 42 120 214; /* #2A78D6 blue    */
+  --color-chart-2: 235 104 52; /* #EB6834 orange  */
+  --color-chart-3: 27 175 122; /* #1BAF7A aqua    */
+  --color-chart-4: 237 161 0; /* #EDA100 yellow  */
+  --color-chart-5: 232 123 164; /* #E87BA4 magenta */
+
+  /* --- Focus --- */
+  --color-focus: 34 74 192;
+
+  /* Filled form field -- the "soft" input variant on the sign-in card. */
+  --color-field: 241 244 246;
+
+  /* --- Elevation. Softer in light, where shadow does the lifting. --- */
+  --shadow-sm: 0 1px 2px 0 rgb(19 25 31 / 0.04);
+  --shadow-md: 0 1px 2px rgb(19 25 31 / 0.04), 0 8px 24px -12px rgb(19 25 31 / 0.12);
+  --shadow-lg: 0 14px 34px -10px rgb(19 25 31 / 0.14), 0 2px 8px -2px rgb(19 25 31 / 0.06);
+
+  --radius: 0.5rem;
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-panel: 20px;
+
+  /* The rail's width, in one place. The rail is position:fixed in two of the
+     three shells, so the content area is the only element that may carry the
+     matching offset -- a rule the vet shell already documented in a comment
+     and which this token now makes enforceable. */
+  --rail-width: 248px;
+  --rail-width-collapsed: 64px;
+}
+
+/* System setting is dark, and the user has not explicitly chosen light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: 11 16 21;
+    --color-surface: 19 25 31;
+    --color-surface-raised: 28 34 41;
+    --color-surface-sunken: 32 39 47;
+    --color-overlay: 0 0 0;
+
+    --color-text: 230 232 234;
+    --color-text-muted: 153 159 166;
+    --color-text-subtle: 136 142 149; /* 5.35 / 5.78 / 4.85 / 4.56 -- see the light note */
+    --color-text-inverse: 11 16 21;
+
+    --color-border: 42 49 58;
+    --color-border-strong: 58 66 77;
+
+    --color-accent: 103 147 250;
+    --color-accent-hover: 133 174 255;
+    --color-accent-subtle: 38 46 61;
+    --color-accent-text: 180 206 255;
+    --color-accent-contrast: 11 16 21;
+
+    /* The same pigments, mixed lighter so they clear AA on graphite rather
+       than on gesso. Chosen against the dark surface, not flipped from the
+       light values. */
+    --color-success: 71 190 139;
+    --color-success-ink: 126 219 174;
+    --color-success-subtle: 18 54 38;
+    --color-warning: 225 175 74;
+    --color-warning-ink: 245 203 112;
+    --color-warning-subtle: 64 48 18;
+    --color-danger: 228 93 88;
+    --color-danger-ink: 255 149 140;
+    --color-danger-subtle: 78 32 30;
+    --color-info: 103 147 250;
+    --color-info-subtle: 38 46 61;
+
+    /* Brand values do not move between themes. Repeated rather than left to
+       fall through, so every token in this file is defined in all three blocks
+       and a reader never has to work out which ones are missing on purpose. */
+    --color-brand-navy: 10 35 66;
+    --color-brand: 14 124 134;
+    --color-brand-ink: 11 100 108;
+    --color-brand-contrast: 255 255 255;
+    --color-brand-subtle: 16 48 52;
+    --color-brand-grey: 245 247 250;
+
+    --color-highlight: 45 176 188;
+    --color-highlight-subtle: 16 48 52;
+
+    /* Lifted for a dark ground, keeping the same lightness order relative to
+       one another so the series stay rankable at a glance. */
+    --color-series-cases: 57 135 229;
+    --color-series-resolved: 71 190 139;
+    --color-series-active: 225 175 74;
+    --color-series-critical: 228 93 88;
+
+    /* Dark steps chosen against the dark surface, not flipped from light. */
+    --color-chart-1: 57 135 229; /* #3987E5 */
+    --color-chart-2: 217 89 38; /* #D95926 */
+    --color-chart-3: 25 158 112; /* #199E70 */
+    --color-chart-4: 201 133 0; /* #C98500 */
+    --color-chart-5: 213 81 129; /* #D55181 */
+
+    --color-focus: 133 174 255;
+    --color-field: 28 34 41;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 28px -14px rgb(0 0 0 / 0.55);
+    --shadow-lg: 0 16px 36px -12px rgb(0 0 0 / 0.6);
+  }
+}
+
+/* Explicit dark choice wins regardless of the system setting. */
+:root[data-theme="dark"] {
+  --color-bg: 11 16 21;
+  --color-surface: 19 25 31;
+  --color-surface-raised: 28 34 41;
+  --color-surface-sunken: 32 39 47;
+  --color-overlay: 0 0 0;
+
+  --color-text: 230 232 234;
+  --color-text-muted: 153 159 166;
+  --color-text-subtle: 136 142 149; /* see the light note */
+  --color-text-inverse: 11 16 21;
+
+  --color-border: 42 49 58;
+  --color-border-strong: 58 66 77;
+
+  --color-accent: 103 147 250;
+  --color-accent-hover: 133 174 255;
+  --color-accent-subtle: 38 46 61;
+  --color-accent-text: 180 206 255;
+  --color-accent-contrast: 11 16 21;
+
+  --color-success: 71 190 139;
+  --color-success-ink: 126 219 174;
+  --color-success-subtle: 18 54 38;
+  --color-warning: 225 175 74;
+  --color-warning-ink: 245 203 112;
+  --color-warning-subtle: 64 48 18;
+  --color-danger: 228 93 88;
+  --color-danger-ink: 255 149 140;
+  --color-danger-subtle: 78 32 30;
+  --color-info: 103 147 250;
+  --color-info-subtle: 38 46 61;
+
+  --color-brand-navy: 10 35 66;
+  --color-brand: 14 124 134;
+  --color-brand-ink: 11 100 108;
+  --color-brand-contrast: 255 255 255;
+  --color-brand-subtle: 16 48 52;
+  --color-brand-grey: 245 247 250;
+
+  --color-highlight: 45 176 188;
+  --color-highlight-subtle: 16 48 52;
+
+  --color-series-cases: 57 135 229;
+  --color-series-resolved: 71 190 139;
+  --color-series-active: 225 175 74;
+  --color-series-critical: 228 93 88;
+
+  --color-chart-1: 57 135 229;
+  --color-chart-2: 217 89 38;
+  --color-chart-3: 25 158 112;
+  --color-chart-4: 201 133 0;
+  --color-chart-5: 213 81 129;
+
+  --color-focus: 133 174 255;
+  --color-field: 28 34 41;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 28px -14px rgb(0 0 0 / 0.55);
+  --shadow-lg: 0 16px 36px -12px rgb(0 0 0 / 0.6);
+}
+
+/* ============================================================================
+   Base
+   ========================================================================= */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Geist's character variants, as the source system sets them. */
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: rgb(var(--color-bg));
+  color: rgb(var(--color-text));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Every figure in this product gets compared against another figure, so digits
+   must line up in columns. Applied to whole tables, which is safe: a word is
+   unaffected by a numeric variant. */
+:where(table, .tabular) {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* The monospace face, however, goes on .tabular only -- deliberately NOT on
+   table. .tabular marks exactly the things that are figures: case counts,
+   percentages, temperatures, the comparison beside a KPI. Setting a whole table
+   in mono would put the farmer names and disease names in it too, and a disease
+   name is not a figure. */
+.tabular {
+  font-family: var(--font-mono);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--color-focus));
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: rgb(var(--color-accent) / 0.25);
+}
+
+/* Respect a reduced-motion preference rather than animating regardless. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================================
+   Type scale
+   ----------------------------------------------------------------------------
+   One definition per role, rather than the same handful of declarations
+   repeated at hundreds of call sites. A scale is the thing that most needs to
+   be changed in one place, and inline styles are the thing that most resists
+   it -- these three dashboards carried 643 inline style attributes before this
+   file existed, which is why a change of heading size was a change to 36 files.
+
+   Sizes are in px on purpose. They are a fixed scale, not something that should
+   compound with a user's root font size and change the relationship between a
+   heading and the figure beneath it.
+
+   Two rules these encode, both because these figures get read on a phone in a
+   field and projected in ministry meetings rather than only at a desk:
+
+     - no weight below 400, so nothing thins out on a projector
+     - no prose below 14px
+
+   .t-tag and .t-label sit at 12px and are exempt by role: a severity badge or a
+   column header is a word or two being identified, not prose being read.
+   ========================================================================= */
+
+/* The one title on a page, in its header. */
+.t-title {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: rgb(var(--color-text));
+}
+
+/* Card and section headings. The positive tracking is what stops a monospace
+   at this size reading as cramped. */
+.t-section {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 19.25px;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  color: rgb(var(--color-text));
+}
+
+/* Severity badges, tags, and the small meta text beside a figure. */
+.t-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Small field labels and column headers. Prose face: these are read as
+   language, not scanned as data. */
+.t-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Figures. The size stays at the call site -- a KPI headline and a table cell
+   are the same role at different scales -- so this sets only face and weight.
+
+   Monospace makes tabular-nums redundant here: every digit is already the same
+   width, drawn to it rather than fitted to it. */
+.t-figure {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  color: rgb(var(--color-text));
+}
+
+/* The two figure sizes the source system defines, because a dashboard figure
+   needs to read as a figure rather than as body text. */
+.t-metric {
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+}
+
+.t-metric-lg {
+  font-size: 40px;
+  line-height: 44px;
+  letter-spacing: -0.025em;
+}
+
+/* Muted prose, one step down. */
+.t-body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(var(--color-text-muted));
+}

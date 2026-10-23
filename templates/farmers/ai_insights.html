@@ -8,8 +8,8 @@
     <div class="col-lg-8">
         <div class="card-dark" style="min-height: 520px; display:flex; flex-direction:column;">
             <div class="card-title">
-                <span><i class="fas fa-brain" style="margin-right:8px;color:#22c55e;"></i>AI Insights for your herd</span>
-                <span style="font-size:12px;color:#6b7280;">Ask questions and get guidance using your real case history.</span>
+                <span><i class="fas fa-brain" style="margin-right:8px;color:rgb(var(--color-success));"></i>AI Insights for your herd</span>
+                <span style="font-size:12px;color:rgb(var(--color-text-muted));">Ask questions and get guidance using your real case history.</span>
             </div>
             <div id="aiChatArea" style="flex: 1; overflow-y: auto; max-height: 420px; margin-bottom: 12px;">
                 <div class="ai-chat-bubble">
@@ -38,20 +38,20 @@
             </div>
             <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;font-size:13px;">
                 <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(34,197,94,0.3);">
-                    <div style="color:#6b7280;margin-bottom:4px;">Total cases</div>
-                    <div style="font-size:22px;font-weight:700;color:#e5e7eb;">{{ total_cases }}</div>
+                    <div style="color:rgb(var(--color-text-muted));margin-bottom:4px;">Total cases</div>
+                    <div style="font-size:22px;font-weight:700;color:rgb(var(--color-text));">{{ total_cases }}</div>
                 </div>
                 <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(234,179,8,0.4);">
-                    <div style="color:#6b7280;margin-bottom:4px;">Active</div>
-                    <div style="font-size:22px;font-weight:700;color:#eab308;">{{ active_cases }}</div>
+                    <div style="color:rgb(var(--color-text-muted));margin-bottom:4px;">Active</div>
+                    <div style="font-size:22px;font-weight:700;color:rgb(var(--color-warning));">{{ active_cases }}</div>
                 </div>
                 <div style="padding:10px 12px;border-radius:12px;background:rgba(15,23,42,0.9);border:1px solid rgba(34,197,94,0.4);grid-column:1/-1;">
-                    <div style="color:#6b7280;margin-bottom:4px;">Resolved</div>
-                    <div style="font-size:22px;font-weight:700;color:#22c55e;">{{ resolved_cases }}</div>
+                    <div style="color:rgb(var(--color-text-muted));margin-bottom:4px;">Resolved</div>
+                    <div style="font-size:22px;font-weight:700;color:rgb(var(--color-success));">{{ resolved_cases }}</div>
                 </div>
             </div>
-            <div style="margin-top:16px;font-size:12px;color:#9ca3af;line-height:1.6;">
-                <strong style="color:#22c55e;">How this works:</strong><br>
+            <div style="margin-top:16px;font-size:12px;color:rgb(var(--color-text-subtle));line-height:1.6;">
+                <strong style="color:rgb(var(--color-success));">How this works:</strong><br>
                 • Answers are based on veterinary guidance and AI models.<br>
                 • I will look at your latest recorded case to mention real examples from your herd.<br>
                 • Always confirm treatment decisions with your assigned vet.
@@ -63,10 +63,10 @@
 
 {% block extra_css %}
 <style>
-    .ai-topic-btn { padding: 6px 12px; background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .ai-topic-btn { padding: 6px 12px; background: rgba(34,197,94,0.15); color: rgb(var(--color-success)); border: 1px solid rgba(34,197,94,0.3); border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
     .ai-topic-btn:hover { background: rgba(34,197,94,0.25); transform: translateY(-1px); }
     .ai-chat-user { text-align: right; margin-bottom: 12px; }
-    .ai-chat-user .ai-chat-question { color: #22c55e; text-transform: capitalize; }
+    .ai-chat-user .ai-chat-question { color: rgb(var(--color-success)); text-transform: capitalize; }
     .ai-chat-ai .ai-chat-answer { white-space: pre-line; }
 </style>
 {% endblock %}

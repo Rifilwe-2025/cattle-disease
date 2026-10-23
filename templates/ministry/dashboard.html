@@ -9,7 +9,20 @@
     <title>{% trans "Ministry Dashboard - CattleCare AI" %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    {# Typefaces self-hosted in design-system.css; the Google Fonts link for  #}
+    {# Inter that used to sit here is gone. Tokens load before this page own  #}
+    {# stylesheet so its rules can reference them; components.css loads after #}
+    {# it, with the page-specific mapping, just below the closing </style>.   #}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/geist-latin-wght-normal.woff2' %}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/jetbrains-mono-latin-wght-normal.woff2' %}">
+    <link rel="stylesheet" href="{% static 'css/design-system.css' %}">
+    {# compact.css is a legacy sheet and loads here, with the other legacy    #}
+    {# CSS, rather than last. It used to sit after everything -- including     #}
+    {# components.css and the page override block below -- which made the      #}
+    {# oldest stylesheet in the project the one that won every tie.            #}
+    <link rel="stylesheet" href="{% static 'css/compact.css' %}">
     <style>
         * {
             margin: 0;
@@ -24,34 +37,20 @@
             position: relative;
         }
 
-        /* Full viewport background - no blur, brighter so image is clearer */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: url('{% static "images/ChatGPT Image Feb 10, 2026, 02_04_18 PM.png" %}') center center / cover no-repeat;
-            filter: brightness(1.25);
-            -webkit-filter: brightness(1.25);
-            z-index: -2;
-        }
+        /* The two full-viewport pseudo-elements that used to sit here -- a
+           1536px PNG at cover with filter: brightness(1.25), and a cream
+           wash over it -- have been removed rather than merely overridden.
 
-        /* Light overlay - does not hide the image */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(135deg, 
-                rgba(255, 252, 248, 0.2) 0%, 
-                rgba(255, 250, 245, 0.25) 50%,
-                rgba(254, 248, 242, 0.18) 100%);
-            z-index: -1;
-        }
+           The brightness filter was the specific thing making the image
+           look out of focus: brightening a photograph in the compositor
+           clips its highlights, and a highlight with no detail left in it
+           reads as soft. Stretching a 1536px source across a 2560px
+           viewport did the rest.
+
+           The photograph now lives in the hero panel at the top of
+           .main-area, bounded and served at 1x and 2x. The page ground is
+           the flat --color-bg token. */
+
 
         /* Main dashboard wrapper - full viewport */
         .dashboard-wrapper {
@@ -93,7 +92,7 @@
         .sidebar-brand-icon {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -105,7 +104,7 @@
         .sidebar-brand-text {
             font-size: 15px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
         }
 
         .sidebar-search {
@@ -127,7 +126,7 @@
             position: absolute;
             left: 26px;
             top: 26px;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             font-size: 12px;
         }
 
@@ -140,7 +139,7 @@
             padding: 8px 16px 6px;
             font-size: 10px;
             font-weight: 600;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -149,7 +148,7 @@
             display: flex;
             align-items: center;
             padding: 10px 16px;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
@@ -160,22 +159,22 @@
 
         .menu-item:hover {
             background: rgba(102, 126, 234, 0.12);
-            color: #667eea;
+            color: rgb(var(--color-brand));
             transform: translateX(4px);
             padding-left: 20px;
         }
 
         .menu-item.active {
             background: linear-gradient(90deg, rgba(102, 126, 234, 0.20) 0%, rgba(102, 126, 234, 0.10) 100%);
-            color: #667eea;
+            color: rgb(var(--color-brand));
             font-weight: 600;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid rgb(var(--color-brand));
             padding-left: 13px;
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
         }
 
         .menu-item.active i {
-            color: #667eea;
+            color: rgb(var(--color-brand));
         }
 
         .menu-item i {
@@ -186,7 +185,7 @@
 
         .menu-badge {
             margin-left: auto;
-            background: #667eea;
+            background: rgb(var(--color-brand));
             color: white;
             padding: 2px 7px;
             border-radius: 10px;
@@ -210,7 +209,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -227,12 +226,12 @@
         .sidebar-user-name {
             font-size: 12px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
         }
 
         .sidebar-user-email {
             font-size: 10px;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             overflow: hidden;
             text-overflow: ellipsis;
         }
@@ -259,7 +258,7 @@
         .topbar-title {
             font-size: 18px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
@@ -275,7 +274,7 @@
             border-radius: 8px;
             border: none;
             background: rgba(255, 255, 255, 0.5);
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,7 +285,7 @@
 
         .topbar-btn:hover {
             background: rgba(102, 126, 234, 0.15);
-            color: #667eea;
+            color: rgb(var(--color-brand));
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
@@ -295,7 +294,7 @@
             position: absolute;
             top: -2px;
             right: -2px;
-            background: #dc3545;
+            background: rgb(var(--color-danger));
             color: white;
             width: 16px;
             height: 16px;
@@ -328,7 +327,7 @@
         .topbar-user-text {
             font-size: 13px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
         }
 
         .admin-dropdown {
@@ -355,7 +354,7 @@
             align-items: center;
             gap: 10px;
             padding: 10px 14px;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -365,7 +364,7 @@
 
         .admin-dropdown-item:hover {
             background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
+            color: rgb(var(--color-brand));
         }
 
         .admin-dropdown-item i {
@@ -392,7 +391,7 @@
             padding: 10px 16px;
             font-size: 13px;
             font-weight: 500;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             cursor: pointer;
             border-bottom: 3px solid transparent;
             transition: all 0.25s ease;
@@ -400,14 +399,14 @@
         }
 
         .tab:hover {
-            color: #667eea;
+            color: rgb(var(--color-brand));
             background: rgba(102, 126, 234, 0.05);
         }
 
         .tab.active {
-            color: #667eea;
+            color: rgb(var(--color-brand));
             font-weight: 700;
-            border-bottom-color: #667eea;
+            border-bottom-color: rgb(var(--color-brand));
             background: rgba(102, 126, 234, 0.08);
         }
 
@@ -444,13 +443,13 @@
 
         .stat-title {
             font-size: 12px;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             font-weight: 600;
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
         }
 
         .stat-menu {
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             cursor: pointer;
             font-size: 14px;
         }
@@ -458,7 +457,7 @@
         .stat-value {
             font-size: 28px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
             margin-bottom: 8px;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
         }
@@ -471,11 +470,11 @@
         }
 
         .stat-trend.up {
-            color: #28a745;
+            color: rgb(var(--color-success));
         }
 
         .stat-trend.down {
-            color: #dc3545;
+            color: rgb(var(--color-danger));
         }
 
         .stat-trend i {
@@ -504,7 +503,7 @@
         }
 
         .stat-bar.active {
-            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(180deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%);
             box-shadow: 0 -2px 8px rgba(102, 126, 234, 0.3);
         }
 
@@ -545,7 +544,7 @@
         .chart-title {
             font-size: 15px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
@@ -633,18 +632,18 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
         }
 
         .donut-legend-value {
             font-size: 13px;
             font-weight: 600;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
         }
 
         .donut-legend-percent {
             font-size: 12px;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             margin-left: 4px;
         }
 
@@ -654,7 +653,7 @@
         }
 
         .donut-view-details a {
-            color: #667eea;
+            color: rgb(var(--color-brand));
             font-size: 13px;
             font-weight: 500;
             text-decoration: none;
@@ -699,7 +698,7 @@
         .cases-toolbar-label {
             font-size: 12px;
             font-weight: 600;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             margin-right: 4px;
         }
 
@@ -728,13 +727,13 @@
         }
 
         .btn-mini-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
+            background: linear-gradient(135deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%);
+            color: rgb(var(--color-text));
         }
 
         .btn-mini-outline {
             background: transparent;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             border: 1px solid rgba(0, 0, 0, 0.12);
         }
 
@@ -769,7 +768,7 @@
         .cases-more-item {
             padding: 8px 14px;
             font-size: 13px;
-            color: #495057;
+            color: rgb(var(--color-text-muted));
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -779,7 +778,7 @@
 
         .cases-more-item:hover {
             background: rgba(102, 126, 234, 0.08);
-            color: #667eea;
+            color: rgb(var(--color-brand));
         }
 
         .table-header {
@@ -792,7 +791,7 @@
         .table-title {
             font-size: 15px;
             font-weight: 700;
-            color: #1a1a1a;
+            color: rgb(var(--color-text));
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
         }
 
@@ -817,7 +816,7 @@
         .table-action-btn:hover {
             background: rgba(102, 126, 234, 0.12);
             border-color: rgba(102, 126, 234, 0.4);
-            color: #667eea;
+            color: rgb(var(--color-brand));
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
         }
@@ -832,7 +831,7 @@
             padding: 10px 12px;
             font-size: 11px;
             font-weight: 600;
-            color: #6c757d;
+            color: rgb(var(--color-text-muted));
             text-transform: uppercase;
             letter-spacing: 0.3px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -842,7 +841,7 @@
         .data-table tbody td {
             padding: 14px 12px;
             font-size: 13px;
-            color: #333;
+            color: rgb(var(--color-text));
             border-bottom: 1px solid rgba(0, 0, 0, 0.03);
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
         }
@@ -859,7 +858,7 @@
         .data-table tbody tr:hover {
             background: rgba(102, 126, 234, 0.12);
             transform: translateX(4px);
-            box-shadow: -3px 0 0 #667eea;
+            box-shadow: -3px 0 0 rgb(var(--color-brand));
         }
 
         .table-badge {
@@ -871,7 +870,7 @@
 
         .table-badge.success {
             background: rgba(40, 167, 69, 0.1);
-            color: #28a745;
+            color: rgb(var(--color-success));
         }
 
         .table-badge.warning {
@@ -881,7 +880,7 @@
 
         .table-badge.info {
             background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
+            color: rgb(var(--color-brand));
         }
 
         /* Loading skeleton */
@@ -908,7 +907,7 @@
 
         button.chart-dropdown:hover {
             background: rgba(102, 126, 234, 0.15);
-            color: #667eea;
+            color: rgb(var(--color-brand));
             transform: scale(1.1);
         }
 
@@ -968,7 +967,258 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="{% static 'css/compact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <style>
+        /* ------------------------------------------------------------------
+           This screen is a standalone page rather than a child of
+           base_ministry.html, so it carries its own 950-line stylesheet above
+           and its own vocabulary for things the rest of the product already
+           had names for -- .stat-card here is .content-card there, .stat-value
+           is .stat-mini-value, .chart-card is a card.
+
+           Rather than rewrite that, this block maps the page's own names onto
+           the design tokens. The rail and the top bar need nothing: they use
+           the shared class names and components.css has already dressed them.
+           ------------------------------------------------------------------ */
+
+        /* The page ground. Same change as the shell: a 1536px PNG with
+           `filter: brightness(1.25)` over the whole viewport becomes a flat
+           token, and the photograph moves into the hero panel below. See the
+           note in base_ministry.html for why the brightness filter in
+           particular was making the image look out of focus. */
+        body {
+            font-family: var(--font-sans);
+            color: rgb(var(--color-text));
+            background: rgb(var(--color-bg));
+        }
+
+        body::before, body::after { content: none !important; }
+
+        .dashboard-wrapper { background: transparent; }
+
+        /* The identity block at the foot of the rail.
+
+           This page's own stylesheet sets these three with the *content* text
+           tokens, which were correct when the rail was a translucent white
+           panel and are wrong now that it is navy -- the email was rendering
+           at 2.52:1 against it. On a brand surface the colours are translucent
+           white rather than tokens, the same exception the rail itself takes
+           in components.css. */
+        .sidebar-user-avatar {
+            background: rgb(255 255 255 / 0.12);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+        .sidebar-user-name { color: #fff; }
+        .sidebar-user-email { color: rgb(255 255 255 / 0.6); }
+
+        /* --- Tabs --- */
+        .tabs {
+            display: flex; gap: 4px; padding: 3px; margin-bottom: 4px;
+            border-radius: var(--radius-lg);
+            background: rgb(var(--color-surface-sunken));
+            border: none;
+            width: fit-content;
+        }
+        .tab {
+            padding: 7px 16px; border-radius: var(--radius); cursor: pointer;
+            font-family: var(--font-sans); font-size: 13px; font-weight: 500;
+            color: rgb(var(--color-text-muted));
+            background: transparent; border: none;
+        }
+        .tab:hover { color: rgb(var(--color-text)); }
+        .tab.active {
+            background: rgb(var(--color-surface));
+            color: rgb(var(--color-text));
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* --- The KPI row --- */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card, .chart-card, .donut-card {
+            background: rgb(var(--color-surface));
+            border: 1px solid rgb(var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 20px;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        .stat-card:hover, .chart-card:hover, .donut-card:hover {
+            transform: none;
+            border-color: rgb(var(--color-border-strong));
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-header {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; margin-bottom: 10px;
+        }
+        .stat-title {
+            font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+            color: rgb(var(--color-text-muted));
+        }
+        .stat-menu { color: rgb(var(--color-text-subtle)); cursor: pointer; font-size: 13px; }
+        .stat-menu:hover { color: rgb(var(--color-text)); }
+
+        /* The headline figure. Mono, tabular, and no longer the same face and
+           weight as the label above it. */
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 30px; line-height: 36px; font-weight: 600;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            color: rgb(var(--color-text));
+            margin-bottom: 6px;
+        }
+
+        /* The line under a figure. `.up` is not automatically good on this
+           screen -- more cases is worse -- so it stays neutral unless the
+           markup also says the state, which is why there is no green here. */
+        .stat-trend {
+            display: flex; align-items: center; gap: 6px;
+            font-family: var(--font-sans); font-size: 12px;
+            color: rgb(var(--color-text-muted));
+        }
+        .stat-trend i { font-size: 11px; color: rgb(var(--color-text-subtle)); }
+        /* .up is NOT green, and this override is what stops it being green --
+           the legacy rule above sets it to the success token and is equally
+           specific, so it is restated here where this block wins on order.
+
+           What .up actually labels on this screen is "Registered farmers",
+           "Approved veterinarians" and "7 pending": a caption under each
+           figure, not a judgement. Green is the resolved/healthy end of the
+           severity scale, and spending it on a caption is what makes it stop
+           meaning anything where it is load-bearing. */
+        .stat-trend.up, .stat-trend.up i { color: rgb(var(--color-text-muted)); }
+        .stat-trend.danger, .stat-trend.danger i { color: rgb(var(--color-danger)); }
+        .stat-trend.warning, .stat-trend.warning i { color: rgb(var(--color-warning)); }
+
+        /* The six-bar sparkline beside a figure. Deliberately not a meter --
+           see the note beside .progress-bar-custom in components.css. */
+        .stat-chart {
+            display: flex; align-items: flex-end; gap: 4px;
+            height: 38px; margin-top: 14px;
+        }
+        .stat-bar {
+            flex: 1; border-radius: 2px;
+            background: rgb(var(--color-accent) / 0.18);
+        }
+        .stat-bar.active { background: rgb(var(--color-accent)); }
+
+        /* --- Charts --- */
+        .content-grid { display: grid; gap: 16px; }
+
+        .chart-header, .donut-header {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 12px; margin-bottom: 16px;
+            border-bottom: 1px solid rgb(var(--color-border));
+        }
+        .chart-title {
+            font-family: var(--font-mono); font-size: 14px; line-height: 19.25px;
+            font-weight: 600; letter-spacing: 0.35px;
+            color: rgb(var(--color-text));
+        }
+        .chart-controls { display: flex; align-items: center; gap: 8px; }
+        .chart-area { position: relative; }
+
+        .chart-legend, .donut-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+        .legend-item, .donut-legend-item {
+            display: flex; align-items: center; gap: 7px;
+            font-family: var(--font-sans); font-size: 12px;
+            color: rgb(var(--color-text-muted));
+        }
+        .legend-dot { width: 9px; height: 9px; border-radius: 999px; flex-shrink: 0; }
+        .donut-legend-label { color: rgb(var(--color-text-muted)); }
+        .donut-legend-value, .donut-legend-percent {
+            font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+            font-weight: 600; color: rgb(var(--color-text));
+        }
+        .donut-view-details {
+            font-size: 12px; font-weight: 500;
+            color: rgb(var(--color-accent-text)); text-decoration: none;
+        }
+
+        .chart-dropdown, .cases-more-menu, .cases-toolbar-panel {
+            background: rgb(var(--color-surface));
+            border: 1px solid rgb(var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        .cases-more-item {
+            color: rgb(var(--color-text));
+            border-radius: var(--radius);
+            font-family: var(--font-sans); font-size: 13px;
+        }
+        .cases-more-item:hover { background: rgb(var(--color-surface-sunken)); color: rgb(var(--color-text)); }
+
+        .cases-toolbar-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .cases-toolbar-label {
+            font-family: var(--font-sans); font-size: 12px; font-weight: 500;
+            color: rgb(var(--color-text-muted));
+        }
+        .cases-toolbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+        /* --- The small buttons this page uses in card headers --- */
+        .btn-mini {
+            display: inline-flex; align-items: center; gap: 6px;
+            height: 32px; padding: 0 12px;
+            border-radius: var(--radius);
+            font-family: var(--font-sans); font-size: 12.5px; font-weight: 500;
+            text-decoration: none; cursor: pointer; border: 1px solid transparent;
+        }
+        .btn-mini-primary {
+            background: rgb(var(--color-accent)); color: rgb(var(--color-accent-contrast));
+        }
+        .btn-mini-primary:hover { background: rgb(var(--color-accent-hover)); color: rgb(var(--color-accent-contrast)); }
+        .btn-mini-outline {
+            background: rgb(var(--color-surface)); color: rgb(var(--color-text));
+            border-color: rgb(var(--color-border));
+        }
+        .btn-mini-outline:hover {
+            background: rgb(var(--color-surface-sunken));
+            border-color: rgb(var(--color-border-strong));
+            color: rgb(var(--color-text));
+        }
+
+        /* --- The photograph, now bounded. Two declarations: a plain JPEG
+               every browser understands, then an image-set offering WebP at
+               1x and 2x. --- */
+        .hero-panel.hero-ministry {
+            background-image:
+                linear-gradient(90deg,
+                    rgb(var(--color-brand-navy) / 0.92) 0%,
+                    rgb(var(--color-brand-navy) / 0.76) 44%,
+                    rgb(var(--color-brand-navy) / 0.42) 100%),
+                linear-gradient(180deg,
+                    rgb(var(--color-highlight) / 0.10),
+                    rgb(var(--color-brand-navy) / 0.40)),
+                url("{% static 'images/generated/hero-ministry-1x.jpg' %}");
+        }
+        .hero-panel.hero-ministry {
+            background-image:
+                linear-gradient(90deg,
+                    rgb(var(--color-brand-navy) / 0.92) 0%,
+                    rgb(var(--color-brand-navy) / 0.76) 44%,
+                    rgb(var(--color-brand-navy) / 0.42) 100%),
+                linear-gradient(180deg,
+                    rgb(var(--color-highlight) / 0.10),
+                    rgb(var(--color-brand-navy) / 0.40)),
+                image-set(
+                    url("{% static 'images/generated/hero-ministry-1x.webp' %}") 1x,
+                    url("{% static 'images/generated/hero-ministry-2x.webp' %}") 2x);
+        }
+    </style>
 </head>
 <body>
     <!-- Dashboard Wrapper - Centered Container -->
@@ -1055,7 +1305,7 @@
                         <div class="sidebar-user-name">{{ request.user.get_full_name|truncatewords:2 }}</div>
                         <div class="sidebar-user-email">{{ request.user.email|truncatewords:1 }}</div>
                     </div>
-                    <i class="fas fa-ellipsis-v" style="color: #6c757d; cursor: pointer; font-size: 12px;"></i>
+                    <i class="fas fa-ellipsis-v" style="color: rgb(var(--color-text-muted)); cursor: pointer; font-size: 12px;"></i>
                 </div>
             </div>
         </div>
@@ -1076,32 +1326,32 @@
                     <span class="topbar-btn-badge">{{ pending_applications|add:critical_cases }}</span>
                     {% endif %}
                     <div class="notification-dropdown" id="notificationDropdown" style="position:absolute;top:100%;right:0;margin-top:8px;background:rgba(255,255,255,0.98);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.12);border:1px solid rgba(0,0,0,0.06);min-width:260px;padding:8px;z-index:1000;display:none;">
-                        <div style="padding:8px 12px 12px;font-weight:600;font-size:12px;color:#6c757d;text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,0.06);">{% trans "Notifications" %}</div>
+                        <div style="padding:8px 12px 12px;font-weight:600;font-size:12px;color:rgb(var(--color-text-muted));text-transform:uppercase;border-bottom:1px solid rgba(0,0,0,0.06);">{% trans "Notifications" %}</div>
                         {% if pending_applications > 0 %}
-                        <a href="{% url 'ministry:vet_applications' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:#495057;text-decoration:none;font-size:13px;border-radius:6px;">
-                            <i class="fas fa-file-alt" style="color:#f59e0b;"></i>
+                        <a href="{% url 'ministry:vet_applications' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:rgb(var(--color-text-muted));text-decoration:none;font-size:13px;border-radius:6px;">
+                            <i class="fas fa-file-alt" style="color:rgb(var(--color-warning));"></i>
                             <span>{% blocktrans count counter=pending_applications %}{{ counter }} new vet application{% plural %}{{ counter }} new vet applications{% endblocktrans %}</span>
                         </a>
                         {% endif %}
                         {% if critical_cases > 0 %}
-                        <a href="{% url 'ministry:reports' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:#495057;text-decoration:none;font-size:13px;border-radius:6px;">
-                            <i class="fas fa-exclamation-triangle" style="color:#dc3545;"></i>
+                        <a href="{% url 'ministry:reports' %}" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;color:rgb(var(--color-text-muted));text-decoration:none;font-size:13px;border-radius:6px;">
+                            <i class="fas fa-exclamation-triangle" style="color:rgb(var(--color-danger));"></i>
                             <span>{% blocktrans count counter=critical_cases %}{{ counter }} critical case needs attention{% plural %}{{ counter }} critical cases need attention{% endblocktrans %}</span>
                         </a>
                         {% endif %}
                         {% if not pending_applications and not critical_cases %}
-                        <div style="padding:10px 12px;color:#6c757d;font-size:13px;">
-                            <i class="fas fa-check-circle" style="color:#28a745;margin-right:8px;"></i>{% trans "No new notifications" %}
+                        <div style="padding:10px 12px;color:rgb(var(--color-text-muted));font-size:13px;">
+                            <i class="fas fa-check-circle" style="color:rgb(var(--color-success));margin-right:8px;"></i>{% trans "No new notifications" %}
                         </div>
                         {% endif %}
                         <div style="padding:8px 12px;border-top:1px solid rgba(0,0,0,0.06);">
-                            <a href="{% url 'ministry:notifications' %}" style="font-size:12px;font-weight:600;color:#667eea;text-decoration:none;">{% trans "View all notifications" %}</a>
+                            <a href="{% url 'ministry:notifications' %}" style="font-size:12px;font-weight:600;color:rgb(var(--color-brand));text-decoration:none;">{% trans "View all notifications" %}</a>
                         </div>
                     </div>
                 </div>
                     <div class="topbar-user" id="adminDropdownTrigger">
                         <span class="topbar-user-text">{% trans "Admin" %}</span>
-                        <i class="fas fa-chevron-down" style="font-size: 10px; color: #6c757d;"></i>
+                        <i class="fas fa-chevron-down" style="font-size: 10px; color: rgb(var(--color-text-muted));"></i>
                         <div class="admin-dropdown" id="adminDropdown">
                             <a href="{% url 'accounts:logout' %}" class="admin-dropdown-item">
                                 <i class="fas fa-sign-out-alt"></i> {% trans "Logout" %}
@@ -1113,6 +1363,48 @@
 
             <!-- Main Area -->
             <div class="main-area">
+                {# The hero panel. The photograph that used to sit behind the  #}
+                {# whole viewport -- upscaled, and with brightness(1.25) over  #}
+                {# it -- now lives here, bounded and served at 1x and 2x.      #}
+                <section class="hero-panel hero-ministry">
+                    <div class="hero-head">
+                        <div style="min-width:0;">
+                            <p class="hero-salutation">{% trans "Ministry of Lands, Agriculture, Fisheries, Water and Rural Development" %}</p>
+                            <p class="hero-welcome">{% trans "National herd health oversight" %}</p>
+                            <h1 class="hero-headline">{% trans "Here is the national picture today." %}</h1>
+                        </div>
+                        <p class="hero-date">
+                            {% now "l, j F Y" %}<br>
+                            <span class="tabular">{% trans "Viewed" %} {% now "H:i" %} CAT</span>
+                        </p>
+                    </div>
+
+                    <div class="hero-tiles">
+                        <div class="hero-tile">
+                            <p class="hero-tile-label">{% trans "Registered farmers" %}</p>
+                            <p class="hero-tile-value">{{ total_farmers|default:"0" }}</p>
+                            <p class="hero-tile-hint">{% blocktrans with n=total_vets %}{{ n }} approved vets{% endblocktrans %}</p>
+                        </div>
+                        <div class="hero-tile">
+                            <p class="hero-tile-label">{% trans "Cases reported" %}</p>
+                            <p class="hero-tile-value">{{ total_cases|default:"0" }}</p>
+                            <p class="hero-tile-hint">{% trans "All provinces, all time" %}</p>
+                        </div>
+                        <div class="hero-tile">
+                            <p class="hero-tile-label">{% trans "Critical" %}</p>
+                            <p class="hero-tile-value">{{ critical_cases|default:"0" }}</p>
+                            <p class="hero-tile-hint">{% trans "Flagged for urgent attention" %}</p>
+                        </div>
+                        <div class="hero-tile">
+                            <p class="hero-tile-label">{% trans "Awaiting review" %}</p>
+                            <p class="hero-tile-value">{{ pending_cases|default:"0" }}</p>
+                            <p class="hero-tile-hint">
+                                {% blocktrans with n=pending_applications %}{{ n }} vet applications pending{% endblocktrans %}
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Tabs -->
                 <div class="tabs">
                     <div class="tab active">Overview</div>
@@ -1210,11 +1502,11 @@
                                 <span>{% trans "Critical cases" %}</span>
                             </div>
                             <div class="legend-item">
-                                <div class="legend-dot" style="background: #f59e0b;"></div>
+                                <div class="legend-dot" style="background: rgb(var(--color-warning));"></div>
                                 <span>{% trans "Pending cases" %}</span>
                             </div>
                             <div class="legend-item">
-                                <div class="legend-dot" style="background: #3b82f6;"></div>
+                                <div class="legend-dot" style="background: rgb(var(--color-accent));"></div>
                                 <span>{% trans "Resolved cases" %}</span>
                             </div>
                         </div>
@@ -1236,7 +1528,7 @@
                             {% for item in province_stats %}
                             <div class="donut-legend-item">
                                 <div class="donut-legend-label">
-                                    <div class="legend-dot" style="background: {% if forloop.counter == 1 %}#f97316{% elif forloop.counter == 2 %}#a855f7{% elif forloop.counter == 3 %}#3b82f6{% else %}#10b981{% endif %}; width: 10px; height: 10px;"></div>
+                                    <div class="legend-dot" style="background: {% if forloop.counter == 1 %}#f97316{% elif forloop.counter == 2 %}#a855f7{% elif forloop.counter == 3 %}rgb(var(--color-accent)){% else %}#10b981{% endif %}; width: 10px; height: 10px;"></div>
                                     <span>{% if item.farmer__province %}{{ item.farmer__province }}{% else %}{% trans "Unknown" %}{% endif %}</span>
                                 </div>
                                 <div>
@@ -1246,7 +1538,7 @@
                             </div>
                             {% empty %}
                             <div class="donut-legend-item">
-                                <span style="color: #6c757d;">{% trans "No case data by province yet." %}</span>
+                                <span style="color: rgb(var(--color-text-muted));">{% trans "No case data by province yet." %}</span>
                             </div>
                             {% endfor %}
                         </div>
@@ -1348,7 +1640,7 @@
                                 <td style="font-weight: 600;">Case #{{ case.id }}</td>
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 8px;">
-                                        <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 600;">
+                                        <div style="width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; font-weight: 600;">
                                             {{ case.farmer.full_name.0|upper }}
                                         </div>
                                         <span>{{ case.farmer.full_name }}</span>
@@ -1373,14 +1665,14 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <i class="fas fa-ellipsis-h" style="color: #6c757d; cursor: pointer;"></i>
+                                    <i class="fas fa-ellipsis-h" style="color: rgb(var(--color-text-muted)); cursor: pointer;"></i>
                                 </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                     {% else %}
-                    <p style="text-align: center; padding: 40px; color: #6c757d;">{% trans "No cases reported yet." %}</p>
+                    <p style="text-align: center; padding: 40px; color: rgb(var(--color-text-muted));">{% trans "No cases reported yet." %}</p>
                     {% endif %}
                 </div>
             </div>
@@ -1429,6 +1721,9 @@
             csvStage: "{{ ministry_csv_stage|escapejs }}"
         };
     </script>
+        <script src="{% static 'js/design-tokens.js' %}"></script>
+    <!-- Resolves --color-* tokens for the canvas, which cannot read CSS
+         variables itself. Must precede Chart.js. See the file header. -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
         // Admin dropdown toggle
@@ -1508,7 +1803,7 @@
                 position: fixed;
                 bottom: 24px;
                 right: 24px;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, rgb(var(--color-brand)) 0%, rgb(var(--color-brand-ink)) 100%);
                 color: white;
                 padding: 12px 24px;
                 border-radius: 8px;
@@ -1591,22 +1886,22 @@
                     datasets: [{
                         label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartCritical : 'Critical cases',
                         data: [{% for v in chart_critical %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
-                        borderColor: '#8b5cf6',
-                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        borderColor: dsToken('chart-5'),
+                        backgroundColor: dsToken('chart-5', 0.1),
                         tension: 0.4,
                         fill: true
                     }, {
                         label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartPending : 'Pending cases',
                         data: [{% for v in chart_pending %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
-                        borderColor: '#f59e0b',
-                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        borderColor: dsToken('warning'),
+                        backgroundColor: dsToken('warning', 0.1),
                         tension: 0.4,
                         fill: true
                     }, {
                         label: window.MINISTRY_I18N ? window.MINISTRY_I18N.chartResolved : 'Resolved cases',
                         data: [{% for v in chart_resolved %}{{ v }}{% if not forloop.last %},{% endif %}{% empty %}0,0,0,0,0,0,0,0,0,0,0,0{% endfor %}],
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderColor: dsToken('accent'),
+                        backgroundColor: dsToken('accent', 0.1),
                         tension: 0.4,
                         fill: true
                     }]
@@ -1649,7 +1944,7 @@
                     labels: provinceData.map(d => d.label),
                     datasets: [{
                         data: provinceData.map(d => d.count),
-                        backgroundColor: ['#f97316', '#a855f7', '#3b82f6', '#10b981'],
+                        backgroundColor: [dsToken('chart-2'), dsToken('chart-5'), dsToken('accent'), dsToken('chart-3')],
                         borderWidth: 0
                     }]
                 },

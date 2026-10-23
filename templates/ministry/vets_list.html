@@ -54,17 +54,17 @@
             <tr>
                 <td>
                     <div style="font-weight: 600;">{% trans "Dr." %} {{ vet.full_name }}</div>
-                    <div style="font-size: 12px; color: #6c757d;">{{ vet.qualification|truncatewords:5 }}</div>
+                    <div style="font-size: 12px; color: rgb(var(--color-text-muted));">{{ vet.qualification|truncatewords:5 }}</div>
                 </td>
                 <td>
                     <div style="font-weight: 500;">{{ vet.phone_number }}</div>
-                    <div style="font-size: 12px; color: #6c757d;">{{ vet.email }}</div>
+                    <div style="font-size: 12px; color: rgb(var(--color-text-muted));">{{ vet.email }}</div>
                 </td>
                 <td>
                     {% for province in vet.get_provinces_list %}
-                        <span style="display:inline-block;padding:2px 8px;background:rgba(102,126,234,0.1);color:#667eea;border-radius:4px;margin:2px;font-size:11px;font-weight:600;">{{ province }}</span>
+                        <span style="display:inline-block;padding:2px 8px;background:rgba(102,126,234,0.1);color:rgb(var(--color-brand));border-radius:4px;margin:2px;font-size:11px;font-weight:600;">{{ province }}</span>
                     {% empty %}
-                        <span style="color:#6c757d;">{% trans "N/A" %}</span>
+                        <span style="color:rgb(var(--color-text-muted));">{% trans "N/A" %}</span>
                     {% endfor %}
                 </td>
                 <td>{% blocktrans with y=vet.years_of_experience %}{{ y }} years{% endblocktrans %}</td>
@@ -76,7 +76,7 @@
         </tbody>
     </table>
     {% else %}
-    <p style="text-align: center; color: #6c757d; padding: 60px 20px;">
+    <p style="text-align: center; color: rgb(var(--color-text-muted)); padding: 60px 20px;">
         <i class="fas fa-user-md" style="font-size: 64px; opacity: 0.3; display: block; margin-bottom: 20px;"></i>
         {% trans "No veterinarians found. Approved vets will appear here." %}
     </p>

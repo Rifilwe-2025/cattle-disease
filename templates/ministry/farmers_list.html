@@ -58,7 +58,7 @@
                 <td>{{ farmer.email|default:farmer.user.email|default:"—" }}</td>
                 <td>{{ farmer.province }}</td>
                 <td>{{ farmer.district }}</td>
-                <td><span style="font-weight: 600; color: #667eea;">{{ farmer.number_of_cattle }}</span></td>
+                <td><span style="font-weight: 600; color: rgb(var(--color-brand));">{{ farmer.number_of_cattle }}</span></td>
                 <td>{{ farmer.created_at|date:"M d, Y" }}</td>
                 <td><span class="table-badge success"><i class="fas fa-check-circle"></i> {% trans "Active" %}</span></td>
             </tr>
@@ -66,7 +66,7 @@
         </tbody>
     </table>
     {% else %}
-    <p style="text-align: center; color: #6c757d; padding: 60px 20px;">
+    <p style="text-align: center; color: rgb(var(--color-text-muted)); padding: 60px 20px;">
         <i class="fas fa-users" style="font-size: 64px; opacity: 0.3; display: block; margin-bottom: 20px;"></i>
         {% trans "No farmers found. Farmers will appear here once they register." %}
     </p>

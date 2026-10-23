@@ -13,7 +13,7 @@
 .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
 .analytics-card { background: rgba(255,255,255,0.32); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 12px; padding: 24px; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 4px 12px rgba(0,0,0,0.03); transition: all 0.3s ease; }
 .analytics-card:hover { background: rgba(255,255,255,0.42); transform: translateY(-2px); }
-.analytics-card h5 { font-weight: 700; margin-bottom: 20px; color: #1a1a1a; }
+.analytics-card h5 { font-weight: 700; margin-bottom: 20px; color: rgb(var(--color-text)); }
 .stat-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05); transition: all 0.2s; }
 .stat-row:hover { background: rgba(102,126,234,0.05); padding-left: 8px; }
 .stat-row:last-child { border-bottom: none; }
@@ -36,13 +36,13 @@
                 {% for stat in disease_stats %}
                 <tr>
                     <td><strong>{{ stat.predicted_disease|local_disease }}</strong></td>
-                    <td><span style="color: #667eea; font-weight: 700;">{{ stat.count }}</span></td>
+                    <td><span style="color: rgb(var(--color-brand)); font-weight: 700;">{{ stat.count }}</span></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p style="text-align: center; color: #6c757d; padding: 60px 20px;">
+        <p style="text-align: center; color: rgb(var(--color-text-muted)); padding: 60px 20px;">
             <i class="fas fa-chart-pie" style="font-size: 64px; opacity: 0.3; display: block; margin-bottom: 20px;"></i>
             {% trans "No disease data available yet. Cases will appear here once reported." %}
         </p>
@@ -55,11 +55,11 @@
         {% for stat in severity_stats %}
         <div class="stat-row">
             <span>{{ stat.severity }}</span>
-            <span style="font-weight: 700; color: #667eea;">{{ stat.count }}</span>
+            <span style="font-weight: 700; color: rgb(var(--color-brand));">{{ stat.count }}</span>
         </div>
         {% endfor %}
         {% else %}
-        <p style="color: #6c757d; text-align: center;">{% trans "No severity data" %}</p>
+        <p style="color: rgb(var(--color-text-muted)); text-align: center;">{% trans "No severity data" %}</p>
         {% endif %}
     </div>
     
@@ -69,19 +69,19 @@
         {% for stat in province_stats %}
         <div class="stat-row">
             <span>{{ stat.farmer__province }}</span>
-            <span style="font-weight: 700; color: #667eea;">{{ stat.count }}</span>
+            <span style="font-weight: 700; color: rgb(var(--color-brand));">{{ stat.count }}</span>
         </div>
         {% endfor %}
         {% else %}
-        <p style="color: #6c757d; text-align: center;">{% trans "No province data" %}</p>
+        <p style="color: rgb(var(--color-text-muted)); text-align: center;">{% trans "No province data" %}</p>
         {% endif %}
     </div>
 </div>
 
 <div class="content-card" style="margin-top: 24px;">
     <h5><i class="fas fa-info-circle"></i> {% trans "Summary" %}</h5>
-    <p style="color: #6c757d; margin: 0;">
-        {% blocktrans with n=recent_cases %}Recent cases (last 30 days): <strong style="color: #667eea;">{{ n }}</strong>{% endblocktrans %}
+    <p style="color: rgb(var(--color-text-muted)); margin: 0;">
+        {% blocktrans with n=recent_cases %}Recent cases (last 30 days): <strong style="color: rgb(var(--color-brand));">{{ n }}</strong>{% endblocktrans %}
     </p>
 </div>
 {% endblock %}

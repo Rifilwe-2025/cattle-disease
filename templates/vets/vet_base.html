@@ -8,157 +8,293 @@
     <title>{% block title %}CattleCare AI - Vet{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    {# Typefaces are self-hosted in design-system.css; the Google Fonts link    #}
+    {# for Inter that used to sit above is gone. Load order: tokens, then the   #}
+    {# legacy sheet, then components.css last so it wins on equal specificity.  #}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/geist-latin-wght-normal.woff2' %}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/jetbrains-mono-latin-wght-normal.woff2' %}">
+    <link rel="stylesheet" href="{% static 'css/design-system.css' %}">
+    <link rel="stylesheet" href="{% static 'css/compact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         /* ------------------------------------------------------------------
-           SINGLE SOURCE OF TRUTH for the sidebar width.
-           The sidebar is position:fixed (out of flow), so .main-content is
-           the ONLY element that may carry the matching offset. Do not add
+           SINGLE SOURCE OF TRUTH for the rail width.
+           The rail is position:fixed (out of flow), so .main-content is the
+           ONLY element that may carry the matching offset. Do not add
            margin-left / padding-left anywhere else in this shell.
+
+           It is now --rail-width from design-system.css rather than a local
+           --sidebar-width, so all three shells are offset by the same number
+           and a change to the rail is a change in one file.
            ------------------------------------------------------------------ */
-        :root { --sidebar-width: 265px; }
 
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: #fff; min-height: 100vh; overflow-x: hidden; position: relative; background: #0a1423; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: url('{% static "images/vet doc.png" %}') center center / cover no-repeat; z-index: -2; }
-        /* Darker, flat overlay so white text, the date line and the outline
-           buttons keep contrast over any part of the photo. */
-        body::after { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(10,20,35,0.85), rgba(10,20,35,0.85)); z-index: -1; }
+        /* ------------------------------------------------------------------
+           This shell used to be dark-on-photograph: white text over a 1536px
+           PNG stretched across the viewport with a flat 85% navy wash on top.
+
+           Three problems, and they compounded:
+
+             - the photograph was upscaled on any display wider than 1536px,
+               which is blur by definition
+             - the 85% wash existed because text over a photograph is not
+               legible otherwise -- so the picture was simultaneously the
+               background and almost entirely hidden
+             - it made the vet's dashboard a different product from the
+               farmer's and the ministry's, which were light
+
+           The photograph now lives in the hero panel at the top of the
+           dashboard, bounded and cropped rather than stretched, and the page
+           behind the content is the flat --color-bg token. The rail stays dark
+           navy in every role, which is where the brand surface belongs.
+           ------------------------------------------------------------------ */
+        body {
+            font-family: var(--font-sans);
+            color: rgb(var(--color-text));
+            background: rgb(var(--color-bg));
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
         .dashboard-wrapper { min-height: 100vh; position: relative; z-index: 1; }
-        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: rgba(17,28,46,0.94); border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; overflow-y: auto; box-shadow: 4px 0 24px rgba(0,0,0,0.3); z-index: 30; }
-        .sidebar-brand { padding: 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-        .sidebar-brand-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; }
-        .sidebar-brand-text { font-size: 18px; font-weight: 700; color: #fff; }
-        .sidebar-menu { padding: 20px 12px; flex: 1; }
-        .menu-section-title { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px 8px; }
-        .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: rgba(255,255,255,0.85); text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 10px; margin-bottom: 4px; transition: all 0.2s; border-left: 3px solid transparent; }
-        .menu-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
-        .menu-item.active { background: rgba(59,130,246,0.25); color: #93c5fd; border-left-color: #3b82f6; }
-        .menu-item i { width: 20px; text-align: center; font-size: 16px; }
-        .sidebar-footer { padding: 20px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
-        .vet-upgrade-card { background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(37,99,235,0.2) 100%); border: 1px solid rgba(59,130,246,0.35); border-radius: 14px; padding: 18px; }
-        .vet-upgrade-card h6 { color: #93c5fd; font-weight: 700; margin-bottom: 8px; font-size: 14px; }
-        .vet-upgrade-card p { color: rgba(255,255,255,0.9); font-size: 12px; margin-bottom: 14px; line-height: 1.5; }
-        .btn-vet-upgrade { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; padding: 12px 16px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; display: block; width: 100%; text-align: center; transition: all 0.2s; text-decoration: none; }
-        .btn-vet-upgrade:hover { opacity: 0.95; transform: translateY(-2px); color: white; box-shadow: 0 4px 16px rgba(34,197,94,0.4); }
-        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); min-height: 100vh; background: transparent; display: flex; flex-direction: column; min-width: 0; }
-        .topbar { width: 100%; padding: 16px 24px; background: rgba(17,28,46,0.92); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-        .topbar-left { display: flex; align-items: center; gap: 12px; }
-        /* Hamburger - only visible once the sidebar goes off-canvas */
-        .topbar-menu-btn { display: none; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); color: #e2e8f0; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; flex-shrink: 0; }
-        .topbar-menu-btn:hover { background: rgba(59,130,246,0.25); color: #bfdbfe; }
-        /* The sidebar already shows the brand on desktop; no duplicate here. */
-        .topbar-brand { display: none; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
-        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(5,10,20,0.6); z-index: 25; }
-        .sidebar-overlay.show { display: block; }
-        .topbar-brand:hover { color: #fff; }
-        .topbar-brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
-        .topbar-brand-text { font-size: 18px; font-weight: 700; }
-        .topbar-search { flex: 1; max-width: 400px; position: relative; margin: 0 24px; }
-        .topbar-search input { width: 100%; padding: 12px 20px 12px 44px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: #fff; font-size: 14px; }
-        .topbar-search input::placeholder { color: #94a3b8; }
-        .topbar-search input:focus { outline: none; border-color: rgba(59,130,246,0.5); background: rgba(255,255,255,0.08); }
-        .topbar-search i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 14px; }
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
-        .topbar-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #94a3b8; cursor: pointer; transition: all 0.2s; }
-        .topbar-icon:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
-        .topbar-user { display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 6px 12px; border-radius: 10px; position: relative; }
-        .topbar-user:hover { background: rgba(255,255,255,0.05); }
-        .vet-dropdown { position: absolute; top: 100%; right: 0; margin-top: 8px; background: rgba(30,41,59,0.98); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); min-width: 180px; padding: 8px; z-index: 1000; display: none; }
-        .vet-dropdown.show { display: block; }
-        .vet-dropdown-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; color: #e2e8f0; text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 6px; transition: all 0.2s; }
-        .vet-dropdown-item:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
-        .vet-dropdown-item i { width: 18px; text-align: center; }
-        .topbar-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: white; flex-shrink: 0; }
-        .topbar-user-info { text-align: left; }
-        .topbar-user-name { font-size: 14px; font-weight: 600; color: #fff; }
-        .topbar-user-role { font-size: 12px; color: #94a3b8; }
-        /* 24px on all sides so the KPI row lines up with the page title */
-        .main-area { padding: 24px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
-        .card-light { background: rgba(17,28,46,0.9); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
 
-        /* ---- KPI row: fills the content width from the left edge ---- */
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 24px; }
+        /* The rail. Everything about how it looks is in components.css -- what
+           is set here is only where it sits, because that is this shell's
+           concern rather than the design system's. */
+        .sidebar {
+            position: fixed; top: 0; left: 0;
+            width: var(--rail-width); height: 100vh;
+            display: flex; flex-direction: column;
+            overflow-y: auto;
+            z-index: 30;
+        }
+        .sidebar-brand { padding: 20px 16px; display: flex; align-items: center; gap: 12px; }
+        .sidebar-menu { padding: 12px 10px; flex: 1; }
+        .sidebar-footer { padding: 16px; margin-top: auto; }
+
+        /* The rail's call-to-action card. On the navy, so translucent white
+           rather than a surface token -- the same exception the help card in
+           components.css takes, for the same reason. */
+        .vet-upgrade-card {
+            background: rgb(255 255 255 / 0.07);
+            border: 1px solid rgb(255 255 255 / 0.12);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+        }
+        .vet-upgrade-card h6 {
+            font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+            letter-spacing: 0.3px; color: #fff; margin-bottom: 6px;
+        }
+        .vet-upgrade-card p {
+            font-size: 12px; line-height: 17px;
+            color: rgb(255 255 255 / 0.65); margin-bottom: 10px;
+        }
+        /* Was a green gradient. Green means "resolved" in this product, so a
+           green button on the rail read as a verdict rather than an action. */
+        .btn-vet-upgrade {
+            display: block; width: 100%; text-align: center;
+            padding: 8px 12px; border: 1px solid rgb(255 255 255 / 0.16);
+            border-radius: var(--radius);
+            background: rgb(255 255 255 / 0.12); color: #fff;
+            font-size: 12px; font-weight: 500; text-decoration: none; cursor: pointer;
+        }
+        .btn-vet-upgrade:hover { background: rgb(255 255 255 / 0.2); color: #fff; }
+
+        .main-content {
+            margin-left: var(--rail-width);
+            width: calc(100% - var(--rail-width));
+            min-height: 100vh;
+            display: flex; flex-direction: column; min-width: 0;
+        }
+
+        /* The top bar is styled in components.css. Only the pieces unique to
+           this shell are here. */
+        .topbar { justify-content: space-between; }
+        .topbar-left { display: flex; align-items: center; gap: 12px; }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .topbar-menu-btn { display: none; }
+        /* The rail already shows the brand on desktop; no duplicate here. */
+        .topbar-brand { display: none; align-items: center; gap: 10px; text-decoration: none; color: rgb(var(--color-text)); }
+        .topbar-brand-icon {
+            width: 34px; height: 34px; border-radius: 9px;
+            display: grid; place-items: center;
+            background: rgb(var(--color-brand)); color: #fff; font-size: 15px;
+        }
+        .topbar-brand-text { font-family: var(--font-mono); font-size: 14px; font-weight: 600; }
+
+        .sidebar-overlay { display: none; position: fixed; inset: 0; z-index: 25; }
+        .sidebar-overlay.show { display: block; }
+
+        .topbar-user {
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
+            padding: 4px 10px 4px 4px; border-radius: 999px; position: relative;
+        }
+        .topbar-user:hover { background: rgb(var(--color-surface-sunken)); }
+        .topbar-user-info { text-align: left; }
+        .topbar-user-name { font-size: 13px; font-weight: 600; color: rgb(var(--color-text)); }
+        .topbar-user-role { font-size: 11px; color: rgb(var(--color-text-muted)); }
+
+        .vet-dropdown {
+            position: absolute; top: 100%; right: 0; margin-top: 8px;
+            min-width: 190px; padding: 6px; z-index: 1000; display: none;
+            background: rgb(var(--color-surface));
+            border: 1px solid rgb(var(--color-border));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        .vet-dropdown.show { display: block; }
+        .vet-dropdown-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 12px; border-radius: var(--radius);
+            color: rgb(var(--color-text)); text-decoration: none;
+            font-size: 13px; font-weight: 500;
+        }
+        .vet-dropdown-item:hover { background: rgb(var(--color-surface-sunken)); color: rgb(var(--color-text)); }
+        .vet-dropdown-item i { width: 18px; text-align: center; color: rgb(var(--color-text-subtle)); }
+
+        .main-area { overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
+
+        /* The KPI row. auto-fit so it fills the content width from the left
+           edge rather than leaving a ragged gap at four-up. */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
         .kpi-grid > .card-light { margin-bottom: 0; }
 
-        /* ---- Page header: solid colours instead of translucent on photo ---- */
-        .page-head { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; }
-        .page-head h1 { font-size: 26px; font-weight: 800; color: #ffffff; margin-bottom: 6px; }
-        .page-head .welcome-line { font-size: 14px; color: #e2e8f0; font-weight: 500; }
-        .page-head .date-line { font-size: 13px; color: #cbd5e1; margin-top: 2px; }
-        .head-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .btn-head { background: #1e3a5f; color: #ffffff; border: 1px solid #3b6ea5; padding: 9px 16px; border-radius: 10px; font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.2s; }
-        .btn-head:hover { background: #2a4f7c; color: #ffffff; border-color: #5b8dc8; }
-        .btn-head.primary { background: #2563eb; border-color: #2563eb; }
-        .btn-head.primary:hover { background: #1d4ed8; border-color: #1d4ed8; color: #fff; }
-        .card-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
-        .stat-big { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 8px; }
-        .stat-label { font-size: 13px; color: #94a3b8; }
-        .stat-change { font-size: 12px; margin-top: 8px; font-weight: 600; }
-        .stat-change.up { color: #22c55e; }
-        .stat-change.down { color: #f87171; }
+        /* The page title block, for the screens that do not carry a hero. */
+        .page-head {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            flex-wrap: wrap; gap: 16px;
+        }
+        .page-head h1 {
+            font-family: var(--font-mono); font-size: 24px; line-height: 30px;
+            font-weight: 600; letter-spacing: -0.6px;
+            color: rgb(var(--color-text)); margin-bottom: 4px;
+        }
+        .page-head .welcome-line { font-size: 14px; color: rgb(var(--color-text-muted)); }
+        .page-head .date-line { font-size: 13px; color: rgb(var(--color-text-subtle)); margin-top: 2px; }
+        .head-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .btn-head {
+            display: inline-flex; align-items: center; gap: 8px;
+            height: 36px; padding: 0 14px;
+            background: rgb(var(--color-surface)); color: rgb(var(--color-text));
+            border: 1px solid rgb(var(--color-border));
+            border-radius: var(--radius);
+            font-size: 13px; font-weight: 500; text-decoration: none; cursor: pointer;
+        }
+        .btn-head:hover {
+            background: rgb(var(--color-surface-sunken));
+            border-color: rgb(var(--color-border-strong));
+            color: rgb(var(--color-text));
+        }
+        .btn-head.primary {
+            background: rgb(var(--color-accent)); color: rgb(var(--color-accent-contrast));
+            border-color: transparent;
+        }
+        .btn-head.primary:hover { background: rgb(var(--color-accent-hover)); color: rgb(var(--color-accent-contrast)); }
+
+        .btn-outline-vet {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 7px 14px; border-radius: var(--radius);
+            background: rgb(var(--color-surface)); color: rgb(var(--color-accent-text));
+            border: 1px solid rgb(var(--color-border));
+            font-size: 13px; font-weight: 500; text-decoration: none;
+        }
+        .btn-outline-vet:hover {
+            background: rgb(var(--color-accent-subtle));
+            color: rgb(var(--color-accent-text));
+        }
+
+        /* The delta beside a figure. Up is not automatically good here -- more
+           cases is worse -- so these two carry the direction only, and the
+           screens that use them say what the direction means in words beside
+           the arrow rather than relying on the colour. */
+        .stat-change { font-size: 12px; margin-top: 6px; font-weight: 500; font-family: var(--font-mono); color: rgb(var(--color-text-muted)); }
+        /* .up is NOT green. It carries "View farmers", "All time" and "None
+           pending" on this screen -- a link and two neutral facts, none of
+           which is good news about an animal. Green here would have been the
+           severity scale used as decoration, which is the one thing the
+           palette rules out. .down stays danger because the only thing it
+           labels is "Requires attention", which genuinely is a status. */
+        .stat-change.up { color: rgb(var(--color-text-muted)); }
+        .stat-change.down { color: rgb(var(--color-danger)); }
         .stat-change a { color: inherit; text-decoration: none; }
-        .pill-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-        .pill-badge.success { background: rgba(34,197,94,0.2); color: #4ade80; }
-        .pill-badge.warning { background: rgba(234,179,8,0.2); color: #facc15; }
-        .pill-badge.danger { background: rgba(239,68,68,0.2); color: #f87171; }
-        .pill-badge.info { background: rgba(59,130,246,0.2); color: #93c5fd; }
-        .btn-primary-vet { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 600; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; cursor: pointer; transition: all 0.2s; }
-        .btn-primary-vet:hover { opacity: 0.9; transform: translateY(-1px); color: white; }
-        .btn-outline-vet { background: rgba(255,255,255,0.08); color: #93c5fd; border: 1px solid rgba(59,130,246,0.4); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
-        .btn-outline-vet:hover { background: rgba(59,130,246,0.2); color: #93c5fd; }
-        .farmer-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+
+        .farmer-row {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 0; border-bottom: 1px solid rgb(var(--color-border));
+        }
         .farmer-row:last-child { border-bottom: none; }
-        .farmer-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; flex-shrink: 0; }
-        .farmer-info { flex: 1; }
-        .farmer-name { font-weight: 600; color: #fff; font-size: 14px; }
-        .farmer-detail { font-size: 12px; color: #94a3b8; }
+        .farmer-avatar {
+            width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+            display: grid; place-items: center;
+            background: rgb(var(--color-accent)); color: rgb(var(--color-accent-contrast));
+            font-family: var(--font-mono); font-weight: 600; font-size: 13px;
+        }
+        .farmer-info { flex: 1; min-width: 0; }
+        .farmer-name { font-weight: 600; font-size: 14px; color: rgb(var(--color-text)); }
+        .farmer-detail { font-size: 12px; color: rgb(var(--color-text-muted)); }
+
         .chart-container { height: 260px; position: relative; }
 
-        /* Dark form controls for vet pages */
-        .form-label { color: #e2e8f0; font-weight: 700; }
-        .form-control, .form-select, textarea.form-control {
-            background: rgba(255,255,255,0.06) !important;
-            border: 1px solid rgba(255,255,255,0.12) !important;
-            border-radius: 12px !important;
-            color: #fff !important;
-            padding: 12px 14px !important;
-            transition: all 0.2s ease;
+        /* This dashboard's photograph. Two declarations: a plain JPEG every
+           browser understands, then an image-set offering WebP. See the same
+           pair in farmer_base.html for why they are separate.
+
+           There is no 2x file for this one. The only vet-subject image in the
+           project is 1536px wide, and build_images.py refuses to upscale --
+           a sharp 1536 shown at 1.5x beats an invented 2880. */
+        .hero-panel.hero-vet {
+            background-image:
+                linear-gradient(90deg,
+                    rgb(var(--color-brand-navy) / 0.92) 0%,
+                    rgb(var(--color-brand-navy) / 0.76) 44%,
+                    rgb(var(--color-brand-navy) / 0.42) 100%),
+                linear-gradient(180deg,
+                    rgb(var(--color-highlight) / 0.10),
+                    rgb(var(--color-brand-navy) / 0.40)),
+                url("{% static 'images/generated/hero-vet-1x.jpg' %}");
         }
-        .form-control::placeholder { color: #64748b; }
-        .form-control:focus, .form-select:focus, textarea.form-control:focus {
-            outline: none !important;
-            border-color: rgba(59,130,246,0.45) !important;
-            box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.18) !important;
-            background: rgba(255,255,255,0.08) !important;
+        .hero-panel.hero-vet {
+            background-image:
+                linear-gradient(90deg,
+                    rgb(var(--color-brand-navy) / 0.92) 0%,
+                    rgb(var(--color-brand-navy) / 0.76) 44%,
+                    rgb(var(--color-brand-navy) / 0.42) 100%),
+                linear-gradient(180deg,
+                    rgb(var(--color-highlight) / 0.10),
+                    rgb(var(--color-brand-navy) / 0.40)),
+                image-set(url("{% static 'images/generated/hero-vet-1x.webp' %}") 1x);
         }
 
         /* ------------------------------------------------------------------
-           Tablet / phone: sidebar off-canvas behind the hamburger, main
-           wrapper reclaims the full width (offset removed in ONE place).
+           Tablet / phone: rail off-canvas behind the hamburger, main wrapper
+           reclaims the full width (offset removed in ONE place).
            ------------------------------------------------------------------ */
         @media (max-width: 991.98px) {
             .sidebar { transform: translateX(-100%); transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); z-index: 40; }
             .sidebar.open { transform: translateX(0); }
             .main-content { margin-left: 0; width: 100%; }
-            .topbar-menu-btn { display: inline-flex; }
-            .topbar-brand { display: flex; }   /* brand returns: sidebar is hidden */
-            .topbar-search { margin: 0 12px; max-width: none; }
-            /* 2 KPI cards per row on tablet */
-            .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+            .topbar-menu-btn { display: grid; }
+            .topbar-brand { display: flex; }   /* brand returns: rail is hidden */
+            .topbar-search { margin: 0 8px; max-width: none; }
+            .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 575.98px) {
-            .topbar { flex-wrap: wrap; gap: 12px; padding: 12px 16px; }
-            .topbar-search { order: 3; flex-basis: 100%; margin: 0; }
-            .main-area { padding: 16px; }
-            /* 1 KPI card per row on phones */
-            .kpi-grid { grid-template-columns: 1fr; gap: 16px; }
+            .topbar { flex-wrap: wrap; }
+            .topbar-search { order: 3; flex-basis: 100%; margin: 0; max-width: none; }
+            .kpi-grid { grid-template-columns: 1fr; }
             .topbar-user-info { display: none; }
         }
     </style>
-    <link rel="stylesheet" href="{% static 'css/compact.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -202,10 +338,10 @@
                     <h6><i class="fas fa-lightbulb" style="margin-right:6px;"></i> {% trans "Quick vet shortcuts" %}</h6>
                     <p style="margin-bottom:10px;">{% trans "Jump directly to the most common tasks you do every day." %}</p>
                     <a href="{% url 'vets:cases_list' %}" class="btn-vet-upgrade" style="margin-bottom:8px;">{% trans "View all cases" %}</a>
-                    <a href="{% url 'vets:vaccine_requests' %}" class="btn-vet-upgrade" style="background:linear-gradient(135deg,#0ea5e9 0%,#0284c7 100%);margin-bottom:8px;">
+                    <a href="{% url 'vets:vaccine_requests' %}" class="btn-vet-upgrade" style="margin-bottom:8px;">
                         {% trans "Request vaccines" %}
                     </a>
-                    <a href="{% url 'vets:help_center' %}" class="btn-vet-upgrade" style="background:linear-gradient(135deg,#a855f7 0%,#7c3aed 100%);">
+                    <a href="{% url 'vets:help_center' %}" class="btn-vet-upgrade">
                         {% trans "Open vet help center" %}
                     </a>
                 </div>

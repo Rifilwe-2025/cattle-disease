@@ -8,9 +8,94 @@
     <title>{% block title %}{% trans "CattleCare AI - Farmer" %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {# Typefaces are self-hosted in design-system.css -- the Google Fonts link    #}
+    {# for Inter that used to sit here is gone, along with the render-blocking    #}
+    {# round trip to fonts.googleapis.com it cost on every page load.             #}
+    {# Load order is deliberate: tokens first so the legacy sheets can reference  #}
+    {# them, the legacy sheets next, and components.css last so it wins on equal  #}
+    {# specificity. See the header of components.css.                             #}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/geist-latin-wght-normal.woff2' %}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{% static 'fonts/jetbrains-mono-latin-wght-normal.woff2' %}">
+    <link rel="stylesheet" href="{% static 'css/design-system.css' %}">
     <link rel="stylesheet" href="{% static 'css/farmer-dashboard.css' %}">
     <link rel="stylesheet" href="{% static 'css/compact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+
+    <style>
+      /* The page ground is a flat token, not a photograph.
+
+         What was here: a 1365x768 PNG on body::before at
+         `cover`, plus a white wash on body::after. On anything wider than
+         1365px that image was being upscaled, and upscaling is blur -- which is
+         what made this screen look soft however carefully the cards were drawn.
+
+         The photograph has not been dropped; it has moved into the hero panel
+         at the top of the dashboard, where it is bounded, served at 1x and 2x,
+         and cropped rather than stretched. That is how the source system uses
+         photography, and it is the arrangement that lets both the picture and
+         the text on top of it stay sharp. */
+      body.farmer-dashboard {
+        background: rgb(var(--color-bg));
+        font-family: var(--font-sans);
+        color: rgb(var(--color-text));
+      }
+
+      body.farmer-dashboard::before,
+      body.farmer-dashboard::after {
+        content: none;
+      }
+
+      /* The rail is fixed, so the content column is the only element that may
+         carry the matching offset. One token, one place. */
+      .farmer-dashboard .sidebar { width: var(--rail-width); }
+      .farmer-dashboard .main-content { margin-left: var(--rail-width); }
+
+      @media (max-width: 991px) {
+        .farmer-dashboard .main-content { margin-left: 0; }
+      }
+
+      /* This dashboard's photograph.
+
+         Declared twice on purpose. The first rule is a plain JPEG url() that
+         every browser understands; the second overrides it with an image-set
+         that offers WebP at 1x and 2x. A browser that does not parse image-set
+         discards the whole second declaration and keeps the JPEG, which is the
+         standard progressive-enhancement shape -- and it is why the two are
+         separate declarations rather than one with mixed types inside, where
+         the fallback would be ambiguous.
+
+         The gradient stack over the photograph is the same in all three roles
+         and lives in components.css; only the image differs per dashboard. */
+      .hero-panel.hero-farmer {
+        background-image:
+          linear-gradient(90deg,
+            rgb(var(--color-brand-navy) / 0.92) 0%,
+            rgb(var(--color-brand-navy) / 0.76) 44%,
+            rgb(var(--color-brand-navy) / 0.42) 100%),
+          linear-gradient(180deg,
+            rgb(var(--color-highlight) / 0.10),
+            rgb(var(--color-brand-navy) / 0.40)),
+          url("{% static 'images/generated/hero-farmer-1x.jpg' %}");
+      }
+
+      .hero-panel.hero-farmer {
+        background-image:
+          linear-gradient(90deg,
+            rgb(var(--color-brand-navy) / 0.92) 0%,
+            rgb(var(--color-brand-navy) / 0.76) 44%,
+            rgb(var(--color-brand-navy) / 0.42) 100%),
+          linear-gradient(180deg,
+            rgb(var(--color-highlight) / 0.10),
+            rgb(var(--color-brand-navy) / 0.40)),
+          image-set(
+            url("{% static 'images/generated/hero-farmer-1x.webp' %}") 1x,
+            url("{% static 'images/generated/hero-farmer-2x.webp' %}") 2x);
+      }
+    </style>
+
     {% block extra_css %}{% endblock %}
 </head>
 <body class="farmer-dashboard">

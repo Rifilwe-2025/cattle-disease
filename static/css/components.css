@@ -1,0 +1,1604 @@
+/* ============================================================================
+   CattleCare AI - component surfaces
+   ----------------------------------------------------------------------------
+   The second half of the port. design-system.css supplies the tokens and the
+   type scale; this file dresses the class names the templates already use in
+   them, so the markup did not have to be rewritten to change its design.
+
+   That is a deliberate choice and it has a cost worth naming. The three
+   dashboards were built independently -- the farmer's in an external
+   stylesheet, the vet's and the ministry's in <style> blocks in their own
+   shells -- so the same object has three names across the product:
+
+     a card          .card-dark   .card-light   .content-card
+     a headline      .stat-big    .health-stat-value   .stat-mini-value
+     a status pill   .pill-badge  .table-badge  .menu-badge
+     a primary CTA   .btn-upgrade .btn-primary-vet  .btn-glass-primary
+
+   Every one of those groups is one component. They are grouped into one rule
+   here rather than normalised in the markup, because renaming classes across
+   36 templates is a change that breaks silently -- a missed class renders
+   unstyled and nothing errors. The aliases are the honest record of the
+   duplication; the selector lists below are where it gets reconciled.
+
+   Load order matters: this file comes AFTER the legacy stylesheets so it wins
+   on equal specificity. Where a legacy rule is more specific, or where the
+   markup carries an inline style, the property here is marked !important --
+   each such case is noted rather than applied blanket.
+   ========================================================================= */
+
+/* ============================================================================
+   1. Card
+   ----------------------------------------------------------------------------
+   A flat white surface, a 1px border, an 8px radius, and the lightest of the
+   three shadows. The source system's card is defined by what it does NOT do:
+   no gradient, no heavy drop shadow, no coloured left edge. A dashboard shows
+   a dozen of them at once and any of those three turns a grid of cards into a
+   grid of decorations.
+
+   .card-dark is a legacy name only -- it was never dark. It came from a
+   dark-themed draft of the farmer dashboard and kept the name after the
+   surface went white.
+   ========================================================================= */
+
+.card-dark,
+.card-light,
+.content-card,
+.ds-card {
+  background: rgb(var(--color-surface));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+  color: rgb(var(--color-text));
+  /* The legacy cards sat on a photographic page background with a blur behind
+     them. Both are removed -- see the note at the top of section 8. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* Card heading. Monospace, 14px, positive tracking, with a rule under it.
+   The rule is what separates "what this card is" from "what it says", and it
+   is the border token rather than a shadow so it stays 1px at every zoom. */
+.card-title,
+.section-title,
+.section-h,
+.ds-card-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 19.25px;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  color: rgb(var(--color-text));
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+/* The icon-only affordances that sit on the right of a card heading -- a help
+   "?", a kebab menu. They inherit the muted text colour rather than naming one,
+   which is what several of the templates were doing inline. */
+.card-title button,
+.card-title > i,
+.section-title button,
+.section-title > i {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: rgb(var(--color-text-subtle));
+  transition: color 150ms ease;
+}
+
+.card-title button:hover,
+.card-title > i:hover,
+.section-title button:hover {
+  color: rgb(var(--color-text));
+}
+
+.ds-card-body {
+  padding: 0;
+}
+
+/* The sunken strip at the foot of a card, for actions. */
+.ds-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 16px -20px -20px;
+  padding: 12px 20px;
+  border-top: 1px solid rgb(var(--color-border));
+  background: rgb(var(--color-surface-sunken));
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+/* ============================================================================
+   2. Figures and labels
+   ----------------------------------------------------------------------------
+   This is the change that does the most work on these three screens.
+
+   Every one of these was previously set in Inter at a semibold weight -- the
+   same face, at the same weight, as the prose beside it. A herd count, a
+   confidence percentage and a sentence of advice all rendered identically, so
+   nothing on the screen announced itself as a figure. Putting the figures in
+   JetBrains Mono is what makes a column of them scannable, and it is why the
+   source system carries two faces instead of one.
+   ========================================================================= */
+
+.stat-big,
+.health-stat-value,
+.stat-mini-value,
+.stat-value,
+.kpi-value,
+.ds-figure {
+  font-family: var(--font-mono) !important; /* beats inline font-family on two vet cards */
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
+  color: rgb(var(--color-text));
+}
+
+/* The headline figure on a card: one magnitude, stated once. */
+.stat-big {
+  font-size: 40px;
+  line-height: 44px;
+  letter-spacing: -0.025em;
+}
+
+.health-stat-value,
+.stat-value,
+.kpi-value {
+  font-size: 30px;
+  line-height: 36px;
+}
+
+.stat-mini-value {
+  font-size: 22px;
+  line-height: 28px;
+}
+
+/* A figure may be tinted by its status, and only by its status. .success and
+   .danger here are the severity scale, not emphasis -- see the note on badges
+   below for why that distinction is enforced rather than trusted. */
+.health-stat-value.success,
+.stat-mini-value.success,
+.stat-value.success {
+  color: rgb(var(--color-success));
+}
+
+.health-stat-value.warning,
+.stat-mini-value.warning,
+.stat-value.warning {
+  color: rgb(var(--color-warning));
+}
+
+.health-stat-value.danger,
+.stat-mini-value.danger,
+.stat-value.danger {
+  color: rgb(var(--color-danger));
+}
+
+/* The label above or below a figure. Prose face at 12px: this is a word or two
+   being identified, not data being scanned, which is the line the source
+   system draws between .t-label and .t-tag. */
+.stat-label,
+.stat-mini-label,
+.kpi-label,
+.ds-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: rgb(var(--color-text-muted));
+}
+
+/* The second line under a figure -- "compared to last month", the coverage
+   caveat. Subtle, and never larger than the label above it. */
+.stat-compare,
+.stat-hint,
+.ds-hint {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--color-text-subtle));
+  margin-top: 4px;
+}
+
+/* ============================================================================
+   3. Badges
+   ----------------------------------------------------------------------------
+   The severity pill, and the rule it carries is the most important one in this
+   file.
+
+   success / warning / danger mean resolved / severe / critical in this
+   product. They are not emphasis and they are not decoration: a green pill on
+   a case row will be read as "this animal is fine". So the tones are named
+   after the state, and a pill with no state gets .neutral rather than a colour
+   someone liked.
+
+   The label is on -ink, the dot is on the base. Those are two different
+   colours on purpose. The base hue is drawn for a border and a dot, and it is
+   too light to carry words -- cadmium yellow measures 3.58:1 on the page,
+   under AA's 4.5 for text this size. The -ink mixes clear AA on their own fill
+   by 7.76:1 at worst -- success 11.72, danger 9.43, warning 7.76.
+   ========================================================================= */
+
+.pill-badge,
+.table-badge,
+.menu-badge,
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--color-border));
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  background: rgb(var(--color-surface-sunken));
+  color: rgb(var(--color-text-muted));
+}
+
+.pill-badge.success,
+.table-badge.success,
+.ds-badge.success,
+.pill-badge.resolved,
+.table-badge.resolved {
+  background: rgb(var(--color-success-subtle));
+  color: rgb(var(--color-success-ink));
+  border-color: rgb(var(--color-success) / 0.25);
+}
+
+.pill-badge.warning,
+.table-badge.warning,
+.ds-badge.warning,
+.pill-badge.severe,
+.table-badge.severe,
+.pill-badge.pending,
+.table-badge.pending {
+  background: rgb(var(--color-warning-subtle));
+  color: rgb(var(--color-warning-ink));
+  border-color: rgb(var(--color-warning) / 0.3);
+}
+
+.pill-badge.danger,
+.table-badge.danger,
+.ds-badge.danger,
+.pill-badge.critical,
+.table-badge.critical {
+  background: rgb(var(--color-danger-subtle));
+  color: rgb(var(--color-danger-ink));
+  border-color: rgb(var(--color-danger) / 0.25);
+}
+
+/* info / accent is the one non-status tone: "AI prediction", "awaiting
+   review" -- a fact about the record rather than a judgement about the
+   animal. */
+.pill-badge.info,
+.table-badge.info,
+.ds-badge.info,
+.pill-badge.accent,
+.table-badge.accent {
+  background: rgb(var(--color-accent-subtle));
+  color: rgb(var(--color-accent-text));
+  border-color: transparent;
+}
+
+/* The dot keeps the base hue, which is what it was drawn for. bg-current would
+   inherit the label's ink and lose the distinction, so each tone names it. */
+.ds-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: currentColor;
+  opacity: 0.85;
+}
+
+/* The count on a navigation row. Same pill, tightened, and it sits on the navy
+   rail rather than on a card -- so it takes a translucent white ground instead
+   of a token surface, for the reason given in section 6. */
+.menu-badge {
+  margin-left: auto;
+  padding: 1px 7px;
+  font-size: 11px;
+  line-height: 16px;
+  background: rgb(255 255 255 / 0.14);
+  border-color: transparent;
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* ============================================================================
+   4. Buttons
+   ----------------------------------------------------------------------------
+   Four variants, and which one a button takes is a statement about what
+   pressing it does.
+
+   The accent (ultramarine) carries every ordinary primary action. The brand
+   teal is reserved for identity surfaces -- sign-in, the public pages -- and
+   deliberately does not appear inside a dashboard that reports a severity,
+   because a branded button next to a critical case competes with the alarm.
+
+   There is no green button anywhere in this file. Green is "resolved".
+   ========================================================================= */
+
+.btn-upgrade,
+.btn-primary-vet,
+.btn-glass-primary,
+.btn-primary-ds,
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: rgb(var(--color-accent));
+  color: rgb(var(--color-accent-contrast));
+  box-shadow: var(--shadow-sm);
+  transition: background-color 150ms ease;
+}
+
+.btn-upgrade:hover,
+.btn-primary-vet:hover,
+.btn-glass-primary:hover,
+.btn-primary-ds:hover,
+.ds-btn:hover {
+  background: rgb(var(--color-accent-hover));
+  color: rgb(var(--color-accent-contrast));
+}
+
+.btn-secondary-light,
+.btn-glass-outline,
+.btn-glass,
+.ds-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: rgb(var(--color-surface));
+  color: rgb(var(--color-text));
+  border: 1px solid rgb(var(--color-border));
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.btn-secondary-light:hover,
+.btn-glass-outline:hover,
+.btn-glass:hover,
+.ds-btn-secondary:hover {
+  background: rgb(var(--color-surface-sunken));
+  border-color: rgb(var(--color-border-strong));
+  color: rgb(var(--color-text));
+}
+
+/* Identity only. Sign-in, registration, the public footer CTA. */
+.ds-btn-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  background: rgb(var(--color-brand));
+  color: rgb(var(--color-brand-contrast));
+  box-shadow: var(--shadow-sm);
+}
+
+.ds-btn-brand:hover {
+  background: rgb(var(--color-brand-ink));
+  color: rgb(var(--color-brand-contrast));
+}
+
+/* Destructive. Rare here -- a case is closed, not deleted. */
+.ds-btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: rgb(var(--color-danger));
+  color: #fff;
+}
+
+.ds-btn-sm,
+.btn-upgrade.btn-sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+  gap: 6px;
+}
+
+.ds-btn:disabled,
+.btn-upgrade:disabled,
+.btn-primary-vet:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* ============================================================================
+   5. Tables
+   ----------------------------------------------------------------------------
+   A case list is the densest thing in this product and the thing most often
+   read as a column rather than a row, so two rules shape it:
+
+     - the header is a label, in the prose face, uppercase and tracked
+     - the figures are in the mono face; the names are not
+
+   The second is the whole point of .tabular existing as a class rather than
+   being set on the table. A disease name in a monospace column would be
+   slower to read, not faster.
+   ========================================================================= */
+
+.data-table,
+.ds-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: rgb(var(--color-text));
+}
+
+.data-table thead th,
+.ds-table thead th {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(var(--color-text-muted));
+  text-align: left;
+  padding: 10px 12px;
+  background: rgb(var(--color-surface-sunken));
+  border-bottom: 1px solid rgb(var(--color-border));
+  white-space: nowrap;
+}
+
+.data-table tbody td,
+.ds-table tbody td {
+  padding: 12px;
+  border-bottom: 1px solid rgb(var(--color-border));
+  vertical-align: middle;
+}
+
+.data-table tbody tr:last-child td,
+.ds-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tbody tr:hover,
+.ds-table tbody tr:hover {
+  background: rgb(var(--color-surface-sunken) / 0.6);
+}
+
+/* A numeric column: mono face, tabular digits, right-aligned so the units line
+   up under one another. */
+.data-table td.num,
+.data-table th.num,
+.ds-table td.num,
+.ds-table th.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* Wide tables scroll inside their own container; the page body must never
+   scroll sideways. */
+.table-responsive,
+.scroll-x {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+/* ============================================================================
+   6. The navigation rail
+   ----------------------------------------------------------------------------
+   The rail is a constant dark navy panel, in both themes, in all three shells.
+
+   That is carried over from the source system and the reasoning is carried
+   with it: this is a brand surface, and a navigation rail that changed colour
+   with the content area would read as part of the content. Its colours are
+   therefore fixed -- navy plus translucent white -- rather than tokens. This
+   and the hero panel are the only two places in this system allowed to do
+   that, which is why the rules below use rgb(255 255 255 / a) directly and the
+   rest of the file never does.
+
+   It also unifies three different rails: the farmer's was white, the vet's was
+   translucent dark blue over a photograph, and the ministry's was translucent
+   white. Three shells, one product, three answers to "where am I".
+
+   The active row is a solid brand fill plus a bolder label -- two signals, so
+   the colour is never the only carrier. The templates also set
+   aria-current/.active from the same resolver match, so a screen reader and
+   the styling cannot disagree.
+   ========================================================================= */
+
+.sidebar {
+  background: rgb(var(--color-brand-navy)) !important; /* beats three legacy rails */
+  border-right: 1px solid rgb(255 255 255 / 0.08) !important;
+  /* The diagonal hatch is the source design's own, at very low alpha, so it
+     reads as texture rather than pattern. */
+  background-image: repeating-linear-gradient(
+      135deg,
+      rgb(255 255 255 / 0.03) 0 2px,
+      transparent 2px 26px
+    ),
+    linear-gradient(190deg, rgb(var(--color-brand-navy)) 0%, rgb(7 26 50) 100%) !important;
+  box-shadow: 4px 0 24px rgb(0 0 0 / 0.18) !important;
+}
+
+.sidebar-brand {
+  border-bottom: 1px solid rgb(255 255 255 / 0.1) !important;
+  background: transparent !important;
+}
+
+/* The mark, on a white tile.
+   A white tile rather than the mark straight onto navy: the logo is drawn for
+   a white ground and a teal on navy reads as muddy. It is also the one place
+   the exact brand teal appears untouched -- everywhere words sit on teal uses
+   --color-brand-ink, which is a contrast ratio away and clears AA. */
+.sidebar-brand-icon {
+  width: 36px !important;
+  height: 36px !important;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 10px !important;
+  background: #fff !important;
+  color: rgb(var(--color-brand)) !important;
+  font-size: 17px !important;
+}
+
+.sidebar-brand-text {
+  font-family: var(--font-mono);
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  color: #fff !important;
+}
+
+/* The group heading above a run of links. Uppercase, tracked, and quiet: it
+   identifies a section, it is not a row you can press. */
+.menu-section-title,
+.menu-title {
+  font-family: var(--font-sans);
+  font-size: 10px !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 0.5) !important;
+  padding: 10px 10px 6px !important;
+  background: none !important;
+}
+
+/* One navigation row. 34px tall: 9 + 16 + 9, which is above the 32px a pointer
+   target wants and tight enough that fifteen of them fit a laptop viewport
+   alongside a pinned brand and footer. */
+.menu-item {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px !important;
+  margin: 0 !important;
+  border-radius: 7px !important;
+  border-left: none !important; /* the legacy rails used an accent bar; see below */
+  font-family: var(--font-sans);
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-decoration: none;
+  color: rgb(255 255 255 / 0.75) !important;
+  background: transparent !important;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.menu-item i,
+.menu-item svg {
+  width: 16px;
+  font-size: 15px;
+  flex-shrink: 0;
+  text-align: center;
+  opacity: 0.85;
+  color: inherit !important;
+}
+
+.menu-item:hover {
+  background: rgb(255 255 255 / 0.07) !important;
+  color: #fff !important;
+}
+
+/* Active: a solid brand fill, a bolder label, and a glow that is what makes a
+   flat fill read as raised. Two signals where the legacy rails had three --
+   the third was a left accent bar, which sat on top of the fill and read as a
+   notch cut out of it. */
+.menu-item.active,
+.menu-item.active_menu {
+  background: rgb(var(--color-brand-ink)) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 6px 18px -8px rgb(var(--color-brand) / 0.9) !important;
+}
+
+.menu-item.active i,
+.menu-item.active_menu i {
+  opacity: 1;
+}
+
+.menu-item:focus-visible {
+  outline: 2px solid rgb(var(--color-brand));
+  outline-offset: 1px;
+}
+
+/* The rail's link list is the only part of it that scrolls. The brand stays
+   pinned at the top and the help card at the bottom. */
+.sidebar-menu {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.18) transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-menu::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 0.16);
+  border-radius: 3px;
+}
+
+/* Only on hover: a permanently visible thumb on a navigation rail reads as
+   clutter, and the list is short enough that its presence is not the
+   affordance -- the cut-off row at the edge is. */
+.sidebar-menu:hover::-webkit-scrollbar-thumb {
+  background-color: rgb(255 255 255 / 0.28);
+}
+
+.sidebar-footer {
+  border-top: 1px solid rgb(255 255 255 / 0.1) !important;
+  background: transparent !important;
+}
+
+/* The "need help" card at the foot of the rail. On the navy, so translucent
+   white rather than a surface token. */
+.help-card {
+  background: rgb(255 255 255 / 0.07) !important;
+  border: 1px solid rgb(255 255 255 / 0.12) !important;
+  border-radius: var(--radius-lg) !important;
+  padding: 14px !important;
+}
+
+.help-card h6 {
+  font-family: var(--font-mono);
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+  color: #fff !important;
+  margin-bottom: 6px !important;
+}
+
+.help-card h6 i {
+  color: rgb(145 212 218) !important; /* the teal, lifted to clear AA on navy */
+}
+
+.help-card p {
+  font-size: 12px !important;
+  line-height: 17px !important;
+  color: rgb(255 255 255 / 0.65) !important;
+  margin-bottom: 10px !important;
+}
+
+.btn-help-ai {
+  display: block;
+  text-align: center;
+  padding: 7px 10px;
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.12) !important;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.btn-help-ai:hover {
+  background: rgb(255 255 255 / 0.2) !important;
+  color: #fff !important;
+}
+
+/* The scrim behind the mobile drawer. Brand navy rather than black: the panel
+   it reveals is navy, so the page dims towards the chrome. */
+.sidebar-overlay {
+  background: rgb(var(--color-overlay) / 0.5) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* ============================================================================
+   7. The top bar
+   ----------------------------------------------------------------------------
+   Sticky, on the surface token at 88% with a 10px blur -- the one place a
+   backdrop filter is kept, because what is behind it is the page's own content
+   scrolling under a bar, not a photograph behind text.
+   ========================================================================= */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 28px;
+  background: rgb(var(--color-surface) / 0.88) !important;
+  border-bottom: 1px solid rgb(var(--color-border)) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: none !important;
+}
+
+.topbar-search {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+}
+
+.topbar-search i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 13px;
+  color: rgb(var(--color-text-subtle));
+  pointer-events: none;
+}
+
+.topbar-search input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px 0 34px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: rgb(var(--color-text)) !important;
+  background: rgb(var(--color-field)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  border-radius: var(--radius) !important;
+}
+
+.topbar-search input::placeholder {
+  color: rgb(var(--color-text-subtle));
+}
+
+.topbar-search input:focus {
+  outline: none;
+  border-color: rgb(var(--color-accent)) !important;
+  box-shadow: 0 0 0 3px rgb(var(--color-accent) / 0.15);
+}
+
+.topbar-icon,
+.topbar-btn,
+.topbar-menu-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  background: rgb(var(--color-surface-sunken)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  color: rgb(var(--color-text-muted)) !important;
+  font-size: 15px;
+}
+
+.topbar-icon:hover,
+.topbar-btn:hover,
+.topbar-menu-btn:hover {
+  color: rgb(var(--color-text)) !important;
+  border-color: rgb(var(--color-border-strong)) !important;
+}
+
+/* The unread count. Danger, because what it counts on these dashboards is
+   critical cases -- it is a status, not a decoration. */
+.topbar-icon-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  background: rgb(var(--color-danger)) !important;
+  color: #fff !important;
+  border: 2px solid rgb(var(--color-surface));
+}
+
+.topbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 4px 8px 4px 4px;
+  border-radius: 999px;
+}
+
+.topbar-profile:hover {
+  background: rgb(var(--color-surface-sunken));
+}
+
+.topbar-avatar {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  background: rgb(var(--color-accent)) !important;
+  color: rgb(var(--color-accent-contrast)) !important;
+}
+
+.topbar-profile-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar-profile-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  color: rgb(var(--color-text)) !important;
+}
+
+.topbar-profile-role {
+  font-size: 11px;
+  line-height: 14px;
+  color: rgb(var(--color-text-muted)) !important;
+}
+
+/* The language switcher and any bare select in the bar. */
+.lang-form select,
+.topbar select {
+  height: 34px;
+  padding: 0 28px 0 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: rgb(var(--color-text)) !important;
+  background: rgb(var(--color-surface)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  border-radius: var(--radius) !important;
+}
+
+/* The notifications panel. */
+.notif-dropdown {
+  background: rgb(var(--color-surface)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 6px !important;
+}
+
+.notif-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px !important;
+  border-radius: var(--radius) !important;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgb(var(--color-text)) !important;
+  background: transparent !important;
+}
+
+.notif-item + .notif-item {
+  border-top: 1px solid rgb(var(--color-border)) !important;
+}
+
+.dropdown-menu-light {
+  background: rgb(var(--color-surface)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-lg) !important;
+  overflow: hidden;
+}
+
+.dropdown-menu-light button {
+  color: rgb(var(--color-text)) !important;
+  font-family: var(--font-sans);
+}
+
+.dropdown-menu-light button:hover {
+  background: rgb(var(--color-surface-sunken)) !important;
+}
+
+/* ============================================================================
+   8. The hero panel
+   ----------------------------------------------------------------------------
+   This is the structural change the port makes, and the one that fixes the
+   image quality complaint at the same time.
+
+   All three shells put a photograph behind the entire page -- a 2MB PNG, set
+   with background-size: cover on body::before, with a translucent wash and in
+   one case filter: brightness(1.25) over it. That arrangement cannot be sharp:
+
+     - a 1365x768 source stretched to a 2560px-wide viewport is upscaled
+       1.9x, and upscaling is blur by definition
+     - brightness(1.25) on a photograph clips the highlights, which reads as
+       softness because the detail in them is gone
+     - every card then needed a blur or a wash behind it to stay legible, and
+       a blurred panel over a stretched photo is two softening passes stacked
+
+   The source system does not do this. Its photography lives in one bounded
+   panel at the top of the dashboard, the page behind the content is a flat
+   token colour, and the panel carries its own gradient stack so white text on
+   it is legible without touching the photograph.
+
+   So: the page background becomes --color-bg, and the photograph moves here.
+   The gradients are the source system's own, re-pointed at the navy and teal.
+   Like the rail, this is a constant dark panel in both themes.
+   ========================================================================= */
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+  padding: 28px 30px;
+  box-shadow: var(--shadow-md);
+  /* The image itself is set per shell, so each dashboard keeps its own
+     photograph -- see the background-image declaration in each base template.
+     What is fixed here is the gradient stack over it. */
+  background-color: rgb(var(--color-brand-navy));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+}
+
+/* The two light effects: a soft highlight top-right and a warm bloom
+   bottom-left, both purely decorative and both drawn rather than filtered, so
+   they cost the photograph no detail. */
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 88% 20%, rgb(255 255 255 / 0.18), transparent 24%),
+    linear-gradient(135deg, rgb(255 255 255 / 0.06), transparent 42%);
+}
+
+.hero-panel::after {
+  content: "";
+  position: absolute;
+  bottom: -45%;
+  left: 35%;
+  right: -10%;
+  height: 260px;
+  pointer-events: none;
+  filter: blur(20px);
+  background: radial-gradient(ellipse, rgb(var(--color-highlight) / 0.3), transparent 65%);
+}
+
+.hero-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.hero-salutation {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.9);
+  margin: 0;
+}
+
+.hero-welcome {
+  font-size: 12px;
+  color: rgb(255 255 255 / 0.65);
+  margin: 2px 0 0;
+}
+
+.hero-headline {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: #fff;
+  margin: 8px 0 0;
+}
+
+.hero-date {
+  text-align: right;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.65);
+  margin: 0;
+}
+
+.hero-date .tabular {
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* The KPI tiles inside the hero: the same tile as a card, as frosted glass.
+   Only the surface differs. What a tile says is identical in both, because
+   that is the part that stops the screen lying and it does not depend on where
+   the tile is drawn. */
+.hero-tiles {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .hero-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.hero-tile {
+  border-radius: 13px;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(255 255 255 / 0.08);
+  padding: 14px 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.hero-tile-label {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  line-height: 1;
+  color: #c3d0ec;
+  margin: 0;
+}
+
+.hero-tile-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  margin: 6px 0 0;
+}
+
+.hero-tile-hint {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: #c3d0ec;
+  margin: 4px 0 0;
+}
+
+/* ============================================================================
+   9. Progress and meters
+   ----------------------------------------------------------------------------
+   The severity breakdown bars, and the achievement meters.
+
+   The legacy classes were named after their colour -- .progress-fill.red,
+   .yellow, .green -- which is the thing the source system warns against: a
+   bar that renders critical in "red" survives a palette change, one that
+   renders it in red does not. The colour names are kept as aliases because
+   they are in the markup, and each is mapped to the status token it meant.
+   ========================================================================= */
+
+/* NOT .stat-bar. That name is taken: on the ministry dashboard it is one
+   column of a six-bar sparkline inside .stat-chart, sized by an inline height,
+   and giving it a 6px track here would flatten every one of them. The clash is
+   the clearest example of what the alias lists at the top of this file are
+   working around -- two shells independently picked the same name for
+   different objects. */
+.progress-bar-custom,
+.ds-meter {
+  height: 6px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgb(var(--color-surface-sunken)) !important;
+}
+
+.progress-fill,
+.ds-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 300ms ease;
+}
+
+.progress-fill.red,
+.progress-fill.critical,
+.ds-meter-fill.danger {
+  background: rgb(var(--color-danger)) !important;
+}
+
+.progress-fill.yellow,
+.progress-fill.severe,
+.ds-meter-fill.warning {
+  background: rgb(var(--color-warning)) !important;
+}
+
+.progress-fill.green,
+.progress-fill.resolved,
+.ds-meter-fill.success {
+  background: rgb(var(--color-success)) !important;
+}
+
+.progress-fill.blue,
+.ds-meter-fill.accent {
+  background: rgb(var(--color-accent)) !important;
+}
+
+/* The step indicator on the multi-page case form. */
+.progress-step-circle {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  background: rgb(var(--color-surface-sunken)) !important;
+  color: rgb(var(--color-text-muted)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+}
+
+.progress-step.active .progress-step-circle,
+.progress-step.done .progress-step-circle {
+  background: rgb(var(--color-accent)) !important;
+  color: rgb(var(--color-accent-contrast)) !important;
+  border-color: transparent !important;
+}
+
+.progress-step-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(var(--color-text-muted)) !important;
+}
+
+.progress-step.active .progress-step-label {
+  color: rgb(var(--color-text)) !important;
+}
+
+/* ============================================================================
+   10. Forms
+   ========================================================================= */
+
+.form-label,
+.form-group label,
+.form-group-modern label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(var(--color-text)) !important;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-label .required,
+.form-group .required {
+  color: rgb(var(--color-danger)) !important;
+}
+
+.form-control,
+.form-select,
+textarea.form-control {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: rgb(var(--color-text)) !important;
+  background: rgb(var(--color-surface)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+  border-radius: var(--radius) !important;
+  padding: 9px 12px;
+  box-shadow: none !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: rgb(var(--color-accent)) !important;
+  box-shadow: 0 0 0 3px rgb(var(--color-accent) / 0.15) !important;
+  outline: none;
+}
+
+.form-control::placeholder {
+  color: rgb(var(--color-text-subtle));
+}
+
+.form-text,
+.help-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--color-text-muted)) !important;
+}
+
+/* A numeric input is a figure being entered, so it takes the mono face too --
+   which also stops a six-digit ear-tag number reflowing as it is typed. */
+input[type="number"].form-control,
+input[inputmode="numeric"].form-control {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   11. Alerts and inline notes
+   ----------------------------------------------------------------------------
+   Bootstrap's alert palette is replaced with the status tokens, so a Django
+   message and a severity badge agree on what "warning" looks like. Before
+   this, a messages framework warning was Bootstrap amber and a severe case was
+   #facc15, and neither matched the other.
+   ========================================================================= */
+
+.alert {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid transparent !important;
+  padding: 12px 16px !important;
+  box-shadow: none !important;
+}
+
+.alert-success {
+  background: rgb(var(--color-success-subtle)) !important;
+  color: rgb(var(--color-success-ink)) !important;
+  border-color: rgb(var(--color-success) / 0.25) !important;
+}
+
+.alert-warning {
+  background: rgb(var(--color-warning-subtle)) !important;
+  color: rgb(var(--color-warning-ink)) !important;
+  border-color: rgb(var(--color-warning) / 0.3) !important;
+}
+
+.alert-danger,
+.alert-error {
+  background: rgb(var(--color-danger-subtle)) !important;
+  color: rgb(var(--color-danger-ink)) !important;
+  border-color: rgb(var(--color-danger) / 0.25) !important;
+}
+
+.alert-info {
+  background: rgb(var(--color-accent-subtle)) !important;
+  color: rgb(var(--color-accent-text)) !important;
+  border-color: transparent !important;
+}
+
+/* The help note a card can expand under its heading, and the AI assistant
+   strip on the farmer's herd card. Accent-subtle, because both are
+   informational -- neither is a judgement about an animal. */
+.help-info-box,
+.herd-ai-box,
+.ds-note {
+  background: rgb(var(--color-accent-subtle)) !important;
+  border: 1px solid rgb(var(--color-accent) / 0.18) !important;
+  border-radius: var(--radius) !important;
+  padding: 12px !important;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  line-height: 18px;
+  color: rgb(var(--color-text)) !important;
+}
+
+.herd-ai-box .label,
+.ds-note-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: rgb(var(--color-accent-text)) !important;
+  margin-bottom: 4px;
+}
+
+.herd-ai-box .text {
+  color: rgb(var(--color-text-muted)) !important;
+}
+
+/* ============================================================================
+   12. Tabs
+   ========================================================================= */
+
+.tab-row {
+  display: flex;
+  gap: 4px;
+  padding: 3px;
+  border-radius: var(--radius-lg);
+  background: rgb(var(--color-surface-sunken));
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 7px 12px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  background: transparent !important;
+  color: rgb(var(--color-text-muted)) !important;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.tab-btn:hover {
+  color: rgb(var(--color-text)) !important;
+}
+
+.tab-btn.active {
+  background: rgb(var(--color-surface)) !important;
+  color: rgb(var(--color-text)) !important;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================================
+   13. Images
+   ----------------------------------------------------------------------------
+   Two rules, both about sharpness and both applying to every <img> in the
+   product rather than to a handful of call sites.
+
+   height: auto alongside a set width is what stops a browser resampling an
+   image to a non-proportional box, which is the most common cause of a photo
+   looking soft when the file itself is fine.
+   ========================================================================= */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* An avatar or thumbnail is cropped, not squashed: object-fit: cover fills the
+   box at the correct aspect ratio instead of scaling one axis. */
+.img-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+.img-contain {
+  object-fit: contain;
+}
+
+/* ============================================================================
+   14. Layout helpers
+   ========================================================================= */
+
+/* The content column. The source system caps it at 1440px and centres it --
+   a case table stretched across a 3440px ultrawide is unreadable, and two of
+   these three dashboards had no cap at all. */
+.main-area,
+.ds-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 28px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Flex items shrink by default, and two of these three shells give .main-area
+   a constrained height with its own scrollbar. In that arrangement a column
+   flex container whose content is taller than the box shrinks every child to
+   make them fit -- which collapsed the hero panel to its own padding, 56px,
+   and clipped the greeting and all four tiles inside it. The children were
+   laying out correctly at 77px and 93px; the parent was squashing them.
+
+   flex-shrink: 0 is the fix: the column scrolls, as intended, instead of
+   compressing. */
+.main-area > *,
+.ds-container > * {
+  flex-shrink: 0;
+}
+
+/* Bootstrap's large gutters overflow a .container on a narrow screen.
+
+   A `.row.g-5` sets --bs-gutter-x to 3rem, which gives the row a -24px margin
+   on each side. `.container` always carries 12px of padding regardless of the
+   gutter, so the row escapes its parent by 12px either side -- which is
+   exactly the horizontal page scroll the public pages had on a 390px phone.
+
+   Halving the gutter below `sm` lines the row's negative margin up with the
+   padding it is meant to cancel. The columns keep their own spacing; only the
+   trough between them narrows, which is the right thing to lose first when
+   two columns have already stacked into one. */
+@media (max-width: 575.98px) {
+  .row.g-5,
+  .row.gx-5 {
+    --bs-gutter-x: 1.5rem;
+  }
+
+  .row.g-4,
+  .row.gx-4 {
+    --bs-gutter-x: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-area,
+  .ds-container {
+    padding: 16px 16px 40px;
+    gap: 16px;
+  }
+
+  .topbar {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .hero-panel {
+    padding: 22px 20px;
+    border-radius: 16px;
+  }
+
+  .hero-headline {
+    font-size: 19px;
+  }
+
+  /* The date sits to the right of the greeting on a wide panel and wraps
+     underneath it on a phone. Once it has wrapped it is no longer opposite
+     anything, so right-aligned text just reads as a stray indent. */
+  .hero-date {
+    text-align: left;
+  }
+
+  .stat-big {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  .topbar-profile-info {
+    display: none;
+  }
+}
+
+/* The page title block. Every screen opens the same way: what this is, why it
+   exists, what you can do here. */
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+@media (min-width: 640px) {
+  .page-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.page-header h1 {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: 30px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  color: rgb(var(--color-text));
+  margin: 0;
+}
+
+.page-header p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: rgb(var(--color-text-muted));
+  margin: 4px 0 0;
+  max-width: 64ch;
+}
+
+.page-header-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The empty state. "Nothing was submitted" is rendered as a sentence, never as
+   a zero -- a herd with no cases is a different fact from a herd nobody has
+   keyed anything in for, and showing the second as 0 tells the farmer their
+   records are complete when they are not. */
+.ds-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 20px;
+  text-align: center;
+  color: rgb(var(--color-text-muted));
+  font-size: 14px;
+}
+
+.ds-empty i {
+  font-size: 22px;
+  color: rgb(var(--color-text-subtle));
+  margin-bottom: 4px;
+}
+
+.ds-no-data {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-style: normal;
+  color: rgb(var(--color-text-subtle));
+}
+
+/* Loading placeholder, for anything fetched after first paint. Deliberately
+   the shape of the thing that is coming rather than a spinner: on a slow
+   connection a spinner over a blank card reads as "stuck". */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--color-surface-sunken)) 25%,
+    rgb(var(--color-border)) 37%,
+    rgb(var(--color-surface-sunken)) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: var(--radius);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

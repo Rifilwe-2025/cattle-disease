@@ -6,11 +6,58 @@
 {% block title %}{% trans "Vet Dashboard - CattleCare AI" %}{% endblock %}
 
 {% block content %}
+{# The hero panel. The vet-subject photograph that used to sit behind the   #}
+{# whole page now lives here, bounded and cropped -- see the note in        #}
+{# vet_base.html for why that is both the design and the sharpness fix.     #}
+<section class="hero-panel hero-vet">
+    <div class="hero-head">
+        <div style="min-width:0;">
+            <p class="hero-salutation">
+                {# No "Dr" prefix: vets enter their own full_name and most    #}
+                {# already include the title, which is how the old header     #}
+                {# produced "Dr. Dr. Ruvimbo Chikowore".                      #}
+                {% if vet %}{% blocktrans with name=vet.full_name %}Good day, {{ name }}{% endblocktrans %}{% else %}{% trans "Good day" %}{% endif %}
+            </p>
+            <p class="hero-welcome">{% trans "Welcome back to CattleCare AI." %}</p>
+            <h1 class="hero-headline">{% trans "Here is your caseload today." %}</h1>
+        </div>
+        <p class="hero-date">
+            {% now "l, j F Y" %}<br>
+            <span class="tabular">{% trans "Viewed" %} {% now "H:i" %} CAT</span>
+        </p>
+    </div>
+
+    <div class="hero-tiles">
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Farmers assigned" %}</p>
+            <p class="hero-tile-value">{{ farmers_served }}</p>
+            <p class="hero-tile-hint">{% trans "In your catchment area" %}</p>
+        </div>
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Cases assigned" %}</p>
+            <p class="hero-tile-value">{{ total_cases }}</p>
+            <p class="hero-tile-hint">{% trans "All time" %}</p>
+        </div>
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Critical" %}</p>
+            <p class="hero-tile-value">{{ critical_cases }}</p>
+            <p class="hero-tile-hint">
+                {% if critical_cases %}{% trans "Needs a recommendation now" %}{% else %}{% trans "None pending" %}{% endif %}
+            </p>
+        </div>
+        <div class="hero-tile">
+            <p class="hero-tile-label">{% trans "Resolved" %}</p>
+            <p class="hero-tile-value">{{ resolved_cases }}</p>
+            <p class="hero-tile-hint">{% trans "Closed with an outcome" %}</p>
+        </div>
+    </div>
+</section>
+
 <!-- Header Section -->
 <div class="page-head">
     <div>
-        <h1>{% trans "Dashboard" %}</h1>
-        <p class="welcome-line">{% trans "Welcome back to CattleCare AI." %}</p>
+        <h1>{% trans "Caseload" %}</h1>
+        <p class="welcome-line">{% trans "Every case assigned to you, and how it is trending." %}</p>
         <p class="date-line" id="currentDate"></p>
     </div>
     <div class="head-actions">
@@ -38,7 +85,7 @@
     </div>
     <div class="card-light">
         <div class="stat-label">{% trans "Total Cases Solved" %}</div>
-        <div class="stat-big" style="color: #22c55e;">{{ resolved_cases }}</div>
+        <div class="stat-big" style="color: rgb(var(--color-success));">{{ resolved_cases }}</div>
         <div class="stat-change up"><a href="{% url 'vets:cases_list' %}" style="color: inherit; text-decoration: none;">{% trans "View cases" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
     </div>
     <div class="card-light">
@@ -59,27 +106,27 @@
         <div class="card-light">
             <div class="card-title">
                 <span>{% trans "Case Statistics" %}</span>
-                <span style="font-size:12px;font-weight:500;color:#cbd5e1;">{% trans "New cases per week" %}</span>
+                <span style="font-size:12px;font-weight:500;color:rgb(var(--color-text-muted));">{% trans "New cases per week" %}</span>
             </div>
             <div class="chart-container">
                 <canvas id="lineChart"></canvas>
             </div>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;font-size:12px;color:#94a3b8;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;font-size:12px;color:rgb(var(--color-text-muted));">
                 <div style="display:flex;align-items:center;gap:6px;">
                     <span style="width:10px;height:10px;border-radius:999px;background:#fbbf24;display:inline-block;"></span>
-                    <span>{% trans "Assigned / Pending:" %} <strong style="color:#e5e7eb;">{{ pending_cases|add:in_progress_cases }}</strong></span>
+                    <span>{% trans "Assigned / Pending:" %} <strong style="color:rgb(var(--color-text));">{{ pending_cases|add:in_progress_cases }}</strong></span>
                 </div>
                 <div style="display:flex;align-items:center;gap:6px;">
-                    <span style="width:10px;height:10px;border-radius:999px;background:#3b82f6;display:inline-block;"></span>
-                    <span>{% trans "In progress:" %} <strong style="color:#e5e7eb;">{{ in_progress_cases }}</strong></span>
+                    <span style="width:10px;height:10px;border-radius:999px;background:rgb(var(--color-accent));display:inline-block;"></span>
+                    <span>{% trans "In progress:" %} <strong style="color:rgb(var(--color-text));">{{ in_progress_cases }}</strong></span>
                 </div>
                 <div style="display:flex;align-items:center;gap:6px;">
-                    <span style="width:10px;height:10px;border-radius:999px;background:#22c55e;display:inline-block;"></span>
-                    <span>{% trans "Resolved / Closed:" %} <strong style="color:#e5e7eb;">{{ resolved_cases }}</strong></span>
+                    <span style="width:10px;height:10px;border-radius:999px;background:rgb(var(--color-success));display:inline-block;"></span>
+                    <span>{% trans "Resolved / Closed:" %} <strong style="color:rgb(var(--color-text));">{{ resolved_cases }}</strong></span>
                 </div>
                 <div style="margin-left:auto;">
-                    <span style="color:#64748b;">{% trans "Total cases:" %}</span>
-                    <strong style="color:#e5e7eb;">{{ total_cases }}</strong>
+                    <span style="color:rgb(var(--color-text-muted));">{% trans "Total cases:" %}</span>
+                    <strong style="color:rgb(var(--color-text));">{{ total_cases }}</strong>
                 </div>
             </div>
         </div>
@@ -94,15 +141,15 @@
                     <canvas id="donutChart"></canvas>
                 </div>
                 <div style="flex: 1;">
-                    <div style="font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px;">{% blocktrans with t=total_cases %}Total {{ t }}{% endblocktrans %}</div>
+                    <div style="font-size: 32px; font-weight: 800; color: rgb(var(--color-text)); margin-bottom: 12px;">{% blocktrans with t=total_cases %}Total {{ t }}{% endblocktrans %}</div>
                     {% for item in disease_stats %}
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: {% cycle '#3b82f6' '#f59e0b' '#22c55e' '#ef4444' '#8b5cf6' %};"></span>
-                        <span style="font-size: 13px; color: #94a3b8;">{{ item.predicted_disease|local_disease|truncatewords:2 }}</span>
-                        <span style="font-size: 13px; font-weight: 600; color: #fff; margin-left: auto;">{{ item.count }}</span>
+                        <span style="width: 10px; height: 10px; border-radius: 50%; background: {% cycle 'rgb(var(--color-accent))' 'rgb(var(--color-warning))' 'rgb(var(--color-success))' 'rgb(var(--color-danger))' '#8b5cf6' %};"></span>
+                        <span style="font-size: 13px; color: rgb(var(--color-text-muted));">{{ item.predicted_disease|local_disease|truncatewords:2 }}</span>
+                        <span style="font-size: 13px; font-weight: 600; color: rgb(var(--color-text)); margin-left: auto;">{{ item.count }}</span>
                     </div>
                     {% empty %}
-                    <div style="font-size: 13px; color: #64748b;">{% trans "No cases yet" %}</div>
+                    <div style="font-size: 13px; color: rgb(var(--color-text-muted));">{% trans "No cases yet" %}</div>
                     {% endfor %}
                 </div>
             </div>
@@ -116,23 +163,23 @@
         <div class="card-light">
             <div class="card-title">
                 <span>{% trans "Top Diagnoses" %}</span>
-                <span style="font-size: 32px; font-weight: 800; color: #93c5fd;">{{ total_cases }}</span>
+                <span style="font-size: 32px; font-weight: 800; color: rgb(var(--color-accent-text));">{{ total_cases }}</span>
             </div>
             <div style="height: 80px; display: flex; align-items: flex-end; gap: 8px; margin-bottom: 20px;">
                 {% for item in top_diagnoses %}
-                <div style="flex: 1; background: linear-gradient(180deg, #3b82f6, #93c5fd); border-radius: 6px 6px 0 0; height: {% if total_cases %}{% widthratio item.count total_cases 70 %}%{% else %}20%{% endif %}; min-height: 8px;"></div>
+                <div style="flex: 1; background: linear-gradient(180deg, rgb(var(--color-accent)), rgb(var(--color-accent-text))); border-radius: 6px 6px 0 0; height: {% if total_cases %}{% widthratio item.count total_cases 70 %}%{% else %}20%{% endif %}; min-height: 8px;"></div>
                 {% empty %}
-                <div style="flex: 1; background: #e5e7eb; border-radius: 6px; height: 20px;"></div>
+                <div style="flex: 1; background: rgb(var(--color-border)); border-radius: 6px; height: 20px;"></div>
                 {% endfor %}
             </div>
             <div>
                 {% for item in top_diagnoses %}
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-                    <span style="font-size: 13px; color: #e2e8f0;">{{ item.predicted_disease|local_disease|truncatewords:3 }}</span>
-                    <span style="font-size: 13px; font-weight: 600; color: #94a3b8;">{% blocktrans count c=item.count %}{{ c }} case{% plural %}{{ c }} cases{% endblocktrans %}{% if total_cases %} ({% widthratio item.count total_cases 100 %}%){% endif %}</span>
+                    <span style="font-size: 13px; color: rgb(var(--color-text));">{{ item.predicted_disease|local_disease|truncatewords:3 }}</span>
+                    <span style="font-size: 13px; font-weight: 600; color: rgb(var(--color-text-muted));">{% blocktrans count c=item.count %}{{ c }} case{% plural %}{{ c }} cases{% endblocktrans %}{% if total_cases %} ({% widthratio item.count total_cases 100 %}%){% endif %}</span>
                 </div>
                 {% empty %}
-                <div style="font-size: 13px; color: #64748b; padding: 20px; text-align: center;">{% trans "No diagnoses yet" %}</div>
+                <div style="font-size: 13px; color: rgb(var(--color-text-muted)); padding: 20px; text-align: center;">{% trans "No diagnoses yet" %}</div>
                 {% endfor %}
             </div>
         </div>
@@ -141,7 +188,7 @@
         <div class="card-light">
             <div class="card-title">
                 <span>{% trans "Farmers Under Care" %}</span>
-                <a href="{% url 'vets:dashboard' %}#cases" style="font-size: 12px; color: #93c5fd; text-decoration: none; font-weight: 500;">{% trans "View All" %}</a>
+                <a href="{% url 'vets:dashboard' %}#cases" style="font-size: 12px; color: rgb(var(--color-accent-text)); text-decoration: none; font-weight: 500;">{% trans "View All" %}</a>
             </div>
             {% for item in farmers_with_cases %}
             <div class="farmer-row">
@@ -150,10 +197,10 @@
                     <div class="farmer-name">{{ item.farmer.full_name }}</div>
                     <div class="farmer-detail">{{ item.farmer.province }} · {{ item.case.predicted_disease|local_disease|truncatewords:2 }}</div>
                 </div>
-                <a href="{% url 'vets:case_detail' item.case.id %}" style="color: #93c5fd; text-decoration: none;"><i class="fas fa-chevron-right"></i></a>
+                <a href="{% url 'vets:case_detail' item.case.id %}" style="color: rgb(var(--color-accent-text)); text-decoration: none;"><i class="fas fa-chevron-right"></i></a>
             </div>
             {% empty %}
-            <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+            <div style="text-align: center; padding: 40px 20px; color: rgb(var(--color-text-muted));">
                 <i class="fas fa-users" style="font-size: 40px; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
                 <p>{% trans "No farmers assigned yet" %}</p>
             </div>
@@ -164,7 +211,7 @@
         <div class="card-light">
             <div class="card-title">
                 <span>{% trans "Resolution Rate" %}</span>
-                <span style="font-size: 32px; font-weight: 800; color: #4ade80;">{{ resolution_rate }}%</span>
+                <span style="font-size: 32px; font-weight: 800; color: rgb(var(--color-success));">{{ resolution_rate }}%</span>
             </div>
             <div class="stat-change up" style="margin-bottom: 16px;">
                 <i class="fas fa-smile" style="margin-right: 6px;"></i>
@@ -173,7 +220,7 @@
             <div class="chart-container" style="height: 120px;">
                 <canvas id="resolutionChart"></canvas>
             </div>
-            <p style="font-size: 12px; color: #94a3b8; margin-top: 16px; line-height: 1.5;">{% blocktrans trimmed %}Your resolution rate reflects the percentage of cases you have successfully diagnosed and closed. Keep up the great work!{% endblocktrans %}</p>
+            <p style="font-size: 12px; color: rgb(var(--color-text-muted)); margin-top: 16px; line-height: 1.5;">{% blocktrans trimmed %}Your resolution rate reflects the percentage of cases you have successfully diagnosed and closed. Keep up the great work!{% endblocktrans %}</p>
         </div>
     </div>
 </div>
@@ -188,20 +235,20 @@
         <table style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr style="border-bottom: 2px solid rgba(255,255,255,0.1);">
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Date" %}</th>
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Farmer" %}</th>
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Disease" %}</th>
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Severity" %}</th>
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Status" %}</th>
-                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase;">{% trans "Actions" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Date" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Farmer" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Disease" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Severity" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Status" %}</th>
+                    <th style="text-align: left; padding: 12px 16px; font-size: 11px; font-weight: 600; color: rgb(var(--color-text-muted)); text-transform: uppercase;">{% trans "Actions" %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for case in assigned_cases %}
                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.06);">
-                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.created_at|date:"M d, Y" }}</td>
-                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.farmer.full_name }}</td>
-                    <td style="padding: 14px 16px; font-size: 14px; color: #e2e8f0;">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px; color: rgb(var(--color-text));">{{ case.created_at|date:"M d, Y" }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px; color: rgb(var(--color-text));">{{ case.farmer.full_name }}</td>
+                    <td style="padding: 14px 16px; font-size: 14px; color: rgb(var(--color-text));">{{ case.predicted_disease|local_disease|truncatewords:3 }}</td>
                     <td style="padding: 14px 16px;">
                         {% if case.severity == 'CRITICAL' %}<span class="pill-badge danger">{{ case.severity|local_severity }}</span>
                         {% elif case.severity == 'SEVERE' %}<span class="pill-badge warning">{{ case.severity|local_severity }}</span>
@@ -221,7 +268,7 @@
         </table>
     </div>
     {% else %}
-    <div style="text-align: center; padding: 60px 20px; color: #64748b;">
+    <div style="text-align: center; padding: 60px 20px; color: rgb(var(--color-text-muted));">
         <i class="fas fa-folder-open" style="font-size: 48px; opacity: 0.3; margin-bottom: 16px; display: block;"></i>
         <p>{% trans "No cases assigned yet." %}</p>
         <p style="font-size: 13px; margin-top: 8px;">{% trans "Cases will appear here once farmers assign you from your region." %}</p>
@@ -235,7 +282,10 @@
 {% trans "Week starting" as vet_chart_week_prefix %}
 {% trans "No cases" as vet_no_cases %}
 {% trans "Resolution %" as vet_resolution_pct %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="{% static 'js/design-tokens.js' %}"></script>
+    <!-- Resolves --color-* tokens for the canvas, which cannot read CSS
+         variables itself. Must precede Chart.js. See the file header. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     const VET_DASH_LOCALE = "{{ LANGUAGE_CODE|escapejs }}";
     const lcRaw = (VET_DASH_LOCALE || 'en').toLowerCase().replace('_', '-');
@@ -279,8 +329,8 @@
                 datasets: [{
                     label: VET_CHART_NEW_CASES,
                     data: weeklyCounts,
-                    backgroundColor: '#3b82f6',
-                    hoverBackgroundColor: '#60a5fa',
+                    backgroundColor: dsToken('accent'),
+                    hoverBackgroundColor: dsToken('accent'),
                     borderRadius: 3,
                     borderWidth: 0,
                     maxBarThickness: 18
@@ -292,7 +342,7 @@
                 plugins: {
                     legend: {
                         display: true,
-                        labels: { color: '#e5e7eb', boxWidth: 14, boxHeight: 10 }
+                        labels: { color: dsToken('border'), boxWidth: 14, boxHeight: 10 }
                     },
                     tooltip: {
                         callbacks: {
@@ -306,13 +356,13 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        grid: { color: 'rgba(255,255,255,0.1)' },
-                        ticks: { color: '#cbd5e1', precision: 0 }
+                        grid: { color: dsToken('border') },
+                        ticks: { color: dsToken('text-subtle'), precision: 0 }
                     },
                     x: {
                         grid: { display: false },
                         ticks: {
-                            color: '#cbd5e1',
+                            color: dsToken('text-subtle'),
                             autoSkip: true,
                             maxTicksLimit: 13,
                             maxRotation: 0
@@ -340,7 +390,7 @@
                 labels: donutLabels,
                 datasets: [{
                     data: donutData.length ? donutData : [1],
-                    backgroundColor: ['#3b82f6', '#f59e0b', '#22c55e', '#ef4444', '#8b5cf6'],
+                    backgroundColor: [dsToken('accent'), dsToken('warning'), dsToken('success'), dsToken('danger'), dsToken('chart-5')],
                     borderWidth: 0
                 }]
             },
@@ -365,8 +415,8 @@
                 datasets: [{
                     label: VET_RESOLUTION_PCT,
                     data: resValues,
-                    borderColor: '#22c55e',
-                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    borderColor: dsToken('success'),
+                    backgroundColor: dsToken('success', 0.1),
                     tension: 0.4,
                     fill: true
                 }]
@@ -376,8 +426,8 @@
                 maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    y: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
-                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    y: { min: 0, max: 100, grid: { color: dsToken('border') }, ticks: { color: dsToken('text-muted') } },
+                    x: { grid: { display: false }, ticks: { color: dsToken('text-muted') } }
                 }
             }
         });

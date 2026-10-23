@@ -6,14 +6,14 @@
 {% block extra_css %}
 <style>
     .case-header { padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 16px; }
-    .case-title { font-size: 18px; font-weight: 800; color: #fff; margin: 0; }
-    .case-title i { color: #93c5fd; margin-right: 8px; }
-    .section-h { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px; }
-    .kv p { margin-bottom: 8px; color: #e2e8f0; }
-    .kv strong { color: #94a3b8; font-weight: 800; }
+    .case-title { font-size: 18px; font-weight: 800; color: rgb(var(--color-text)); margin: 0; }
+    .case-title i { color: rgb(var(--color-accent-text)); margin-right: 8px; }
+    .section-h { font-size: 14px; font-weight: 800; color: rgb(var(--color-text)); margin-bottom: 10px; }
+    .kv p { margin-bottom: 8px; color: rgb(var(--color-text)); }
+    .kv strong { color: rgb(var(--color-text-muted)); font-weight: 800; }
     .soft-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; }
-    .soft-card ul { margin: 0; padding-left: 18px; color: #e2e8f0; }
-    .soft-muted { color: #94a3b8; font-size: 12px; }
+    .soft-card ul { margin: 0; padding-left: 18px; color: rgb(var(--color-text)); }
+    .soft-muted { color: rgb(var(--color-text-muted)); font-size: 12px; }
 </style>
 {% endblock %}
 
@@ -28,7 +28,7 @@
             <div class="section-h">Farmer Information</div>
             <p><strong>Name:</strong> {{ case.farmer.full_name }}</p>
             <p><strong>Location:</strong> {{ case.farmer.province }}, {{ case.farmer.district }}</p>
-            <p><strong>Phone:</strong> <a href="tel:{{ case.farmer.user.phone_number }}" style="color:#93c5fd; text-decoration:none; font-weight:800;">{{ case.farmer.user.phone_number }}</a></p>
+            <p><strong>Phone:</strong> <a href="tel:{{ case.farmer.user.phone_number }}" style="color:rgb(var(--color-accent-text)); text-decoration:none; font-weight:800;">{{ case.farmer.user.phone_number }}</a></p>
         </div>
         <div class="col-md-6 kv">
             <div class="section-h">Case Details</div>
@@ -68,10 +68,10 @@
         <div class="col-lg-6">
             {% if case.notes %}
             <div class="section-h">Farmer Notes</div>
-            <div class="soft-card" style="color:#e2e8f0; white-space: pre-wrap;">{{ case.notes }}</div>
+            <div class="soft-card" style="color:rgb(var(--color-text)); white-space: pre-wrap;">{{ case.notes }}</div>
             {% else %}
             <div class="section-h">Farmer Notes</div>
-            <div class="soft-card" style="color:#94a3b8;">No notes provided.</div>
+            <div class="soft-card" style="color:rgb(var(--color-text-muted));">No notes provided.</div>
             {% endif %}
         </div>
     </div>
@@ -93,10 +93,10 @@
         <div class="mt-3" style="display:flex; gap:10px; flex-wrap:wrap;">
             {% if case.status == 'ASSIGNED' %}
             <button type="submit" class="btn-primary-vet">Submit Consultation</button>
-            <a href="{% url 'vets:accept_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,#22c55e,#16a34a);">Accept Case</a>
+            <a href="{% url 'vets:accept_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,rgb(var(--color-success)),rgb(var(--color-success)));">Accept Case</a>
             {% else %}
             <button type="submit" class="btn-primary-vet">Update Consultation</button>
-            <a href="{% url 'vets:resolve_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,#22c55e,#16a34a);">Mark as Resolved</a>
+            <a href="{% url 'vets:resolve_case' case.id %}" class="btn-primary-vet" style="background: linear-gradient(135deg,rgb(var(--color-success)),rgb(var(--color-success)));">Mark as Resolved</a>
             {% endif %}
         </div>
     </form>
@@ -107,9 +107,9 @@
     <div class="section-h">Your Consultation</div>
     <div class="soft-card">
         <p style="margin-bottom: 6px;"><strong>Diagnosis:</strong></p>
-        <div style="color:#e2e8f0; white-space: pre-wrap;">{{ case.vet_diagnosis }}</div>
+        <div style="color:rgb(var(--color-text)); white-space: pre-wrap;">{{ case.vet_diagnosis }}</div>
         <p style="margin: 14px 0 6px 0;"><strong>Recommendations:</strong></p>
-        <div style="color:#e2e8f0; white-space: pre-wrap;">{{ case.vet_recommendations }}</div>
+        <div style="color:rgb(var(--color-text)); white-space: pre-wrap;">{{ case.vet_recommendations }}</div>
         <div class="soft-muted" style="margin-top: 10px;">Consultation Date: {{ case.vet_consultation_date|date:"M d, Y H:i" }}</div>
     </div>
     {% endif %}

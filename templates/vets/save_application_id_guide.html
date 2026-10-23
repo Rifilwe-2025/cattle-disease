@@ -54,7 +54,7 @@
     }
 
     .guide-card {
-        background: #ffffff;
+        background: rgb(var(--color-surface));
         border-radius: 24px;
         box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.6);
         overflow: hidden;
@@ -78,7 +78,7 @@
     .guide-header .icon-wrap {
         width: 72px;
         height: 72px;
-        background: linear-gradient(135deg, #17a2b8, #20c997);
+        background: linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-success)));
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -96,19 +96,19 @@
         font-family: 'Merriweather', serif;
         font-size: 1.75rem;
         font-weight: 800;
-        color: #1a1a1a;
+        color: rgb(var(--color-text));
         margin: 0 0 8px;
     }
 
     .guide-header p {
         font-size: 1rem;
-        color: #555;
+        color: rgb(var(--color-text-muted));
         margin: 0;
     }
 
     .guide-divider {
         height: 1px;
-        background: linear-gradient(90deg, transparent, #dee2e6, transparent);
+        background: linear-gradient(90deg, transparent, rgb(var(--color-border)), transparent);
         margin: 28px 0;
     }
 
@@ -123,26 +123,26 @@
     .alert-warning.guide {
         background: linear-gradient(135deg, #fff8e6 0%, #ffecb8 100%);
         color: #856404;
-        border-left: 4px solid #ffc107;
+        border-left: 4px solid rgb(var(--color-warning));
     }
 
     .alert-info.guide {
         background: linear-gradient(135deg, #e3f4f8 0%, #d1ecf1 100%);
         color: #0c5460;
-        border-left: 4px solid #17a2b8;
+        border-left: 4px solid rgb(var(--color-accent));
     }
 
     .alert-danger.guide {
         background: linear-gradient(135deg, #ffe5e5 0%, #ffd1d1 100%);
         color: #842029;
-        border-left: 4px solid #dc3545;
+        border-left: 4px solid rgb(var(--color-danger));
     }
 
     .section-title {
         font-family: 'Merriweather', serif;
         font-size: 1.2rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: rgb(var(--color-text));
         margin: 0 0 16px;
         display: flex;
         align-items: center;
@@ -150,12 +150,12 @@
     }
 
     .section-title i {
-        color: #17a2b8;
+        color: rgb(var(--color-accent));
     }
 
     .step-box {
         background: linear-gradient(135deg, #f8fcfb 0%, #f0f9f6 100%);
-        border-left: 4px solid #20c997;
+        border-left: 4px solid rgb(var(--color-success));
         border-radius: 12px;
         padding: 18px 20px;
         margin-bottom: 14px;
@@ -164,7 +164,7 @@
 
     .step-box h5 {
         font-weight: 700;
-        color: #1a1a1a;
+        color: rgb(var(--color-text));
         margin: 0 0 8px;
         font-size: 1rem;
         display: flex;
@@ -173,10 +173,10 @@
     }
 
     .step-box h5 .fa-camera { color: #0d6efd; }
-    .step-box h5 .fa-pencil-alt { color: #20c997; }
-    .step-box h5 .fa-copy { color: #17a2b8; }
+    .step-box h5 .fa-pencil-alt { color: rgb(var(--color-success)); }
+    .step-box h5 .fa-copy { color: rgb(var(--color-accent)); }
     .step-box h5 .fa-envelope { color: #fd7e14; }
-    .step-box h5 .fa-phone { color: #dc3545; }
+    .step-box h5 .fa-phone { color: rgb(var(--color-danger)); }
 
     .step-box p {
         margin: 0;
@@ -186,8 +186,8 @@
     }
 
     .step-box kbd {
-        background: #1a1a1a;
-        color: #fff;
+        background: rgb(var(--color-text));
+        color: rgb(var(--color-text));
         padding: 4px 8px;
         border-radius: 6px;
         font-size: 0.85rem;
@@ -196,13 +196,13 @@
 
     .id-example {
         background: linear-gradient(135deg, #f0f9f6 0%, #e8f8f5 100%);
-        border: 2px dashed #17a2b8;
+        border: 2px dashed rgb(var(--color-accent));
         border-radius: 14px;
         padding: 24px 20px;
         text-align: center;
         font-size: 1.75rem;
         font-weight: 800;
-        color: #17a2b8;
+        color: rgb(var(--color-accent));
         letter-spacing: 3px;
         font-family: 'Courier New', 'Consolas', monospace;
         margin: 16px 0 20px;
@@ -221,13 +221,13 @@
     }
 
     .guide-list a {
-        color: #17a2b8;
+        color: rgb(var(--color-accent));
         font-weight: 600;
         text-decoration: none;
     }
 
     .guide-list a:hover {
-        color: #138496;
+        color: rgb(var(--color-accent-hover));
         text-decoration: underline;
     }
 
@@ -252,13 +252,13 @@
     }
 
     .guide-actions .btn-primary {
-        background: linear-gradient(135deg, #17a2b8, #138496);
+        background: linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-accent-hover)));
         border: none;
         color: white;
     }
 
     .guide-actions .btn-success {
-        background: linear-gradient(135deg, #20c997, #17a2b8);
+        background: linear-gradient(135deg, rgb(var(--color-success)), rgb(var(--color-accent)));
         border: none;
         color: white;
     }
@@ -271,7 +271,7 @@
     }
 
     .guide-footer small {
-        color: #6c757d;
+        color: rgb(var(--color-text-muted));
         font-size: 0.9rem;
     }
 
@@ -296,7 +296,7 @@
 
     @media print {
         body, .guide-page-wrap {
-            background: #fff !important;
+            background: rgb(var(--color-surface)) !important;
             background-image: none !important;
         }
 
@@ -306,7 +306,7 @@
 
         .guide-card {
             box-shadow: none;
-            border: 1px solid #dee2e6;
+            border: 1px solid rgb(var(--color-border));
         }
 
         .no-print, .guide-actions {

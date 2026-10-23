@@ -27,29 +27,18 @@ body.farmer-dashboard {
     background: #f0f4f0;
 }
 
-body.farmer-dashboard::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: url('../images/farmer-dashboard-bg.png') center center / cover no-repeat fixed;
-    z-index: -2;
-    filter: none;
-    -webkit-filter: none;
-}
+/* The two full-viewport pseudo-elements that used to sit here -- a 1365x768
+   PNG at `cover`, and a white wash over it -- have been removed.
 
-body.farmer-dashboard::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    /* Light overlay only — keeps background sharp and visible (no blur) */
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.12) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.08) 100%
-    );
-    z-index: -1;
-}
+   The comment on the wash said it "keeps background sharp and visible (no
+   blur)", and it was right that no blur filter was applied. The softness came
+   from somewhere else: 1365px stretched across a 2560px laptop is a 1.88x
+   upscale, and on a 3440px ultrawide 2.5x. There is no detail in those extra
+   pixels to recover.
+
+   The photograph now lives in the hero panel at the top of the dashboard,
+   bounded and served at 1x and 2x from a 5184px source. The page ground is the
+   flat --color-bg token. See scripts/build_images.py. */
 
 .dashboard-wrapper {
     min-height: 100vh;
@@ -1038,8 +1027,18 @@ body.farmer-dashboard::after {
     color: var(--fc-text);
 }
 
-.farmer-dashboard .card-dark a {
-    color: var(--fc-green-dark);
+/* Links inside a card.
+
+   Two changes. The colour is the accent rather than green: green is
+   "resolved / healthy" in this product, and a link is not a health outcome.
+
+   And it no longer applies to buttons. At 0,3,1 this selector outranked
+   .btn-upgrade (0,1,0), so it was repainting the primary action's label green
+   on top of the accent fill -- green text on a blue button, which is both off
+   palette and close to unreadable. A button carries its own colour; this rule
+   is for the plain links beside it. */
+.farmer-dashboard .card-dark a:not([class*="btn-"]) {
+    color: rgb(var(--color-accent-text));
     font-weight: 600;
 }
 

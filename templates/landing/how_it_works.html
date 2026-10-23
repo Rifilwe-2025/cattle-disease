@@ -24,7 +24,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        background: radial-gradient(circle at 50% 50%, rgb(var(--color-brand) /  0.1) 0%, transparent 60%);
         pointer-events: none;
     }
     .page-hero h1 { font-family: 'Merriweather', serif; font-size: 3.2rem; font-weight: 900; margin-bottom: 1rem; text-shadow: 2px 2px 12px rgba(0,0,0,0.5); position: relative; }
@@ -55,7 +55,7 @@
     .how-section.mission-section .about-card {
         background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 153, 51, 0.2);
+        border: 1px solid rgb(var(--color-brand) /  0.2);
         box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08), 0 0 0 1px rgba(255,255,255,0.8);
         border-radius: 20px;
         padding: 2rem;
@@ -63,14 +63,14 @@
         transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     }
     .how-section.mission-section .about-card:hover {
-        border-color: rgba(255, 153, 51, 0.45);
+        border-color: rgb(var(--color-brand) /  0.45);
         box-shadow: 0 20px 50px rgba(44, 31, 24, 0.12);
         transform: translateY(-6px);
     }
     .how-section.mission-section .about-card .icon-wrap {
         width: 72px; height: 72px; border-radius: 18px;
-        background: linear-gradient(135deg, #FF9933, #FF7828);
-        color: #fff;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand-ink)));
+        color: rgb(var(--color-text));
         display: flex; align-items: center; justify-content: center;
         margin-bottom: 1.25rem; font-size: 2rem;
         box-shadow: 0 8px 24px rgba(255, 120, 40, 0.35);
@@ -81,9 +81,9 @@
     .how-section.alt {
         background: linear-gradient(135deg, rgba(52, 35, 25, 0.88) 0%, rgba(35, 25, 15, 0.92) 100%),
                     url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat;
-        color: #fff;
+        color: rgb(var(--color-text));
     }
-    .how-section.alt .section-head { color: #fff; }
+    .how-section.alt .section-head { color: rgb(var(--color-text)); }
     .how-section.alt .section-sub { color: rgba(255, 255, 255, 0.88); }
     .how-section.alt .step-card {
         background: rgba(255, 255, 255, 0.1);
@@ -102,20 +102,20 @@
     .how-section.alt .step-num {
         width: 64px; height: 64px;
         border-radius: 16px;
-        background: linear-gradient(135deg, #FFD280, #FFB347);
-        color: #5D3A1A;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
+        color: rgb(var(--color-brand-contrast));
         display: flex; align-items: center; justify-content: center;
         font-size: 1.5rem; font-weight: 800;
         margin-bottom: 1rem;
     }
-    .how-section.alt .step-card h5 { color: #fff; font-weight: 700; margin-bottom: 0.75rem; }
+    .how-section.alt .step-card h5 { color: rgb(var(--color-text)); font-weight: 700; margin-bottom: 0.75rem; }
     .how-section.alt .step-card p { color: rgba(255, 255, 255, 0.9); line-height: 1.7; margin-bottom: 0; }
 
     .how-section.dark {
         background: linear-gradient(135deg, #2c1f18 0%, #1a120d 100%);
-        color: #fff;
+        color: rgb(var(--color-text));
     }
-    .how-section.dark .section-head { color: #fff; }
+    .how-section.dark .section-head { color: rgb(var(--color-text)); }
     .how-section.dark .section-sub { color: rgba(255,255,255,0.8); }
     .how-section.dark .about-card {
         background: rgba(255, 255, 255, 0.06);
@@ -124,11 +124,11 @@
         padding: 2rem;
         backdrop-filter: blur(8px);
     }
-    .how-section.dark .about-card h5 { color: #fff; }
+    .how-section.dark .about-card h5 { color: rgb(var(--color-text)); }
     .how-section.dark .about-card p { color: rgba(255,255,255,0.88); }
     .how-section.dark .about-card .icon-wrap {
-        background: linear-gradient(135deg, #FFD280, #FFB347);
-        color: #5D3A1A;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
+        color: rgb(var(--color-brand-contrast));
         width: 56px; height: 56px; border-radius: 14px;
         display: flex; align-items: center; justify-content: center;
         margin-bottom: 1rem; font-size: 1.5rem;
@@ -138,26 +138,26 @@
         background: linear-gradient(180deg, #faf6f2 0%, #f5efe8 50%, #fef9f3 100%);
     }
     .how-section.partnership-section .about-card {
-        background: #fff;
-        border: 1px solid rgba(255, 153, 51, 0.25);
+        background: rgb(var(--color-surface));
+        border: 1px solid rgb(var(--color-brand) /  0.25);
         border-radius: 20px;
         padding: 2rem;
         box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08);
     }
-    .how-section.partnership-section .about-card:hover { border-color: rgba(255, 153, 51, 0.5); }
+    .how-section.partnership-section .about-card:hover { border-color: rgb(var(--color-brand) /  0.5); }
     .how-section.partnership-section .about-card .icon-wrap {
         width: 56px; height: 56px; border-radius: 14px;
         background: linear-gradient(135deg, #FFE8CC, #FFD9A6);
-        color: #FF7828;
+        color: rgb(var(--color-brand-ink));
         display: flex; align-items: center; justify-content: center;
         margin-bottom: 1rem; font-size: 1.4rem;
     }
-    .section-sub { font-size: 1.1rem; color: #666; margin-bottom: 2.5rem; max-width: 700px; }
+    .section-sub { font-size: 1.1rem; color: rgb(var(--color-text-muted)); margin-bottom: 2.5rem; max-width: 700px; }
     .cta-how {
         padding: 4rem 0;
         text-align: center;
-        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
-        color: #fff;
+        background: linear-gradient(135deg, #8B5A3C 0%, rgb(var(--color-brand-contrast)) 100%);
+        color: rgb(var(--color-text));
     }
     .cta-how h2 { font-family: 'Merriweather', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
     .cta-how .btn { padding: 14px 32px; border-radius: 50px; font-weight: 600; margin: 0 0.5rem; }

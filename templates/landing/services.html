@@ -24,7 +24,7 @@
         content: '';
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(255, 153, 51, 0.1) 0%, transparent 60%);
+        background: radial-gradient(circle at 50% 50%, rgb(var(--color-brand) /  0.1) 0%, transparent 60%);
         pointer-events: none;
     }
     .page-hero h1 {
@@ -69,16 +69,16 @@
     .services-page-section.mission-section .service-page-card {
         background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 153, 51, 0.2);
+        border: 1px solid rgb(var(--color-brand) /  0.2);
         box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08), 0 0 0 1px rgba(255,255,255,0.8);
     }
     .services-page-section.mission-section .service-page-card:hover {
-        border-color: rgba(255, 153, 51, 0.45);
+        border-color: rgb(var(--color-brand) /  0.45);
         box-shadow: 0 20px 50px rgba(44, 31, 24, 0.12);
     }
     .services-page-section.mission-section .service-page-card .icon-wrap {
-        background: linear-gradient(135deg, #FF9933, #FF7828);
-        color: #fff;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand-ink)));
+        color: rgb(var(--color-text));
         box-shadow: 0 8px 24px rgba(255, 120, 40, 0.35);
     }
     .services-page-section.mission-section .service-page-card h5 { color: #2c1f18; }
@@ -88,9 +88,9 @@
     .services-page-section.alt {
         background: linear-gradient(135deg, rgba(52, 35, 25, 0.88) 0%, rgba(35, 25, 15, 0.92) 100%),
                     url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat;
-        color: #fff;
+        color: rgb(var(--color-text));
     }
-    .services-page-section.alt .section-head { color: #fff; }
+    .services-page-section.alt .section-head { color: rgb(var(--color-text)); }
     .services-page-section.alt .section-sub { color: rgba(255, 255, 255, 0.88); }
     .services-page-section.alt .service-page-card {
         background: rgba(255, 255, 255, 0.1);
@@ -103,10 +103,10 @@
         border-color: rgba(255, 204, 102, 0.4);
     }
     .services-page-section.alt .service-page-card .icon-wrap {
-        background: linear-gradient(135deg, #FFD280, #FFB347);
-        color: #5D3A1A;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
+        color: rgb(var(--color-brand-contrast));
     }
-    .services-page-section.alt .service-page-card h5 { color: #fff; }
+    .services-page-section.alt .service-page-card h5 { color: rgb(var(--color-text)); }
     .services-page-section.alt .service-page-card p { color: rgba(255, 255, 255, 0.9); }
     .services-page-section.alt .service-page-card .small { color: rgba(255,255,255,0.75); }
     /* Who We Serve: soft warm background */
@@ -116,19 +116,19 @@
     .services-page-section.partnership-section .section-head { color: #2c1f18; }
     .services-page-section.partnership-section .section-sub { color: #5c4a3d; }
     .services-page-section.partnership-section .service-page-card {
-        background: #fff;
-        border: 1px solid rgba(255, 153, 51, 0.25);
+        background: rgb(var(--color-surface));
+        border: 1px solid rgb(var(--color-brand) /  0.25);
         box-shadow: 0 12px 40px rgba(44, 31, 24, 0.08);
     }
-    .services-page-section.partnership-section .service-page-card:hover { border-color: rgba(255, 153, 51, 0.5); }
+    .services-page-section.partnership-section .service-page-card:hover { border-color: rgb(var(--color-brand) /  0.5); }
     .section-head {
         font-family: 'Merriweather', serif;
         font-size: 2.25rem;
         font-weight: 700;
-        color: #1a1a1a;
+        color: rgb(var(--color-text));
         margin-bottom: 1rem;
     }
-    .section-sub { font-size: 1.1rem; color: #666; margin-bottom: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-align: center; }
+    .section-sub { font-size: 1.1rem; color: rgb(var(--color-text-muted)); margin-bottom: 2.5rem; max-width: 700px; margin-left: auto; margin-right: auto; text-align: center; }
     .service-page-card {
         border: none;
         border-radius: 20px;
@@ -144,7 +144,7 @@
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #FF9933, #FFB347);
+        background: linear-gradient(90deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
         transform: scaleX(0);
         transition: transform 0.35s ease;
     }
@@ -160,21 +160,21 @@
         justify-content: center;
         margin-bottom: 1.25rem;
         font-size: 2rem;
-        color: #FF7828;
+        color: rgb(var(--color-brand-ink));
         transition: all 0.35s;
     }
     .service-page-card:hover .icon-wrap {
-        background: linear-gradient(135deg, #FF9933, #FFB347);
-        color: #fff;
+        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
+        color: rgb(var(--color-text));
     }
-    .service-page-card h5 { font-size: 1.35rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.75rem; }
-    .service-page-card p { color: #555; line-height: 1.75; margin-bottom: 0; }
+    .service-page-card h5 { font-size: 1.35rem; font-weight: 700; color: rgb(var(--color-text)); margin-bottom: 0.75rem; }
+    .service-page-card p { color: rgb(var(--color-text-muted)); line-height: 1.75; margin-bottom: 0; }
     .service-page-card .small { font-size: 0.9rem; color: #777; margin-top: 0.5rem; }
     .cta-services {
         padding: 4rem 0;
         text-align: center;
-        background: linear-gradient(135deg, #8B5A3C 0%, #5D3A1A 100%);
-        color: #fff;
+        background: linear-gradient(135deg, #8B5A3C 0%, rgb(var(--color-brand-contrast)) 100%);
+        color: rgb(var(--color-text));
     }
     .cta-services h2 { font-family: 'Merriweather', serif; font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
     .cta-services .btn { padding: 14px 32px; border-radius: 50px; font-weight: 600; margin: 0 0.5rem; }
