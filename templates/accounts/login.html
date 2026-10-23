@@ -7,10 +7,9 @@
 {% block extra_css %}
 <style>
     /* Import fonts matching landing page */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-sans);
         background: rgb(var(--color-surface-sunken));
         padding-top: 0 !important;
     }
@@ -32,7 +31,7 @@
     /* Left side - Image */
     .login-image-side {
         flex: 1;
-        background: linear-gradient(135deg, rgba(52, 35, 25, 0.60) 0%, rgba(35, 25, 15, 0.75) 100%),
+        background: linear-gradient(135deg, rgb(var(--color-brand-navy) / 0.60) 0%, rgb(var(--color-brand-navy) / 0.75) 100%),
                     url('{% static "images/RedBrahmanPic-scaled.jpg" %}') center/cover no-repeat;
         display: flex;
         flex-direction: column;
@@ -80,7 +79,7 @@
     }
 
     .login-image-side h1 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-size: 3rem;
         font-weight: 900;
         margin-bottom: 20px;
@@ -133,7 +132,7 @@
     }
 
     .login-header h2 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-size: 2.5rem;
         font-weight: 700;
         color: rgb(var(--color-text));
@@ -204,13 +203,13 @@
         border-radius: 12px;
         width: 100%;
         transition: all 0.4s ease;
-        box-shadow: 0 8px 25px rgba(255, 120, 40, 0.3);
+        box-shadow: 0 8px 25px rgb(var(--color-brand) / 0.3);
         margin-top: 10px;
     }
 
     .btn-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 35px rgba(255, 120, 40, 0.5);
+        box-shadow: 0 12px 35px rgb(var(--color-brand) / 0.5);
         background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
         color: white;
     }

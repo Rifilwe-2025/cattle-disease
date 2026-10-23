@@ -6,10 +6,9 @@
 
 {% block extra_css %}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-sans);
         min-height: 100vh;
         margin: 0;
         padding: 0;
@@ -105,7 +104,7 @@
     }
 
     .success-card-header h1 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-size: 1.75rem;
         font-weight: 800;
         margin: 0 0 8px;
@@ -133,7 +132,7 @@
     }
 
     .thank-you-banner h5 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-weight: 700;
         color: #0d5c4a;
         margin: 0 0 6px;
@@ -259,7 +258,7 @@
     }
 
     .instructions h5 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-weight: 700;
         color: rgb(var(--color-text));
         margin: 0 0 14px;
@@ -282,7 +281,7 @@
     }
 
     .whats-next h5 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-weight: 700;
         color: rgb(var(--color-text));
         margin: 0 0 16px;

@@ -5,10 +5,9 @@
 
 {% block extra_css %}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:wght@700;900&display=swap');
 
     body {
-        font-family: 'Inter', sans-serif;
+        font-family: var(--font-sans);
         min-height: 100vh;
         margin: 0;
         padding: 0;
@@ -93,7 +92,7 @@
     }
 
     .guide-header h1 {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-size: 1.75rem;
         font-weight: 800;
         color: rgb(var(--color-text));
@@ -139,7 +138,7 @@
     }
 
     .section-title {
-        font-family: 'Merriweather', serif;
+        font-family: var(--font-mono);
         font-size: 1.2rem;
         font-weight: 700;
         color: rgb(var(--color-text));
