@@ -66,3 +66,9 @@ db.sqlite3.backup-*
 
 # --- Office lock files ----------------------------------------------------
 ~$*
+
+# --- Database backups and data dumps -------------------------------------
+# data-from-sqlite.json is a full dumpdata fixture: it contains every user's
+# email and pbkdf2 password hash. This repo is public - keep it local. It is
+# still needed on this machine to seed Neon/PostgreSQL.
+backups/

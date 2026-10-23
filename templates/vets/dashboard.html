@@ -7,14 +7,14 @@
 
 {% block content %}
 <!-- Header Section -->
-<div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+<div class="page-head">
     <div>
-        <h1 style="font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 4px;">{% trans "Dashboard" %}</h1>
-        <p style="font-size: 14px; color: #94a3b8;">{% trans "Welcome back to CattleCare AI." %}</p>
-        <p style="font-size: 13px; color: #64748b; margin-top: 4px;" id="currentDate"></p>
+        <h1>{% trans "Dashboard" %}</h1>
+        <p class="welcome-line">{% trans "Welcome back to CattleCare AI." %}</p>
+        <p class="date-line" id="currentDate"></p>
     </div>
-    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="btn-outline-vet" id="dateRangeButton">
+    <div class="head-actions">
+        <button class="btn-head" id="dateRangeButton" type="button">
             <i class="fas fa-calendar-alt"></i>
             <span id="dateRange">
                 {% if chart_start %}
@@ -24,40 +24,32 @@
                 {% endif %}
             </span>
         </button>
-        <a href="{% url 'vets:export_cases_csv' %}" class="btn-outline-vet"><i class="fas fa-download"></i> {% trans "Export" %}</a>
-        <a href="{% url 'vets:cases_list' %}" class="btn-primary-vet"><i class="fas fa-calendar-check"></i> {% trans "View All Cases" %}</a>
+        <a href="{% url 'vets:export_cases_csv' %}" class="btn-head"><i class="fas fa-download"></i> {% trans "Export" %}</a>
+        <a href="{% url 'vets:cases_list' %}" class="btn-head primary"><i class="fas fa-calendar-check"></i> {% trans "View All Cases" %}</a>
     </div>
 </div>
 
 <!-- KPI Cards Row -->
-<div class="row g-4" style="margin-bottom: 24px;">
-    <div class="col-md-3">
-        <div class="card-light">
-            <div class="stat-label">{% trans "Farmers Assigned" %}</div>
-            <div class="stat-big">{{ farmers_served }}</div>
-            <div class="stat-change up"><a href="{% url 'vets:farmers_list' %}" style="color: inherit; text-decoration: none;">{% trans "View farmers" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
-        </div>
+<div class="kpi-grid">
+    <div class="card-light">
+        <div class="stat-label">{% trans "Farmers Assigned" %}</div>
+        <div class="stat-big">{{ farmers_served }}</div>
+        <div class="stat-change up"><a href="{% url 'vets:farmers_list' %}" style="color: inherit; text-decoration: none;">{% trans "View farmers" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
     </div>
-    <div class="col-md-3">
-        <div class="card-light">
-            <div class="stat-label">{% trans "Total Cases Solved" %}</div>
-            <div class="stat-big" style="color: #22c55e;">{{ resolved_cases }}</div>
-            <div class="stat-change up"><a href="{% url 'vets:cases_list' %}" style="color: inherit; text-decoration: none;">{% trans "View cases" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
-        </div>
+    <div class="card-light">
+        <div class="stat-label">{% trans "Total Cases Solved" %}</div>
+        <div class="stat-big" style="color: #22c55e;">{{ resolved_cases }}</div>
+        <div class="stat-change up"><a href="{% url 'vets:cases_list' %}" style="color: inherit; text-decoration: none;">{% trans "View cases" %} <i class="fas fa-chevron-right" style="font-size: 10px;"></i></a></div>
     </div>
-    <div class="col-md-3">
-        <div class="card-light">
-            <div class="stat-label">{% trans "Total Cases Assigned" %}</div>
-            <div class="stat-big">{{ total_cases }}</div>
-            <div class="stat-change up">{% trans "All time" %}</div>
-        </div>
+    <div class="card-light">
+        <div class="stat-label">{% trans "Total Cases Assigned" %}</div>
+        <div class="stat-big">{{ total_cases }}</div>
+        <div class="stat-change up">{% trans "All time" %}</div>
     </div>
-    <div class="col-md-3">
-        <div class="card-light">
-            <div class="stat-label">{% trans "Critical Cases" %}</div>
-            <div class="stat-big">{{ critical_cases }}</div>
-            <div class="stat-change {% if critical_cases %}down{% else %}up{% endif %}">{% if critical_cases %}{% trans "Requires attention" %}{% else %}{% trans "None pending" %}{% endif %}</div>
-        </div>
+    <div class="card-light">
+        <div class="stat-label">{% trans "Critical Cases" %}</div>
+        <div class="stat-big">{{ critical_cases }}</div>
+        <div class="stat-change {% if critical_cases %}down{% else %}up{% endif %}">{% if critical_cases %}{% trans "Requires attention" %}{% else %}{% trans "None pending" %}{% endif %}</div>
     </div>
 </div>
 
@@ -67,6 +59,7 @@
         <div class="card-light">
             <div class="card-title">
                 <span>{% trans "Case Statistics" %}</span>
+                <span style="font-size:12px;font-weight:500;color:#cbd5e1;">{% trans "New cases per week" %}</span>
             </div>
             <div class="chart-container">
                 <canvas id="lineChart"></canvas>
@@ -238,8 +231,8 @@
 {% endblock %}
 
 {% block extra_js %}
-{% trans "New cases per day" as vet_chart_new_cases %}
-{% trans "Date:" as vet_chart_date_prefix %}
+{% trans "New cases per week" as vet_chart_new_cases %}
+{% trans "Week starting" as vet_chart_week_prefix %}
 {% trans "No cases" as vet_no_cases %}
 {% trans "Resolution %" as vet_resolution_pct %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -247,7 +240,7 @@
     const VET_DASH_LOCALE = "{{ LANGUAGE_CODE|escapejs }}";
     const lcRaw = (VET_DASH_LOCALE || 'en').toLowerCase().replace('_', '-');
     const VET_CHART_NEW_CASES = "{{ vet_chart_new_cases|escapejs }}";
-    const VET_CHART_DATE_PREFIX = "{{ vet_chart_date_prefix|escapejs }}";
+    const VET_CHART_WEEK_PREFIX = "{{ vet_chart_week_prefix|escapejs }}";
     const VET_NO_CASES = "{{ vet_no_cases|escapejs }}";
     const VET_RESOLUTION_PCT = "{{ vet_resolution_pct|escapejs }}";
 
@@ -269,28 +262,28 @@
         });
     }
 
-    // Simple chart data: total new cases per day (last 12 months)
-    const dailyLabels = [{% for lbl in chart_labels %}'{{ lbl }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
-    const dailyCounts = [{% for v in chart_counts %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+    // Chart data: new cases per WEEK (last 12 months). Labels are the Monday
+    // that starts each week, so a year is ~52 bars instead of 365 mostly-zero
+    // daily points.
+    const weeklyLabels = [{% for lbl in chart_labels %}'{{ lbl }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+    const weeklyCounts = [{% for v in chart_counts %}{{ v }}{% if not forloop.last %}, {% endif %}{% endfor %}];
 
-    // Line Chart - Case statistics over time
+    // Bar Chart - new cases per week
     const lineCtx = document.getElementById('lineChart');
     let lineChart = null;
     if (lineCtx) {
         lineChart = new Chart(lineCtx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: dailyLabels,
+                labels: weeklyLabels,
                 datasets: [{
                     label: VET_CHART_NEW_CASES,
-                    data: dailyCounts,
-                    borderColor: '#3b82f6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.18)',
-                    borderWidth: 2,
-                    pointRadius: 3,
-                    pointHoverRadius: 5,
-                    tension: 0.3,
-                    fill: true
+                    data: weeklyCounts,
+                    backgroundColor: '#3b82f6',
+                    hoverBackgroundColor: '#60a5fa',
+                    borderRadius: 3,
+                    borderWidth: 0,
+                    maxBarThickness: 18
                 }]
             },
             options: {
@@ -299,19 +292,32 @@
                 plugins: {
                     legend: {
                         display: true,
-                        labels: { color: '#e5e7eb', boxWidth: 14, boxHeight: 2 }
+                        labels: { color: '#e5e7eb', boxWidth: 14, boxHeight: 10 }
                     },
                     tooltip: {
                         callbacks: {
                             title: function(context) {
-                                return VET_CHART_DATE_PREFIX + ' ' + context[0].label;
+                                // label is the Monday the week starts on
+                                return VET_CHART_WEEK_PREFIX + ' ' + context[0].label;
                             }
                         }
                     }
                 },
                 scales: {
-                    y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#94a3b8' } },
-                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.1)' },
+                        ticks: { color: '#cbd5e1', precision: 0 }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#cbd5e1',
+                            autoSkip: true,
+                            maxTicksLimit: 13,
+                            maxRotation: 0
+                        }
+                    }
                 }
             }
         });

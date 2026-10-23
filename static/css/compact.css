@@ -234,8 +234,16 @@
    6. Dashboards - trim the few remaining outliers
    -------------------------------------------------------------------------- */
 
-.sidebar { width: 248px; }
-.main-content, .dashboard-main { margin-left: 248px; }
+/* NOTE: sidebar width / main-content offset deliberately NOT set here.
+   This file is loaded last in every shell, so a rule here silently overrode
+   each dashboard's own layout. The previous
+       .sidebar { width: 248px }
+       .main-content, .dashboard-main { margin-left: 248px }
+   assumed a position:fixed sidebar. The vet and ministry shells lay their
+   sidebar out in normal flex flow, so the margin was added ON TOP of the
+   space the sidebar already occupied - a ~248px empty gap - while the farmer
+   shell (fixed, 268px) was pulled 20px under its own sidebar. Each shell now
+   owns its sidebar width via its own --sidebar-width custom property. */
 
 .page-title    { font-size: 1.35rem; }
 .page-subtitle { font-size: 0.85rem; }
@@ -302,6 +310,6 @@
     .track-container {
         min-height: 0;
     }
-    .sidebar { width: 100%; }
-    .main-content, .dashboard-main { margin-left: 0; }
+    /* Sidebar collapse is handled per-shell (see each dashboard's own
+       max-width:992px block); overriding it here fought those rules. */
 }

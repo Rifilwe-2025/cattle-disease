@@ -170,17 +170,25 @@ def dashboard(request):
         created_at__date__gte=chart_start,
     ).order_by('created_at')
 
-    daily_totals = defaultdict(int)
+    # Group by ISO week rather than by day. A single vet sees a handful of
+    # cases a year, so 365 daily buckets rendered as a flat line of zeros;
+    # weekly buckets give ~52 bars that actually show the shape of the load.
+    weekly_totals = defaultdict(int)
     for c in recent_cases:
         day = c.created_at.date()
-        daily_totals[day] += 1
+        week_start = day - timedelta(days=day.weekday())  # Monday of that week
+        weekly_totals[week_start] += 1
+
+    first_week = chart_start - timedelta(days=chart_start.weekday())
+    last_week = chart_end - timedelta(days=chart_end.weekday())
 
     chart_labels = []
     chart_counts = []
-    for i in range(365):
-        day = chart_start + timedelta(days=i)
-        chart_labels.append(date_format(day, format='d M Y'))
-        chart_counts.append(daily_totals.get(day, 0))
+    week = first_week
+    while week <= last_week:
+        chart_labels.append(date_format(week, format='d M Y'))
+        chart_counts.append(weekly_totals.get(week, 0))
+        week += timedelta(days=7)
     
     # Top diagnoses for bar chart
     top_diagnoses = Case.objects.filter(assigned_vet=vet).values('predicted_disease').annotate(
