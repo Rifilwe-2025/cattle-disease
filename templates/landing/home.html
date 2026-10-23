@@ -38,11 +38,11 @@
            photograph a neutral wash greys the grass; the green sits in the
            same family as the field and reads as shade rather than dimming. */
         background: linear-gradient(100deg,
-                        rgb(var(--color-earth) / 0.93) 0%,
-                        rgb(var(--color-earth) / 0.90) 34%,
-                        rgb(var(--color-earth) / 0.87) 50%,
-                        rgb(var(--color-earth) / 0.55) 66%,
-                        rgb(var(--color-earth) / 0.14) 80%,
+                        rgba(0, 0, 0, 0.84) 0%,
+                        rgba(0, 0, 0, 0.79) 34%,
+                        rgba(0, 0, 0, 0.71) 50%,
+                        rgba(0, 0, 0, 0.40) 66%,
+                        rgba(0, 0, 0, 0.09) 80%,
                         transparent 92%),
                     url('{% static "images/generated/hero-landing-1x.jpg" %}') center/cover no-repeat;
         min-height: 100vh;
@@ -70,11 +70,11 @@
        mobile override below to turn it back off. */
     .hero-section {
         background-image: linear-gradient(100deg,
-                              rgb(var(--color-earth) / 0.93) 0%,
-                              rgb(var(--color-earth) / 0.90) 34%,
-                              rgb(var(--color-earth) / 0.87) 50%,
-                              rgb(var(--color-earth) / 0.55) 66%,
-                              rgb(var(--color-earth) / 0.14) 80%,
+                              rgba(0, 0, 0, 0.84) 0%,
+                              rgba(0, 0, 0, 0.79) 34%,
+                              rgba(0, 0, 0, 0.71) 50%,
+                              rgba(0, 0, 0, 0.40) 66%,
+                              rgba(0, 0, 0, 0.09) 80%,
                               transparent 92%),
                           url('{% static "images/generated/hero-landing-1x.webp" %}');
     }
@@ -113,10 +113,10 @@
         inset: 0;
         pointer-events: none;
         background: linear-gradient(180deg,
-                        rgb(var(--color-earth) / 0.30) 0%,
+                        rgba(0, 0, 0, 0.26) 0%,
                         transparent 22%,
                         transparent 62%,
-                        rgb(var(--color-earth) / 0.55) 100%);
+                        rgba(0, 0, 0, 0.50) 100%);
     }
 
     /* The content has to out-stack both pseudo-elements. */
@@ -132,8 +132,14 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 30% 50%, rgb(var(--color-brand) /  0.12) 0%, transparent 50%),
-                    radial-gradient(circle at 70% 60%, rgba(255, 204, 102, 0.08) 0%, transparent 50%);
+        /* Two decorative radials used to sit here -- a 12% teal on the left
+           and an 8% amber on the right. They carried no contrast and served no
+           reading purpose; all they did was tint the photograph, and they were
+           the most visible part of the green cast over the herd. Removed.
+
+           The element is kept because the hero's stacking context depends on
+           it; it now paints nothing. */
+        background: none;
         pointer-events: none;
     }
 
