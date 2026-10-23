@@ -207,6 +207,29 @@
   --color-brand-subtle: 224 243 245;
   --color-brand-grey: 245 247 250;
 
+  /* --- The public site's ground -------------------------------------------
+     Forest green and a dark neutral, for the marketing pages' chrome: the
+     navbar, the footer, and any solid dark panel on them.
+
+     These are deliberately SEPARATE tokens from --color-brand-navy rather
+     than a redefinition of it. The navy is the application's identity -- the
+     navigation rail and the hero panels on all three dashboards are built on
+     it, and a farmer, a vet and the ministry all read it as "this is the
+     product". Repainting that token would repaint those rails too, which is a
+     much larger change than dressing the marketing site.
+
+     So the public site gets an earth palette and the app keeps the navy. They
+     meet at the sign-in page, which is why its photographic panel uses a
+     neutral black wash rather than either one.
+
+     Forest green is picked to sit outside the severity scale, like every other
+     identity colour in this system: it is far darker and far less saturated
+     than --color-success (3 105 70), so a dark green chrome panel is not
+     mistaken for a "resolved" state. White on it measures 14.9:1. --- */
+  --color-earth: 15 42 29;        /* #0F2A1D  forest green -- navbar, footer */
+  --color-earth-deep: 10 30 20;   /* #0A1E14  the gradient's far end         */
+  --color-earth-ink: 26 26 26;    /* #1A1A1A  very dark neutral panels       */
+
   /* --- Highlight: the identity teal as a wash. Decoration on brand surfaces
      only -- the hero's bloom, the logo tile. Never a status, which is the
      whole reason it is a separate token from the three above. --- */
@@ -313,6 +336,12 @@
     --color-brand-subtle: 16 48 52;
     --color-brand-grey: 245 247 250;
 
+    /* The public chrome does not move between themes, for the same reason the
+       brand values do not: a marketing page has one look. */
+    --color-earth: 15 42 29;
+    --color-earth-deep: 10 30 20;
+    --color-earth-ink: 26 26 26;
+
     --color-highlight: 45 176 188;
     --color-highlight-subtle: 16 48 52;
 
@@ -379,6 +408,10 @@
   --color-brand-contrast: 255 255 255;
   --color-brand-subtle: 16 48 52;
   --color-brand-grey: 245 247 250;
+
+  --color-earth: 15 42 29;
+  --color-earth-deep: 10 30 20;
+  --color-earth-ink: 26 26 26;
 
   --color-highlight: 45 176 188;
   --color-highlight-subtle: 16 48 52;

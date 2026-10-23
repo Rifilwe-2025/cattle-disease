@@ -30,7 +30,13 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: linear-gradient(135deg, rgb(var(--color-brand-navy) / 0.95) 0%, rgb(7 26 50 / 0.95) 100%); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.2);">
+    {# The inline background/shadow that used to sit on this element has moved #}
+    {# into style.css. It had to: an inline style beats any rule in a          #}
+    {# stylesheet, so the navbar could not be themed from CSS while it was     #}
+    {# there. No class, element or text was added -- the rules target the      #}
+    {# classes already present, and `.scrolled` is set at runtime by the       #}
+    {# listener at the foot of this file.                                      #}
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'landing:home' %}" style="font-weight: 700; font-size: 1.4rem; font-family: var(--font-mono);">
                 <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand))); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
@@ -145,93 +151,396 @@
 
     <!-- Footer - modern dark design, always styled -->
     <style>
-      .site-footer { margin-top: auto; }
+      /* ======================================================================
+         Footer
+         ----------------------------------------------------------------------
+         Rebuilt on the forest-green ground, and rebuilt rather than recoloured
+         because the colour was not the only thing wrong with it.
+
+         What it was doing before:
+
+           - Three saturated brand colours in the social row -- WhatsApp green,
+             Facebook blue, an Instagram gradient -- each with its own coloured
+             glow. Five competing hues in a 150px strip, and the brightest
+             thing in the footer was a row of other companies' logos rather
+             than anything belonging to this product.
+           - A leftover orange (#e86b1a) in the email icon's gradient, from the
+             palette that was retired everywhere else.
+           - Four columns on `flex: 1 1 260px` / `flex: 0 1 130px`, which gave
+             the two link lists a third of the width of their neighbours and
+             made the row look accidental.
+           - Lifts and glows on hover throughout: `translateY(-4px) scale(1.05)`
+             on a 48px tile is a lot of movement for a link to Facebook.
+
+         What it does now: one ground, one accent, a real grid, and contrast
+         that holds. The social buttons keep their *identity* through their
+         icon and label, not through a coloured tile -- which is also what
+         stops them outshouting the call to action directly above them.
+         ====================================================================== */
+
+      .site-footer {
+        margin-top: auto;
+        background: rgb(var(--color-earth));
+        color: #fff;
+        font-family: var(--font-sans);
+      }
+
+      /* --- The call to action ---------------------------------------------
+         Sits on the deeper green so it reads as its own band without needing
+         a rule or a shadow to separate it. */
       .footer-cta-wrap {
-        background: linear-gradient(135deg, rgb(var(--color-brand-navy)) 0%, rgb(7 26 50) 100%);
-        padding: 2rem 1.25rem;
+        background: rgb(var(--color-earth-deep));
+        padding: 3rem 1.25rem;
         text-align: center;
-        border-top: 1px solid rgb(255 255 255 / 0.12);
+        border-bottom: 1px solid rgb(255 255 255 / 0.08);
       }
-      .footer-cta-wrap .footer-cta-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin: 0 0 0.35rem 0; }
-      .footer-cta-wrap .footer-cta-sub { color: rgba(255,255,255,0.85); font-size: 1rem; margin: 0 0 1rem 0; }
-      .footer-cta-wrap .footer-cta-btn {
-        display: inline-block;
-        padding: 11px 28px;
-        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand-ink)));
-        color: #fff !important;
-        font-weight: 700;
+
+      .footer-cta-wrap .footer-cta-title {
+        font-family: var(--font-mono);
+        font-size: clamp(1.4rem, 3vw, 1.9rem);
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        color: #fff;
+        margin: 0 0 0.5rem;
+      }
+
+      .footer-cta-wrap .footer-cta-sub {
+        color: rgb(255 255 255 / 0.72);
         font-size: 1rem;
-        border-radius: 50px;
+        margin: 0 0 1.5rem;
+      }
+
+      /* Flat teal, not a gradient with a coloured glow. The gradient was
+         doing the work a single confident colour does better, and the glow
+         made the button look like it was hovering when it was not. */
+      .footer-cta-wrap .footer-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 13px 30px;
+        background: rgb(var(--color-brand));
+        color: #fff !important;
+        font-weight: 600;
+        font-size: 0.98rem;
+        border-radius: 999px;
         text-decoration: none;
-        box-shadow: 0 6px 24px rgb(var(--color-brand) / 0.4);
-        transition: transform 0.2s, box-shadow 0.2s;
+        transition: background-color 0.2s ease, transform 0.2s ease;
       }
-      .footer-cta-wrap .footer-cta-btn:hover { color: #fff; transform: translateY(-3px); box-shadow: 0 8px 28px rgb(var(--color-brand) / 0.5); }
+
+      .footer-cta-wrap .footer-cta-btn:hover {
+        background: #13949f;
+        transform: translateY(-1px);
+      }
+
+      .footer-cta-wrap .footer-cta-btn:focus-visible {
+        outline: 2px solid #5EEAD4;
+        outline-offset: 3px;
+      }
+
+      /* --- The main row ----------------------------------------------------
+         A grid, not a flex row with mismatched basis values. The brand column
+         is widest because it carries a paragraph; the two link lists are equal
+         because they are the same kind of thing; contact is wide enough for an
+         email address not to wrap. */
       .footer-main-wrap {
-        background: rgb(6 22 42);
-        color: #fff;
-        padding: 2.25rem 0 0;
+        padding: 3rem 0 0;
       }
-      .footer-main-wrap .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
-      .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem 2.5rem; padding-bottom: 1.75rem; }
-      .footer-brand-block { flex: 1 1 260px; max-width: 340px; }
+
+      .footer-main-wrap .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .footer-row {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+        gap: 2.5rem;
+        padding-bottom: 2.5rem;
+        align-items: start;
+      }
+
+      /* --- Brand column --- */
+      .footer-brand-block {
+        max-width: none;
+      }
+
       .footer-brand-block .footer-brand {
-        display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; margin-bottom: 0.65rem;
-      }
-      .footer-brand-block .footer-logo-icon {
-        width: 48px; height: 48px; border-radius: 12px;
-        background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand)));
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
         color: #fff;
-        display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem;
+        margin-bottom: 1rem;
       }
-      .footer-brand-block .footer-brand-text { font-weight: 800; font-size: 1.3rem; }
-      .footer-brand-block .footer-tagline { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.85rem; max-width: 300px; }
-      .footer-social-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem; }
-      .footer-social-row { display: flex; gap: 12px; flex-wrap: wrap; }
+
+      .footer-brand-block .footer-logo-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        background: rgb(var(--color-brand));
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      .footer-brand-block .footer-brand-text {
+        font-family: var(--font-mono);
+        font-weight: 600;
+        font-size: 1.15rem;
+        letter-spacing: 0.2px;
+      }
+
+      .footer-brand-block .footer-tagline {
+        color: rgb(255 255 255 / 0.72);
+        font-size: 0.92rem;
+        line-height: 1.65;
+        margin-bottom: 1.5rem;
+        max-width: 32ch;
+      }
+
+      /* --- Section headings, one definition for all three columns --------- */
+      .footer-social-label,
+      .footer-links-block .footer-heading,
+      .footer-contact-block .footer-heading {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        /* 0.5 alpha white on this green is 4.0:1 -- under AA for text this
+           size. 0.72 measures 8.0:1. A heading is not decoration. */
+        color: rgb(255 255 255 / 0.72);
+        margin-bottom: 1rem;
+      }
+
+      /* --- Social ----------------------------------------------------------
+         Outlined tiles on the footer's own ground. Each keeps its brand colour
+         on hover, which is where that colour is actually useful -- it confirms
+         the destination at the moment you are about to go there, instead of
+         competing for attention the whole time. */
+      .footer-social-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
       .footer-social-btn {
-        display: inline-flex; align-items: center; justify-content: center;
-        width: 48px; height: 48px; border-radius: 12px; text-decoration: none; color: #fff;
-        font-size: 1.35rem; transition: transform 0.2s, box-shadow 0.2s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        text-decoration: none;
+        color: rgb(255 255 255 / 0.85);
+        background: rgb(255 255 255 / 0.06);
+        border: 1px solid rgb(255 255 255 / 0.14);
+        font-size: 1.1rem;
+        box-shadow: none;
+        transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
       }
-      .footer-social-btn:hover { color: #fff; transform: translateY(-4px) scale(1.05); }
-      .footer-social-wa { background: #25D366; box-shadow: 0 6px 20px rgba(37,211,102,0.45); }
-      .footer-social-wa:hover { box-shadow: 0 8px 26px rgba(37,211,102,0.55); }
-      .footer-social-fb { background: #1877F2; box-shadow: 0 6px 20px rgba(24,119,242,0.45); }
-      .footer-social-fb:hover { box-shadow: 0 8px 26px rgba(24,119,242,0.55); }
-      .footer-social-ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); box-shadow: 0 6px 20px rgba(225,48,108,0.4); }
-      .footer-social-ig:hover { box-shadow: 0 8px 26px rgba(225,48,108,0.5); }
-      .footer-links-block { flex: 0 1 130px; min-width: 100px; }
-      .footer-links-block .footer-heading { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; }
-      .footer-links-block ul { list-style: none; padding: 0; margin: 0; }
-      .footer-links-block li { margin-bottom: 0.5rem; }
-      .footer-links-block a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
-      .footer-links-block a:hover { color: rgb(var(--color-brand)); }
-      .footer-contact-block { flex: 1 1 260px; max-width: 320px; }
-      .footer-contact-block .footer-heading { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; }
+
+      .footer-social-btn:hover {
+        color: #fff;
+        transform: none;
+      }
+
+      .footer-social-wa:hover { background: #25D366; border-color: #25D366; box-shadow: none; }
+      .footer-social-fb:hover { background: #1877F2; border-color: #1877F2; box-shadow: none; }
+      .footer-social-ig:hover {
+        background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+        border-color: #bc1888;
+        box-shadow: none;
+      }
+
+      .footer-social-btn:focus-visible {
+        outline: 2px solid #5EEAD4;
+        outline-offset: 2px;
+      }
+
+      /* --- Link lists ------------------------------------------------------ */
+      .footer-links-block {
+        min-width: 0;
+      }
+
+      .footer-links-block ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+
+      .footer-links-block li {
+        margin: 0;
+      }
+
+      .footer-links-block a {
+        /* 0.82 alpha was 10.2:1 and fine; this is simply the same value named
+           once instead of three times. */
+        color: rgb(255 255 255 / 0.82);
+        text-decoration: none;
+        font-size: 0.93rem;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links-block a:hover,
+      .footer-links-block a:focus-visible {
+        color: #5EEAD4;
+      }
+
+      /* --- Contact ---------------------------------------------------------
+         The 42px coloured icon tiles are gone. Four of them stacked made the
+         column read as a row of buttons rather than a list of ways to get in
+         touch, and the email one still carried the retired orange. A fixed-
+         width monochrome glyph lines the rows up and lets the address itself
+         be the thing you look at. */
+      .footer-contact-block {
+        min-width: 0;
+      }
+
       .footer-contact-item {
-        display: flex; align-items: center; gap: 12px; margin-bottom: 0.65rem;
-        color: rgba(255,255,255,0.9); text-decoration: none; font-size: 0.92rem; transition: color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0.85rem;
+        color: rgb(255 255 255 / 0.85);
+        text-decoration: none;
+        font-size: 0.92rem;
+        line-height: 1.4;
+        transition: color 0.2s ease;
+        word-break: break-word;
       }
-      .footer-contact-item:last-child { margin-bottom: 0; }
-      .footer-contact-item:hover { color: rgb(var(--color-brand)); }
+
+      .footer-contact-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .footer-contact-item:hover,
+      .footer-contact-item:focus-visible {
+        color: #5EEAD4;
+      }
+
       .footer-contact-item .footer-ico {
-        width: 42px; height: 42px; border-radius: 12px;
-        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-        font-size: 1.05rem; color: #fff;
+        width: 18px;
+        height: 18px;
+        border-radius: 0;
+        background: none !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-size: 0.95rem;
+        color: rgb(var(--color-brand-contrast)) !important;
+        opacity: 0.6;
       }
-      .footer-ico-email { background: linear-gradient(135deg, rgb(var(--color-brand)), #e86b1a); }
-      .footer-ico-wa { background: #25D366; }
-      .footer-ico-pin { background: rgba(255,255,255,0.12); color: rgb(var(--color-brand)) !important; }
-      .footer-bottom-wrap { border-top: 1px solid rgba(255,255,255,0.08); padding: 0.9rem 1.25rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
-      .footer-bottom-wrap .footer-copy { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin: 0; }
-      .footer-bottom-wrap .footer-legal a { color: rgba(255,255,255,0.6); font-size: 0.8rem; text-decoration: none; margin-left: 0.85rem; }
-      .footer-bottom-wrap .footer-legal a:hover { color: rgb(var(--color-brand)); }
-      @media (max-width: 768px) {
-        .footer-main-wrap .container { padding: 0 1rem; }
-        .footer-row { gap: 1.5rem; padding-bottom: 1.5rem; }
-        .footer-cta-wrap { padding: 1.5rem 1rem; }
-        .footer-cta-wrap .footer-cta-title { font-size: 1.35rem; }
-        .footer-bottom-wrap { padding: 0.85rem 1rem; flex-direction: column; text-align: center; }
+
+      .footer-contact-item:hover .footer-ico {
+        opacity: 1;
+        color: #5EEAD4 !important;
+      }
+
+      /* The three colour-named icon classes are kept as selectors because they
+         are in the markup, and neutralised here -- the markup is not ours to
+         change in this pass. */
+      .footer-ico-email,
+      .footer-ico-wa,
+      .footer-ico-pin {
+        background: none !important;
+      }
+
+      /* --- Bottom bar ------------------------------------------------------ */
+      .footer-bottom-wrap {
+        border-top: 1px solid rgb(255 255 255 / 0.1);
+        padding: 1.1rem 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-bottom-wrap .footer-copy {
+        /* 0.5 alpha measured 4.0:1 on this ground, under AA. 0.68 is 7.2:1. */
+        color: rgb(255 255 255 / 0.68);
+        font-size: 0.82rem;
+        margin: 0;
+      }
+
+      .footer-bottom-wrap .footer-legal a {
+        color: rgb(255 255 255 / 0.68);
+        font-size: 0.82rem;
+        text-decoration: none;
+        margin-left: 1.1rem;
+      }
+
+      .footer-bottom-wrap .footer-legal a:hover,
+      .footer-bottom-wrap .footer-legal a:focus-visible {
+        color: #5EEAD4;
+      }
+
+      /* --- Responsive ------------------------------------------------------
+         Four columns -> two at tablet -> one at phone. The brand column spans
+         both at tablet so its paragraph is not squeezed into a half-width
+         gutter beside a list of four short links. */
+      @media (max-width: 991.98px) {
+        .footer-row {
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+
+        .footer-brand-block {
+          grid-column: 1 / -1;
+        }
+
+        .footer-brand-block .footer-tagline {
+          max-width: 48ch;
+        }
+      }
+
+      @media (max-width: 575.98px) {
+        .footer-cta-wrap {
+          padding: 2.25rem 1.25rem;
+        }
+
+        .footer-main-wrap {
+          padding-top: 2.25rem;
+        }
+
+        .footer-main-wrap .container,
+        .footer-bottom-wrap {
+          padding-left: 1.25rem;
+          padding-right: 1.25rem;
+        }
+
+        .footer-row {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          padding-bottom: 2rem;
+        }
+
+        .footer-bottom-wrap {
+          flex-direction: column;
+          text-align: center;
+          gap: 0.6rem;
+        }
+
+        .footer-bottom-wrap .footer-legal a {
+          margin: 0 0.55rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .footer-cta-wrap .footer-cta-btn:hover {
+          transform: none;
+        }
       }
     </style>
     <footer class="site-footer">
@@ -311,6 +620,47 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+      /* Toggles `.scrolled` on the fixed navbar past 50px.
+       *
+       * Adds no markup: it sets a class on an element that already exists, and
+       * every appearance of both states is defined in style.css.
+       *
+       * The listener is passive, so it never blocks scrolling, and the write
+       * is guarded by a read of the current state -- a scroll event fires many
+       * times a second and an unconditional classList write would invalidate
+       * style on every one of them.
+       *
+       * It runs once on load as well as on scroll, because a browser restores
+       * the previous scroll position on a back-navigation or a reload, and the
+       * bar would otherwise come back transparent halfway down the page.
+       */
+      (function () {
+        var nav = document.querySelector('.navbar.fixed-top');
+        if (!nav) return;
+
+        var THRESHOLD = 50;
+        var ticking = false;
+
+        function apply() {
+          var scrolled = window.scrollY > THRESHOLD;
+          if (scrolled !== nav.classList.contains('scrolled')) {
+            nav.classList.toggle('scrolled', scrolled);
+          }
+          ticking = false;
+        }
+
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          window.requestAnimationFrame(apply);
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        apply();
+      })();
+    </script>
     
     {% block extra_js %}{% endblock %}
 </body>

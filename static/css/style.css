@@ -35,9 +35,91 @@ main {
     flex: 1;
 }
 
-/* Navbar Styles */
+/* ==========================================================================
+   Navbar
+   --------------------------------------------------------------------------
+   Forest green, and transparent while it sits over the hero photograph.
+
+   The two states exist because this is a `fixed-top` bar over a full-bleed
+   image: a solid panel at the top of the page cuts the photograph off at a
+   hard line, while a transparent bar over the middle of a document would
+   leave the links sitting on body copy. So it is transparent over the hero
+   and solid once the reader has scrolled past it.
+
+   `.scrolled` is added by the listener at the foot of base.html. The default
+   state is the transparent one, which means a browser with JS disabled gets a
+   transparent bar -- so the transparent state still carries its own text
+   shadow and a soft top-down scrim, and stays legible on its own.
+   ========================================================================== */
+
 .navbar {
-    transition: all 0.3s ease;
+    /* Only the two properties that actually change, so the bar does not
+       animate its layout on every scroll tick. */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Bootstrap's `.navbar-dark` sets link colour to rgba(255,255,255,0.55).
+   That measures 5.6:1 on the forest green, so it passes AA -- but it reads as
+   disabled rather than quiet, and because the selector it comes from carries
+   three classes it was also beating `.btn-outline-light` on the "Get Started"
+   button, which is why that button looked greyed out. 0.86 is 11.4:1 and
+   still clearly subordinate to the brand mark and the two buttons. */
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(255 255 255 / 0.86);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: #fff;
+}
+
+/* The two buttons are not quiet links and should not inherit the link colour
+   at all -- this is the specificity fix for the same clash. */
+.navbar-dark .navbar-nav .nav-link.btn {
+    color: #fff;
+}
+
+/* Over the hero: no panel, but a short gradient so white links keep their
+   footing on a bright sky. Drawn behind the content, and inert to clicks. */
+.navbar:not(.scrolled)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 70%, transparent 100%);
+}
+
+.navbar:not(.scrolled) .navbar-brand,
+.navbar:not(.scrolled) .nav-link {
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+/* Scrolled past the hero: the solid forest-green panel. */
+.navbar.scrolled {
+    background-color: rgb(var(--color-earth));
+    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.28);
+}
+
+/* A collapsed mobile menu is a panel wherever the page happens to be, so it
+   takes the solid ground even in the transparent state -- an open drawer of
+   links over a photograph is the one case neither state handles on its own. */
+@media (max-width: 991.98px) {
+    .navbar .navbar-collapse.show,
+    .navbar .navbar-collapse.collapsing {
+        background-color: rgb(var(--color-earth));
+        margin: 0 -0.75rem;
+        padding: 0.5rem 0.75rem 1rem;
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* Once the drawer supplies its own ground the shadow is noise. */
+    .navbar:not(.scrolled) .navbar-collapse.show .nav-link {
+        text-shadow: none;
+    }
 }
 
 .navbar .nav-link {
@@ -63,6 +145,67 @@ main {
     align-items: center;
 }
 
+/* --- Making everything fit ------------------------------------------------
+   The bar carries five links, a language select, "Log in" and "Get Started".
+   Bootstrap's `.container` caps at 1140px, so on a 1150px viewport the row had
+   about 1140px to fit roughly 1200px of content and the last item -- "Get
+   Started" -- ran past the edge.
+
+   Two changes, smallest first: let the bar's own container use more of the
+   viewport than the page content does, and trim the two buttons and the
+   select. The page's other `.container`s are untouched, so body content keeps
+   its reading measure; only the chrome gets the extra width.
+   ------------------------------------------------------------------------ */
+@media (min-width: 992px) {
+    .navbar > .container {
+        max-width: none;
+        width: 100%;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
+
+/* Above the point where the content column stops growing, pull the bar back
+   in line with it so the brand does not drift away from the page's left edge
+   on a very wide monitor. */
+@media (min-width: 1500px) {
+    .navbar > .container {
+        max-width: 1440px;
+    }
+}
+
+.navbar .btn {
+    white-space: nowrap;
+}
+
+/* --- Letting the hero sit behind the transparent bar ----------------------
+   `body` carries `padding-top: 76px` to clear the fixed navbar. That is right
+   for an ordinary page, and wrong for the two hero sections: with it, a
+   transparent navbar would be transparent onto the *body's* background rather
+   than onto the photograph, leaving a 76px band of flat colour above the
+   image.
+
+   So the heroes alone are pulled up by that amount. Scoped to these two
+   selectors, so every other page keeps the offset.
+
+   No padding is added back. Both heroes already clear the bar on their own:
+   .hero-section is `min-height: 100vh` with its content vertically centred,
+   and .page-hero carries 120px of top padding against a 76px bar, which
+   leaves 44px between the links and the first line of the heading. The
+   negative margin only moves where the *photograph* starts.
+   ------------------------------------------------------------------------ */
+.hero-section,
+.page-hero {
+    margin-top: -76px;
+}
+
+.navbar .navbar-nav .form-select,
+.navbar .navbar-nav select {
+    padding: 4px 24px 4px 8px;
+    font-size: 0.82rem;
+    background-position: right 6px center;
+}
+
 /* Below lg the navbar collapses into the stacked drawer, where each link owns
    a full-width row. Nowrap there would push a long label under the viewport
    edge instead of letting it use the space it has. */
@@ -80,9 +223,12 @@ main {
 }
 
 .navbar .btn {
-    padding: 10px 24px !important;
-    font-size: 0.9rem;
-    margin-left: 8px;
+    /* Was 10px 24px with an 8px margin -- 56px of horizontal space per button
+       on top of the label. Two of those were most of the overflow that pushed
+       "Get Started" off the right edge. */
+    padding: 9px 16px !important;
+    font-size: 0.86rem;
+    margin-left: 6px;
 }
 
 /* Card Styles */

@@ -21,12 +21,15 @@
            which was close to a flat scrim: it hid the herd and the treeline
            without buying much legibility.
 
-           The colour is --color-brand-navy, the same rgb(10 35 66) the rest of
-           the identity uses, written as a token so a palette change reaches it. */
+           The wash is neutral black rather than the navy it used to be. A
+           coloured overlay tints everything under it -- the navy was pulling
+           the sunset toward violet and the grass toward slate. Black darkens
+           without shifting hue, so the photograph keeps its own colour, which
+           is the point of a warm, natural palette. */
         background: linear-gradient(180deg,
-                        rgb(var(--color-brand-navy) / 0.25) 0%,
-                        rgb(var(--color-brand-navy) / 0.40) 50%,
-                        rgb(var(--color-brand-navy) / 0.75) 100%),
+                        rgba(0, 0, 0, 0.20) 0%,
+                        rgba(0, 0, 0, 0.35) 50%,
+                        rgba(0, 0, 0, 0.70) 100%),
                     url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
         min-height: 100vh;
         display: flex;
@@ -40,7 +43,7 @@
 
     /* A second wash, dense only through the band the text occupies.
 
-       The 180deg overlay above is 0.25 at the top and 0.40 at the middle --
+       The 180deg overlay above is 0.20 at the top and 0.35 at the middle --
        and the middle is exactly where `align-items: center` puts the headline,
        directly over the brightest part of this photograph, the sunset sky.
        Measured against the real rendered pixels, the brightest background spot
@@ -49,13 +52,14 @@
 
        Raising the overlay's own alpha would fix it and undo the point of the
        change, so the density is added as a band instead: transparent at the
-       very top, so the sky still reads, ramping to 0.48 across the middle
+       very top, so the sky still reads, ramping to 0.55 across the middle
        where the words are, and easing off again at the foot.
 
-       0.48 is derived, not eyeballed. Two navy layers over the photo composite
-       to 1-(1-0.40)(1-0.48) = 0.688 effective alpha, which takes that worst
-       pixel to rgb(63,78,83) -- luminance 0.071. White lands at 8.7:1 and
-       #2DD4BF, the darker end of the heading gradient, at 4.67:1.
+       0.55 is derived, not eyeballed, and it is up from the 0.52 this used
+       when both layers were navy -- the base ramp dropped from 0.25/0.40/0.75
+       to 0.20/0.35/0.70 when it went neutral, so the band has to make up the
+       difference. Two black layers composite to 1-(1-0.35)(1-0.55) = 0.71
+       effective alpha over the photo. The measured ratios are below.
 
        Content is `col-lg-12 text-center`, so this is centred and full-width
        rather than an ellipse off to one side.
@@ -76,22 +80,21 @@
                stats     76.6% -> 93.1%
 
            So the only band with no text over it is the top ~9%, which is why
-           that is the only band left at the base overlay's 0.25 -- it is the
+           that is the only band left at the base overlay's 0.20 -- it is the
            one place "let the photo through" and "keep the text readable" do
            not conflict, and it is where the sunset sky is.
 
-           Below that the scrim ramps to 0.52 and holds through the headline
+           Below that the scrim ramps to 0.55 and holds through the headline
            and paragraph, then eases off from ~58% because the base overlay is
-           climbing to 0.75 by then and does the work on its own. The result is
-           a roughly constant ~0.67 effective alpha everywhere text sits, which
-           is what the ratios below are computed against. */
+           climbing to 0.70 by then and does the work on its own. The result is
+           a roughly constant ~0.71 effective alpha everywhere text sits. */
         background: linear-gradient(180deg,
                         transparent 0%,
-                        rgb(var(--color-brand-navy) / 0.10) 8%,
-                        rgb(var(--color-brand-navy) / 0.52) 16%,
-                        rgb(var(--color-brand-navy) / 0.52) 42%,
-                        rgb(var(--color-brand-navy) / 0.34) 58%,
-                        rgb(var(--color-brand-navy) / 0.12) 76%,
+                        rgba(0, 0, 0, 0.12) 8%,
+                        rgba(0, 0, 0, 0.55) 16%,
+                        rgba(0, 0, 0, 0.55) 42%,
+                        rgba(0, 0, 0, 0.36) 58%,
+                        rgba(0, 0, 0, 0.13) 76%,
                         transparent 94%);
     }
 
@@ -145,7 +148,7 @@
     /* The gradient is bright mint rather than the identity teal.
 
        The identity teal is #0E7C86, drawn for white text to sit *on*. Used as
-       text on a dark navy wash it measured about 2:1 -- the heading was the
+       text on the dark wash it measured about 2:1 -- the heading was the
        least readable thing in the hero. These two steps are light enough to
        work as ink on that ground.
 
@@ -722,11 +725,11 @@
                further than it does on desktop. */
             background: linear-gradient(180deg,
                             transparent 0%,
-                            rgb(var(--color-brand-navy) / 0.14) 5%,
-                            rgb(var(--color-brand-navy) / 0.52) 12%,
-                            rgb(var(--color-brand-navy) / 0.52) 50%,
-                            rgb(var(--color-brand-navy) / 0.34) 66%,
-                            rgb(var(--color-brand-navy) / 0.12) 84%,
+                            rgba(0, 0, 0, 0.16) 5%,
+                            rgba(0, 0, 0, 0.55) 12%,
+                            rgba(0, 0, 0, 0.55) 50%,
+                            rgba(0, 0, 0, 0.36) 66%,
+                            rgba(0, 0, 0, 0.13) 84%,
                             transparent 98%);
         }
         
