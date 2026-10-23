@@ -230,6 +230,24 @@
   --color-earth-deep: 10 30 20;   /* #0A1E14  the gradient's far end         */
   --color-earth-ink: 26 26 26;    /* #1A1A1A  very dark neutral panels       */
 
+  /* --- Gold ----------------------------------------------------------------
+     The public site's second accent, from the approved hero comp: the primary
+     call to action, the active nav underline, and the ring around each feature
+     icon.
+
+     It carries DARK text, never white. White on #E8B84B measures 1.9:1; the
+     forest green on it measures 10.4:1. That is the whole reason the comp's
+     "Get Started" button has dark lettering, and it is not a detail to drift
+     from -- a gold button with white text is unreadable, not merely off-brand.
+
+     Gold is identity, not status. It never marks a case, a severity or an
+     outcome; red, amber and green still own those, and this sits apart from
+     the amber by being far more saturated and used only on chrome. --- */
+  --color-gold: 232 184 75;       /* #E8B84B  the accent                      */
+  --color-gold-soft: 243 207 120; /* #F3CF78  gradient light end              */
+  --color-gold-deep: 191 145 52;  /* #BF9134  rings, borders, hover           */
+  --color-gold-ink: 15 42 29;     /* text that sits ON gold                   */
+
   /* --- Highlight: the identity teal as a wash. Decoration on brand surfaces
      only -- the hero's bloom, the logo tile. Never a status, which is the
      whole reason it is a separate token from the three above. --- */
@@ -342,6 +360,11 @@
     --color-earth-deep: 10 30 20;
     --color-earth-ink: 26 26 26;
 
+    --color-gold: 232 184 75;
+    --color-gold-soft: 243 207 120;
+    --color-gold-deep: 191 145 52;
+    --color-gold-ink: 15 42 29;
+
     --color-highlight: 45 176 188;
     --color-highlight-subtle: 16 48 52;
 
@@ -412,6 +435,11 @@
   --color-earth: 15 42 29;
   --color-earth-deep: 10 30 20;
   --color-earth-ink: 26 26 26;
+
+  --color-gold: 232 184 75;
+  --color-gold-soft: 243 207 120;
+  --color-gold-deep: 191 145 52;
+  --color-gold-ink: 15 42 29;
 
   --color-highlight: 45 176 188;
   --color-highlight-subtle: 16 48 52;

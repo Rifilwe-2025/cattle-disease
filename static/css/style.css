@@ -82,6 +82,75 @@ main {
     color: #fff;
 }
 
+/* --- Gold: the primary call to action ------------------------------------
+   From the approved hero comp. A filled gold pill carrying DARK lettering --
+   white on #E8B84B measures 1.84:1 and is unreadable; the forest green on it
+   measures 8.32:1. That is why the comp's button has dark text, and it is not
+   a detail to drift from.
+
+   The selector is doubled on the class so it beats
+   `.navbar-dark .navbar-nav .nav-link` (three classes), which would otherwise
+   repaint the label white and undo the only colour that works here. */
+.navbar-dark .navbar-nav .nav-link.btn-gold,
+.btn-gold {
+    background: linear-gradient(135deg, rgb(var(--color-gold-soft)), rgb(var(--color-gold)));
+    border: none;
+    color: rgb(var(--color-gold-ink));
+    font-weight: 600;
+    border-radius: 50px;
+    transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.navbar-dark .navbar-nav .nav-link.btn-gold:hover,
+.navbar-dark .navbar-nav .nav-link.btn-gold:focus,
+.btn-gold:hover,
+.btn-gold:focus {
+    color: rgb(var(--color-gold-ink));
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+}
+
+.btn-gold:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* --- Gold: the active link underline --------------------------------------
+   The comp marks the current page with a short gold rule under the label.
+
+   `.active` is set by Bootstrap/Django on the current nav item. The rule is a
+   pseudo-element rather than a border-bottom so it can be inset from the
+   link's padding and sit under the word rather than the whole hit area. */
+.navbar-dark .navbar-nav .nav-link.active {
+    position: relative;
+    color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 11px;
+    right: 11px;
+    bottom: 2px;
+    height: 2px;
+    border-radius: 2px;
+    background: rgb(var(--color-gold));
+}
+
+/* The underline belongs to the horizontal bar. In the stacked mobile drawer
+   each link owns a full-width row, where a rule under the text reads as a
+   divider between rows rather than a marker on one. */
+@media (max-width: 991.98px) {
+    .navbar-dark .navbar-nav .nav-link.active::after {
+        display: none;
+    }
+
+    .navbar-dark .navbar-nav .nav-link.active {
+        background: rgb(255 255 255 / 0.08);
+        border-radius: 8px;
+    }
+}
+
 /* Over the hero: no panel, but a short gradient so white links keep their
    footing on a bright sky. Drawn behind the content, and inert to clicks. */
 .navbar:not(.scrolled)::before {
@@ -313,8 +382,14 @@ main {
     padding: 12px 24px;
     transition: all 0.3s ease;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    /* Was `uppercase`, applied to every button in the product. It is why the
+       navbar read "GET STARTED" and "LOG IN" and the hero read "I'M A FARMER".
+       The approved comp sets all of them in sentence case, and so does the
+       type scale in design-system.css -- a button is a short phrase, not a
+       label, and forcing caps costs legibility for emphasis the colour is
+       already supplying. */
+    text-transform: none;
+    letter-spacing: 0.2px;
     font-size: 0.9rem;
 }
 

@@ -122,22 +122,18 @@ HEROES = [
     ),
     Hero(
         slug="hero-landing",
-        source="sylvester-sabo-vVdpZEspAGs-unsplash.jpg",
-        # Slightly below centre: it keeps the herd and the waterline and drops
-        # a little of the empty sky above the treeline.
-        focus_y=0.55,
-        # The landing hero is `min-height: 100vh`, not a banner -- 16:9 rather
-        # than 2:1, so a portrait phone crops the sides instead of losing the
-        # whole foreground.
+        source="golden-hour-brahman-herd.png",
+        focus_y=0.5,
+        # 1672x941, and a far better fit than the dusk shot it replaces: mean
+        # luminance 113.6 against 77.6, median 113 against 66. The old hero was
+        # a dusk photograph, so no amount of overlay tuning made it read -- the
+        # detail was not in the file.
+        #
+        # Native width is 1672, so 1x is emitted at 1600 (a slight downscale,
+        # which the unsharp pass likes) and 2x is skipped rather than upscaled.
         aspect=16 / 9,
-        # 1920 / 3200 rather than 1440 / 2880. The binding case is a 2x phone
-        # in portrait: a 390x844 viewport is 780x1688 device pixels, and with
-        # `cover` the image is scaled to match that *height*. At 3200x1800 it
-        # covers 1688 outright; the 2880x1620 a banner would have produced
-        # would have been upscaled. This is the one hero where the 2x file
-        # earns its bytes.
-        widths=(1920, 3200),
-        note="herds at dusk, 5374px source -- full-viewport crop",
+        widths=(1600, 2880),
+        note="golden-hour Brahman herd, 1672px source -- 1x only",
     ),
 ]
 

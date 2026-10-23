@@ -89,19 +89,19 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'landing:home' %}">{% trans "Home" %}</a>
+                            <a class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %} href="{% url 'landing:home' %}">{% trans "Home" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'landing:services' %}">{% trans "Services" %}</a>
+                            <a class="nav-link{% if request.resolver_match.url_name == 'services' %} active{% endif %}"{% if request.resolver_match.url_name == 'services' %} aria-current="page"{% endif %} href="{% url 'landing:services' %}">{% trans "Services" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'landing:how_it_works' %}">{% trans "How It Works" %}</a>
+                            <a class="nav-link{% if request.resolver_match.url_name == 'how_it_works' %} active{% endif %}"{% if request.resolver_match.url_name == 'how_it_works' %} aria-current="page"{% endif %} href="{% url 'landing:how_it_works' %}">{% trans "How It Works" %}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'landing:home' %}#for-farmers">{% trans "For Farmers" %}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'landing:about' %}">{% trans "About" %}</a>
+                            <a class="nav-link{% if request.resolver_match.url_name == 'about' %} active{% endif %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %} href="{% url 'landing:about' %}">{% trans "About" %}</a>
                         </li>
                         <li class="nav-item ms-lg-2">
                             <form action="{% url 'set_language' %}" method="post" class="d-flex align-items-center" style="gap:8px;">
@@ -122,7 +122,11 @@
                             </a>
                         </li>
                         <li class="nav-item ms-lg-2">
-                            <a class="nav-link btn btn-outline-light px-4" href="{% url 'farmers:register' %}" style="border-radius: 50px; font-weight: 600; border-color: rgba(255, 255, 255, 0.8);">
+                            {# btn-gold replaces btn-outline-light and the inline border. #}
+                            {# The comp's primary call to action is a filled gold pill;   #}
+                            {# an outline button cannot carry that weight, and the inline #}
+                            {# border-color would have beaten any rule in the stylesheet. #}
+                            <a class="nav-link btn btn-gold px-4" href="{% url 'farmers:register' %}">
                                 <i class="fas fa-user-plus"></i> {% trans "Get Started" %}
                             </a>
                         </li>
