@@ -140,7 +140,7 @@ main {
 /* The underline belongs to the horizontal bar. In the stacked mobile drawer
    each link owns a full-width row, where a rule under the text reads as a
    divider between rows rather than a marker on one. */
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
     .navbar-dark .navbar-nav .nav-link.active::after {
         display: none;
     }
@@ -176,7 +176,7 @@ main {
 /* A collapsed mobile menu is a panel wherever the page happens to be, so it
    takes the solid ground even in the transparent state -- an open drawer of
    links over a photograph is the one case neither state handles on its own. */
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
     .navbar .navbar-collapse.show,
     .navbar .navbar-collapse.collapsing {
         background-color: rgb(var(--color-earth));
@@ -225,7 +225,7 @@ main {
    select. The page's other `.container`s are untouched, so body content keeps
    its reading measure; only the chrome gets the extra width.
    ------------------------------------------------------------------------ */
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .navbar > .container {
         max-width: none;
         width: 100%;
@@ -278,7 +278,7 @@ main {
 /* Below lg the navbar collapses into the stacked drawer, where each link owns
    a full-width row. Nowrap there would push a long label under the viewport
    edge instead of letting it use the space it has. */
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
     .navbar .nav-link {
         white-space: normal;
         padding: 10px 14px !important;

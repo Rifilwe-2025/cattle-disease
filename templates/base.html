@@ -36,7 +36,11 @@
     {# there. No class, element or text was added -- the rules target the      #}
     {# classes already present, and `.scrolled` is set at runtime by the       #}
     {# listener at the foot of this file.                                      #}
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    {# navbar-expand-xl, not -lg. The bar carries five links, a language   #}
+    {# select and two buttons -- about 1100px of content. Expanding at the #}
+    {# lg breakpoint (992px) left "Get Started" clipped by up to 75px all  #}
+    {# the way to ~1080px. The drawer has room; a 992px bar does not.      #}
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{% url 'landing:home' %}" style="font-weight: 700; font-size: 1.4rem; font-family: var(--font-mono);">
                 <div style="width: 40px; height: 40px; background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand))); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
