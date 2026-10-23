@@ -82,6 +82,15 @@ class Hero:
     #: so the crop keeps the subject rather than the sky.
     focus_y: float
     note: str
+    #: Width-to-height ratio of the crop. Defaults to the 2:1 banner the
+    #: dashboard panels use. The landing hero is a full-viewport panel rather
+    #: than a banner, so it overrides this.
+    aspect: float = ASPECT
+    #: The 1x and 2x widths to emit. The dashboard banners are capped by the
+    #: 1440px content column; a full-bleed hero is not, and on a portrait
+    #: phone at 2x it is the image's *height* that has to stretch furthest --
+    #: which is why the landing hero asks for more pixels than a banner does.
+    widths: tuple[int, int] = (WIDTH_1X, WIDTH_2X)
 
 
 HEROES = [
@@ -111,11 +120,25 @@ HEROES = [
         # register for a national oversight screen, and a true 2x source.
         note="herds at dusk, 5374px source",
     ),
-    # No hero-landing entry. One was built for the public home page and then
-    # never wired into it -- the landing page has its own hero treatment that
-    # this port did not change. Generating an image nothing references just
-    # puts bytes in the repository, so the entry is removed rather than left
-    # here "for later". Add it back alongside the markup that uses it.
+    Hero(
+        slug="hero-landing",
+        source="sylvester-sabo-vVdpZEspAGs-unsplash.jpg",
+        # Slightly below centre: it keeps the herd and the waterline and drops
+        # a little of the empty sky above the treeline.
+        focus_y=0.55,
+        # The landing hero is `min-height: 100vh`, not a banner -- 16:9 rather
+        # than 2:1, so a portrait phone crops the sides instead of losing the
+        # whole foreground.
+        aspect=16 / 9,
+        # 1920 / 3200 rather than 1440 / 2880. The binding case is a 2x phone
+        # in portrait: a 390x844 viewport is 780x1688 device pixels, and with
+        # `cover` the image is scaled to match that *height*. At 3200x1800 it
+        # covers 1688 outright; the 2880x1620 a banner would have produced
+        # would have been upscaled. This is the one hero where the 2x file
+        # earns its bytes.
+        widths=(1920, 3200),
+        note="herds at dusk, 5374px source -- full-viewport crop",
+    ),
 ]
 
 
@@ -204,12 +227,12 @@ def build() -> int:
         with Image.open(path) as raw:
             im = raw.convert("RGB")
             native_w = im.width
-            banner = crop_to_aspect(im, ASPECT, hero.focus_y)
+            banner = crop_to_aspect(im, hero.aspect, hero.focus_y)
 
             print(f"\n{hero.slug}  <-  {hero.source}")
             print(f"  source {native_w}x{raw.height}  |  {hero.note}")
 
-            for label, width in (("1x", WIDTH_1X), ("2x", WIDTH_2X)):
+            for label, width in zip(("1x", "2x"), hero.widths):
                 if width > banner.width:
                     # The rule. No upscaling, ever.
                     print(

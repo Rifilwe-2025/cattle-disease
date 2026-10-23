@@ -17,49 +17,77 @@
     .hero-section {
         /* Top-to-bottom rather than diagonal, so the wash is weakest where the
            photograph is most worth seeing and strongest where the paragraph
-           sits. The old 135deg ramp went 0.55 -> 0.65 across the whole panel,
-           which was close to a flat scrim: it hid the herd and the treeline
-           without buying much legibility.
+           sits.
 
-           The wash is neutral black rather than the navy it used to be. A
-           coloured overlay tints everything under it -- the navy was pulling
-           the sunset toward violet and the grass toward slate. Black darkens
-           without shifting hue, so the photograph keeps its own colour, which
-           is the point of a warm, natural palette. */
+           The wash is neutral black rather than navy. A coloured overlay tints
+           everything under it -- the navy was pulling the sunset toward violet
+           and the grass toward slate. Black darkens without shifting hue, so
+           the photograph keeps its own colour.
+
+           It is also thin: 0.12 / 0.22 / 0.55, down from 0.20 / 0.35 / 0.70.
+           Almost all of the density the text needs now lives in the band
+           below, which covers the words only -- so the sky at the top and the
+           herd and water at the foot are lit by roughly half as much black as
+           before, while the strip behind the headline keeps what it needs. */
         background: linear-gradient(180deg,
-                        rgba(0, 0, 0, 0.20) 0%,
-                        rgba(0, 0, 0, 0.35) 50%,
-                        rgba(0, 0, 0, 0.70) 100%),
-                    url('{% static "images/sylvester-sabo-vVdpZEspAGs-unsplash.jpg" %}') center/cover no-repeat fixed;
+                        rgba(0, 0, 0, 0.12) 0%,
+                        rgba(0, 0, 0, 0.22) 50%,
+                        rgba(0, 0, 0, 0.55) 100%),
+                    url('{% static "images/generated/hero-landing-1x.jpg" %}') center/cover no-repeat;
         min-height: 100vh;
         display: flex;
         align-items: center;
         position: relative;
         color: white;
-        padding: 80px 0 60px;
+        /* 104px, not 80. The hero is pulled up 76px so the photograph runs
+           under the fixed bar, and the bar is 82px tall -- so at 80px of top
+           padding the badge cleared the links by a single pixel on desktop
+           and collided with them outright on a phone. The content is centred
+           in the padding box, so this is what moves it clear. */
+        padding: 104px 0 60px;
         background-position: center center;
         background-size: cover;
     }
 
+    /* WebP at 1x and 2x, overriding the JPEG above. A browser that cannot
+       parse image-set discards this whole declaration and keeps the JPEG.
+
+       `background-attachment: fixed` is gone. It is the other half of why
+       this photograph looked soft: a fixed background is promoted to its own
+       compositing layer and rasterised once at a size that does not track the
+       viewport, so many GPUs resample it on every scroll. It also forced the
+       mobile override below to turn it back off. */
+    .hero-section {
+        background-image: linear-gradient(180deg,
+                              rgba(0, 0, 0, 0.12) 0%,
+                              rgba(0, 0, 0, 0.22) 50%,
+                              rgba(0, 0, 0, 0.55) 100%),
+                          image-set(
+                              url('{% static "images/generated/hero-landing-1x.webp" %}') 1x,
+                              url('{% static "images/generated/hero-landing-2x.webp" %}') 2x);
+    }
+
     /* A second wash, dense only through the band the text occupies.
 
-       The 180deg overlay above is 0.20 at the top and 0.35 at the middle --
-       and the middle is exactly where `align-items: center` puts the headline,
-       directly over the brightest part of this photograph, the sunset sky.
-       Measured against the real rendered pixels, the brightest background spot
-       inside the h1's box is rgb(179,172,121); white on that is 2.31:1 and the
-       mint gradient's darker stop is 1.42:1. Both fail.
+       This is where the contrast actually comes from, and why the base ramp
+       above can stay thin.
 
-       Raising the overlay's own alpha would fix it and undo the point of the
-       change, so the density is added as a band instead: transparent at the
-       very top, so the sky still reads, ramping to 0.55 across the middle
-       where the words are, and easing off again at the foot.
+       `align-items: center` puts the headline over the middle of the panel,
+       which on this photograph is the brightest sunset cloud. Measured against
+       the real rendered pixels, the brightest spot inside the h1's box reaches
+       near-white before any wash -- so a uniformly light overlay cannot work
+       here however pleasant it looks elsewhere: at 0.12/0.22/0.55 alone the
+       heading measured 2.70:1, below AA.
 
-       0.55 is derived, not eyeballed, and it is up from the 0.52 this used
-       when both layers were navy -- the base ramp dropped from 0.25/0.40/0.75
-       to 0.20/0.35/0.70 when it went neutral, so the band has to make up the
-       difference. Two black layers composite to 1-(1-0.35)(1-0.55) = 0.71
-       effective alpha over the photo. The measured ratios are below.
+       The answer is not a heavier overlay, which is what made the photograph
+       hard to see in the first place. It is a *narrower* one: transparent at
+       the very top where the sky is, 0.56 through the band the words occupy,
+       and off again by 82% so the herd and the water come back.
+
+       0.56 is derived. Two black layers composite to 1-(1-0.22)(1-0.56) = 0.66
+       effective alpha, which takes a near-white source pixel to luminance
+       0.096 -- where white reads 7.2:1 and #5EEAD4, the darker end of the
+       heading gradient, reads 4.85:1. Measured values are in the commit.
 
        Content is `col-lg-12 text-center`, so this is centred and full-width
        rather than an ellipse off to one side.
@@ -80,22 +108,22 @@
                stats     76.6% -> 93.1%
 
            So the only band with no text over it is the top ~9%, which is why
-           that is the only band left at the base overlay's 0.20 -- it is the
+           that is the only band left at the base overlay's 0.12 -- it is the
            one place "let the photo through" and "keep the text readable" do
            not conflict, and it is where the sunset sky is.
 
-           Below that the scrim ramps to 0.55 and holds through the headline
-           and paragraph, then eases off from ~58% because the base overlay is
-           climbing to 0.70 by then and does the work on its own. The result is
-           a roughly constant ~0.71 effective alpha everywhere text sits. */
+           Below that the band holds 0.56 through the headline and paragraph,
+           then eases off from 68% -- the base ramp is climbing to 0.55 by
+           then, and the foreground it crosses (grass, then water) is far
+           darker than the sky, so it needs much less help. */
         background: linear-gradient(180deg,
                         transparent 0%,
-                        rgba(0, 0, 0, 0.12) 8%,
-                        rgba(0, 0, 0, 0.55) 16%,
-                        rgba(0, 0, 0, 0.55) 42%,
-                        rgba(0, 0, 0, 0.36) 58%,
-                        rgba(0, 0, 0, 0.13) 76%,
-                        transparent 94%);
+                        rgba(0, 0, 0, 0.10) 8%,
+                        rgba(0, 0, 0, 0.56) 15%,
+                        rgba(0, 0, 0, 0.56) 56%,
+                        rgba(0, 0, 0, 0.30) 68%,
+                        rgba(0, 0, 0, 0.08) 82%,
+                        transparent 95%);
     }
 
     /* The content has to out-stack both pseudo-elements. */
@@ -149,8 +177,14 @@
 
        The identity teal is #0E7C86, drawn for white text to sit *on*. Used as
        text on the dark wash it measured about 2:1 -- the heading was the
-       least readable thing in the hero. These two steps are light enough to
-       work as ink on that ground.
+       least readable thing in the hero.
+
+       Both stops are now light: #A7F3E4 to #5EEAD4, up from #5EEAD4 to
+       #2DD4BF. The darker stop is what caps how bright the photograph behind
+       it may be -- at #2DD4BF the background had to stay under luminance
+       0.075, at #5EEAD4 it may reach 0.108. That one change bought about 50%
+       more light through the photograph, which is most of why this hero is
+       brighter than it was.
 
        This is the one place the brand teal is allowed to be substituted rather
        than tokenised: the token is a fill colour, and what is needed here is
@@ -158,7 +192,7 @@
     .hero-highlight {
         display: block;
         font-size: 5rem;
-        background: linear-gradient(135deg, #5EEAD4, #2DD4BF);
+        background: linear-gradient(135deg, #A7F3E4, #5EEAD4);
         -webkit-background-clip: text;
         background-clip: text;
         /* Both, deliberately. -webkit-text-fill-color wins over `color` in
@@ -705,9 +739,13 @@
 
     @media (max-width: 768px) {
         .hero-section {
-            padding: 60px 0 40px;
+            /* Same reasoning as the base rule: the 82px bar sits over the top
+               of this panel, and 60px put the badge underneath it. */
+            padding: 104px 0 40px;
             min-height: 100vh;
-            background-attachment: scroll;
+            /* `background-attachment: scroll` used to be here, undoing the
+               `fixed` the base rule set. The base rule no longer sets it, so
+               this override has nothing left to undo and is gone with it. */
             background-position: center center;
             background-size: cover;
         }
@@ -725,12 +763,12 @@
                further than it does on desktop. */
             background: linear-gradient(180deg,
                             transparent 0%,
-                            rgba(0, 0, 0, 0.16) 5%,
-                            rgba(0, 0, 0, 0.55) 12%,
-                            rgba(0, 0, 0, 0.55) 50%,
-                            rgba(0, 0, 0, 0.36) 66%,
-                            rgba(0, 0, 0, 0.13) 84%,
-                            transparent 98%);
+                            rgba(0, 0, 0, 0.14) 4%,
+                            rgba(0, 0, 0, 0.56) 11%,
+                            rgba(0, 0, 0, 0.56) 62%,
+                            rgba(0, 0, 0, 0.30) 76%,
+                            rgba(0, 0, 0, 0.08) 90%,
+                            transparent 99%);
         }
         
         .hero-section h1 {
