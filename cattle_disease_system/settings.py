@@ -30,9 +30,39 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Defaults to True so a fresh clone still runs locally with no setup. Render
+# sets DJANGO_DEBUG=False, which is what makes this safe in production.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() not in ('false', '0', 'no')
 
-ALLOWED_HOSTS = ['*']
+# Render injects RENDER_EXTERNAL_HOSTNAME with the service's own
+# <name>.onrender.com host. ALLOWED_HOSTS additionally accepts a
+# comma-separated list, so a custom domain can be added without a code change.
+ALLOWED_HOSTS = [
+    h.strip() for h in os.environ.get('ALLOWED_HOSTS', '').split(',') if h.strip()
+]
+
+_render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if _render_host:
+    ALLOWED_HOSTS.append(_render_host)
+
+if DEBUG and not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', 'testserver']
+
+# Django 4+ requires the scheme here, so '*' is not usable. Every host we
+# trust is served over HTTPS by Render's load balancer.
+CSRF_TRUSTED_ORIGINS = [f'https://{h}' for h in ALLOWED_HOSTS if not h.startswith(('localhost', '127.', '['))]
+
+# Render terminates TLS at its edge and forwards over plain HTTP, so without
+# this Django thinks every request is insecure and redirects in a loop.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 
 # Application definition
@@ -61,6 +91,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Serves collected static files straight from the web process. Render has
+    # no separate static host, and Django's own static serving is disabled
+    # once DEBUG is False - without this, the deployed site loses all CSS.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -110,7 +144,23 @@ WSGI_APPLICATION = 'cattle_disease_system.wsgi.application'
 # No credential has a hardcoded default any more - PostgreSQL reads them
 # all from the environment.
 
-if os.environ.get('DB_ENGINE', 'sqlite').lower().startswith('post'):
+# Neon (and any other hosted PostgreSQL) hands out a single connection URL,
+# so that takes priority when present. ssl_require matters: Neon refuses
+# unencrypted connections, and conn_max_age keeps connections alive between
+# requests instead of paying a new TLS handshake on every one.
+_database_url = os.environ.get('DATABASE_URL')
+
+if _database_url:
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(
+            _database_url,
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        )
+    }
+elif os.environ.get('DB_ENGINE', 'sqlite').lower().startswith('post'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -179,6 +229,18 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Compresses collected files and gives each a content-hashed name so they can
+# be cached forever. Non-strict manifest: a template referencing a file that
+# was never collected logs a warning instead of raising at request time.
+STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
+    },
+}
 
 # Media files
 MEDIA_URL = '/media/'

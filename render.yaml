@@ -1,0 +1,52 @@
+# Render Blueprint for CattleCare AI.
+#
+# The database is NOT defined here - it lives on Neon, and DATABASE_URL is
+# set as a secret env var (sync: false) so the connection string never enters
+# this repo, which is public.
+#
+# Deploy: Render Dashboard -> New -> Blueprint -> pick this repo.
+
+services:
+  - type: web
+    name: cattlecare-ai
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+
+    buildCommand: "./build.sh"
+
+    # 2 workers x 4 threads fits the free plan's 512MB once scikit-learn,
+    # pandas and the pickled model are resident in each worker. More workers
+    # would multiply that footprint and get the process OOM-killed.
+    #
+    # --timeout 120 because free instances cold-start after 15 minutes idle,
+    # and loading the model on the first request is slow.
+    startCommand: "gunicorn cattle_disease_system.wsgi:application --workers 2 --threads 4 --timeout 120 --access-logfile - --error-logfile -"
+
+    healthCheckPath: /
+
+    envVars:
+      # Matches the local interpreter the .pkl artifacts were pickled under,
+      # so the unpickled estimator behaves identically to local.
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+
+      - key: DJANGO_DEBUG
+        value: "False"
+
+      # Generated once by Render and then held constant. Rotating it would
+      # invalidate every active session and password-reset link.
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+
+      # Neon connection string. Set in the Dashboard, never committed.
+      - key: DATABASE_URL
+        sync: false
+
+      # Gmail address + 16-character app password for password-reset email.
+      # Leave unset and Django falls back to the console email backend.
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false

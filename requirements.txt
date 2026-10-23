@@ -17,6 +17,16 @@ python-dotenv==1.2.4
 psycopg2-binary==2.9.13
 Pillow==12.3.0
 
+# Production serving (Render). Harmless to have installed locally - none of
+# these change behaviour until DJANGO_DEBUG=False / DATABASE_URL are set.
+#   gunicorn       - WSGI server; `manage.py runserver` must never face traffic
+#   whitenoise     - serves collected static files from the web process, since
+#                    Render has no separate static host for a web service
+#   dj-database-url - parses Neon's single DATABASE_URL connection string
+gunicorn==23.0.0
+whitenoise==6.8.2
+dj-database-url==2.3.0
+
 # ML inference
 scikit-learn==1.8.0
 pandas==3.0.6

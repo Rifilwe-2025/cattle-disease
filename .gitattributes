@@ -1,0 +1,16 @@
+# Normalise text files in the repository to LF.
+* text=auto
+
+# Shell scripts MUST stay LF even when checked out on Windows. Render clones
+# this repo onto Linux and runs ./build.sh; a CRLF line ending after the
+# shebang makes the kernel look for an interpreter named "bash\r", and the
+# deploy fails with a bare "no such file or directory".
+*.sh text eol=lf
+build.sh text eol=lf
+
+# Binary artifacts - never touch these.
+*.pkl binary
+*.png binary
+*.docx binary
+*.sqlite3 binary
+*.ipynb -text
