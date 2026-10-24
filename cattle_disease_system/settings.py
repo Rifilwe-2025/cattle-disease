@@ -355,15 +355,26 @@ DISEASE_SEVERITY = {
 # Vet Assignment Radius (in kilometers)
 VET_SEARCH_RADIUS = 50  # Search for vets within 50km
 
-# Email (for password reset) – sends reset link + OTP to the registered user's email
-# For real emails: copy .env.example to .env and set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD.
-# Gmail: use an App Password (Google Account → Security → 2-Step Verification → App passwords).
+# Email
+#
+# Carries the password-reset link + OTP, and the notification a vet gets when a
+# farmer assigns them a case. Set EMAIL_HOST_USER and EMAIL_HOST_PASSWORD and
+# real mail goes out; leave either unset and Django falls back to the console
+# backend, which prints the message to the log instead of sending it. That
+# fallback is why a fresh clone works with no configuration - and why
+# core.mailer.is_smtp_configured() exists, so a view does not promise an inbox
+# that nothing was sent to.
+#
+# Gmail: EMAIL_HOST_PASSWORD must be a 16-character App Password (Google
+# Account -> Security -> 2-Step Verification -> App passwords), not the account
+# password. Host and port are overridable so a transactional provider
+# (Brevo, SendGrid, Mailgun) can be swapped in without a code change.
 _use_smtp = bool(os.environ.get('EMAIL_HOST_USER') and os.environ.get('EMAIL_HOST_PASSWORD'))
 if _use_smtp:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
     EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
-    EMAIL_USE_TLS = True
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() not in ('false', '0', 'no')
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', f'CattleCare AI <{EMAIL_HOST_USER}>')
@@ -371,10 +382,46 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'CattleCare AI <noreply@cattlecare.gov.zw>'
 
-# Cache (for OTP storage during password reset)
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+# Python's smtplib blocks forever by default if the far end accepts the TCP
+# connection and then stops talking. Mail is sent on a background thread
+# (core.mailer), so a hang would not stall a request - but it would leak a
+# thread per send. 20s is generous for Gmail from Oregon and still finite.
+EMAIL_TIMEOUT = int(os.environ.get('EMAIL_TIMEOUT', '20'))
+
+# The site's own URL, for absolute links in email. Normally derived from the
+# request, so this is only the fallback for mail sent outside one (a
+# management command, say) - without it such a link would be relative and
+# therefore dead in an inbox.
+SITE_URL = os.environ.get(
+    'SITE_URL',
+    f'https://{_render_host}' if _render_host else 'http://127.0.0.1:8000',
+)
+
+# Cache - holds the password-reset OTP between the email and the form.
+#
+# This MUST NOT be LocMemCache in production, and was. LocMemCache is private
+# to one process: gunicorn runs 2 workers, so an OTP written by the worker that
+# handled "send me a reset email" was invisible to the worker that handled
+# "here is my OTP". The user got "Invalid or expired OTP" about half the time,
+# depending on which worker the load balancer picked, and retrying appeared to
+# fix it at random. DatabaseCache keeps the OTP in Postgres, which every worker
+# shares.
+#
+# The table is created by `manage.py createcachetable`, which build.sh runs on
+# every deploy (it is idempotent). LocMemCache stays as the local default so a
+# fresh clone on SQLite needs no extra step.
+if _database_url or os.environ.get('DB_ENGINE', '').lower().startswith('post'):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'django_cache',
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        }
+    }
+
 PASSWORD_RESET_OTP_TIMEOUT = 600  # 10 minutes

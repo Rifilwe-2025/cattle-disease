@@ -14,6 +14,8 @@ from ml_engine.services import predict_disease, classify_severity
 from vets.models import Vet
 from vets.utils import find_nearby_vets, find_vets_by_region_with_distance
 from .ai_knowledge import get_response_for_question, get_response_for_topic
+from cases.notifications import notify_vet_of_assignment
+from core.mailer import is_smtp_configured
 from django.http import JsonResponse
 
 
@@ -516,11 +518,30 @@ def select_vet(request, case_id):
             
             case.assigned_vet = vet
             case.status = 'ASSIGNED'
-            case.save()
-            messages.success(
-                request, 
-                f'✅ Dr. {vet.full_name} has been assigned to your case. They will contact you soon.'
-            )
+            case.save(update_fields=['assigned_vet', 'status', 'updated_at'])
+
+            # Email the vet. Queued on a background thread by core.mailer, so
+            # this adds no measurable time to the farmer's request even when
+            # Gmail is slow to answer - and a failure is logged rather than
+            # raised, because the assignment above is the thing that matters
+            # and it has already been committed.
+            notified = notify_vet_of_assignment(case, request=request)
+
+            if notified and is_smtp_configured():
+                messages.success(
+                    request,
+                    f'✅ Dr. {vet.full_name} has been assigned to your case and '
+                    f'notified by email. They will contact you soon.'
+                )
+            else:
+                # Either the vet has no address on file or the site is still on
+                # the console email backend. Say what will actually happen
+                # rather than promise an email that is not going anywhere.
+                messages.success(
+                    request,
+                    f'✅ Dr. {vet.full_name} has been assigned to your case. '
+                    f'They will see it on their dashboard.'
+                )
             return redirect('farmers:case_result', case_id=case.id)
         else:
             messages.error(request, 'Please select a vet.')

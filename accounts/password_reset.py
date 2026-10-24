@@ -12,11 +12,13 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
 from django.views.generic import FormView, View
 from django.contrib import messages
+
+from accounts.notifications import send_password_reset_email
+from core.mailer import is_smtp_configured
 
 User = get_user_model()
 
@@ -65,41 +67,43 @@ def password_reset_request(request):
         reset_url = request.build_absolute_uri(
             reverse('accounts:password_reset_confirm', kwargs={'uidb64': uidb64, 'token': token})
         )
-        subject = 'CattleCare AI - Password Reset'
-        message = f"""Hello,
 
-You requested a password reset for your CattleCare AI account.
-
-Your one-time verification code (OTP) is: {otp}
-This code expires in 10 minutes.
-
-Click the link below to reset your password:
-{reset_url}
-
-If you did not request this, please ignore this email. Your password will remain unchanged.
-
-- CattleCare AI Team
-"""
-        try:
-            send_mail(
-                subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [user.email],
-                fail_silently=False,
-            )
-        except Exception as e:
-            logger.exception("Password reset email failed for %s: %s", user.email, e)
-            if getattr(settings, 'DEBUG', False):
-                messages.warning(
-                    request,
-                    'Email may not have been sent. Check the server console for errors (e.g. SMTP settings).'
-                )
+        # Queued on a background thread by core.mailer, so the user is not
+        # held on a spinner through an SMTP handshake. A send that fails later
+        # is logged there; it cannot be reported here, and does not need to be
+        # - the message below is deliberately non-committal about whether an
+        # account existed, so it is already the right text either way.
+        send_password_reset_email(
+            to_email=user.email,
+            display_name=user.get_full_name() or user.username,
+            reset_url=reset_url,
+            otp=otp,
+            expires_minutes=max(1, timeout // 60),
+        )
 
     messages.success(
         request,
         'If an account exists with that email, we have sent password reset instructions and a verification code. Please check your inbox and spam folder.'
     )
+
+    if not is_smtp_configured():
+        # No SMTP credentials, so the message went to the log rather than an
+        # inbox. Saying so under DEBUG saves the next person the hour it
+        # otherwise takes to work out why a correct-looking flow delivers
+        # nothing. Never shown in production, where it would leak config.
+        if getattr(settings, 'DEBUG', False):
+            messages.warning(
+                request,
+                'Email is not configured (console backend). The reset link and OTP '
+                'were printed to the server console, not sent. Set EMAIL_HOST_USER '
+                'and EMAIL_HOST_PASSWORD to send real email.'
+            )
+        else:
+            logger.error(
+                'Password reset requested but SMTP is not configured; the message '
+                'was written to the log instead of being delivered.'
+            )
+
     return redirect('accounts:password_reset_done')
 
 

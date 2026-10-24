@@ -16,4 +16,10 @@ python manage.py collectstatic --no-input --clear | tail -5
 echo "--> Applying database migrations"
 python manage.py migrate --no-input
 
+echo "--> Ensuring the cache table exists"
+# Holds the password-reset OTP, which has to be visible to every gunicorn
+# worker rather than just the one that issued it (see CACHES in settings.py).
+# Idempotent: says the table already exists and exits 0 on later deploys.
+python manage.py createcachetable
+
 echo "--> Build complete"

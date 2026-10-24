@@ -17,12 +17,18 @@ services:
     buildCommand: "./build.sh"
 
     # 2 workers x 4 threads fits the free plan's 512MB once scikit-learn,
-    # pandas and the pickled model are resident in each worker. More workers
-    # would multiply that footprint and get the process OOM-killed.
+    # pandas and the pickled model are resident. More workers would multiply
+    # that footprint and get the process OOM-killed.
     #
-    # --timeout 120 because free instances cold-start after 15 minutes idle,
-    # and loading the model on the first request is slow.
-    startCommand: "gunicorn cattle_disease_system.wsgi:application --workers 2 --threads 4 --timeout 120 --access-logfile - --error-logfile -"
+    # --preload loads the app - and with it the pickled model, via
+    # MlEngineConfig.ready() - once in the master process, before forking.
+    # Two things come of that: the workers inherit the loaded model through
+    # copy-on-write instead of each unpickling its own copy, and no worker
+    # starts serving until the model is in memory. Without it the first farmer
+    # to submit a case after a deploy pays the load cost inside their request.
+    #
+    # --timeout 120 because free instances cold-start after 15 minutes idle.
+    startCommand: "gunicorn cattle_disease_system.wsgi:application --workers 2 --threads 4 --preload --timeout 120 --access-logfile - --error-logfile -"
 
     healthCheckPath: /
 
@@ -44,9 +50,18 @@ services:
       - key: DATABASE_URL
         sync: false
 
-      # Gmail address + 16-character app password for password-reset email.
-      # Leave unset and Django falls back to the console email backend.
+      # Gmail address + 16-character app password. Carries the password-reset
+      # link/OTP and the notification a vet gets when a farmer assigns them a
+      # case. Leave either unset and Django falls back to the console backend,
+      # which logs the message instead of sending it.
       - key: EMAIL_HOST_USER
         sync: false
       - key: EMAIL_HOST_PASSWORD
+        sync: false
+
+      # Only needed to point at a provider other than Gmail (Brevo, SendGrid,
+      # Mailgun). Defaults are smtp.gmail.com:587 with TLS.
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
         sync: false
