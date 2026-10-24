@@ -1,0 +1,74 @@
+# Keeps the demo instance from going to sleep.
+#
+# Render's free plan spins a web service down after 15 minutes with no
+# traffic, and waking it up again is not quick: the cold start was measured at
+# 34.7 seconds against this service, versus 0.6-0.9s once warm. For a
+# prototype being demonstrated live that is the difference between a site and
+# a blank tab, and it is a platform behaviour rather than anything the
+# application can fix from the inside.
+#
+# So: a scheduled ping, often enough that the 15-minute idle timer never
+# expires. GitHub Actions rather than an external uptime service because it
+# needs no third-party account, lives in this repository where it can be seen
+# and switched off, and is free for a public repo.
+#
+# Two things worth knowing before relying on it:
+#
+#   * GitHub does not promise punctual cron. Scheduled runs are queued on a
+#     best-effort basis and can be minutes late under load, which is why the
+#     interval is 10 minutes against a 15-minute timeout rather than 14.
+#   * GitHub disables scheduled workflows in a repository with no commits for
+#     60 days, and emails the owner first. Push anything, or press "Enable
+#     workflow" in the Actions tab, to resume.
+#
+# This buys a responsive demo, not a fix. A paid instance never sleeps; that
+# is the real answer if this stops being a prototype.
+
+name: Keep demo instance warm
+
+on:
+  schedule:
+    # Every 10 minutes. Cron here is UTC, though for an interval it does not
+    # matter.
+    - cron: '*/10 * * * *'
+  # So it can be fired by hand right before a demo instead of waiting for the
+  # next slot.
+  workflow_dispatch:
+
+# Two runs pinging the same URL at once would be pointless, and a backlog of
+# queued runs after an Actions outage even more so.
+concurrency:
+  group: keep-warm
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wake the service
+        run: |
+          URL="https://cattlecare-ai.onrender.com/"
+
+          # --max-time 120 because a request that arrives *during* a cold
+          # start waits for the whole boot, and that is a success - the point
+          # of this job is to be the request that pays that cost so a human
+          # never does.
+          code=$(curl --silent --show-error --location \
+                      --max-time 120 \
+                      --output /dev/null \
+                      --write-out '%{http_code}' \
+                      "$URL") || true
+
+          echo "GET $URL -> HTTP ${code:-no response}"
+
+          # Only a 2xx or 3xx counts. Without this the job would pass on a
+          # 502, which is exactly the state worth being told about, and a
+          # green tick on a down site is worse than no check at all.
+          case "$code" in
+            2??|3??) echo "Instance is awake." ;;
+            *)       echo "::error::Unexpected response: ${code:-none}"; exit 1 ;;
+          esac

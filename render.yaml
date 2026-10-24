@@ -50,18 +50,32 @@ services:
       - key: DATABASE_URL
         sync: false
 
-      # Gmail address + 16-character app password. Carries the password-reset
-      # link/OTP and the notification a vet gets when a farmer assigns them a
-      # case. Leave either unset and Django falls back to the console backend,
-      # which logs the message instead of sending it.
+      # SMTP credentials. These carry the password-reset link/OTP and the
+      # notification a vet gets when a farmer assigns them a case. Leave
+      # either unset and Django falls back to the console backend, which logs
+      # the message instead of sending it.
+      #
+      # NOT Gmail. Render's free plan blocks outbound SMTP on ports 25, 465
+      # and 587, and Gmail offers only 587 and 465 - the connection fails with
+      # "[Errno 101] Network is unreachable" no matter how correct the
+      # credentials are. Port 2525 is not blocked, so a relay that listens
+      # there (Brevo, SendGrid, Mailgun) is the way out on the free plan. See
+      # EMAIL_SETUP.md. A paid instance unblocks 587 and can use Gmail.
       - key: EMAIL_HOST_USER
         sync: false
       - key: EMAIL_HOST_PASSWORD
         sync: false
 
-      # Only needed to point at a provider other than Gmail (Brevo, SendGrid,
-      # Mailgun). Defaults are smtp.gmail.com:587 with TLS.
+      # Defaults are smtp.gmail.com:587, which cannot work here - see above.
+      # Set these to the relay, e.g. smtp-relay.brevo.com and 2525.
       - key: EMAIL_HOST
         sync: false
       - key: EMAIL_PORT
+        sync: false
+
+      # The From address. Defaults to EMAIL_HOST_USER, which is wrong for a
+      # relay whose login is not a real mailbox - the mail would then come
+      # from an address that cannot receive a reply, or be refused outright as
+      # an unverified sender.
+      - key: DEFAULT_FROM_EMAIL
         sync: false
