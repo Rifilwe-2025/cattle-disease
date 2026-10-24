@@ -138,6 +138,118 @@ HEROES = [
 ]
 
 
+# Full-page backgrounds, as distinct from the dashboard hero banners above.
+#
+# These are the images behind the login, registration, password-reset and
+# public content pages, declared in CSS as `center/cover` over the whole
+# viewport. Every one of them was still being served as its original file, and
+# four of the six are PNGs - `ChatGPT Image Feb 10...png` is 1536x1024 and
+# 2.7MB, because PNG stores a photograph losslessly and a photograph has no
+# use for that. The same pixels as WebP are about a twentieth of the bytes,
+# with nothing visible given up.
+#
+# 16:9 rather than the banners' 2:1, because these fill a browser window
+# rather than a panel.
+#
+# None of them emit a 2x, deliberately. Unlike a dashboard hero, a page
+# background sits under a 35-70% dark gradient with text over it, so the extra
+# resolution is spent on detail no one can see - and the no-upscale rule had
+# already ruled a 2x out for four of the six sources anyway. Asking for the
+# same width twice is how a Hero says "one density is enough" - build()
+# recognises that and skips the 2x pass.
+PAGE_BACKGROUNDS = [
+    Hero(
+        slug="bg-auth",
+        source="ChatGPT Image Feb 10, 2026, 02_04_18 PM.png",
+        focus_y=0.5,
+        aspect=16 / 9,
+        widths=(1536, 3072),
+        # 2.7MB of PNG for a 1536px photograph, on all five password-reset
+        # pages plus logout. The single worst byte-per-pixel file in the set.
+        note="auth/password-reset backdrop, 1536px PNG source -- 1x only",
+    ),
+    Hero(
+        slug="bg-login",
+        source="RedBrahmanPic-scaled.jpg",
+        focus_y=0.42,
+        aspect=16 / 9,
+        widths=(1920, 3840),
+        # Portrait, 1920x2560, used as a landscape background: cover was
+        # throwing away most of its height anyway. focus_y 0.42 keeps the
+        # animal rather than the ground.
+        note="login backdrop, portrait 1920px source -- 1x only",
+    ),
+    Hero(
+        slug="bg-register",
+        source="pexels-sippakorn-yamkasikorn-1745809-3421999 - Copy.jpg",
+        focus_y=0.52,
+        aspect=16 / 9,
+        # 1x only, like the rest of PAGE_BACKGROUNDS: a 2x of this source came
+        # out at 976KB, and behind the page's dark overlay not one of those
+        # bytes is visible. See the list's own comment.
+        widths=(1920, 1920),
+        note="farmer registration backdrop, 5184px source -- 1x only",
+    ),
+    Hero(
+        slug="bg-landing",
+        source="sylvester-sabo-vVdpZEspAGs-unsplash.jpg",
+        focus_y=0.58,
+        aspect=16 / 9,
+        widths=(1920, 1920),
+        # Carries about/services/how-it-works/privacy/terms, and each of those
+        # pages references it three times in one stylesheet.
+        note="public content pages backdrop, 5374px source -- 1x only",
+    ),
+    Hero(
+        slug="bg-vet",
+        source="AdobeStock_570288267_Preview.jpeg",
+        focus_y=0.45,
+        aspect=16 / 9,
+        widths=(1000, 2000),
+        note="vet apply/track backdrop, 1000px source -- 1x only",
+    ),
+    Hero(
+        slug="bg-vet-register",
+        source="AdobeStock_440276915_Preview.jpeg",
+        focus_y=0.45,
+        aspect=16 / 9,
+        widths=(1000, 2000),
+        note="vet registration backdrop, 1000px source -- 1x only",
+    ),
+]
+
+
+# The two photographs in the landing page's "For Farmers" / "For Vets"
+# sections. Unlike everything above these are real <img> elements, not CSS
+# backgrounds, and they sit in a col-lg-6 that tops out around 540 CSS px with
+# `min-height: 500px; object-fit: cover`. So the slot is a ~540x600 portrait
+# panel, and it was being handed a 1920x2560 photograph - the browser was
+# downloading 886KB and throwing away three quarters of it.
+#
+# 0.9 is width/height, matching that panel. Here a 2x is worth having: these
+# are foreground images with no overlay, viewed at close to their own size.
+CONTENT_IMAGES = [
+    Hero(
+        slug="audience-farmer",
+        source="RedBrahmanPic-scaled.jpg",
+        focus_y=0.42,
+        aspect=0.9,
+        widths=(540, 1080),
+        note="landing 'For Farmers' panel, portrait 1920px source",
+    ),
+    Hero(
+        slug="audience-vet",
+        source="AdobeStock_570288267_Preview.jpeg",
+        focus_y=0.4,
+        aspect=0.9,
+        widths=(540, 1080),
+        # 1000x658 landscape cropped to a portrait panel leaves only 592px of
+        # width, so the 2x is an upscale and gets skipped. 1x it is.
+        note="landing 'For Vets' panel, 1000px source -- 1x only",
+    ),
+]
+
+
 def crop_to_aspect(im: Image.Image, aspect: float, focus_y: float) -> Image.Image:
     """Centre-crop horizontally, focus-crop vertically, to the target aspect."""
     w, h = im.size
@@ -213,7 +325,7 @@ def build() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     problems = 0
 
-    for hero in HEROES:
+    for hero in [*HEROES, *PAGE_BACKGROUNDS, *CONTENT_IMAGES]:
         path = SRC / hero.source
         if not path.exists():
             print(f"  MISSING  {hero.source}")
@@ -229,6 +341,12 @@ def build() -> int:
             print(f"  source {native_w}x{raw.height}  |  {hero.note}")
 
             for label, width in zip(("1x", "2x"), hero.widths):
+                if label == "2x" and width <= hero.widths[0]:
+                    # A Hero that asks for the same width twice is saying one
+                    # density is enough (see PAGE_BACKGROUNDS). Without this
+                    # the 2x pass wrote a byte-identical duplicate file.
+                    print("  2x skipped: this image is declared 1x-only")
+                    continue
                 if width > banner.width:
                     # The rule. No upscaling, ever.
                     print(

@@ -230,17 +230,45 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Compresses collected files and gives each a content-hashed name so they can
-# be cached forever. Non-strict manifest: a template referencing a file that
-# was never collected logs a warning instead of raising at request time.
+# Compresses collected files AND gives each a content-hashed name
+# (style.a1b2c3.css), which is what lets them be cached forever.
+#
+# The hashing is the whole point, and it was missing. WhiteNoise only sends
+# `Cache-Control: immutable, max-age=1 year` for a file whose name contains a
+# content hash, because only then can it promise the bytes will never change
+# under that URL. Without a manifest it has to assume any file might be
+# replaced, so it sent `max-age=60` to everything - and a 2.7MB page
+# background with a 60-second lifetime is re-downloaded on essentially every
+# page navigation. That was the "background image takes time to load when I
+# click to another page" symptom, exactly.
+#
+# `manifest_strict = False` (see ForgivingManifestStaticFiles below) keeps a
+# template that references a file which was never collected from raising
+# ValueError at request time - it falls back to the unhashed path instead.
+# Strict mode turns one stale {% static %} reference into a 500 on that page.
+#
+# Only when DEBUG is off. `runserver` serves static files straight from
+# STATICFILES_DIRS, where nothing is hashed, while {% static %} would be
+# rendering hashed names out of the manifest - so locally every stylesheet
+# would 404 until collectstatic had been run again after each edit. Production
+# is the only place the manifest and the served files agree.
 STORAGES = {
     'default': {
         'BACKEND': 'django.core.files.storage.FileSystemStorage',
     },
     'staticfiles': {
-        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
+        'BACKEND': (
+            'django.contrib.staticfiles.storage.StaticFilesStorage' if DEBUG
+            else 'cattle_disease_system.storage.ForgivingManifestStaticFiles'
+        ),
     },
 }
+
+# Applies to the handful of files WhiteNoise serves without a hash in the name
+# (anything referenced outside the manifest). One hour rather than the default
+# minute: long enough to survive a click-through, short enough that a
+# re-deploy is picked up quickly.
+WHITENOISE_MAX_AGE = 3600
 
 # Media files
 MEDIA_URL = '/media/'

@@ -1230,7 +1230,20 @@
     <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
-                <img src="{% static 'images/RedBrahmanPic-scaled.jpg' %}" alt="{% trans 'Farmer with cattle' %}" class="audience-image">
+                {# WebP with a JPEG fallback, at the ~540px the col-lg-6 panel
+                   actually renders. width/height are the generated file's own
+                   dimensions: they give the browser the aspect ratio up front
+                   so the panel does not collapse and then jolt the page when
+                   the image arrives. loading/decoding are lazy because this
+                   section sits well below the fold. #}
+                <picture>
+                    <source type="image/webp"
+                            srcset="{% static 'images/generated/audience-farmer-1x.webp' %} 1x,
+                                    {% static 'images/generated/audience-farmer-2x.webp' %} 2x">
+                    <img src="{% static 'images/generated/audience-farmer-1x.jpg' %}"
+                         alt="{% trans 'Farmer with cattle' %}" class="audience-image"
+                         width="540" height="600" loading="lazy" decoding="async">
+                </picture>
             </div>
             <div class="col-lg-6">
                 <div class="audience-badge">{% trans "For Farmers" %}</div>
@@ -1259,7 +1272,15 @@
     <div class="container">
         <div class="row align-items-center g-5 flex-lg-row-reverse">
             <div class="col-lg-6">
-                <img src="{% static 'images/AdobeStock_570288267_Preview.jpeg' %}" alt="{% trans 'Veterinarian' %}" class="audience-image">
+                {# 1x only - the source cannot reach 2x without upscaling. See
+                   CONTENT_IMAGES in scripts/build_images.py. #}
+                <picture>
+                    <source type="image/webp"
+                            srcset="{% static 'images/generated/audience-vet-1x.webp' %}">
+                    <img src="{% static 'images/generated/audience-vet-1x.jpg' %}"
+                         alt="{% trans 'Veterinarian' %}" class="audience-image"
+                         width="540" height="600" loading="lazy" decoding="async">
+                </picture>
             </div>
             <div class="col-lg-6">
                 <div class="audience-badge" style="background: linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-accent-hover)));">{% trans "For Veterinarians" %}</div>
