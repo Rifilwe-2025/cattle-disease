@@ -3,17 +3,43 @@ Machine Learning prediction services.
 
 This module handles disease prediction using the trained ML model
 with proper preprocessing for all 113 features (93 symptoms + 9 contextual).
+
+A note on the ``@lru_cache`` on every loader below, because it is the
+difference between a diagnosis that feels instant and one that takes seconds:
+
+``joblib.load`` reads the artefact off disk and rebuilds the estimator object
+every time it is called. The three artefacts a prediction needs
+(model + preprocessor + label encoder) are ~37KB on disk but unpickling them
+instantiates a full scikit-learn estimator tree, and this was being done
+*per prediction* - four disk reads and four unpickles before a single symptom
+was looked at. The actual inference is sub-millisecond; the loading was
+everything. Cached, the artefacts are unpickled once per worker process and
+every later prediction reuses them.
+
+The cache is per-process, which is exactly right here: the artefacts are
+read-only, so there is nothing to invalidate, and gunicorn's ``--preload``
+means the fork happens *after* this module has loaded them, so the pages are
+shared copy-on-write between workers rather than duplicated.
+
+If you retrain the model, restart the process - a cached estimator does not
+notice a new .pkl on disk.
 """
+import logging
+from functools import lru_cache
+
 import joblib
 import numpy as np
 import pandas as pd
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+logger = logging.getLogger(__name__)
 
+
+@lru_cache(maxsize=1)
 def load_model():
     """
-    Load the trained ML model.
+    Load the trained ML model (cached for the life of the process).
     Returns the model object.
     """
     try:
@@ -25,9 +51,10 @@ def load_model():
         )
 
 
+@lru_cache(maxsize=1)
 def load_label_encoder():
     """
-    Load the label encoder for disease names.
+    Load the label encoder for disease names (cached for the life of the process).
     Returns the label encoder object.
     """
     try:
@@ -39,9 +66,11 @@ def load_label_encoder():
         )
 
 
+@lru_cache(maxsize=1)
 def load_preprocessor():
     """
-    Load the feature preprocessor (StandardScaler + OneHotEncoder).
+    Load the feature preprocessor (StandardScaler + OneHotEncoder), cached for
+    the life of the process.
     Returns the preprocessor object.
     """
     try:
@@ -53,9 +82,11 @@ def load_preprocessor():
         )
 
 
+@lru_cache(maxsize=1)
 def load_feature_names():
     """
-    Load the feature names (symptoms) from the trained model.
+    Load the feature names (symptoms) from the trained model, cached for the
+    life of the process.
     Returns a list of feature names.
     """
     try:
@@ -65,6 +96,50 @@ def load_feature_names():
         raise ImproperlyConfigured(
             "Feature names file not found. Please run the training notebook first."
         )
+
+
+def warm_up():
+    """
+    Force the artefacts into the per-process cache.
+
+    Called from ``MlEngineConfig.ready()`` so the unpickling cost is paid at
+    process start rather than by whichever farmer happens to submit the first
+    case. Failures are logged and swallowed: a missing .pkl must not stop the
+    site from booting, and ``predict_disease`` already degrades gracefully.
+    """
+    try:
+        load_model()
+        load_preprocessor()
+        load_label_encoder()
+    except Exception as exc:  # noqa: BLE001 - boot must not depend on the model
+        logger.warning("ML artefacts could not be pre-loaded at startup: %s", exc)
+
+
+# The 93 binary symptom columns, in the exact order the preprocessor was
+# fitted with. Order is load-bearing: the ColumnTransformer addresses columns
+# positionally, so a reordering here silently feeds the model the wrong
+# features rather than raising. Module level, not rebuilt per call.
+SYMPTOM_COLS = [
+    'anorexia', 'abdominal_pain', 'anaemia', 'abortions', 'acetone',
+    'aggression', 'arthrogyposis', 'ankylosis', 'anxiety', 'bellowing',
+    'blood_loss', 'blood_poisoning', 'blisters', 'colic', 'Condemnation_of_livers',
+    'conjunctivae', 'coughing', 'depression', 'discomfort', 'dyspnea',
+    'dysentery', 'diarrhoea', 'dehydration', 'drooling', 'dull',
+    'decreased_fertility', 'diffculty_breath', 'emaciation', 'encephalitis', 'fever',
+    'facial_paralysis', 'frothing_of_mouth', 'frothing', 'gaseous_stomach', 'highly_diarrhoea',
+    'high_pulse_rate', 'high_temp', 'high_proportion', 'hyperaemia', 'hydrocephalus',
+    'isolation_from_herd', 'infertility', 'intermittent_fever', 'jaundice', 'ketosis',
+    'loss_of_appetite', 'lameness', 'lack_of-coordination', 'lethargy', 'lacrimation',
+    'milk_flakes', 'milk_watery', 'milk_clots', 'mild_diarrhoea', 'moaning',
+    'mucosal_lesions', 'milk_fever', 'nausea', 'nasel_discharges', 'oedema',
+    'pain', 'painful_tongue', 'pneumonia', 'photo_sensitization', 'quivering_lips',
+    'reduction_milk_vields', 'rapid_breathing', 'rumenstasis', 'reduced_rumination', 'reduced_fertility',
+    'reduced_fat', 'reduces_feed_intake', 'raised_breathing', 'stomach_pain', 'salivation',
+    'stillbirths', 'shallow_breathing', 'swollen_pharyngeal', 'swelling', 'saliva',
+    'swollen_tongue', 'tachycardia', 'torticollis', 'udder_swelling', 'udder_heat',
+    'udder_hardeness', 'udder_redness', 'udder_pain', 'unwillingness_to_move', 'ulcers',
+    'vomiting', 'weight_loss', 'weakness'
+]
 
 
 def predict_disease(symptoms, contextual_features):
@@ -94,33 +169,9 @@ def predict_disease(symptoms, contextual_features):
         label_encoder = load_label_encoder()
         preprocessor = load_preprocessor()
         
-        # Define all 93 symptom columns (must match training order)
-        SYMPTOM_COLS = [
-            'anorexia', 'abdominal_pain', 'anaemia', 'abortions', 'acetone',
-            'aggression', 'arthrogyposis', 'ankylosis', 'anxiety', 'bellowing',
-            'blood_loss', 'blood_poisoning', 'blisters', 'colic', 'Condemnation_of_livers',
-            'conjunctivae', 'coughing', 'depression', 'discomfort', 'dyspnea',
-            'dysentery', 'diarrhoea', 'dehydration', 'drooling', 'dull',
-            'decreased_fertility', 'diffculty_breath', 'emaciation', 'encephalitis', 'fever',
-            'facial_paralysis', 'frothing_of_mouth', 'frothing', 'gaseous_stomach', 'highly_diarrhoea',
-            'high_pulse_rate', 'high_temp', 'high_proportion', 'hyperaemia', 'hydrocephalus',
-            'isolation_from_herd', 'infertility', 'intermittent_fever', 'jaundice', 'ketosis',
-            'loss_of_appetite', 'lameness', 'lack_of-coordination', 'lethargy', 'lacrimation',
-            'milk_flakes', 'milk_watery', 'milk_clots', 'mild_diarrhoea', 'moaning',
-            'mucosal_lesions', 'milk_fever', 'nausea', 'nasel_discharges', 'oedema',
-            'pain', 'painful_tongue', 'pneumonia', 'photo_sensitization', 'quivering_lips',
-            'reduction_milk_vields', 'rapid_breathing', 'rumenstasis', 'reduced_rumination', 'reduced_fertility',
-            'reduced_fat', 'reduces_feed_intake', 'raised_breathing', 'stomach_pain', 'salivation',
-            'stillbirths', 'shallow_breathing', 'swollen_pharyngeal', 'swelling', 'saliva',
-            'swollen_tongue', 'tachycardia', 'torticollis', 'udder_swelling', 'udder_heat',
-            'udder_hardeness', 'udder_redness', 'udder_pain', 'unwillingness_to_move', 'ulcers',
-            'vomiting', 'weight_loss', 'weakness'
-        ]
-        
-        # STEP 1: Create symptom vector (93 binary features)
-        symptom_vector = {}
-        for symptom in SYMPTOM_COLS:
-            symptom_vector[symptom] = 1 if symptom in symptoms else 0
+        # STEP 1: Create symptom vector (93 binary features, order per SYMPTOM_COLS)
+        reported = set(symptoms or ())
+        symptom_vector = {name: int(name in reported) for name in SYMPTOM_COLS}
         
         # STEP 2: Add contextual features (9 features)
         # Provide defaults if not given
@@ -167,7 +218,13 @@ def predict_disease(symptoms, contextual_features):
         }
     
     except Exception as e:
-        # Fallback for development/testing
+        # A failed prediction must not lose the farmer's submission, so the
+        # case is still saved - with 'Unknown', which classify_severity then
+        # escalates to SEVERE so a vet looks at it regardless. Logged with a
+        # traceback because the old silent version made a broken .pkl or a
+        # scikit-learn version mismatch look like a model that just could not
+        # decide.
+        logger.exception("Disease prediction failed: %s", e)
         return {
             'disease': 'Unknown',
             'confidence': 0.0,
