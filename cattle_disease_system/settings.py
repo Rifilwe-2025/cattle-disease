@@ -425,3 +425,66 @@ else:
     }
 
 PASSWORD_RESET_OTP_TIMEOUT = 600  # 10 minutes
+
+
+# Logging
+#
+# Django's default configuration sets up handlers for the 'django' logger and
+# leaves everything else to propagate to a root logger that has none - so
+# Python's last-resort handler prints WARNING and above and silently drops the
+# rest. For this project that was the wrong half: `logger.info("Email sent")`
+# in core.mailer never appeared, which meant the only way to find out whether a
+# vet's notification had actually gone out was to ask the vet.
+#
+# Mail is sent on a background thread, so its log line is the *only* evidence
+# either way - there is no response code to read. Hence an explicit INFO
+# handler for the project's own loggers.
+#
+# Everything goes to stdout because that is what Render collects; a file would
+# be written to a filesystem that is discarded on the next deploy.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '{levelname} {asctime} {name} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        # The project's own code, at INFO so sends and their failures are both
+        # visible. Named individually rather than as a catch-all so a noisy
+        # third-party library cannot quietly join them.
+        **{
+            name: {'handlers': ['console'], 'level': 'INFO', 'propagate': False}
+            for name in (
+                'core.mailer',
+                'cases.notifications',
+                'accounts.notifications',
+                'accounts.password_reset',
+                'ml_engine.services',
+            )
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        # Per-request lines, which gunicorn's own access log already covers.
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+    },
+}
