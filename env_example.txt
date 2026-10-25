@@ -3,3 +3,13 @@
 
 EMAIL_HOST_USER=your_gmail@gmail.com
 EMAIL_HOST_PASSWORD=your_16_character_app_password
+
+# Password for the ministry superuser that create_admin.py creates. No default
+# is baked into that script - it is committed to a public repo, so a hardcoded
+# password there would be a published credential. Must pass Django's password
+# validators (not too common, not all-numeric, 8+ characters).
+DJANGO_ADMIN_PASSWORD=choose_a_strong_password
+
+# Optional - these default to 'admin' / admin@ministry.gov.zw.
+# DJANGO_ADMIN_USERNAME=admin
+# DJANGO_ADMIN_EMAIL=admin@ministry.gov.zw
