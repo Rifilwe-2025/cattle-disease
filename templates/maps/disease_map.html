@@ -5,97 +5,297 @@
 {% block title %}{% trans "Disease Map - CattleCare AI" %}{% endblock %}
 {% block topbar_title %}{% trans "Disease Map" %}{% endblock %}
 {% block page_title %}{% trans "Disease Surveillance Map" %}{% endblock %}
-{% block page_subtitle %}{% trans "View disease distribution across Zimbabwe provinces" %}{% endblock %}
+{% block page_subtitle %}{% trans "Provinces affected and disease hotspots across Zimbabwe" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-#map { height: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+#map { height: 540px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.map-fallback { height: 540px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 32px; color: rgb(var(--color-text-muted)); }
+.map-empty { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 500; background: #fff; border-radius: 8px; padding: 8px 14px; font-size: .85rem; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 .filter-panel { background: rgba(255,255,255,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.5); margin-bottom: 24px; }
 .filter-panel h5 { font-weight: 700; margin-bottom: 16px; color: rgb(var(--color-text)); }
 .filter-panel .form-label { font-weight: 600; color: rgb(var(--color-text-muted)); }
 .filter-panel .form-select, .filter-panel .form-control { background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.6); }
-.filter-panel .btn { background: linear-gradient(135deg,rgb(var(--color-brand)) 0%,rgb(var(--color-brand-ink)) 100%); border: none; padding: 10px 20px; font-weight: 600; }
+.filter-panel .btn-primary { background: linear-gradient(135deg,rgb(var(--color-brand)) 0%,rgb(var(--color-brand-ink)) 100%); border: none; padding: 10px 20px; font-weight: 600; }
+
+.map-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.map-stat { background: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.55); border-radius: 12px; padding: 14px 16px; }
+.map-stat .value { font-size: 1.6rem; font-weight: 700; line-height: 1.1; color: rgb(var(--color-text)); font-variant-numeric: tabular-nums; }
+.map-stat .label { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: rgb(var(--color-text-muted)); margin-top: 4px; }
+
+.map-legend { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 18px; font-size: .875rem; color: rgb(var(--color-text-muted)); }
+.map-legend .swatch { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; border: 2px solid rgba(255,255,255,.9); }
+
+.province-table { width: 100%; font-size: .9rem; }
+.province-table th { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: rgb(var(--color-text-muted)); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid rgba(0,0,0,.08); }
+.province-table td { padding: 10px; border-bottom: 1px solid rgba(0,0,0,.05); vertical-align: middle; }
+.province-table tbody tr:last-child td { border-bottom: none; }
+.province-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.province-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; vertical-align: middle; }
+.chip { display: inline-block; min-width: 26px; text-align: center; border-radius: 20px; padding: 2px 8px; font-size: .78rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chip-zero { color: rgb(var(--color-text-muted)); background: rgba(0,0,0,.04); }
+.no-coords { font-size: .75rem; color: rgb(var(--color-text-muted)); }
 .leaflet-popup-content { font-family: var(--font-sans); }
+.leaflet-popup-content b { color: rgb(var(--color-text)); }
+.popup-meta { color: #666; font-size: .85em; }
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="map-stats">
+    <div class="map-stat">
+        <div class="value">{{ total_cases }}</div>
+        <div class="label">{% trans "Cases" %}</div>
+    </div>
+    <div class="map-stat">
+        <div class="value">{{ affected_provinces }}</div>
+        <div class="label">{% trans "Provinces affected" %}</div>
+    </div>
+    <div class="map-stat">
+        <div class="value">{{ hotspots|length }}</div>
+        <div class="label">{% trans "Hotspots" %}</div>
+    </div>
+    <div class="map-stat">
+        <div class="value" style="color: {{ severity_colours.CRITICAL }};">{{ critical_total }}</div>
+        <div class="label">{% trans "Critical" %}</div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-3 mb-4">
         <div class="filter-panel">
             <h5><i class="fas fa-filter"></i> {% trans "Filters" %}</h5>
             <form method="get">
                 <div class="mb-3">
-                    <label class="form-label">{% trans "Disease" %}</label>
-                    <select name="disease" class="form-select form-control">
+                    <label class="form-label" for="filter-disease">{% trans "Disease" %}</label>
+                    <select name="disease" id="filter-disease" class="form-select form-control">
                         <option value="">{% trans "All Diseases" %}</option>
-                        {% for disease in diseases %}
+                        {% for disease in disease_options %}
                         <option value="{{ disease }}" {% if disease_filter == disease %}selected{% endif %}>{{ disease }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">{% trans "Province" %}</label>
-                    <select name="province" class="form-select form-control">
+                    <label class="form-label" for="filter-province">{% trans "Province" %}</label>
+                    <select name="province" id="filter-province" class="form-select form-control">
                         <option value="">{% trans "All Provinces" %}</option>
-                        {% for stat in province_stats %}
-                        <option value="{{ stat.farmer__province }}" {% if province_filter == stat.farmer__province %}selected{% endif %}>{{ stat.farmer__province }}</option>
+                        {% for province in province_options %}
+                        <option value="{{ province }}" {% if province_filter == province %}selected{% endif %}>{{ province }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">{% trans "Date From" %}</label>
-                    <input type="date" name="date_from" class="form-control" value="{{ date_from }}">
+                    <label class="form-label" for="filter-date-from">{% trans "Date From" %}</label>
+                    <input type="date" name="date_from" id="filter-date-from" class="form-control" value="{{ date_from }}">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">{% trans "Date To" %}</label>
-                    <input type="date" name="date_to" class="form-control" value="{{ date_to }}">
+                    <label class="form-label" for="filter-date-to">{% trans "Date To" %}</label>
+                    <input type="date" name="date_to" id="filter-date-to" class="form-control" value="{{ date_to }}">
                 </div>
                 <button type="submit" class="btn btn-primary w-100 btn-glass btn-glass-primary"><i class="fas fa-search"></i> {% trans "Apply Filters" %}</button>
+                {% if disease_filter or province_filter or date_from or date_to %}
+                <a href="{% url 'maps:disease_map' %}" class="btn btn-link w-100 mt-2 p-0">{% trans "Clear filters" %}</a>
+                {% endif %}
             </form>
         </div>
     </div>
     <div class="col-md-9">
         <div class="content-card" style="padding: 0; overflow: hidden;">
             <div id="map"></div>
+            <div class="map-legend">
+                <span><span class="swatch" style="background: {{ severity_colours.NON_SEVERE }};"></span>{% trans "Non-Severe" %}</span>
+                <span><span class="swatch" style="background: {{ severity_colours.SEVERE }};"></span>{% trans "Severe" %}</span>
+                <span><span class="swatch" style="background: {{ severity_colours.CRITICAL }};"></span>{% trans "Critical" %}</span>
+                <span>{% trans "Circle size = number of cases" %}</span>
+                {% if unmapped_cases %}
+                <span class="ms-auto no-coords">
+                    <i class="fas fa-circle-info"></i>
+                    {% blocktrans count counter=unmapped_cases %}{{ counter }} case has no farm GPS fix, shown at its province centre{% plural %}{{ counter }} cases have no farm GPS fix, shown at their province centre{% endblocktrans %}
+                </span>
+                {% endif %}
+            </div>
         </div>
     </div>
+</div>
+
+<div class="content-card mt-4">
+    <h5 style="font-weight:700; margin-bottom: 4px;"><i class="fas fa-location-dot"></i> {% trans "Provinces affected" %}</h5>
+    <p class="no-coords" style="margin-bottom: 16px;">{% trans "Ranked by case load, for the current filters." %}</p>
+    {% if provinces %}
+    <div class="table-responsive">
+        <table class="province-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Province" %}</th>
+                    <th class="num">{% trans "Cases" %}</th>
+                    <th class="num">{% trans "Critical" %}</th>
+                    <th class="num">{% trans "Severe" %}</th>
+                    <th class="num">{% trans "Non-Severe" %}</th>
+                    <th>{% trans "Most common disease" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for province in provinces %}
+                <tr>
+                    <td>
+                        <span class="province-dot" style="background: {{ province.colour }};"></span>{{ province.name }}
+                        {% if not province.latitude %}<br><span class="no-coords" style="margin-left:18px;">{% trans "not plotted - unrecognised province" %}</span>{% endif %}
+                    </td>
+                    <td class="num"><strong>{{ province.count }}</strong></td>
+                    <td class="num">
+                        {% if province.critical %}<span class="chip" style="background: {{ severity_colours.CRITICAL }}; color:#fff;">{{ province.critical }}</span>{% else %}<span class="chip chip-zero">0</span>{% endif %}
+                    </td>
+                    <td class="num">
+                        {% if province.severe %}<span class="chip" style="background: {{ severity_colours.SEVERE }}; color:#fff;">{{ province.severe }}</span>{% else %}<span class="chip chip-zero">0</span>{% endif %}
+                    </td>
+                    <td class="num">
+                        {% if province.non_severe %}<span class="chip" style="background: {{ severity_colours.NON_SEVERE }}; color:#fff;">{{ province.non_severe }}</span>{% else %}<span class="chip chip-zero">0</span>{% endif %}
+                    </td>
+                    <td>{{ province.top_disease }} <span class="no-coords">({{ province.top_disease_count }})</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p style="color: rgb(var(--color-text-muted)); margin: 0;">{% trans "No cases match the current filters." %}</p>
+    {% endif %}
 </div>
 {% endblock %}
 
 {% block extra_js %}
-{% trans "Severity:" as map_severity %}
-{% trans "Province:" as map_province %}
-{% trans "Date:" as map_date %}
+{{ hotspots|json_script:"hotspot-data" }}
+{{ provinces|json_script:"province-data" }}
+{% trans "cases" as t_cases %}
+{% trans "Province:" as t_province %}
+{% trans "District:" as t_district %}
+{% trans "Most recent:" as t_latest %}
+{% trans "Critical" as t_critical %}
+{% trans "Severe" as t_severe %}
+{% trans "Non-Severe" as t_non_severe %}
+{% trans "Province total" as t_province_total %}
+{% trans "Top disease:" as t_top_disease %}
+{% trans "Hotspots" as t_layer_hotspots %}
+{% trans "Provinces" as t_layer_provinces %}
+{% trans "No cases match these filters." as t_empty %}
+{% trans "The map library could not be loaded. Check your network connection and reload the page." as t_unavailable %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+(function () {
+    var el = document.getElementById('map');
+    if (!el) { return; }
+
+    // Leaflet comes off a CDN, which some networks block. Without this guard
+    // the script died on `L.map` and the page showed an empty grey box with
+    // no hint of what had gone wrong.
+    if (typeof L === 'undefined') {
+        el.className = 'map-fallback';
+        el.textContent = '{{ t_unavailable|escapejs }}';
+        return;
+    }
+
+    var hotspots = JSON.parse(document.getElementById('hotspot-data').textContent);
+    var provinces = JSON.parse(document.getElementById('province-data').textContent);
+
     var map = L.map('map').setView([-19.0154, 29.1549], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+
+    // CARTO's basemaps, NOT tile.openstreetmap.org.
+    //
+    // The old layer pointed at `{s}.tile.openstreetmap.org`, which is wrong
+    // twice over: OSM retired those sharded subdomains, and their tile servers
+    // are donated capacity that their usage policy reserves for low-volume and
+    // development use, not for a deployed application. Their CDN answered with
+    // a "blocked - app is not following the tile usage policy" image in place
+    // of every tile, which is what made the map look broken. CARTO serves the
+    // same OSM data from infrastructure meant to be embedded.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
     }).addTo(map);
-    
-    var mapData = JSON.parse('{{ map_data|escapejs }}');
-    
-    mapData.forEach(function(caseData) {
-        var color = caseData.severity === 'CRITICAL' ? 'red' : 
-                   caseData.severity === 'SEVERE' ? 'orange' : 'green';
-        
-        var marker = L.marker([caseData.latitude, caseData.longitude])
-            .addTo(map)
+
+    function plural(n, word) { return n + ' ' + word; }
+
+    // Province circles sit underneath, as context; hotspots draw on top.
+    var provinceLayer = L.layerGroup();
+    var hotspotLayer = L.layerGroup();
+    var bounds = [];
+
+    var maxProvince = provinces.reduce(function (m, p) { return Math.max(m, p.count); }, 1);
+    provinces.forEach(function (p) {
+        if (p.latitude === null || p.longitude === null) { return; }
+        // Area scales with case count, so radius scales with its square root -
+        // a province with four times the cases looks four times the area, not
+        // four times the width.
+        var radius = 14 + 26 * Math.sqrt(p.count / maxProvince);
+        L.circleMarker([p.latitude, p.longitude], {
+            radius: radius,
+            color: p.colour,
+            weight: 1.5,
+            opacity: 0.55,
+            fillColor: p.colour,
+            fillOpacity: 0.18
+        })
             .bindPopup(
-                '<b>' + caseData.disease + '</b>' +
-                '<br>{{ map_severity|escapejs }} ' + caseData.severity +
-                '<br>{{ map_province|escapejs }} ' + caseData.province +
-                '<br>{{ map_date|escapejs }} ' + caseData.date
-            );
-        
-        marker.setIcon(L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-' + color + '.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34]
-        }));
+                '<b>' + p.name + '</b>' +
+                '<br>{{ t_province_total|escapejs }}: ' + plural(p.count, '{{ t_cases|escapejs }}') +
+                '<br><span class="popup-meta">' +
+                '{{ t_critical|escapejs }} ' + p.critical + ' &middot; ' +
+                '{{ t_severe|escapejs }} ' + p.severe + ' &middot; ' +
+                '{{ t_non_severe|escapejs }} ' + p.non_severe + '</span>' +
+                '<br>{{ t_top_disease|escapejs }} ' + p.top_disease
+            )
+            .addTo(provinceLayer);
+        bounds.push([p.latitude, p.longitude]);
     });
+
+    var maxHotspot = hotspots.reduce(function (m, h) { return Math.max(m, h.count); }, 1);
+    hotspots.forEach(function (h) {
+        var radius = 7 + 13 * Math.sqrt(h.count / maxHotspot);
+        var diseases = h.top_diseases.map(function (d) {
+            return d.name + ' (' + d.count + ')';
+        }).join('<br>');
+        L.circleMarker([h.latitude, h.longitude], {
+            radius: radius,
+            color: '#fff',
+            weight: 2,
+            fillColor: h.colour,
+            fillOpacity: 0.9
+        })
+            .bindPopup(
+                '<b>' + plural(h.count, '{{ t_cases|escapejs }}') + '</b>' +
+                '<br>{{ t_province|escapejs }} ' + h.province +
+                (h.district ? '<br>{{ t_district|escapejs }} ' + h.district : '') +
+                '<br><span class="popup-meta">' +
+                '{{ t_critical|escapejs }} ' + h.critical + ' &middot; ' +
+                '{{ t_severe|escapejs }} ' + h.severe + ' &middot; ' +
+                '{{ t_non_severe|escapejs }} ' + h.non_severe + '</span>' +
+                '<br>' + diseases +
+                '<br><span class="popup-meta">{{ t_latest|escapejs }} ' + h.latest + '</span>'
+            )
+            .addTo(hotspotLayer);
+        bounds.push([h.latitude, h.longitude]);
+    });
+
+    provinceLayer.addTo(map);
+    hotspotLayer.addTo(map);
+
+    L.control.layers(null, {
+        '{{ t_layer_provinces|escapejs }}': provinceLayer,
+        '{{ t_layer_hotspots|escapejs }}': hotspotLayer
+    }, { collapsed: false }).addTo(map);
+
+    if (!bounds.length) {
+        var note = document.createElement('div');
+        note.className = 'map-empty';
+        note.textContent = '{{ t_empty|escapejs }}';
+        el.appendChild(note);
+        return;
+    }
+
+    // Frame the data rather than leaving the viewer to hunt for it.
+    map.fitBounds(L.latLngBounds(bounds).pad(0.3));
+})();
 </script>
 {% endblock %}

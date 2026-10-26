@@ -67,15 +67,17 @@
     var el = document.getElementById('heatmap');
     if (!el) { return; }
 
-    // json_script emits the JSON string the view produced, so parse twice:
-    // once for the script tag, once for the view's json.dumps payload.
-    var raw = JSON.parse(document.getElementById('heatmap-data').textContent);
-    var points = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    var points = JSON.parse(document.getElementById('heatmap-data').textContent);
 
     var map = L.map('heatmap').setView([-19.0154, 29.1549], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
-        maxZoom: 18
+    // CARTO's basemaps, NOT tile.openstreetmap.org - see the comment in
+    // disease_map.html. OSM's volunteer tile servers answered with a "blocked"
+    // image instead of map tiles, because the sharded subdomains are retired
+    // and their usage policy does not cover a deployed application.
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
     }).addTo(map);
 
     if (!points.length) { return; }
