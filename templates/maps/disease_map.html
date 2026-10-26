@@ -10,7 +10,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-#map { height: 540px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+#map { height: 540px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
 .map-fallback { height: 540px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 32px; color: rgb(var(--color-text-muted)); }
 .map-empty { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 500; background: #fff; border-radius: 8px; padding: 8px 14px; font-size: .85rem; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 .filter-panel { background: rgba(255,255,255,0.35); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255,255,255,0.5); margin-bottom: 24px; }
@@ -166,7 +166,9 @@
 
 {% block extra_js %}
 {{ hotspots|json_script:"hotspot-data" }}
+{{ map_bounds|json_script:"map-bounds" }}
 {{ provinces|json_script:"province-data" }}
+{% trans "Zimbabwe reference base map" as t_basemap %}
 {% trans "cases" as t_cases %}
 {% trans "Province:" as t_province %}
 {% trans "District:" as t_district %}
@@ -198,22 +200,29 @@
     var hotspots = JSON.parse(document.getElementById('hotspot-data').textContent);
     var provinces = JSON.parse(document.getElementById('province-data').textContent);
 
-    var map = L.map('map').setView([-19.0154, 29.1549], 6);
+    var b = JSON.parse(document.getElementById('map-bounds').textContent);
+    var country = L.latLngBounds([[b.south, b.west], [b.north, b.east]]);
 
-    // CARTO's basemaps, NOT tile.openstreetmap.org.
-    //
-    // The old layer pointed at `{s}.tile.openstreetmap.org`, which is wrong
-    // twice over: OSM retired those sharded subdomains, and their tile servers
-    // are donated capacity that their usage policy reserves for low-volume and
-    // development use, not for a deployed application. Their CDN answered with
-    // a "blocked - app is not following the tile usage policy" image in place
-    // of every tile, which is what made the map look broken. CARTO serves the
-    // same OSM data from infrastructure meant to be embedded.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
+    // A static image of Zimbabwe, served from our own static files - no tile
+    // provider, so nothing to be blocked by and no API key to expire. OSM's
+    // volunteer servers answered with their "blocked - not following the tile
+    // usage policy" image, and CARTO's basemaps now demand a key. The image is
+    // cropped to the country's bounding box, which is what makes these corners
+    // a georeference; see ZIMBABWE_BOUNDS in maps/views.py.
+    var map = L.map('map', {
+        maxBounds: country.pad(0.08),
+        maxBoundsViscosity: 0.85,
+        minZoom: 5,
+        maxZoom: 11,
+        attributionControl: true
+    });
+
+    L.imageOverlay('{% static 'images/zimbabwe-base-map.webp' %}', country).addTo(map);
+    map.attributionControl.addAttribution('{{ t_basemap|escapejs }}');
+
+    // Open on the whole country: this is a national surveillance view, so the
+    // default frame should be the nation, not whichever farm reported last.
+    map.fitBounds(country);
 
     function plural(n, word) { return n + ' ' + word; }
 
@@ -291,11 +300,7 @@
         note.className = 'map-empty';
         note.textContent = '{{ t_empty|escapejs }}';
         el.appendChild(note);
-        return;
     }
-
-    // Frame the data rather than leaving the viewer to hunt for it.
-    map.fitBounds(L.latLngBounds(bounds).pad(0.3));
 })();
 </script>
 {% endblock %}

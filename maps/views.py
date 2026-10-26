@@ -21,6 +21,26 @@ SEVERITY_COLOURS = {
 # Worst-first, for deciding the colour of a point that holds several cases.
 SEVERITY_RANK = {'CRITICAL': 3, 'SEVERE': 2, 'NON_SEVERE': 1}
 
+# Geographic extent of static/images/zimbabwe-base-map.webp.
+#
+# The base map is a static image served from our own static files, not a tile
+# layer. Both tile providers tried before refused to serve this app: OSM's
+# volunteer servers returned their "blocked - not following the tile usage
+# policy" image, and CARTO's basemaps now demand an API key. A self-hosted
+# image has no provider to be blocked by, works offline, and costs one request.
+#
+# The image is cropped to Zimbabwe's bounding box, so these corners georeference
+# it. The fit was checked against six cities - Harare, Bulawayo, Mutare,
+# Masvingo, Beitbridge and Victoria Falls - and the worst residual was about
+# 8 image pixels, roughly 4km on the ground, which is well inside the precision
+# province-level surveillance needs.
+ZIMBABWE_BOUNDS = {
+    'north': -15.6089,
+    'south': -22.4215,
+    'west': 25.2373,
+    'east': 33.0684,
+}
+
 # Approximate centroids of Zimbabwe's ten provinces.
 #
 # Farmers supply their own GPS coordinates and most have not, so plotting only
@@ -226,6 +246,7 @@ def disease_map(request):
         'affected_provinces': len(provinces),
         'critical_total': sum(p['critical'] for p in provinces),
         'severity_colours': SEVERITY_COLOURS,
+        'map_bounds': ZIMBABWE_BOUNDS,
         'disease_filter': filters['disease'],
         'province_filter': filters['province'],
         'date_from': request.GET.get('date_from', ''),
@@ -259,6 +280,7 @@ def heatmap(request):
     context = {
         'heatmap_data': heatmap_data,
         'total_points': len(heatmap_data),
+        'map_bounds': ZIMBABWE_BOUNDS,
         'active_menu': 'heatmap',
     }
 

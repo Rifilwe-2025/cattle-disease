@@ -10,7 +10,7 @@
 {% block extra_css %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-#heatmap { height: 460px; border-radius: 12px; overflow: hidden; }
+#heatmap { background: #fff; height: 460px; border-radius: 12px; overflow: hidden; }
 .heat-legend { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; font-size: 0.85rem; }
 .heat-legend .swatch { display: inline-block; width: 1.5rem; height: 0.6rem; border-radius: 2px; margin-right: 0.4rem; vertical-align: middle; }
 .heat-empty { padding: 3rem 1.5rem; text-align: center; }
@@ -60,6 +60,8 @@
 
 {% block extra_js %}
 {{ heatmap_data|json_script:"heatmap-data" }}
+{{ map_bounds|json_script:"map-bounds" }}
+{% trans "Zimbabwe reference base map" as t_basemap %}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 <script>
@@ -69,16 +71,20 @@
 
     var points = JSON.parse(document.getElementById('heatmap-data').textContent);
 
-    var map = L.map('heatmap').setView([-19.0154, 29.1549], 6);
-    // CARTO's basemaps, NOT tile.openstreetmap.org - see the comment in
-    // disease_map.html. OSM's volunteer tile servers answered with a "blocked"
-    // image instead of map tiles, because the sharded subdomains are retired
-    // and their usage policy does not cover a deployed application.
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
+    var b = JSON.parse(document.getElementById('map-bounds').textContent);
+    var country = L.latLngBounds([[b.south, b.west], [b.north, b.east]]);
+
+    // A self-hosted image of Zimbabwe rather than a tile provider - see the
+    // comment in disease_map.html and ZIMBABWE_BOUNDS in maps/views.py.
+    var map = L.map('heatmap', {
+        maxBounds: country.pad(0.08),
+        maxBoundsViscosity: 0.85,
+        minZoom: 5,
+        maxZoom: 11
+    });
+    L.imageOverlay('{% static 'images/zimbabwe-base-map.webp' %}', country).addTo(map);
+    map.attributionControl.addAttribution('{{ t_basemap|escapejs }}');
+    map.fitBounds(country);
 
     if (!points.length) { return; }
 
@@ -92,8 +98,6 @@
         gradient: { 0.3: '#2F7D4F', 0.6: '#E0A325', 1.0: '#C1352B' }
     }).addTo(map);
 
-    // Frame the data rather than leaving the viewer to hunt for it.
-    map.fitBounds(L.latLngBounds(heat.map(function (h) { return [h[0], h[1]]; })).pad(0.25));
 })();
 </script>
 {% endblock %}
